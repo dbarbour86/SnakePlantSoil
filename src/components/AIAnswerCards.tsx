@@ -18,7 +18,7 @@ export default function AIAnswerCards() {
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 mb-2 border border-amber-200">
-            <Sparkles className="w-3.5 h-3.5" /> Peer-Reviewed Fact Sheets
+            <Sparkles className="w-3.5 h-3.5" /> Verified Botanical Fact Sheets
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-stone-900 tracking-tight" id="quick-facts-header">
             Quick Facts & Verified Direct Citations

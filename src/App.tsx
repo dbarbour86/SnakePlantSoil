@@ -97,7 +97,7 @@ export default function App() {
                   {/* Hero Left Content */}
                   <div className="lg:col-span-7 space-y-6 text-left max-w-2xl">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-150">
-                      <ShieldCheck className="w-3.5 h-3.5" /> 100% Peer-Reviewed Plant Science
+                      <ShieldCheck className="w-3.5 h-3.5" /> 100% Expert-Backed Soil & Care Guides
                     </span>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-stone-900 tracking-tight leading-[1.1]" id="hero-main-title">
                       The Best Soil for <span className="text-emerald-800 decoration-emerald-800 underline decoration-wavy">Snake Plants</span> — Explained Simply
