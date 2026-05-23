@@ -28,6 +28,7 @@ export interface RecommendedProduct {
   linkText: string;
   priceEstimate: '$$' | '$$$' | '$';
   specs: { [key: string]: string };
+  affiliateUrl?: string;
 }
 
 export interface FAQItem {

@@ -82,14 +82,14 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     rating: 4.8,
     description: "A premium, ready-to-use soil expertly blended to provide essential aeration and custom drainage for desert-native plants. Critically balanced pH levels encourage rich rhizome development without needing additional heavy adjustments.",
     pros: [
-      "Exceptional drainage speed out of the packaging",
-      "Contains organic vermiculite and peat moss for root warmth",
-      "Perfect pH-neutral formulation preventing chemical burn",
-      "Excellent consistency with no heavy wood chunks"
+       "Exceptional drainage speed out of the packaging",
+       "Contains organic vermiculite and peat moss for root warmth",
+       "Perfect pH-neutral formulation preventing chemical burn",
+       "Excellent consistency with no heavy wood chunks"
     ],
     cons: [
-      "A bit pricey for very large volume repotting setups",
-      "We still recommend adding 10% perlite for huge specimens"
+       "A bit pricey for very large volume repotting setups",
+       "We still recommend adding 10% perlite for huge specimens"
     ],
     linkText: "Check Price on Amazon",
     priceEstimate: "$$",
@@ -98,7 +98,8 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Ingredients": "Sphagnum peat, perlite, sand, limestone",
       "pH Range": "6.0 - 6.8",
       "Weight": "4.2 lbs"
-    }
+    },
+    affiliateUrl: "https://www.amazon.com/s?k=Hoffman+Organic+Cactus+and+Succulent+Soil+Mix&tag=SNAKEPLANTSOIL-20"
   },
   {
     id: "espoma-cactus",
@@ -110,13 +111,13 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     rating: 4.7,
     description: "Enriched with Espoma's trademark Myco-tone, a proprietary blend of endo and ecto-mycorrhizae that helps foster deep root absorption networks while preventing water pooling.",
     pros: [
-      "Contains active mycorrhizae fungi for resilient roots",
-      "Sourced organically with premium forestry composts",
-      "Extremely light weight and easy to work with"
+       "Contains active mycorrhizae fungi for resilient roots",
+       "Sourced organically with premium forestry composts",
+       "Extremely light weight and easy to work with"
     ],
     cons: [
-      "Retains slightly more water; requires 3 weeks between waterings",
-      "Can contain minor organic bark fragrance"
+       "Retains slightly more water; requires 3 weeks between waterings",
+       "Can contain minor organic bark fragrance"
     ],
     linkText: "Check Price on Home Depot",
     priceEstimate: "$",
@@ -125,7 +126,8 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Ingredients": "Forest products, peat moss, perlite, mycorrhizae",
       "pH Range": "5.8 - 6.5",
       "Weight": "3.5 lbs"
-    }
+    },
+    affiliateUrl: "https://www.homedepot.com/s/Espoma+Cactus+and+Succulent+Soil"
   },
   {
     id: "horticultural-sand",
@@ -137,13 +139,13 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     rating: 4.9,
     description: "Washed and graded coarse sand designed explicitly for garden potting. Regular play sand is too fine and cements soil; coarse silica sand creates permanent channel voids for quick water drainage.",
     pros: [
-      "Will not degrade or dissolve over time",
-      "100% sterile, preventing gnat larvae or fungal weeds",
-      "Provides superb structural anchor weight for tall snake plants"
+       "Will not degrade or dissolve over time",
+       "100% sterile, preventing gnat larvae or fungal weeds",
+       "Provides superb structural anchor weight for tall snake plants"
     ],
     cons: [
-      "Adds considerable physical weight to pots",
-      "Contains zero plant nutrients (pure drainage element)"
+       "Adds considerable physical weight to pots",
+       "Contains zero plant nutrients (pure drainage element)"
     ],
     linkText: "Check Price on Amazon",
     priceEstimate: "$",
@@ -152,7 +154,8 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Material": "Coarse Ground Quartzite",
       "Grain Size": "2mm - 4mm",
       "pH": "7.0 (Inert)"
-    }
+    },
+    affiliateUrl: "https://www.amazon.com/s?k=Coarse+Horticultural+Silica+Sand+Perfect+Plants&tag=SNAKEPLANTSOIL-20"
   },
   {
     id: "clay-terracotta",
@@ -164,23 +167,24 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     rating: 4.9,
     description: "The gold standard of snake plant housing. Natural baked terracotta clay has high structural porosity, absorbing excess wall-side water and naturally transpiring it into the room, reducing rot risk by 70%.",
     pros: [
-      "Breathable material dries soil from outer edges inwards",
-      "Heavy base prevents tall snake plants from tipping over",
-      "Includes extra-large centered bottom drainage hole",
-      "Aesthetically timeless warm earthy neutral look"
+       "Breathable material dries soil from outer edges inwards",
+       "Heavy base prevents tall snake plants from tipping over",
+       "Includes extra-large centered bottom drainage hole",
+       "Aesthetically timeless warm earthy neutral look"
     ],
     cons: [
-      "Heavy and fragile if dropped",
-      "Mineral salts can leave a white patina on the clay over a couple years"
+       "Heavy and fragile if dropped",
+       "Mineral salts can leave a white patina on the clay over a couple years"
     ],
-    linkText: "Check Price on Local Nursery",
+    linkText: "Check Price on Amazon",
     priceEstimate: "$",
     specs: {
       "Diameter": "8 Inches",
       "Height": "7.5 Inches",
       "Material": "Natural Italian Red Clay",
       "Drainage Hole": "Yes, 0.75 in"
-    }
+    },
+    affiliateUrl: "https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=SNAKEPLANTSOIL-20"
   }
 ];
 

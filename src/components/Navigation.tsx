@@ -54,7 +54,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
 
           {/* Desktop Navigation Link Toggles */}
           <nav className="hidden lg:flex items-center gap-1.5">
-            {navItems.map((item) => (
+            {navItems.filter(item => item.id !== 'home').map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}

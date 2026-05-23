@@ -110,7 +110,9 @@ export default function ProductSection() {
                     Price Indicator: <span className="text-stone-700 font-bold">{prod.priceEstimate}</span>
                   </div>
                   <a 
-                    href="#affiliate-disclaimer"
+                    href={prod.affiliateUrl || "#affiliate-disclaimer"}
+                    target={prod.affiliateUrl ? "_blank" : undefined}
+                    rel={prod.affiliateUrl ? "noopener noreferrer" : undefined}
                     className="inline-flex items-center gap-2 bg-stone-900 text-stone-50 hover:bg-emerald-900 active:bg-emerald-950 px-5 py-2.5 rounded-lg text-xs font-bold font-sans transition-all shadow-sm"
                     id={`check-price-${prod.id}`}
                   >
