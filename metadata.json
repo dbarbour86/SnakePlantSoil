@@ -1,0 +1,6 @@
+{
+  "name": "SnakePlantSoil.com",
+  "description": "The internet's best simple resource for snake plant soil, drainage, repotting, and beginner-friendly care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
