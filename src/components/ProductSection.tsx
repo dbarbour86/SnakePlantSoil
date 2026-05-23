@@ -128,7 +128,7 @@ export default function ProductSection() {
 
         <div className="mt-8 text-center" id="affiliate-disclaimer">
           <p className="text-[11px] text-stone-400 italic leading-relaxed max-w-xl mx-auto">
-            Disclosure: SnakePlantSoil.com is an independent specialist botanical resource. We are supported by reader referrals. Some recommendation blocks contain affiliate links which earn us small commissions at zero cost to you. We physically purchase and test all items before listing.
+            Disclosure: SnakePlantSoil.com is an independent specialist botanical resource. We are supported by reader referrals. Some recommendation blocks contain affiliate links which earn us small commissions at zero cost to you.
           </p>
         </div>
 

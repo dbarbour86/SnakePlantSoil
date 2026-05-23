@@ -636,7 +636,7 @@ export default function App() {
                 <Award className="w-8 h-8 text-amber-500 mx-auto" />
                 <h4 className="font-bold text-stone-900">Have a customized agricultural soil question?</h4>
                 <p className="text-xs text-stone-605 leading-relaxed">
-                  We are constantly expanding our sitemaps and catalog decks. Send us your botanical inquiries or pot dimensions at <strong>derek.barbour@gmail.com</strong>, and we will update our data schemas!
+                  We are constantly expanding our sitemaps and catalog decks. Send us your botanical inquiries or pot dimensions at <strong>hello@snakeplantsoil.com</strong>, and we will update our data schemas!
                 </p>
               </div>
 
