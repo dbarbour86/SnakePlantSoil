@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Trees, Beaker, HeartPulse, Layers, Compass, HelpCircle, 
@@ -24,7 +24,53 @@ import {
 import { CONTENT_GUIDES, FAQ_ITEMS } from './data';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<string>('home');
+  // Map URL paths to actual sub-tab IDs for robust SEO & Deep Linking without 404s
+  const getTabFromPath = (path: string): string => {
+    const cleanPath = path.replace(/^\//, '').split('?')[0].split('#')[0];
+    switch (cleanPath) {
+      case 'best-soil':
+      case 'diy-mix':
+      case 'root-rot':
+      case 'best-pots':
+      case 'care-guide':
+      case 'care-card':
+      case 'faq':
+        return cleanPath;
+      case '':
+      case 'home':
+        return 'home';
+      default:
+        return 'home';
+    }
+  };
+
+  const [activeTab, setActiveTabState] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return getTabFromPath(window.location.pathname);
+    }
+    return 'home';
+  });
+
+  const setActiveTab = (tab: string) => {
+    setActiveTabState(tab);
+    if (typeof window !== 'undefined') {
+      const targetPath = tab === 'home' ? '/' : `/${tab}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ tab }, '', targetPath);
+      }
+    }
+  };
+
+  // Listen for back/forward browser navigation events to update standard tab context
+  useEffect(() => {
+    const handlePopState = () => {
+      const tab = getTabFromPath(window.location.pathname);
+      setActiveTabState(tab);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [faqExpanded, setFaqExpanded] = useState<{ [key: string]: boolean }>({});
 

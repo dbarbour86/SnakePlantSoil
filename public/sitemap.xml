@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://snakeplantsoil.com/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <!-- Best Soils Guide -->
+  <url>
+    <loc>https://snakeplantsoil.com/best-soil</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- DIY Soil Recipe -->
+  <url>
+    <loc>https://snakeplantsoil.com/diy-mix</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Surgical Root Rot Protocol -->
+  <url>
+    <loc>https://snakeplantsoil.com/root-rot</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Best Potted Containers -->
+  <url>
+    <loc>https://snakeplantsoil.com/best-pots</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Seasonal Care Masterclass -->
+  <url>
+    <loc>https://snakeplantsoil.com/care-guide</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Free Snake Plant Care Card -->
+  <url>
+    <loc>https://snakeplantsoil.com/care-card</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Structured FAQ Catalog -->
+  <url>
+    <loc>https://snakeplantsoil.com/faq</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
