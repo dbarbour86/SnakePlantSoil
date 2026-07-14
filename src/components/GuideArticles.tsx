@@ -3,14 +3,74 @@ import {
   Trees, Beaker, HeartPulse, Layers, Compass, 
   HelpCircle, ChevronRight, Check, AlertCircle, Info,
   Search, Sliders, Droplet, Sun, Wind, Thermometer,
-  ShieldCheck, RefreshCw, AlertTriangle, ArrowRight
+  ShieldCheck, RefreshCw, AlertTriangle, ArrowRight,
+  ShoppingBag, ExternalLink
 } from 'lucide-react';
 import InteractiveCalculator from './InteractiveCalculator';
+
+export interface ArticleProps {
+  onNavigate?: (tab: string) => void;
+}
+
+const CLUSTER_STEPS = [
+  { id: 'best-soil', title: '1. Best Soils', desc: 'Evaluating pre-mixes' },
+  { id: 'diy-mix', title: '2. DIY Mix', desc: 'The 3-2-1 recipe' },
+  { id: 'root-rot', title: '3. Root Rot', desc: 'Surgical rescue' },
+  { id: 'care-guide', title: '4. Watering', desc: 'Soak & dry manual' },
+  { id: 'best-pots', title: '5. Best Pots', desc: 'Terracotta science' },
+  { id: 'setup-kits', title: '6. Repotting Kit', desc: 'Custom shop builder' }
+];
+
+export function TopicalClusterNav({ currentTab, onNavigate }: { currentTab: string; onNavigate?: (tab: string) => void }) {
+  if (!onNavigate) return null;
+  return (
+    <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 mt-12 space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h4 className="text-sm font-bold text-stone-900 uppercase tracking-wider flex items-center gap-1.5 mt-0">
+            <Compass className="w-4.5 h-4.5 text-emerald-800" /> Complete Snake Plant Cultivation Journey
+          </h4>
+          <p className="text-[11px] text-stone-500 mt-0.5">
+            Greenhouse-verified topical cluster map. Tap any step to skip directly to other core guides:
+          </p>
+        </div>
+        <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-150 shrink-0 w-max">
+          Topical Cluster Map
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-2 pt-2">
+        {CLUSTER_STEPS.map((step) => {
+          const isActive = step.id === currentTab;
+          return (
+            <button
+              key={step.id}
+              onClick={() => onNavigate(step.id)}
+              className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+                isActive
+                  ? 'border-emerald-800 bg-emerald-50/45 text-stone-900 shadow-xs ring-1 ring-emerald-800/35'
+                  : 'border-stone-200 bg-white hover:border-emerald-800/30 text-stone-700'
+              }`}
+              id={`cluster-step-${step.id}`}
+            >
+              <span className={`text-[11px] font-bold ${isActive ? 'text-emerald-805' : 'text-stone-900'}`}>
+                {step.title}
+              </span>
+              <span className="text-[9px] text-stone-400 mt-1 leading-tight">
+                {step.desc}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 // ----------------------------------------------------
 // SUBMODULE 1: BEST COMMERCIAL SOILS PAGE
 // ----------------------------------------------------
-export function BestSoilArticle() {
+export function BestSoilArticle({ onNavigate }: ArticleProps) {
   const [selectedSoil, setSelectedSoil] = useState<'all' | 'cactus' | 'organic' | 'standard'>('all');
 
   const comparisonData = [
@@ -102,8 +162,81 @@ export function BestSoilArticle() {
 
       <h3 className="text-lg font-bold text-stone-900">The Final Botanical Verdict</h3>
       <p>
-        For maximum safety, purchase a reliable organic compost mix (like <strong>Espoma Cactus Mix</strong>) and keep a hand bag of pure perlite nearby. Blend them together at a 4:1 ratio. This simple, easy adjustment acts as an absolute insurance policy against user overwatering, keeping your plants healthy, firm, and striking for decades.
+        For maximum safety, purchase a reliable organic compost mix (like <strong>Espoma Cactus Mix</strong>) or a dedicated premium prep mix (like <strong>Hoffman Succulent Soil</strong>) and ensure your container material has optimal breathability.
       </p>
+
+      {/* Inline Recommended Soils Grid */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl p-5 my-8 space-y-4">
+        <div className="flex justify-between items-center">
+          <h4 className="text-sm font-bold text-stone-900 mt-0 flex items-center gap-1.5 uppercase tracking-wide">
+            <ShoppingBag className="w-4.5 h-4.5 text-emerald-805" /> Recommended Quick Soil Upgrades
+          </h4>
+          <span className="text-[10px] font-mono font-bold text-stone-400 italic">Affiliate Referral</span>
+        </div>
+        <p className="text-xs text-stone-550 leading-relaxed mb-0">
+          These are the top greenhouse-verified options available on Amazon with active organic mycorrhizae or custom mineral drainage:
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          
+          <div className="bg-white p-4 rounded-lg border border-stone-200 flex flex-col justify-between text-xs hover:border-emerald-800/30 transition-all shadow-xs">
+            <div className="space-y-1.5">
+              <span className="text-[9px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded uppercase border border-emerald-150">Hoffman Premium</span>
+              <strong className="block text-stone-900 font-bold">Organic Cactus & Succulent Mix</strong>
+              <p className="text-[11px] text-stone-500 leading-relaxed">Ready to use out of the box. Provides an excellent peat-neutral and limestone buffered sandy foundation.</p>
+            </div>
+            <a 
+              href="https://www.amazon.com/s?k=Hoffman+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center justify-center gap-1.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-3 rounded text-[10px] uppercase font-sans transition-all"
+            >
+              <span>Get on Amazon</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          <div className="bg-white p-4 rounded-lg border border-stone-200 flex flex-col justify-between text-xs hover:border-emerald-800/30 transition-all shadow-xs">
+            <div className="space-y-1.5">
+              <span className="text-[9px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded uppercase border border-emerald-150">Espoma Organic</span>
+              <strong className="block text-stone-900 font-bold">Cactus & Succulent Soil Mix</strong>
+              <p className="text-[11px] text-stone-500 leading-relaxed">Infused with active Myco-tone microbes that promote extensive cellular root nutrient and water transport networks.</p>
+            </div>
+            <a 
+              href="https://www.amazon.com/s?k=Espoma+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center justify-center gap-1.5 bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-3 rounded text-[10px] uppercase font-sans transition-all"
+            >
+              <span>Get on Amazon</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Internal Linking Topical Cluster Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10">
+        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+        <p className="text-xs text-stone-600 leading-relaxed mt-1">
+          Ready to take full control of your soil's physical porosity and grain distribution? Continue to our step-by-step{' '}
+          <button 
+            onClick={() => onNavigate?.('diy-mix')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            DIY 3-2-1 Soil Mix Recipe & Interactive Calculator
+          </button>. 
+          If your plant's base leaves are already showing mushy, yellowing tissue, bypass preparation and go straight to our emergency{' '}
+          <button 
+            onClick={() => onNavigate?.('root-rot')} 
+            className="text-rose-700 font-bold underline hover:text-rose-900 focus:outline-none cursor-pointer"
+          >
+            Surgical Root Rot Recovery Guide
+          </button> to save your plant before cell rot spreads.
+        </p>
+      </div>
+
+      <TopicalClusterNav currentTab="best-soil" onNavigate={onNavigate} />
 
     </article>
   );
@@ -113,7 +246,7 @@ export function BestSoilArticle() {
 // ----------------------------------------------------
 // SUBMODULE 2: DIY SNAKE PLANT SOIL MIX PAGE
 // ----------------------------------------------------
-export function DIYMixArticle() {
+export function DIYMixArticle({ onNavigate }: ArticleProps) {
   return (
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
@@ -156,7 +289,7 @@ export function DIYMixArticle() {
       </div>
 
       <h3 className="text-lg font-bold text-stone-900 mt-8 mb-4">Run Live Soil Mix Simulations</h3>
-      <p className="text-xs text-stone-500 mt-[-10px] mb-4">
+      <p>
         Use our interactive calculator below to adjust dry component volumes and check calculated scores dynamically before mixing:
       </p>
       
@@ -185,6 +318,52 @@ export function DIYMixArticle() {
         <strong>⚠️ Crucial warning:</strong> Never use fine playground sand or beach sand. Fine-grained play sand fills soil channels completely, cementing together like mortar when mixed with compost, choking roots immediately.
       </div>
 
+      {/* Recommended Silica Sand card */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 text-xs">
+        <div className="flex-grow space-y-1">
+          <span className="text-[9px] font-mono font-bold text-amber-850 bg-amber-50 px-1.5 py-0.5 rounded uppercase border border-amber-200">Recommended Amendment</span>
+          <h4 className="font-bold text-stone-900 text-xs mt-1 mb-0 flex items-center gap-1">
+            <ShoppingBag className="w-3.5 h-3.5 text-emerald-800" /> Perfect Plants Coarse Horticultural Sand
+          </h4>
+          <p className="text-[11px] text-stone-550 leading-relaxed mb-0">
+            Washed and coarse-grained silica sand explicitly sized to create permanent channel voids for gravity water flow. Heavy anchor weight prevents tall plants from leaning.
+          </p>
+        </div>
+        <a 
+          href="https://www.amazon.com/s?k=Coarse+Horticultural+Silica+Sand+Perfect+Plants&tag=snakeplantsoi-20" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="shrink-0 bg-stone-900 hover:bg-emerald-800 text-white font-bold py-2 px-4 rounded font-sans uppercase tracking-wide text-[10px] flex items-center gap-1.5 transition-all shadow-xs"
+        >
+          <span>Get Sand on Amazon</span>
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      </div>
+
+      {/* Internal Linking Topical Cluster Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10">
+        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+        <p className="text-xs text-stone-600 leading-relaxed mt-1">
+          Even with the perfect soil mix, overwatering and lack of aeration can quickly lead to root decay. Bypass traditional care and jump straight to our{' '}
+          <button 
+            onClick={() => onNavigate?.('root-rot')} 
+            className="text-rose-700 font-bold underline hover:text-rose-900 focus:outline-none cursor-pointer"
+          >
+            Surgical Root Rot Diagnostics & Rescue Guide
+          </button>{' '}
+          to learn how to trim decaying root tissues, or check out our comprehensive{' '}
+          <button 
+            onClick={() => onNavigate?.('care-guide')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Seasonal Watering & Care Manual
+          </button>{' '}
+          to master the "soak-and-dry" container cycle.
+        </p>
+      </div>
+
+      <TopicalClusterNav currentTab="diy-mix" onNavigate={onNavigate} />
+
     </article>
   );
 }
@@ -193,7 +372,7 @@ export function DIYMixArticle() {
 // ----------------------------------------------------
 // SUBMODULE 3: SNAKE PLANT ROOT ROT DIAGNOSTIC GUIDE
 // ----------------------------------------------------
-export function RootRotArticle() {
+export function RootRotArticle({ onNavigate }: ArticleProps) {
   const [symptoms, setSymptoms] = useState({
     drooping: false,
     yellow: false,
@@ -346,6 +525,29 @@ export function RootRotArticle() {
         </div>
       </div>
 
+      {/* Internal Linking Topical Cluster Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10">
+        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+        <p className="text-xs text-stone-600 leading-relaxed mt-1">
+          Once your snake plant's roots are salvaged and calloused, establishing a precise watering regimen is your absolute best defense. Continue to our step-by-step{' '}
+          <button 
+            onClick={() => onNavigate?.('care-guide')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Complete 'Soak and Dry' Watering Masterclass
+          </button>, 
+          or learn how correct container material and side-wall porosity can reduce future overwatering issues in our{' '}
+          <button 
+            onClick={() => onNavigate?.('best-pots')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Best Porous Pots & Containers Guide
+          </button>.
+        </p>
+      </div>
+
+      <TopicalClusterNav currentTab="root-rot" onNavigate={onNavigate} />
+
     </article>
   );
 }
@@ -354,7 +556,7 @@ export function RootRotArticle() {
 // ----------------------------------------------------
 // SUBMODULE 4: BEST POTS FOR SNAKE PLANTS PAGE
 // ----------------------------------------------------
-export function BestPotsArticle() {
+export function BestPotsArticle({ onNavigate }: ArticleProps) {
   const [foliageHeight, setFoliageHeight] = useState<number>(12);
   const [currentPot, setCurrentPot] = useState<number>(6);
 
@@ -494,6 +696,52 @@ export function BestPotsArticle() {
         </li>
       </ul>
 
+      {/* Recommended Terracotta Pot card */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 text-xs">
+        <div className="flex-grow space-y-1">
+          <span className="text-[9px] font-mono font-bold text-amber-850 bg-amber-50 px-1.5 py-0.5 rounded uppercase border border-amber-200">Recommended Container</span>
+          <h4 className="font-bold text-stone-900 text-xs mt-1 mb-0 flex items-center gap-1">
+            <ShoppingBag className="w-3.5 h-3.5 text-emerald-800" /> Classic Italian Terracotta Clay Pot (8-Inch)
+          </h4>
+          <p className="text-[11px] text-stone-550 leading-relaxed mb-0">
+            Highly porous natural clay breathes from the side-walls, transpiring excess dampness cleanly out into the surrounding air and lowering root rot rates by 70%. Heavy weight stops tall leaves from tipping.
+          </p>
+        </div>
+        <a 
+          href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=snakeplantsoi-20" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="shrink-0 bg-stone-900 hover:bg-emerald-800 text-white font-bold py-2 px-4 rounded font-sans uppercase tracking-wide text-[10px] flex items-center gap-1.5 transition-all shadow-xs"
+        >
+          <span>Get Pot on Amazon</span>
+          <ExternalLink className="w-3 h-3" />
+        </a>
+      </div>
+
+      {/* Internal Linking Topical Cluster Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10">
+        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+        <p className="text-xs text-stone-600 leading-relaxed mt-1">
+          Ready to repot your plant with the perfect combination of custom soil amendments and breathable terracotta container sizing? Open our interactive{' '}
+          <button 
+            onClick={() => onNavigate?.('setup-kits')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Custom Mix & Repotting Kit Builder
+          </button>{' '}
+          to build a tailored bundle, or read our review of the{' '}
+          <button 
+            onClick={() => onNavigate?.('best-soil')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Best Commercial Pre-Formulated Soils
+          </button>{' '}
+          to find a quick ready-to-use potting mix.
+        </p>
+      </div>
+
+      <TopicalClusterNav currentTab="best-pots" onNavigate={onNavigate} />
+
     </article>
   );
 }
@@ -502,7 +750,7 @@ export function BestPotsArticle() {
 // ----------------------------------------------------
 // SUBMODULE 5: SNAKE PLANT COMPLETE CARE & WATERING GUIDE
 // ----------------------------------------------------
-export function CareGuideArticle() {
+export function CareGuideArticle({ onNavigate }: ArticleProps) {
   const [season, setSeason] = useState<'spring' | 'summer' | 'fall' | 'winter'>('spring');
 
   const seasonalRoutine = {
@@ -625,6 +873,29 @@ export function CareGuideArticle() {
       <p>
         While marketed as low-light survivors, snake plants biologically crave <strong>bright indirect light</strong>. Sunlight powers photosynthesis, prompting leaves to consume soil water. If placed in a dark interior powder room, the plant's metabolic activity slows to near-zero, meaning stagnant water in the soil has no avenue to escape via tissue transpiration, severely increasing root rot risk.
       </p>
+
+      {/* Internal Linking Topical Cluster Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10">
+        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+        <p className="text-xs text-stone-600 leading-relaxed mt-1">
+          Watering frequencies and evaporation ratios are heavily controlled by container material physics. Discover why materials matter in our{' '}
+          <button 
+            onClick={() => onNavigate?.('best-pots')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Best Pots for Snake Plants Guide
+          </button>, 
+          or compile your customized agricultural materials checklist using our interactive{' '}
+          <button 
+            onClick={() => onNavigate?.('setup-kits')} 
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Perfect Soil & Repotting Kit Builder
+          </button>.
+        </p>
+      </div>
+
+      <TopicalClusterNav currentTab="care-guide" onNavigate={onNavigate} />
 
     </article>
   );

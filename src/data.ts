@@ -99,7 +99,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "pH Range": "6.0 - 6.8",
       "Weight": "4.2 lbs"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=Hoffman+Organic+Cactus+and+Succulent+Soil+Mix&tag=SNAKEPLANTSOIL-20"
+    affiliateUrl: "https://www.amazon.com/s?k=Hoffman+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20"
   },
   {
     id: "espoma-cactus",
@@ -155,7 +155,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Grain Size": "2mm - 4mm",
       "pH": "7.0 (Inert)"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=Coarse+Horticultural+Silica+Sand+Perfect+Plants&tag=SNAKEPLANTSOIL-20"
+    affiliateUrl: "https://www.amazon.com/s?k=Coarse+Horticultural+Silica+Sand+Perfect+Plants&tag=snakeplantsoi-20"
   },
   {
     id: "clay-terracotta",
@@ -184,7 +184,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Material": "Natural Italian Red Clay",
       "Drainage Hole": "Yes, 0.75 in"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=SNAKEPLANTSOIL-20"
+    affiliateUrl: "https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=snakeplantsoi-20"
   }
 ];
 

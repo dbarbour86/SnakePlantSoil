@@ -13,6 +13,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
 
   const navItems = [
     { id: 'home', label: 'Home' },
+    { id: 'setup-kits', label: 'Mix & Pot Kits' },
     { id: 'best-soil', label: 'Best Soils' },
     { id: 'diy-mix', label: 'DIY Recipe' },
     { id: 'root-rot', label: 'Root Rot Protocol' },

@@ -12,6 +12,7 @@ import AIAnswerCards from './components/AIAnswerCards';
 import ProductSection from './components/ProductSection';
 import SoilMixDiagram from './components/SoilMixDiagram';
 import LeadMagnet from './components/LeadMagnet';
+import SoilSetupKit from './components/SoilSetupKit';
 
 import { 
   BestSoilArticle, 
@@ -28,6 +29,7 @@ export default function App() {
   const getTabFromPath = (path: string): string => {
     const cleanPath = path.replace(/^\//, '').split('?')[0].split('#')[0];
     switch (cleanPath) {
+      case 'setup-kits':
       case 'best-soil':
       case 'diy-mix':
       case 'root-rot':
@@ -154,19 +156,26 @@ export default function App() {
                     
                     <div className="flex flex-wrap items-center gap-3 pt-2 pl-1">
                       <button 
-                        onClick={() => navigateToArticle('best-soil')}
+                        onClick={() => navigateToArticle('setup-kits')}
                         className="bg-emerald-800 text-stone-50 hover:bg-emerald-950 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all shadow-sm flex items-center gap-2"
+                        id="hero-cta-setup-kits"
+                      >
+                        <Sparkles className="w-4 h-4 text-emerald-300 animate-pulse" />
+                        <span>Build Custom Setup Kit</span>
+                      </button>
+                      <button 
+                        onClick={() => navigateToArticle('best-soil')}
+                        className="bg-stone-100 text-stone-800 hover:bg-stone-200 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all border border-stone-250 flex items-center gap-2"
                         id="hero-cta-best-soil"
                       >
-                        <span>Best Soil Recommendations</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <span>Best Soils</span>
                       </button>
                       <button 
                         onClick={() => navigateToArticle('diy-mix')}
                         className="bg-stone-100 text-stone-800 hover:bg-stone-200 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all border border-stone-250 flex items-center gap-2"
                         id="hero-cta-diy"
                       >
-                        <span>DIY Soil Recipe</span>
+                        <span>DIY Recipe</span>
                       </button>
                     </div>
 
@@ -285,6 +294,35 @@ export default function App() {
                       </div>
                     );
                   })}
+                </div>
+              </section>
+
+              {/* INTERACTIVE SETUP KIT PROMOTION BLOCK */}
+              <section className="py-12 bg-gradient-to-br from-emerald-900 to-stone-900 text-stone-100 border-t border-b border-emerald-950 animate-fade-in" id="homepage-setup-kits-banner">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div className="lg:col-span-8 space-y-3">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-300 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded">
+                        <Sparkles className="w-3.5 h-3.5 animate-pulse text-emerald-450" /> Interactive Shopping Tool
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-mono font-bold text-white tracking-tight">
+                        Perfect Mix & Container Kit Builder
+                      </h2>
+                      <p className="text-stone-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
+                        Are you ready to repot your snake plant? Select your goal (such as simple pre-mix, golden ratio 3-2-1 recipe, or root rot recovery) and your exact plant height. Our algorithm will compile a custom recommended materials list with verified, high-drainage direct Amazon and nursery buying links!
+                      </p>
+                    </div>
+                    <div className="lg:col-span-4 flex lg:justify-end">
+                      <button
+                        onClick={() => navigateToArticle('setup-kits')}
+                        className="w-full lg:w-auto bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-stone-950 font-bold font-sans text-xs px-6 py-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 uppercase tracking-wider"
+                        id="home-promo-setup-kits-btn"
+                      >
+                        <span>Build Custom Kit Setup</span>
+                        <ArrowRight className="w-4 h-4 shrink-0" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </section>
 
@@ -439,6 +477,33 @@ export default function App() {
           )}
 
           {/* ====================================================
+              VIEW S: SOIL SETUP & CART BUILDER KITS
+              ==================================================== */}
+          {activeTab === 'setup-kits' && (
+            <motion.div
+              key="setup-kits-view"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              id="setup-kits-page"
+            >
+              <div className="mb-6">
+                <button 
+                  onClick={() => navigateToArticle('home')}
+                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
+                  id="back-home-setup-kits"
+                >
+                  ← Return to Home Portal
+                </button>
+              </div>
+
+              <SoilSetupKit />
+            </motion.div>
+          )}
+
+          {/* ====================================================
               VIEW B: BEST COMMERCIAL SOILS
               ==================================================== */}
           {activeTab === 'best-soil' && (
@@ -461,7 +526,7 @@ export default function App() {
                 </button>
               </div>
 
-              <BestSoilArticle />
+              <BestSoilArticle onNavigate={navigateToArticle} />
               
               <div className="pt-8 border-t border-stone-200 mt-12">
                 <ProductSection />
@@ -492,7 +557,7 @@ export default function App() {
                 </button>
               </div>
 
-              <DIYMixArticle />
+              <DIYMixArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
 
@@ -519,7 +584,7 @@ export default function App() {
                 </button>
               </div>
 
-              <RootRotArticle />
+              <RootRotArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
 
@@ -546,7 +611,7 @@ export default function App() {
                 </button>
               </div>
 
-              <BestPotsArticle />
+              <BestPotsArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
 
@@ -573,7 +638,7 @@ export default function App() {
                 </button>
               </div>
 
-              <CareGuideArticle />
+              <CareGuideArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
 
