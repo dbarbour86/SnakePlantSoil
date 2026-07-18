@@ -1,4 +1,5 @@
 import { QuickAnswer, ContentGuide, RecommendedProduct, FAQItem, SoilIngredient } from './types';
+import { getDynamicArticles } from './content';
 
 export const QUICK_ANSWERS: QuickAnswer[] = [
   {
@@ -23,7 +24,7 @@ export const QUICK_ANSWERS: QuickAnswer[] = [
   }
 ];
 
-export const CONTENT_GUIDES: ContentGuide[] = [
+export const STATIC_GUIDES: ContentGuide[] = [
   {
     id: "best-soil",
     title: "Best Commercial Soils",
@@ -69,6 +70,11 @@ export const CONTENT_GUIDES: ContentGuide[] = [
     iconName: "Compass",
     slug: "snake-plant-care-guide"
   }
+];
+
+export const CONTENT_GUIDES: ContentGuide[] = [
+  ...STATIC_GUIDES,
+  ...getDynamicArticles()
 ];
 
 export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [

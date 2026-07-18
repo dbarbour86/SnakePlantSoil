@@ -23,6 +23,8 @@ import {
 } from './components/GuideArticles';
 
 import { CONTENT_GUIDES, FAQ_ITEMS } from './data';
+import { getDynamicArticles } from './content';
+import DynamicArticleView from './components/DynamicArticle';
 
 export default function App() {
   // Map URL paths to actual sub-tab IDs for robust SEO & Deep Linking without 404s
@@ -41,8 +43,14 @@ export default function App() {
       case '':
       case 'home':
         return 'home';
-      default:
+      default: {
+        const dynamicArticles = getDynamicArticles();
+        const match = dynamicArticles.find(art => art.slug === cleanPath);
+        if (match) {
+          return cleanPath;
+        }
         return 'home';
+      }
     }
   };
 
@@ -75,6 +83,11 @@ export default function App() {
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [faqExpanded, setFaqExpanded] = useState<{ [key: string]: boolean }>({});
+
+  const dynamicArticles = useMemo(() => getDynamicArticles(), []);
+  const activeDynamicArticle = useMemo(() => {
+    return dynamicArticles.find(art => art.slug === activeTab);
+  }, [dynamicArticles, activeTab]);
 
   const toggleFaq = (id: string) => {
     setFaqExpanded(prev => ({
@@ -778,6 +791,30 @@ export default function App() {
               </div>
 
               <LeadMagnet />
+            </motion.div>
+          )}
+
+          {activeDynamicArticle && (
+            <motion.div
+              key="dynamic-article-view"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              id={`dynamic-article-page-${activeDynamicArticle.slug}`}
+            >
+              <div className="mb-6">
+                <button 
+                  onClick={() => navigateToArticle('home')}
+                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
+                  id="back-home-dynamic"
+                >
+                  ← Return to Home Portal
+                </button>
+              </div>
+
+              <DynamicArticleView article={activeDynamicArticle} onNavigate={navigateToArticle} />
             </motion.div>
           )}
 
