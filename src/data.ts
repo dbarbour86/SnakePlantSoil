@@ -140,7 +140,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     name: "Coarse Horticultural Silica Sand",
     brand: "Perfect Plants",
     category: "ammendment",
-    imageUrl: "https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/coarse-horticultural-silica-sand.png",
     bestFor: "Adding Custom Soil Grittiness (DIY Mix)",
     rating: 4.9,
     description: "Washed and graded coarse sand designed explicitly for garden potting. Regular play sand is too fine and cements soil; coarse silica sand creates permanent channel voids for quick water drainage.",
