@@ -190,7 +190,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Material": "Natural Italian Red Clay",
       "Drainage Hole": "Yes, 0.75 in"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=snakeplantsoi-20"
+    affiliateUrl: "https://www.amazon.com/Terracotta-Drainage-Cylinder-Planter-587-42-0/dp/B08QYLP91Q?th=1&tag=snakeplantsoi-20"
   }
 ];
 

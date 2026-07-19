@@ -231,15 +231,15 @@ export default function App() {
                   <div className="lg:col-span-5 relative" id="hero-graphic-image-box">
                     <div className="absolute inset-0 bg-emerald-800/5 rounded-3xl -rotate-2 transform scale-102" />
                     <a 
-                      href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=snakeplantsoi-20"
+                      href="https://www.amazon.com/Terracotta-Drainage-Cylinder-Planter-587-42-0/dp/B08QYLP91Q?th=1&tag=snakeplantsoi-20"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative border border-stone-200 bg-stone-100 rounded-3xl overflow-hidden shadow-md aspect-4/3 sm:aspect-square block group cursor-pointer"
                       id="hero-affiliate-image-link"
                     >
                       <img 
-                        src="/hero-snake-plant-pot.png"
-                        alt="Snake plant in a breathable matte ceramic planter pot" 
+                        src="/terracotta-cylinder-planter.png"
+                        alt="Terracotta Cylinder Planter Pot with Drainage" 
                         className="w-full h-full object-cover select-none transition-transform duration-300 group-hover:scale-102"
                       />
                       <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-stone-150/50 shadow-sm">
