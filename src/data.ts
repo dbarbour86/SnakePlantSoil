@@ -112,7 +112,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     name: "Organic Cactus & Succulent Mix",
     brand: "Espoma",
     category: "soil",
-    imageUrl: "https://images.unsplash.com/photo-1508013861974-9f6347163ebe?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/espoma-organic-cactus-soil-mix.png",
     bestFor: "Organic Enthusiasts & Root Nutrition",
     rating: 4.7,
     description: "Enriched with Espoma's trademark Myco-tone, a proprietary blend of endo and ecto-mycorrhizae that helps foster deep root absorption networks while preventing water pooling.",
