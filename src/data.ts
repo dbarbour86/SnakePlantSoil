@@ -83,7 +83,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     name: "Organic Cactus and Succulent Soil Mix",
     brand: "Hoffman",
     category: "soil",
-    imageUrl: "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/hoffman-organic-cactus-soil-mix.png",
     bestFor: "Ultimate Out-of-the-Box Convenience",
     rating: 4.8,
     description: "A premium, ready-to-use soil expertly blended to provide essential aeration and custom drainage for desert-native plants. Critically balanced pH levels encourage rich rhizome development without needing additional heavy adjustments.",
