@@ -26,6 +26,14 @@ import { CONTENT_GUIDES, STATIC_GUIDES, FAQ_ITEMS } from './data';
 import { getDynamicArticles } from './content';
 import DynamicArticleView from './components/DynamicArticle';
 
+const HERO_CARE_TIPS = [
+  { icon: '🌱', label: 'Soil', value: 'Fast-Draining • 40% Perlite Blend' },
+  { icon: '💧', label: 'Water', value: 'Every 2–4 Weeks' },
+  { icon: '☀️', label: 'Light', value: 'Bright Indirect Light' },
+  { icon: '⚱️', label: 'Pot', value: 'Terracotta or Ceramic with Drainage' },
+  { icon: '🌡️', label: 'Temp', value: '65–85°F (18–29°C)' },
+];
+
 export default function App() {
   // Map URL paths to actual sub-tab IDs for robust SEO & Deep Linking without 404s
   const getTabFromPath = (path: string): string => {
@@ -108,6 +116,14 @@ export default function App() {
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [faqExpanded, setFaqExpanded] = useState<{ [key: string]: boolean }>({});
+  const [heroTipIndex, setHeroTipIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroTipIndex((prev) => (prev + 1) % HERO_CARE_TIPS.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   const dynamicArticles = useMemo(() => getDynamicArticles(), []);
   const activeDynamicArticle = useMemo(() => {
@@ -242,12 +258,25 @@ export default function App() {
                         alt="Terracotta Cylinder Planter Pot with Drainage" 
                         className="w-full h-full object-cover select-none transition-transform duration-300 group-hover:scale-102"
                       />
-                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-stone-150/50 shadow-sm">
-                        <div className="flex items-center gap-2.5">
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-stone-150/50 shadow-sm overflow-hidden min-h-[46px] flex items-center">
+                        <div className="flex items-center gap-2.5 w-full">
                           <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-                          <p className="text-[10px] font-mono font-bold text-stone-650 uppercase">
-                            Optimal Housing: Breathable Matte Ceramic
-                          </p>
+                          <div className="flex-1 overflow-hidden">
+                            <AnimatePresence mode="wait">
+                              <motion.div
+                                key={heroTipIndex}
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.35, ease: 'easeOut' }}
+                                className="text-[11px] font-mono font-bold text-stone-750 uppercase tracking-tight flex items-center gap-1.5 truncate"
+                              >
+                                <span className="text-xs shrink-0">{HERO_CARE_TIPS[heroTipIndex].icon}</span>
+                                <span className="text-emerald-900 font-extrabold shrink-0">{HERO_CARE_TIPS[heroTipIndex].label}:</span>
+                                <span className="text-stone-700 truncate">{HERO_CARE_TIPS[heroTipIndex].value}</span>
+                              </motion.div>
+                            </AnimatePresence>
+                          </div>
                         </div>
                       </div>
                     </a>
