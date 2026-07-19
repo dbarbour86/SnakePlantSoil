@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <rect width="512" height="512" rx="128" fill="#065f46"/>
+  <!-- Snake Plant Blade 1 (Center) -->
+  <path d="M256 70 C240 180, 210 280, 210 420 L302 420 C302 280, 272 180, 256 70 Z" fill="#eab308"/>
+  <path d="M256 86 C243 186, 218 280, 218 412 L294 412 C294 280, 269 186, 256 86 Z" fill="#047857"/>
+  <path d="M256 86 C250 186, 240 280, 238 412 L274 412 C272 280, 262 186, 256 86 Z" fill="#10b981" opacity="0.6"/>
+
+  <!-- Snake Plant Blade 2 (Left) -->
+  <path d="M185 140 C170 230, 145 320, 150 420 L215 420 C215 320, 205 230, 185 140 Z" fill="#eab308"/>
+  <path d="M185 154 C173 238, 153 320, 157 412 L208 412 C208 320, 197 238, 185 154 Z" fill="#064e3b"/>
+
+  <!-- Snake Plant Blade 3 (Right) -->
+  <path d="M327 140 C307 230, 297 320, 297 420 L362 420 C367 320, 342 230, 327 140 Z" fill="#eab308"/>
+  <path d="M327 154 C315 238, 304 320, 304 412 L355 412 C359 320, 339 238, 327 154 Z" fill="#064e3b"/>
+  
+  <!-- Soil Base line -->
+  <rect x="120" y="410" width="272" height="24" rx="12" fill="#78350f" />
+</svg>
