@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Droplet, Wind, AlertTriangle, CheckCircle2, RefreshCw, Sliders, Sparkles, Award } from 'lucide-react';
-import { DEFAULT_INGREDIENTS } from '../data';
+import { Droplet, Wind, AlertTriangle, CheckCircle2, RefreshCw, Sliders, Sparkles, Award, ExternalLink, Star, ShoppingBag } from 'lucide-react';
+import { DEFAULT_INGREDIENTS, RECOMMENDED_PRODUCTS } from '../data';
 import { SoilIngredient } from '../types';
 
 export default function InteractiveCalculator() {
@@ -357,6 +357,84 @@ export default function InteractiveCalculator() {
                 </div>
               </div>
             </div>
+
+            {/* Dynamic Brand Soil Recommendation Card */}
+            {(() => {
+              const compostPct = ingredients.find(i => i.id === 'compost')?.percentage || 0;
+              const sandPct = ingredients.find(i => i.id === 'coarse-sand')?.percentage || 0;
+              const pumicePct = ingredients.find(i => i.id === 'pumice')?.percentage || 0;
+              
+              let recommendedBrand = RECOMMENDED_PRODUCTS[0]; // Hoffman default
+              let recommendationReason = "";
+
+              if (compostPct > 65) {
+                recommendedBrand = RECOMMENDED_PRODUCTS[2]; // Silica Sand Amendment
+                recommendationReason = `Your mix is heavy in compost (${Math.round(compostPct)}%). To achieve safe drainage without full custom mixing, incorporate Coarse Silica Sand to create permanent drainage channels.`;
+              } else if (sandPct + pumicePct >= 40) {
+                recommendedBrand = RECOMMENDED_PRODUCTS[2]; // Silica Sand
+                recommendationReason = `Your formula favors heavy mineral grittiness (${Math.round(sandPct + pumicePct)}%). Use Coarse Silica Sand for non-degrading structural root voids.`;
+              } else if (compostPct >= 45 && compostPct <= 65) {
+                recommendedBrand = RECOMMENDED_PRODUCTS[1]; // Espoma
+                recommendationReason = `Your custom ratio closely matches Espoma Organic Cactus & Succulent Mix, enriched with mycorrhizae fungi for resilient root development.`;
+              } else {
+                recommendedBrand = RECOMMENDED_PRODUCTS[0]; // Hoffman
+                recommendationReason = `Your custom ratio matches Hoffman Organic Cactus & Succulent Soil Mix for ultimate out-of-the-box convenience and ideal 6.0–6.8 pH balance.`;
+              }
+
+              return (
+                <div className="mt-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50/60 shadow-xs space-y-3" id="dynamic-brand-match-box">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-emerald-900 bg-emerald-100 px-2.5 py-0.5 rounded border border-emerald-200 flex items-center gap-1">
+                      <ShoppingBag className="w-3 h-3 text-emerald-700" /> Suggested Brand Soil Match
+                    </span>
+                    <span className="text-xs font-mono font-bold text-amber-600 flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> {recommendedBrand.rating}
+                    </span>
+                  </div>
+
+                  <div className="flex gap-3 items-center pt-1">
+                    {recommendedBrand.imageUrl && (
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden border border-stone-200 shrink-0 bg-white shadow-xs">
+                        <img 
+                          src={recommendedBrand.imageUrl} 
+                          alt={recommendedBrand.name}
+                          className="w-full h-full object-cover" 
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <span className="text-[10px] font-mono font-bold text-stone-500 uppercase tracking-wider block">
+                        {recommendedBrand.brand}
+                      </span>
+                      <h5 className="font-bold text-stone-900 text-xs sm:text-sm truncate leading-tight">
+                        {recommendedBrand.name}
+                      </h5>
+                      <p className="text-[11px] text-stone-600 leading-snug line-clamp-2">
+                        {recommendationReason}
+                      </p>
+                    </div>
+                  </div>
+
+                  {recommendedBrand.affiliateUrl && (
+                    <div className="pt-2 border-t border-emerald-100/80 flex items-center justify-between">
+                      <span className="text-[11px] font-mono text-stone-500">
+                        Price: <strong className="text-stone-800">{recommendedBrand.priceEstimate}</strong>
+                      </span>
+                      <a
+                        href={recommendedBrand.affiliateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-wider font-sans transition-all shadow-xs"
+                        id={`calculator-brand-buy-${recommendedBrand.id}`}
+                      >
+                        <span>{recommendedBrand.linkText || 'Check Price'}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
 
           <div className="border-t border-stone-200 pt-4 mt-6">
