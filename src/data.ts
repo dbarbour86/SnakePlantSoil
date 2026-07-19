@@ -168,7 +168,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     name: "Classic Italian Terracotta Clay Pot",
     brand: "Deroma",
     category: "pot",
-    imageUrl: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/classic-terracotta-clay-pot.png",
     bestFor: "Foolproof Moisture Control & Evaporation",
     rating: 4.9,
     description: "The gold standard of snake plant housing. Natural baked terracotta clay has high structural porosity, absorbing excess wall-side water and naturally transpiring it into the room, reducing rot risk by 70%.",
