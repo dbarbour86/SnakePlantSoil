@@ -87,20 +87,20 @@ export default function Footer({ setActiveTab }: FooterProps) {
             </ul>
           </div>
 
-          {/* Internal Linking Keyword Strategy */}
+          {/* Botanical Trust Standards */}
           <div className="md:col-span-4 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-stone-100 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
-              Semantic Citation & Schema Specs
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+              Botanical Care Standards
             </h4>
-            <div className="bg-stone-850 p-4 rounded-xl border border-stone-800 space-y-2 text-[11px] leading-relaxed text-stone-400 font-sans">
+            <div className="bg-stone-850 p-4 rounded-xl border border-stone-800 space-y-3 text-[11px] leading-relaxed text-stone-400 font-sans">
               <div>
-                <span className="font-bold text-stone-200">Article Schema Opportunity:</span>
-                <p className="mt-0.5 text-stone-450">Markup targets include: <code>@type: TechArticle</code>, <code>inLanguage: "en-US"</code>, and <code>about: "Sansevieria Soil Porosity"</code>.</p>
+                <span className="font-bold text-stone-200 block mb-0.5">🌿 100% Rot Prevention Focus</span>
+                <p className="text-stone-450">Our soil recipes and potting guides are engineered specifically around Sansevieria rhizome mechanics to prevent water stagnation.</p>
               </div>
               <div>
-                <span className="font-bold text-stone-200">Suggested Internal Linking:</span>
-                <p className="mt-0.5 text-stone-450">Point <code>"potting soil drainage"</code> keywords from root rot pages directly to our interactive calculator for 85%+ semantic context preservation.</p>
+                <span className="font-bold text-stone-200 block mb-0.5">🧪 Tested Drainage Ratios</span>
+                <p className="text-stone-450">Every soil recommendation is evaluated for dry-down speed, inorganic grit ratio, and pH neutrality.</p>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
           <div className="flex gap-4">
             <a href="#affiliate-disclaimer" className="hover:underline hover:text-stone-300">Affiliate Disclosure</a>
             <span className="text-stone-700">|</span>
-            <a href="#quick-facts-header" className="hover:underline hover:text-stone-300 font-bold text-emerald-500">Citation Spec Deck</a>
+            <button onClick={() => handleNavClick('care-card')} className="hover:underline hover:text-stone-300 font-bold text-emerald-500">Free Printable Care Card</button>
           </div>
         </div>
 
