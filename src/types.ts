@@ -8,10 +8,13 @@ export interface ContentGuide {
   id: string;
   title: string;
   shortDescription: string;
-  category: 'soil' | 'pots' | 'care' | 'root-rot';
+  category: string;
   readTime: string;
   iconName: string;
   slug: string;
+  date?: string;
+  content?: string;
+  status?: string;
 }
 
 export interface RecommendedProduct {

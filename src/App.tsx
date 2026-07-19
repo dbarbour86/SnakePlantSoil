@@ -22,7 +22,7 @@ import {
   CareGuideArticle 
 } from './components/GuideArticles';
 
-import { CONTENT_GUIDES, FAQ_ITEMS } from './data';
+import { CONTENT_GUIDES, STATIC_GUIDES, FAQ_ITEMS } from './data';
 import { getDynamicArticles } from './content';
 import DynamicArticleView from './components/DynamicArticle';
 
@@ -32,11 +32,22 @@ export default function App() {
     const cleanPath = path.replace(/^\//, '').split('?')[0].split('#')[0];
     switch (cleanPath) {
       case 'setup-kits':
+        return 'setup-kits';
       case 'best-soil':
+      case 'best-snake-plant-soil':
+        return 'best-soil';
       case 'diy-mix':
+      case 'diy-snake-plant-soil-mix':
+        return 'diy-mix';
       case 'root-rot':
+      case 'snake-plant-root-rot-guide':
+        return 'root-rot';
       case 'best-pots':
+      case 'best-pots-for-snake-plants':
+        return 'best-pots';
       case 'care-guide':
+      case 'snake-plant-care-guide':
+        return 'care-guide';
       case 'care-card':
       case 'faq':
         return cleanPath;
@@ -45,9 +56,11 @@ export default function App() {
         return 'home';
       default: {
         const dynamicArticles = getDynamicArticles();
-        const match = dynamicArticles.find(art => art.slug === cleanPath);
+        const match = dynamicArticles.find(
+          art => art.slug === cleanPath || art.id === cleanPath || art.slug === cleanPath.replace(/^dynamic-/, '')
+        );
         if (match) {
-          return cleanPath;
+          return match.slug;
         }
         return 'home';
       }
@@ -62,11 +75,23 @@ export default function App() {
   });
 
   const setActiveTab = (tab: string) => {
-    setActiveTabState(tab);
+    const normalizedTab = getTabFromPath(tab);
+    setActiveTabState(normalizedTab);
     if (typeof window !== 'undefined') {
-      const targetPath = tab === 'home' ? '/' : `/${tab}`;
+      let targetPath = '/';
+      if (normalizedTab !== 'home') {
+        const dynamicMatch = dynamicArticles.find(
+          a => a.slug === tab || a.id === tab || a.slug === normalizedTab
+        );
+        if (dynamicMatch) {
+          targetPath = `/${dynamicMatch.slug}`;
+        } else {
+          const staticMatch = STATIC_GUIDES.find(s => s.id === normalizedTab || s.slug === tab || s.id === tab);
+          targetPath = `/${staticMatch ? staticMatch.slug : normalizedTab}`;
+        }
+      }
       if (window.location.pathname !== targetPath) {
-        window.history.pushState({ tab }, '', targetPath);
+        window.history.pushState({ tab: normalizedTab }, '', targetPath);
       }
     }
   };
@@ -86,7 +111,9 @@ export default function App() {
 
   const dynamicArticles = useMemo(() => getDynamicArticles(), []);
   const activeDynamicArticle = useMemo(() => {
-    return dynamicArticles.find(art => art.slug === activeTab);
+    return dynamicArticles.find(
+      art => art.slug === activeTab || art.id === activeTab || art.slug === activeTab.replace(/^dynamic-/, '')
+    );
   }, [dynamicArticles, activeTab]);
 
   const toggleFaq = (id: string) => {
@@ -270,20 +297,22 @@ export default function App() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {CONTENT_GUIDES.map((guide) => {
+                    const targetTab = guide.slug || guide.id;
+                    const iconName = guide.iconName || guide.id;
                     return (
                       <div
                         key={guide.id}
-                        onClick={() => navigateToArticle(guide.id)}
+                        onClick={() => navigateToArticle(targetTab)}
                         className="bg-white p-6 rounded-2xl border border-stone-200 hover:border-emerald-700/40 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
                         id={`guide-card-${guide.id}`}
                       >
                         <div className="space-y-3">
                           <div className="w-10 h-10 rounded-xl bg-stone-100 group-hover:bg-emerald-50 text-stone-700 group-hover:text-emerald-800 flex items-center justify-center transition-colors">
-                            {guide.id === 'best-soil' && <Trees className="w-5 h-5" />}
-                            {guide.id === 'diy-mix' && <Beaker className="w-5 h-5" />}
-                            {guide.id === 'root-rot' && <HeartPulse className="w-5 h-5" />}
-                            {guide.id === 'best-pots' && <Layers className="w-5 h-5" />}
-                            {guide.id === 'care-guide' && <Compass className="w-5 h-5" />}
+                            {iconName === 'Trees' || iconName === 'best-soil' ? <Trees className="w-5 h-5" /> :
+                             iconName === 'Beaker' || iconName === 'diy-mix' ? <Beaker className="w-5 h-5" /> :
+                             iconName === 'HeartPulse' || iconName === 'root-rot' ? <HeartPulse className="w-5 h-5" /> :
+                             iconName === 'Layers' || iconName === 'best-pots' ? <Layers className="w-5 h-5" /> :
+                             <Compass className="w-5 h-5" />}
                           </div>
                           <div>
                             <span className="text-[10px] font-mono font-bold text-stone-400 capitalize bg-stone-50 px-1.5 py-0.5 rounded">
@@ -815,6 +844,36 @@ export default function App() {
               </div>
 
               <DynamicArticleView article={activeDynamicArticle} onNavigate={navigateToArticle} />
+            </motion.div>
+          )}
+
+          {/* Fallback View if tab is not a known static tab and dynamic article is not found */}
+          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card'].includes(activeTab) && !activeDynamicArticle && (
+            <motion.div
+              key="not-found-view"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4"
+              id="not-found-page"
+            >
+              <div className="w-16 h-16 bg-emerald-50 text-emerald-800 rounded-2xl flex items-center justify-center mx-auto text-xl font-bold font-mono border border-emerald-200">
+                404
+              </div>
+              <h2 className="text-2xl font-bold font-sans text-stone-900 tracking-tight">Article or Guide Not Found</h2>
+              <p className="text-stone-600 text-sm max-w-md mx-auto leading-relaxed">
+                The requested guide link could not be located. Browse our main botanical resources or search for care definitions below.
+              </p>
+              <div className="pt-2">
+                <button 
+                  onClick={() => navigateToArticle('home')}
+                  className="bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow-sm"
+                  id="return-home-from-404"
+                >
+                  ← Return to Home Portal
+                </button>
+              </div>
             </motion.div>
           )}
 

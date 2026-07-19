@@ -43,21 +43,31 @@ export function parseMarkdownWithFrontmatter(raw: string): { metadata: Record<st
 }
 
 // 3. Eagerly load all posts in /content/posts/ directory using Vite's glob import
-const mdFiles = import.meta.glob('/content/posts/*.md', { query: '?raw', eager: true }) as Record<string, { default: string }>;
-const jsonFiles = import.meta.glob('/content/posts/*.json', { query: '?raw', eager: true }) as Record<string, { default: string }>;
+const mdFiles = import.meta.glob(['/content/posts/*.md', '../content/posts/*.md'], { query: '?raw', eager: true }) as Record<string, { default: string }>;
+const jsonFiles = import.meta.glob(['/content/posts/*.json', '../content/posts/*.json'], { query: '?raw', eager: true }) as Record<string, { default: string }>;
 
 export function getDynamicArticles(): DynamicArticle[] {
   const articles: DynamicArticle[] = [];
+  const seenSlugs = new Set<string>();
 
   // Parse Markdown posts
   for (const path in mdFiles) {
     try {
-      const rawContent = mdFiles[path].default;
+      const rawEntry = mdFiles[path];
+      const rawContent = typeof rawEntry === 'string' 
+        ? rawEntry 
+        : (rawEntry && typeof rawEntry === 'object' && 'default' in rawEntry ? (rawEntry as any).default : String(rawEntry || ''));
+      
+      if (!rawContent) continue;
+      
       const { metadata, body } = parseMarkdownWithFrontmatter(rawContent);
       
-      // Generate slug from path if not in frontmatter
       const fileSlug = path.split('/').pop()?.replace('.md', '') || '';
       const slug = metadata.slug || fileSlug;
+      
+      if (seenSlugs.has(slug)) continue;
+      seenSlugs.add(slug);
+      
       const title = metadata.title || slug.replace(/-/g, ' ');
       
       articles.push({
@@ -70,7 +80,7 @@ export function getDynamicArticles(): DynamicArticle[] {
         slug,
         date: metadata.date,
         content: body,
-        status: metadata.status || 'draft'
+        status: metadata.status || 'published'
       });
     } catch (e) {
       console.error(`Failed to parse Markdown post at ${path}:`, e);
@@ -80,11 +90,19 @@ export function getDynamicArticles(): DynamicArticle[] {
   // Parse JSON posts
   for (const path in jsonFiles) {
     try {
-      const rawContent = jsonFiles[path].default;
+      const rawEntry = jsonFiles[path];
+      const rawContent = typeof rawEntry === 'string'
+        ? rawEntry
+        : (rawEntry && typeof rawEntry === 'object' && 'default' in rawEntry ? (rawEntry as any).default : rawEntry);
+        
       const data = typeof rawContent === 'string' ? JSON.parse(rawContent) : rawContent;
+      if (!data) continue;
       
       const fileSlug = path.split('/').pop()?.replace('.json', '') || '';
       const slug = data.slug || fileSlug;
+      
+      if (seenSlugs.has(slug)) continue;
+      seenSlugs.add(slug);
       
       articles.push({
         id: `dynamic-${slug}`,
@@ -96,18 +114,18 @@ export function getDynamicArticles(): DynamicArticle[] {
         slug,
         date: data.date,
         content: data.content || '',
-        status: data.status || 'draft'
+        status: data.status || 'published'
       });
     } catch (e) {
       console.error(`Failed to parse JSON post at ${path}:`, e);
     }
   }
 
-  // Filter out Draft statuses (only show published ones in production)
+  // Filter out Draft statuses (show published ones by default)
   const isDev = import.meta.env.DEV;
   return articles.filter(art => {
-    const statusLower = (art.status || 'draft').toLowerCase();
-    if (isDev) return true; // Show drafts and published in local development for previewing
-    return statusLower === 'published'; // Filter out drafts in production (only show 'published')
+    const statusLower = (art.status || 'published').toLowerCase();
+    if (isDev) return true;
+    return statusLower === 'published';
   });
 }
