@@ -227,25 +227,30 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Hero Right Image Mock */}
+                  {/* Hero Right Image Graphic */}
                   <div className="lg:col-span-5 relative" id="hero-graphic-image-box">
                     <div className="absolute inset-0 bg-emerald-800/5 rounded-3xl -rotate-2 transform scale-102" />
-                    <div className="relative border border-stone-200 bg-stone-100 rounded-3xl overflow-hidden shadow-md aspect-4/3 sm:aspect-square">
+                    <a 
+                      href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=snakeplantsoi-20"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative border border-stone-200 bg-stone-100 rounded-3xl overflow-hidden shadow-md aspect-4/3 sm:aspect-square block group cursor-pointer"
+                      id="hero-affiliate-image-link"
+                    >
                       <img 
-                        src="https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?w=800&auto=format&fit=crop&q=80"
-                        alt="Photorealistic snake plant (Sansevieria trifasciata) in a matte white ceramic pot in a bright sunlit apartment" 
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover select-none"
+                        src="/hero-snake-plant-pot.png"
+                        alt="Snake plant in a breathable matte ceramic planter pot" 
+                        className="w-full h-full object-cover select-none transition-transform duration-300 group-hover:scale-102"
                       />
                       <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-stone-150/50 shadow-sm">
                         <div className="flex items-center gap-2.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
                           <p className="text-[10px] font-mono font-bold text-stone-650 uppercase">
                             Optimal Housing: Breathable Matte Ceramic
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
 
                 </div>
