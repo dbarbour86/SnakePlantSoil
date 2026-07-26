@@ -34,6 +34,49 @@ const HERO_CARE_TIPS = [
   { icon: '🌡️', label: 'Temp', value: '65–85°F (18–29°C)' },
 ];
 
+const PAGE_METADATA: Record<string, { title: string; description: string }> = {
+  home: {
+    title: "The Best Soil for Snake Plants — Optimal DIY Recipe & Care Guide",
+    description: "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe."
+  },
+  'setup-kits': {
+    title: "Snake Plant Soil Mix Setup Kit Builder | SnakePlantSoil.com",
+    description: "Custom potting component calculator. Choose your pot size and design the perfect quick-draining soil mix with our custom kit builder."
+  },
+  'best-soil': {
+    title: "Best Commercial Soils for Snake Plants | SnakePlantSoil.com",
+    description: "Honest, editorial review of the top 4 commercial succulent and cactus mixes tested specifically for Sansevieria drainage."
+  },
+  'diy-mix': {
+    title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",
+    description: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
+  },
+  'root-rot': {
+    title: "How to Identify & Save Snake Plant Root Rot | SnakePlantSoil.com",
+    description: "How to identify, treat, and surgically recover a snake plant suffering from mushy leaves, soggy stems, or black rhizomes."
+  },
+  'best-pots': {
+    title: "Best Pots for Snake Plants (Breathable Terracotta) | SnakePlantSoil.com",
+    description: "Why breathable porous clay terracotta is king. A deep dive of container sizes, drainage holes, and aesthetic pot recommendations."
+  },
+  'care-guide': {
+    title: "Seasonal Snake Plant Care & Watering Masterclass | SnakePlantSoil.com",
+    description: "Mastering the 'Soak and Dry' watering cycle, seasonal routines, winter dryness tactics, and light level placements."
+  },
+  faq: {
+    title: "Snake Plant Potting & Care FAQs | SnakePlantSoil.com",
+    description: "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention."
+  },
+  'care-card': {
+    title: "Free Printable Snake Plant Care Card Generator | SnakePlantSoil.com",
+    description: "Generate a custom PDF care card with your snake plant's name, optimal watering frequency, and sunlight requirements."
+  },
+  'not-found': {
+    title: "404 - Guide Not Found | SnakePlantSoil.com",
+    description: "The requested snake plant care page could not be located."
+  }
+};
+
 export default function App() {
   // Map URL paths to actual sub-tab IDs for robust SEO & Deep Linking without 404s
   const getTabFromPath = (path: string): string => {
@@ -70,7 +113,7 @@ export default function App() {
         if (match) {
           return match.slug;
         }
-        return 'home';
+        return 'not-found';
       }
     }
   };
@@ -124,6 +167,59 @@ export default function App() {
     }, 4500);
     return () => clearInterval(timer);
   }, []);
+
+  // Dynamic Title, Description, and Canonical Tag Manager
+  useEffect(() => {
+    let title = PAGE_METADATA.home.title;
+    let description = PAGE_METADATA.home.description;
+    let canonicalUrl = 'https://snakeplantsoil.com/';
+    let is404 = activeTab === 'not-found';
+
+    if (activeDynamicArticle) {
+      title = `${activeDynamicArticle.title} | SnakePlantSoil.com`;
+      description = activeDynamicArticle.shortDescription;
+      canonicalUrl = `https://snakeplantsoil.com/${activeDynamicArticle.slug}`;
+    } else if (PAGE_METADATA[activeTab]) {
+      title = PAGE_METADATA[activeTab].title;
+      description = PAGE_METADATA[activeTab].description;
+      if (activeTab !== 'home') {
+        const staticMatch = STATIC_GUIDES.find(s => s.id === activeTab);
+        const slug = staticMatch ? staticMatch.slug : activeTab;
+        canonicalUrl = `https://snakeplantsoil.com/${slug}`;
+      }
+    } else {
+      is404 = true;
+      title = PAGE_METADATA['not-found'].title;
+      description = PAGE_METADATA['not-found'].description;
+    }
+
+    // Set Document Title
+    document.title = title;
+
+    // Set Meta Description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', description);
+
+    // Set Canonical Link
+    let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
+    if (is404) {
+      if (link) {
+        link.remove();
+      }
+    } else {
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        document.head.appendChild(link);
+      }
+      link.setAttribute('href', canonicalUrl);
+    }
+  }, [activeTab, activeDynamicArticle]);
 
   const dynamicArticles = useMemo(() => getDynamicArticles(), []);
   const activeDynamicArticle = useMemo(() => {

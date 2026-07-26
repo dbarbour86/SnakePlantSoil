@@ -1,8 +1,26 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/home/", "destination": "/", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/dynamic-best-fertilizer-for-snake-plant-soil", "destination": "/best-fertilizer-for-snake-plant-soil", "permanent": true },
+    { "source": "/dynamic-winter-watering-guide", "destination": "/winter-watering-guide", "permanent": true },
+    { "source": "/dynamic-choosing-terracotta-pots", "destination": "/choosing-terracotta-pots", "permanent": true }
+  ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/setup-kits", "destination": "/index.html" },
+    { "source": "/faq", "destination": "/index.html" },
+    { "source": "/care-card", "destination": "/index.html" },
+    { "source": "/best-snake-plant-soil", "destination": "/index.html" },
+    { "source": "/diy-snake-plant-soil-mix", "destination": "/index.html" },
+    { "source": "/snake-plant-root-rot-guide", "destination": "/index.html" },
+    { "source": "/best-pots-for-snake-plants", "destination": "/index.html" },
+    { "source": "/snake-plant-care-guide", "destination": "/index.html" },
+    { "source": "/best-fertilizer-for-snake-plant-soil", "destination": "/index.html" },
+    { "source": "/winter-watering-guide", "destination": "/index.html" },
+    { "source": "/choosing-terracotta-pots", "destination": "/index.html" }
   ]
 }

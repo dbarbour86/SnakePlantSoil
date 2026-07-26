@@ -42,9 +42,14 @@ export function parseMarkdownWithFrontmatter(raw: string): { metadata: Record<st
   return { metadata: {}, body: trimmed };
 }
 
-// 3. Eagerly load all posts in /content/posts/ directory using Vite's glob import
-const mdFiles = import.meta.glob(['/content/posts/*.md', '../content/posts/*.md'], { query: '?raw', eager: true }) as Record<string, { default: string }>;
-const jsonFiles = import.meta.glob(['/content/posts/*.json', '../content/posts/*.json'], { query: '?raw', eager: true }) as Record<string, { default: string }>;
+// 3. Eagerly load all posts in /content/posts/ directory using Vite's glob import if available
+const mdFiles = (typeof import.meta !== 'undefined' && typeof import.meta.glob === 'function')
+  ? import.meta.glob(['/content/posts/*.md', '../content/posts/*.md'], { query: '?raw', eager: true }) as Record<string, { default: string }>
+  : {};
+
+const jsonFiles = (typeof import.meta !== 'undefined' && typeof import.meta.glob === 'function')
+  ? import.meta.glob(['/content/posts/*.json', '../content/posts/*.json'], { query: '?raw', eager: true }) as Record<string, { default: string }>
+  : {};
 
 export function getDynamicArticles(): DynamicArticle[] {
   const articles: DynamicArticle[] = [];
@@ -122,7 +127,7 @@ export function getDynamicArticles(): DynamicArticle[] {
   }
 
   // Filter out Draft statuses (show published ones by default)
-  const isDev = import.meta.env.DEV;
+  const isDev = (typeof import.meta !== 'undefined' && typeof import.meta.env !== 'undefined') ? import.meta.env.DEV : true;
   return articles.filter(art => {
     const statusLower = (art.status || 'published').toLowerCase();
     if (isDev) return true;
