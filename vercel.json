@@ -9,7 +9,7 @@
   "rewrites": [
     {
       "source": "/:slug(setup-kits|faq|care-card|best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|best-fertilizer-for-snake-plant-soil|winter-watering-guide|choosing-terracotta-pots)",
-      "destination": "/index.html"
+      "destination": "/"
     }
   ]
 }
