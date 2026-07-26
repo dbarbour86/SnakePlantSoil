@@ -1,0 +1,28 @@
+{
+  "static": [
+    "best-snake-plant-soil",
+    "diy-snake-plant-soil-mix",
+    "snake-plant-root-rot-guide",
+    "best-pots-for-snake-plants",
+    "snake-plant-care-guide"
+  ],
+  "dynamic": [
+    "best-fertilizer-for-snake-plant-soil",
+    "choosing-terracotta-pots",
+    "winter-watering-guide"
+  ],
+  "metadata": {
+    "best-fertilizer-for-snake-plant-soil": {
+      "title": "Does Snake Plant Soil Need Fertilizer? (Active Growth Guide)",
+      "description": "Learn whether snake plant soil needs fertilizer, the ideal NPK ratio, seasonal feeding schedules, and how to avoid root burn."
+    },
+    "choosing-terracotta-pots": {
+      "title": "Choosing the Best Terracotta Pot",
+      "description": "Why breathable clay terracotta is the absolute best housing material for preventing Sansevieria root moisture accumulation."
+    },
+    "winter-watering-guide": {
+      "title": "Ultimate Winter Watering Guide",
+      "description": "Learn how to adjust your snake plant watering schedule during the cold winter dormancy months."
+    }
+  }
+}

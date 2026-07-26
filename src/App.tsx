@@ -24,7 +24,9 @@ import {
 
 import { CONTENT_GUIDES, STATIC_GUIDES, FAQ_ITEMS } from './data';
 import { getDynamicArticles } from './content';
+import routeManifest from './generated-manifest.json';
 import DynamicArticleView from './components/DynamicArticle';
+
 
 const HERO_CARE_TIPS = [
   { icon: '🌱', label: 'Soil', value: 'Fast-Draining • 40% Perlite Blend' },
@@ -106,12 +108,9 @@ export default function App() {
       case 'home':
         return 'home';
       default: {
-        const dynamicArticles = getDynamicArticles();
-        const match = dynamicArticles.find(
-          art => art.slug === cleanPath || art.id === cleanPath || art.slug === cleanPath.replace(/^dynamic-/, '')
-        );
-        if (match) {
-          return match.slug;
+        const isDynamic = routeManifest.dynamic.includes(cleanPath) || routeManifest.dynamic.includes(cleanPath.replace(/^dynamic-/, ''));
+        if (isDynamic) {
+          return cleanPath.replace(/^dynamic-/, '');
         }
         return 'not-found';
       }

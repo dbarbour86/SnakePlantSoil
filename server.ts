@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { createServer as createViteServer } from "vite";
 import { STATIC_GUIDES } from "./src/data";
+import routeManifest from "./src/generated-manifest.json";
 
 async function startServer() {
   const app = express();
@@ -21,63 +22,22 @@ async function startServer() {
       routes.add(`/${guide.id}`);
     });
 
-    try {
-      const postsDir = path.join(process.cwd(), 'content', 'posts');
-      if (fs.existsSync(postsDir)) {
-        const files = fs.readdirSync(postsDir);
-        files.forEach(file => {
-          if (file.endsWith('.md') || file.endsWith('.json')) {
-            const slug = file.replace(/\.(md|json)$/, '');
-            routes.add(`/${slug}`);
-            routes.add(`/dynamic-${slug}`);
-          }
-        });
-      }
-    } catch (err) {
-      console.error("Failed to load dynamic articles in server:", err);
+    if (routeManifest && routeManifest.dynamic) {
+      routeManifest.dynamic.forEach(slug => {
+        routes.add(`/${slug}`);
+        routes.add(`/dynamic-${slug}`);
+      });
     }
 
     return routes;
   };
 
   const getDynamicArticleMeta = (slug: string): { title: string; description: string } | null => {
-    try {
-      const postsDir = path.join(process.cwd(), 'content', 'posts');
-      const mdPath = path.join(postsDir, `${slug}.md`);
-      const jsonPath = path.join(postsDir, `${slug}.json`);
-
-      if (fs.existsSync(mdPath)) {
-        const content = fs.readFileSync(mdPath, 'utf-8');
-        const trimmed = content.trim();
-        if (trimmed.startsWith('---')) {
-          const parts = trimmed.split('---');
-          if (parts.length >= 3) {
-            const yamlBlock = parts[1];
-            const meta: Record<string, string> = {};
-            yamlBlock.split(/\r?\n/).forEach(line => {
-              const idx = line.indexOf(':');
-              if (idx > -1) {
-                const key = line.substring(0, idx).trim();
-                const val = line.substring(idx + 1).trim().replace(/^["']|["']$/g, '');
-                meta[key] = val;
-              }
-            });
-            return {
-              title: meta.title || slug.replace(/-/g, ' '),
-              description: meta.excerpt || meta.description || 'A specialist snake plant guide written by our content engine.'
-            };
-          }
-        }
-      } else if (fs.existsSync(jsonPath)) {
-        const content = fs.readFileSync(jsonPath, 'utf-8');
-        const data = JSON.parse(content);
-        return {
-          title: data.title || slug.replace(/-/g, ' '),
-          description: data.excerpt || data.description || 'A specialist snake plant guide written by our content engine.'
-        };
+    if (routeManifest && routeManifest.metadata) {
+      const meta = (routeManifest.metadata as Record<string, { title: string; description: string }>)[slug];
+      if (meta) {
+        return meta;
       }
-    } catch (e) {
-      console.error(`Failed to read dynamic post meta for ${slug}:`, e);
     }
     return null;
   };
