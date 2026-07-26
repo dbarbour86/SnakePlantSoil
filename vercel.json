@@ -1,23 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "dist/server.cjs",
-      "use": "@vercel/node"
-    }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/dynamic-:slug", "destination": "/:slug", "permanent": true }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(assets/.*)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(robots.txt|sitemap.xml|favicon.ico|.*\\.png|.*\\.gif|.*\\.jpg|.*\\.svg)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "dist/server.cjs"
+      "source": "/(setup-kits|faq|care-card|best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|best-fertilizer-for-snake-plant-soil|winter-watering-guide|choosing-terracotta-pots)",
+      "destination": "/index.html"
     }
   ]
 }
