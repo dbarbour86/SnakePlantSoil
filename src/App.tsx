@@ -167,6 +167,13 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  const dynamicArticles = useMemo(() => getDynamicArticles(), []);
+  const activeDynamicArticle = useMemo(() => {
+    return dynamicArticles.find(
+      art => art.slug === activeTab || art.id === activeTab || art.slug === activeTab.replace(/^dynamic-/, '')
+    );
+  }, [dynamicArticles, activeTab]);
+
   // Dynamic Title, Description, and Canonical Tag Manager
   useEffect(() => {
     let title = PAGE_METADATA.home.title;
@@ -219,13 +226,6 @@ export default function App() {
       link.setAttribute('href', canonicalUrl);
     }
   }, [activeTab, activeDynamicArticle]);
-
-  const dynamicArticles = useMemo(() => getDynamicArticles(), []);
-  const activeDynamicArticle = useMemo(() => {
-    return dynamicArticles.find(
-      art => art.slug === activeTab || art.id === activeTab || art.slug === activeTab.replace(/^dynamic-/, '')
-    );
-  }, [dynamicArticles, activeTab]);
 
   const toggleFaq = (id: string) => {
     setFaqExpanded(prev => ({
