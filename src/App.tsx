@@ -60,8 +60,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Learn how to recognize snake plant root rot, remove badly damaged tissue, repot viable roots or rhizomes, and correct the moisture conditions that caused the problem."
   },
   'best-pots': {
-    title: "Best Pots for Snake Plants (Breathable Terracotta) | SnakePlantSoil.com",
-    description: "Why breathable porous clay terracotta is king. A deep dive of container sizes, drainage holes, and aesthetic pot recommendations."
+    title: "Best Pots for Snake Plants: Size, Material & Drainage Guide",
+    description: "Discover the best pots for snake plants. Compare terracotta, ceramic, and plastic containers, choose an appropriate pot size, and learn practical drainage rules."
   },
   'care-guide': {
     title: "Seasonal Snake Plant Care & Watering Masterclass | SnakePlantSoil.com",

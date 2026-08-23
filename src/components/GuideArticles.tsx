@@ -756,17 +756,14 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
   const [currentPot, setCurrentPot] = useState<number>(6);
 
   const calculateTargetPot = () => {
-    // Standard rule: Pot should be ~1/3 of the foliage height.
-    // Also, maximum sizing increase is 1 to 2 inches larger than current pot.
-    const ruleHeightPot = Math.ceil(foliageHeight / 3);
-    const recommendedDiameter = currentPot + 1; // standard step-up 1 inch
+    const recommendedDiameter = currentPot + 1;
     
     return {
       diameter: Math.max(4, Math.min(currentPot + 2, recommendedDiameter)),
       depth: Math.round(recommendedDiameter * 0.9),
       repotVerdict: foliageHeight > currentPot * 3.5 
-        ? "Highly Recommended: Your plant is highly tall and likely top-heavy. Sizing up 1 to 2 inches will stabilize the plant safely."
-        : "Maintain Current Container: The height of your snake plant is perfectly balanced for your current vessel size. No immediate soil expansion needed."
+        ? "Container Sizing Guidance: Your plant is tall and may become top-heavy. Stepping up 1 to 2 inches in pot diameter or choosing a heavy terracotta vessel will help stabilize the plant safely."
+        : "Container Sizing Guidance: The size and weight of your current vessel are well-balanced for your plant height. No immediate container expansion needed unless roots are tightly bound."
     };
   };
 
@@ -775,59 +772,122 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
   return (
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
-      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
-          <Layers className="w-6 h-6 text-emerald-800" />
-          The Science of Containers: Best Pots for Snake Plants
+      {/* Intro Header */}
+      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-stone-950 tracking-tight mt-0 flex items-center gap-2">
+          <Layers className="w-6 h-6 text-emerald-800 shrink-0" />
+          Best Pots for Snake Plants: Size, Material &amp; Drainage Guide
         </h1>
-        <p className="text-stone-650 text-sm mt-2 mb-0">
-          Uncover why material choice dictates soil dry-out times. Calculate optimal container sizing metrics based on modern horticultural rules.
+        <p className="text-stone-600 text-sm mt-2 mb-0">
+          Discover the best pots for snake plants. Compare terracotta, ceramic, and plastic containers, choose an appropriate pot size, and learn practical drainage rules.
         </p>
       </div>
 
-      <p>
-        When beginners experience snake plant decay, they almost always look to the watering can or soil brand first. However, the container is the physical engine that regulates soil gas exchange and evaporation. If the pot material seals moisture in, even the most expensive premium soil can quickly suffer.
-      </p>
+      {/* Direct Quick Answer Callout */}
+      <div className="bg-emerald-50/80 border border-emerald-200/80 p-5 rounded-2xl text-stone-700 text-sm leading-relaxed mb-6" id="quick-answer-box">
+        <h3 className="font-bold text-emerald-950 text-base mt-0 mb-1 flex items-center gap-2">
+          <span>🌱 Quick Answer</span>
+        </h3>
+        <p className="m-0 text-stone-800">
+          A good snake plant pot has functional drainage and is appropriately sized for the plant's root system. Unglazed terracotta can help potting mix lose moisture through its porous walls, while plastic and glazed ceramic retain moisture differently and can also work well with appropriate soil and watering. Avoid unnecessarily oversized containers that leave a large volume of wet potting mix around a relatively small root system.
+        </p>
+      </div>
 
-      <h3 className="text-lg font-bold text-stone-900">Why Breathable Terracotta Clay and Ceramic Differ</h3>
+      {/* User Intent Navigation Bar */}
+      <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl mb-8">
+        <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-2">Pot Selection Navigation &amp; Care Guides</span>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs font-sans">
+          <a
+            href="#sizing-calculator"
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-sizing-calculator"
+          >
+            <span>Choose Pot Size</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">Sizing guide</span>
+          </a>
+          <a
+            href="#material-comparison"
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-material-comparison"
+          >
+            <span>Compare Materials</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">Terracotta vs ceramic</span>
+          </a>
+          <a
+            href="#drainage-rules"
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-drainage-rules"
+          >
+            <span>Drainage Rules</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">Holes &amp; gravel myth</span>
+          </a>
+          <a
+            href="/best-snake-plant-soil"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-soil'); } }}
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-best-soil"
+          >
+            <span>Best Soil Mixes</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">Commercial mixes</span>
+          </a>
+          <a
+            href="/diy-snake-plant-soil-mix"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5 col-span-2 sm:col-span-1"
+            id="intent-link-diy-mix"
+          >
+            <span>DIY Soil Recipe</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">3-2-1 recipe</span>
+          </a>
+        </div>
+      </div>
+
+      <h2 className="text-lg font-bold text-stone-900 mt-6" id="material-comparison">Comparing Pot Materials: Terracotta, Ceramic &amp; Plastic</h2>
       <p>
-        Indoor house plants are usually housed in one of three popular container styles. Understanding these material properties changes how we coordinate soil mixes:
+        Container materials interact directly with your potting soil, indoor humidity, temperature, and watering frequency. Choosing the right container material helps maintain balanced moisture levels for snake plant roots:
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-6">
-        <div className="p-4 rounded-xl border border-stone-200 bg-white shadow-xs">
-          <span className="text-xs font-bold text-emerald-800 font-mono">1. Terracotta Clay (Breathable)</span>
-          <p className="text-xs text-stone-605 mt-2 leading-relaxed">
-            Porous red clay pulls moisture out of the soil column globally, transpiring it into the room. Reduces overwatering margin by 70%. Best for average indoor apartments.
+        <div className="p-4 rounded-xl border border-stone-200 bg-white shadow-xs space-y-2">
+          <span className="text-xs font-bold text-emerald-800 font-mono block uppercase">1. Unglazed Terracotta (Porous Clay)</span>
+          <p className="text-xs text-stone-650 leading-relaxed m-0">
+            Porous unglazed clay allows moisture to transpire through container walls as well as from the surface, helping soil dry more evenly. The heavy weight of clay provides excellent stability for tall, upright foliage. However, soil may dry faster in arid environments, and natural mineral deposits (efflorescence) can form on outer walls over time.
           </p>
         </div>
-        <div className="p-4 rounded-xl border border-stone-200 bg-white shadow-xs">
-          <span className="text-xs font-bold text-amber-800 font-mono">2. Glazed Ceramic / Plastic</span>
-          <p className="text-xs text-stone-605 mt-2 leading-relaxed">
-            Seals moisture completely. Dries purely from the surface downward. If utilizing ceramic containers, you must increase soil gravel/mineral count by an extra 20%.
+
+        <div className="p-4 rounded-xl border border-stone-200 bg-white shadow-xs space-y-2">
+          <span className="text-xs font-bold text-amber-800 font-mono block uppercase">2. Glazed Ceramic</span>
+          <p className="text-xs text-stone-650 leading-relaxed m-0">
+            Glazed ceramic surfaces seal moisture inside, preventing wall evaporation so soil dries primarily from the top surface down. Glazed pots are heavy and stable, working very well when equipped with functional bottom drainage holes and paired with a fast-draining, well-aerated potting mix.
           </p>
         </div>
-        <div className="p-4 rounded-xl border border-stone-200 bg-white shadow-xs">
-          <span className="text-xs font-bold text-stone-500 font-mono">3. Nursery Liners</span>
-          <p className="text-xs text-stone-605 mt-2 leading-relaxed">
-            Flexible thin plastic liners that fit inside decor pottery. Highly practical, allowing you to easily slip the root block out to inspect for rot symptoms at any time.
+
+        <div className="p-4 rounded-xl border border-stone-200 bg-white shadow-xs space-y-2">
+          <span className="text-xs font-bold text-stone-600 font-mono block uppercase">3. Plastic Containers &amp; Liners</span>
+          <p className="text-xs text-stone-650 leading-relaxed m-0">
+            Plastic containers are lightweight, durable, inexpensive, and nonporous. They retain soil moisture longer than unglazed clay and allow easy unpotting for root inspection. Because lightweight plastic can tip under tall leaves, placing a plastic nursery pot inside a heavy decorative outer cachepot provides both drainage and stability.
           </p>
         </div>
       </div>
 
+      <h2 className="text-lg font-bold text-stone-900 mt-6" id="sizing-calculator">How to Choose the Right Pot Size for a Snake Plant</h2>
+      <p>
+        Root-ball size and condition should take priority over foliage height when choosing the next container. Plant height is useful primarily for considering physical stability and tipping risk. Modest increases in container size are commonly used when repotting houseplants, but always inspect the root system, avoid unnecessarily large increases in soil volume, and consider your potting mix characteristics.
+      </p>
+
       {/* Sizing Calculator Custom Visual Tool */}
-      <div className="bg-stone-50 p-6 rounded-xl border border-stone-200 my-6">
-        <h4 className="text-sm font-bold text-stone-900 flex items-center gap-1.5 uppercase tracking-wide mb-3">
-          <Sliders className="w-4 h-4 text-emerald-850" /> Sizing recommendation Engine
-        </h4>
+      <div className="bg-stone-50 p-6 rounded-xl border border-stone-200 my-6" id="sizing-calculator-box">
+        <h3 className="text-sm font-bold text-stone-900 flex items-center gap-1.5 uppercase tracking-wide mt-0 mb-3">
+          <Sliders className="w-4 h-4 text-emerald-850" /> Suggested Pot Sizing Guide
+        </h3>
         <p className="text-xs text-stone-500 mb-4">
-          Adjust the sliders below to discover the exact diameter and depth of your target replacement pot:
+          Adjust the sliders below to explore a suggested container diameter and depth starting point based on plant height and current pot size:
         </p>
 
         <div className="space-y-4">
           <div>
             <div className="flex justify-between text-xs font-semibold mb-1">
-              <span>Foliage Height from Soil Baseline:</span>
+              <span>Foliage Height from Soil Line:</span>
               <span className="font-mono text-emerald-800">{foliageHeight} inches</span>
             </div>
             <input 
@@ -862,44 +922,44 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
         <div className="bg-white border border-stone-200 p-4 rounded-xl mt-4 text-xs font-sans space-y-2">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <span className="text-stone-400 uppercase tracking-widest text-[9px] block">Target Diameter Sizing</span>
+              <span className="text-stone-400 uppercase tracking-widest text-[9px] block">Suggested Pot Range</span>
               <span className="text-stone-900 font-bold text-sm block mt-0.5">{potRec.diameter} Inches</span>
-              <span className="text-[10px] text-stone-500">Only step up 1-2" to protect root zone density.</span>
+              <span className="text-[10px] text-stone-500">Step up modestly (1–2") to match root mass expansion.</span>
             </div>
             <div>
-              <span className="text-stone-400 uppercase tracking-widest text-[9px] block">Target Vessel Depth</span>
+              <span className="text-stone-400 uppercase tracking-widest text-[9px] block">Suggested Pot Depth</span>
               <span className="text-stone-900 font-bold text-sm block mt-0.5">{potRec.depth} Inches</span>
-              <span className="text-[10px] text-stone-500">Moderate shallow depth matches flat rhizomes.</span>
+              <span className="text-[10px] text-stone-500">Moderate shallow depth matches horizontal rhizomes.</span>
             </div>
           </div>
-          <div className="border-t border-stone-100 pt-2 text-stone-650 leading-relaxed text-[11px] italic">
-            <strong>Greenhouse Verdict:</strong> {potRec.repotVerdict}
+          <div className="border-t border-stone-100 pt-2 text-stone-650 leading-relaxed text-[11px]">
+            <strong>Sizing Advice:</strong> {potRec.repotVerdict}
           </div>
         </div>
       </div>
 
-      <h3 className="text-lg font-bold text-stone-900 mt-6">Three Non-Negotiable Drainage Rules</h3>
+      <h2 className="text-lg font-bold text-stone-900 mt-6" id="drainage-rules">Practical Container Drainage Rules</h2>
       <ul className="space-y-3 list-decimal pl-5 text-sm">
         <li>
-          <strong>Never Block the Drainage Hole:</strong> Placing gravel or pebbles at the bottom of a pot with no hole does not create drainage. Instead, it physical shifts the "perched water table" higher up the soil columns, moving stagnation directly into early roots.
+          <strong>Ensure Functional Bottom Drainage:</strong> Containers used for direct planting should allow excess irrigation water to escape through open drainage holes. Avoid planting directly into sealed vessels without drainage.
         </li>
         <li>
-          <strong>Empty the Outer Decor Saucer:</strong> If you water until liquid passes out the bottom drainage hole, let it drain completely. Empty the overflow water saucer after 20 minutes; do not let the pot sit inside a stagnant pool!
+          <strong>The Gravel Layer Myth:</strong> Adding gravel or pebbles beneath potting mix in a container without a drainage hole does not substitute for real drainage. Instead, it creates a perched water table that holds saturated soil higher in the container, closer to early roots.
         </li>
         <li>
-          <strong>Avoid Oversized Containers:</strong> Oversizing is highly lethal. A huge pot holds massive soil volume which acts like a permanent cold, wet shield that tiny root networks cannot drain through.
+          <strong>Saucer &amp; Cachepot Care:</strong> After watering and allowing excess water to drain, do not leave the planted container standing in collected water in a saucer or decorative cachepot. If using a decorative outer pot without drainage, keep the plant in a draining nursery liner and empty any accumulated water from the cachepot after watering.
         </li>
       </ul>
 
       {/* Recommended Terracotta Pot card */}
-      <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 text-xs">
+      <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4 text-xs my-6">
         <div className="flex-grow space-y-1">
-          <span className="text-[9px] font-mono font-bold text-amber-850 bg-amber-50 px-1.5 py-0.5 rounded uppercase border border-amber-200">Recommended Container</span>
-          <h4 className="font-bold text-stone-900 text-xs mt-1 mb-0 flex items-center gap-1">
+          <span className="text-[9px] font-mono font-bold text-amber-850 bg-amber-50 px-1.5 py-0.5 rounded uppercase border border-amber-200">Recommended Container Option</span>
+          <h3 className="font-bold text-stone-900 text-xs mt-1 mb-0 flex items-center gap-1">
             <ShoppingBag className="w-3.5 h-3.5 text-emerald-800" /> Classic Italian Terracotta Clay Pot (8-Inch)
-          </h4>
-          <p className="text-[11px] text-stone-550 leading-relaxed mb-0">
-            Highly porous natural clay breathes from the side-walls, transpiring excess dampness cleanly out into the surrounding air and lowering root rot rates by 70%. Heavy weight stops tall leaves from tipping.
+          </h3>
+          <p className="text-[11px] text-stone-600 leading-relaxed mb-0">
+            Natural unglazed clay allows moisture to transpire cleanly through side-walls while heavy weight stabilizes tall upright leaves. Ideal for growers looking for breathable containers with bottom drainage.
           </p>
         </div>
         <a 
@@ -913,25 +973,68 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
         </a>
       </div>
 
-      {/* Internal Linking Topical Cluster Section */}
-      <div className="border-t border-stone-250/60 pt-6 mt-10">
-        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+      {/* Authoritative Extension Citation Box */}
+      <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100 flex gap-3 my-6">
+        <Info className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+        <div className="text-xs text-emerald-900 leading-relaxed">
+          <strong>Horticultural Extension Guidance:</strong> For container selection and sanitation,{' '}
+          <a
+            href="https://extension.umn.edu/garden-and-home/yard-and-garden/gardening-minnesota/how-clean-and-disinfect-gardening-tools-and-containers"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-bold hover:text-emerald-950"
+          >
+            University of Minnesota Extension
+          </a>{' '}
+          recommends selecting containers with functional drainage holes and thoroughly cleaning reusable pots before repotting. For commercial <em>Sansevieria</em> production guidelines,{' '}
+          <a
+            href="https://edis.ifas.ufl.edu/publication/EP042"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-bold hover:text-emerald-950"
+          >
+            University of Florida IFAS Extension
+          </a>{' '}
+          emphasizes well-drained media and well-aerated container environments to prevent root rot pathogens.
+        </div>
+      </div>
+
+      {/* Internal Linking Related Guides Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10 space-y-3">
+        <h3 className="text-sm font-bold text-stone-900 mt-0">Related Snake Plant Guides</h3>
         <p className="text-xs text-stone-600 leading-relaxed mt-1">
-          Ready to repot your plant with the perfect combination of custom soil amendments and breathable terracotta container sizing? Open our interactive{' '}
-          <button 
-            onClick={() => onNavigate?.('setup-kits')} 
+          Looking for an optimal fast-draining potting soil to pair with your new container? Mix your own using our step-by-step{' '}
+          <a 
+            href="/diy-snake-plant-soil-mix"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
             className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
           >
-            Custom Mix & Repotting Kit Builder
-          </button>{' '}
-          to build a tailored bundle, or read our review of the{' '}
-          <button 
-            onClick={() => onNavigate?.('best-soil')} 
+            DIY Snake Plant Soil Recipe (3-2-1 Ratio)
+          </a>{' '}
+          or compare popular commercial options in our{' '}
+          <a 
+            href="/best-snake-plant-soil"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-soil'); } }}
             className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
           >
-            Best Commercial Pre-Formulated Soils
-          </button>{' '}
-          to find a quick ready-to-use potting mix.
+            Best Soil for Snake Plants Buyer's Guide
+          </a>. 
+          If your plant is currently in wet soil showing soft or yellow leaves, read our{' '}
+          <a 
+            href="/snake-plant-root-rot-guide"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('root-rot'); } }}
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Snake Plant Root Rot Guide
+          </a>, 
+          or evaluate your plant's setup using our interactive{' '}
+          <a 
+            href="/soil-diagnosis"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('setup-kits'); } }}
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Soil Diagnosis Quiz
+          </a>.
         </p>
       </div>
 
