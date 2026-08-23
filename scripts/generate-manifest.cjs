@@ -38,24 +38,35 @@ if (fs.existsSync(postsDir)) {
               meta[key] = val;
             }
           });
-          const slug = meta.slug || file.replace(/\.md$/, '');
-          const title = meta.title || '';
-          const description = meta.excerpt || meta.description || '';
+
+          const isDraft = meta.draft === 'true' || meta.draft === true;
+          const isNoIndex = meta.noindex === 'true' || meta.noindex === true;
           
-          dynamicSlugs.push(slug);
-          metadata[slug] = { title, description };
+          if (!isDraft && !isNoIndex) {
+            const slug = meta.slug || file.replace(/\.md$/, '');
+            const title = meta.title || '';
+            const description = meta.excerpt || meta.description || '';
+            
+            dynamicSlugs.push(slug);
+            metadata[slug] = { title, description };
+          }
         }
       }
     } else if (file.endsWith('.json')) {
       try {
         const content = fs.readFileSync(path.join(postsDir, file), 'utf-8');
         const data = JSON.parse(content);
-        const slug = data.slug || file.replace(/\.json$/, '');
-        const title = data.title || '';
-        const description = data.excerpt || data.description || '';
-        
-        dynamicSlugs.push(slug);
-        metadata[slug] = { title, description };
+        const isDraft = data.draft === 'true' || data.draft === true;
+        const isNoIndex = data.noindex === 'true' || data.noindex === true;
+
+        if (!isDraft && !isNoIndex) {
+          const slug = data.slug || file.replace(/\.json$/, '');
+          const title = data.title || '';
+          const description = data.excerpt || data.description || '';
+          
+          dynamicSlugs.push(slug);
+          metadata[slug] = { title, description };
+        }
       } catch (e) {
         console.error(`Failed to parse JSON file ${file}:`, e);
       }
@@ -155,6 +166,16 @@ const vercelConfig = {
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/setup-kits", "destination": "/soil-diagnosis", "permanent": true },
     { "source": "/setup-kits/", "destination": "/soil-diagnosis", "permanent": true },
+    { "source": "/best-soil", "destination": "/best-snake-plant-soil", "permanent": true },
+    { "source": "/best-soil/", "destination": "/best-snake-plant-soil", "permanent": true },
+    { "source": "/diy-mix", "destination": "/diy-snake-plant-soil-mix", "permanent": true },
+    { "source": "/diy-mix/", "destination": "/diy-snake-plant-soil-mix", "permanent": true },
+    { "source": "/root-rot", "destination": "/snake-plant-root-rot-guide", "permanent": true },
+    { "source": "/root-rot/", "destination": "/snake-plant-root-rot-guide", "permanent": true },
+    { "source": "/best-pots", "destination": "/best-pots-for-snake-plants", "permanent": true },
+    { "source": "/best-pots/", "destination": "/best-pots-for-snake-plants", "permanent": true },
+    { "source": "/care-guide", "destination": "/snake-plant-care-guide", "permanent": true },
+    { "source": "/care-guide/", "destination": "/snake-plant-care-guide", "permanent": true },
     { "source": "/dynamic-:slug", "destination": "/:slug", "permanent": true }
   ],
   "rewrites": [

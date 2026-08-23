@@ -20,13 +20,11 @@ async function startServer() {
     
     STATIC_GUIDES.forEach(guide => {
       routes.add(`/${guide.slug}`);
-      routes.add(`/${guide.id}`);
     });
 
     if (routeManifest && routeManifest.dynamic) {
       routeManifest.dynamic.forEach(slug => {
         routes.add(`/${slug}`);
-        routes.add(`/dynamic-${slug}`);
       });
     }
 
@@ -43,7 +41,7 @@ async function startServer() {
     return null;
   };
 
-  // Redirect www.snakeplantsoil.com to snakeplantsoil.com, and trailing slashes
+  // Redirect www.snakeplantsoil.com to snakeplantsoil.com, trailing slashes, and legacy aliases
   app.use((req, res, next) => {
     const host = req.headers.host || "";
     
@@ -55,9 +53,18 @@ async function startServer() {
 
     const cleanPath = req.path.replace(/\/$/, '');
 
-    // Intercept redirects early to prevent double hops
-    if (cleanPath === '/setup-kits') {
-      return res.redirect(301, '/soil-diagnosis');
+    // 301 Permanent Redirects for Alias Routes
+    const ALIAS_REDIRECTS: Record<string, string> = {
+      '/best-soil': '/best-snake-plant-soil',
+      '/diy-mix': '/diy-snake-plant-soil-mix',
+      '/root-rot': '/snake-plant-root-rot-guide',
+      '/best-pots': '/best-pots-for-snake-plants',
+      '/care-guide': '/snake-plant-care-guide',
+      '/setup-kits': '/soil-diagnosis'
+    };
+
+    if (ALIAS_REDIRECTS[cleanPath]) {
+      return res.redirect(301, ALIAS_REDIRECTS[cleanPath]);
     }
 
     if (cleanPath === '/home' || req.path === '/index.html') {
@@ -82,6 +89,96 @@ async function startServer() {
     const slug = req.params.slug;
     return res.redirect(301, `/${slug}`);
   });
+
+  const getRouteSchema = (lookupPath: string, title: string, description: string, canonicalUrl: string, isDynamic: any): string => {
+    const cleanTitle = title.replace(/"/g, '\\"');
+    const cleanDesc = description.replace(/"/g, '\\"');
+
+    if (lookupPath === '/diy-snake-plant-soil-mix') {
+      return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "${canonicalUrl}#article",
+      "headline": "${cleanTitle}",
+      "description": "${cleanDesc}",
+      "url": "${canonicalUrl}",
+      "mainEntityOfPage": "${canonicalUrl}"
+    },
+    {
+      "@type": "HowTo",
+      "@id": "${canonicalUrl}#howto",
+      "name": "How to Make the Perfect Quick-Draining Snake Plant Soil Mix",
+      "description": "Combine organic compost with coarse horticultural sand, perlite, and pumice to create the perfect soil environment that keeps snake plant roots aerated.",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "15"
+      },
+      "supply": [
+        { "@type": "HowToSupply", "name": "Organic Compost Base" },
+        { "@type": "HowToSupply", "name": "Horticultural Perlite" },
+        { "@type": "HowToSupply", "name": "Coarse Washed Silica Sand" },
+        { "@type": "HowToSupply", "name": "Premium Volcanic Pumice Rock" }
+      ],
+      "tool": [
+        { "@type": "HowToTool", "name": "Mixing tub or large planting bucket" },
+        { "@type": "HowToTool", "name": "Measuring scoop" }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Define Loam Base",
+          "text": "Add premium organic compost/standard soil base (40%) to create a nourishing foundational loam and Nitrogen grip."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Ensure Air Passage Spaces",
+          "text": "Incorporate horticultural perlite pebbles (30%) uniformly to secure wide air chamber pockets and prevent compression."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Create Water Channels",
+          "text": "Blend coarse-grained washed silica sand (20%) into the mixture to form physical moisture drain tunnels."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Anchor Durable Structure",
+          "text": "Mix premium lightweight porous pumice rock (10%) to secure perfect, durable mineral structures."
+        }
+      ]
+    }
+  ]
+}
+</script>`;
+    } else if (['/best-snake-plant-soil', '/snake-plant-root-rot-guide', '/best-pots-for-snake-plants', '/snake-plant-care-guide'].includes(lookupPath) || isDynamic) {
+      return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "${canonicalUrl}#article",
+  "headline": "${cleanTitle}",
+  "description": "${cleanDesc}",
+  "url": "${canonicalUrl}",
+  "mainEntityOfPage": "${canonicalUrl}"
+}
+</script>`;
+    } else if (['/about', '/soil-diagnosis', '/care-card'].includes(lookupPath)) {
+      return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "${canonicalUrl}#webpage",
+  "name": "${cleanTitle}",
+  "description": "${cleanDesc}",
+  "url": "${canonicalUrl}"
+}
+</script>`;
+    }
+    return '';
+  };
 
   const renderHtmlResponse = (filePath: string, lookupPath: string, statusCode: number, res: express.Response) => {
     try {
@@ -174,6 +271,12 @@ async function startServer() {
           html = html.replace(/<link rel="canonical" href="[^"]*" \/>/i, canonicalTag);
         } else {
           html = html.replace('</head>', `${canonicalTag}\n</head>`);
+        }
+
+        // Inject route-specific JSON-LD schema
+        const routeSchema = getRouteSchema(lookupPath, title, description, canonicalUrl, dynamicMatch);
+        if (routeSchema) {
+          html = html.replace('</head>', `${routeSchema}\n</head>`);
         }
       }
 

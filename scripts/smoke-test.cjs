@@ -80,22 +80,31 @@ setTimeout(async () => {
   console.log(`Testing redirects and ${routesToTest.length} routes...`);
 
   try {
-    // 3. Test setup-kits 301 redirect
-    console.log("Verifying setup-kits 301 redirects...");
-    const redirectRes1 = await fetchRawPage('/setup-kits');
-    if (redirectRes1.statusCode !== 301) {
-      cleanupAndExit(1, `Expected 301 redirect for /setup-kits, got status: ${redirectRes1.statusCode}`);
-    }
-    if (redirectRes1.headers.location !== '/soil-diagnosis') {
-      cleanupAndExit(1, `Expected /setup-kits redirect location to be /soil-diagnosis, got: ${redirectRes1.headers.location}`);
-    }
+    // 3. Test setup-kits and alias 301 redirects
+    console.log("Verifying 301 redirects for legacy aliases...");
+    const aliasMap = {
+      '/setup-kits': '/soil-diagnosis',
+      '/setup-kits/': '/soil-diagnosis',
+      '/best-soil': '/best-snake-plant-soil',
+      '/best-soil/': '/best-snake-plant-soil',
+      '/diy-mix': '/diy-snake-plant-soil-mix',
+      '/diy-mix/': '/diy-snake-plant-soil-mix',
+      '/root-rot': '/snake-plant-root-rot-guide',
+      '/root-rot/': '/snake-plant-root-rot-guide',
+      '/best-pots': '/best-pots-for-snake-plants',
+      '/best-pots/': '/best-pots-for-snake-plants',
+      '/care-guide': '/snake-plant-care-guide',
+      '/care-guide/': '/snake-plant-care-guide'
+    };
 
-    const redirectRes2 = await fetchRawPage('/setup-kits/');
-    if (redirectRes2.statusCode !== 301) {
-      cleanupAndExit(1, `Expected 301 redirect for /setup-kits/, got status: ${redirectRes2.statusCode}`);
-    }
-    if (redirectRes2.headers.location !== '/soil-diagnosis') {
-      cleanupAndExit(1, `Expected /setup-kits/ redirect location to be /soil-diagnosis, got: ${redirectRes2.headers.location}`);
+    for (const [alias, destination] of Object.entries(aliasMap)) {
+      const redirectRes = await fetchRawPage(alias);
+      if (redirectRes.statusCode !== 301) {
+        cleanupAndExit(1, `Expected 301 redirect for ${alias}, got status: ${redirectRes.statusCode}`);
+      }
+      if (redirectRes.headers.location !== destination) {
+        cleanupAndExit(1, `Expected ${alias} redirect location to be ${destination}, got: ${redirectRes.headers.location}`);
+      }
     }
 
     // 4. Test all indexable routes
@@ -127,6 +136,21 @@ setTimeout(async () => {
       // Assert crawlable links are present in raw HTML
       if (!html.includes('<a href="/')) {
         cleanupAndExit(1, `Route ${route} is missing crawlable internal links in raw HTML.`);
+      }
+
+      // Assert H1 tag presence on key guide routes
+      const staticGuideRoutes = [
+        '/',
+        '/best-snake-plant-soil',
+        '/diy-snake-plant-soil-mix',
+        '/snake-plant-root-rot-guide',
+        '/best-pots-for-snake-plants',
+        '/snake-plant-care-guide'
+      ];
+      if (staticGuideRoutes.includes(route)) {
+        if (!html.includes('<h1')) {
+          cleanupAndExit(1, `Route ${route} is missing <h1 tag in raw HTML.`);
+        }
       }
 
       // Assert page-specific body content/H1/H2 exist in raw HTML (proving static prerendering worked!)

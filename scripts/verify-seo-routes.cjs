@@ -34,6 +34,9 @@ files.forEach(file => {
   let description = '';
   let slug = '';
 
+  let isDraft = false;
+  let isNoIndex = false;
+
   const filePath = path.join(postsDir, file);
   if (file.endsWith('.md')) {
     const content = fs.readFileSync(filePath, 'utf-8');
@@ -54,6 +57,8 @@ files.forEach(file => {
         if (key === 'title') title = val;
         if (key === 'excerpt' || key === 'description') description = val;
         if (key === 'slug') slug = val;
+        if (key === 'draft' && val === 'true') isDraft = true;
+        if (key === 'noindex' && val === 'true') isNoIndex = true;
       }
     });
   } else if (file.endsWith('.json')) {
@@ -63,9 +68,15 @@ files.forEach(file => {
       title = data.title || '';
       description = data.excerpt || data.description || '';
       slug = data.slug || '';
+      if (data.draft === true || data.draft === 'true') isDraft = true;
+      if (data.noindex === true || data.noindex === 'true') isNoIndex = true;
     } catch (e) {
       fail(`JSON file '${file}' is malformed: ${e.message}`);
     }
+  }
+
+  if (isDraft || isNoIndex) {
+    return; // Skip draft/noindex posts from public indexable assertions
   }
 
   // Assertion: Missing title, description, or slug fails the build

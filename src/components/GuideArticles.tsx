@@ -85,10 +85,10 @@ export function BestSoilArticle({ onNavigate }: ArticleProps) {
       
       {/* Intro Header */}
       <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        <h2 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
+        <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
           <Trees className="w-6 h-6 text-emerald-800" />
           The Science of Drainage: Evaluating Commercial Snake Plant Soils
-        </h2>
+        </h1>
         <p className="text-stone-600 text-sm mt-2 mb-0">
           The secret to a thriving snake plant starts below the surface. This article identifies the physical traits of optimal soils and provides side-by-side performance metrics of leading ready-to-use premium mixes.
         </p>
@@ -251,10 +251,10 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
       <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        <h2 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
+        <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
           <Beaker className="w-6 h-6 text-emerald-800" />
           The Ultimate Golden Ratio 3-2-1 DIY Soil Recipe
-        </h2>
+        </h1>
         <p className="text-stone-600 text-sm mt-2 mb-0">
           Save money and give your plants professional premium drainage. Follow our tested, highly-replicated formula to blend your own sterile custom substrate at home.
         </p>
@@ -399,10 +399,10 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
       <div className="bg-gradient-to-br from-rose-50 to-stone-100 p-6 rounded-2xl border border-rose-150 mb-8">
-        <h2 className="text-xl md:text-2xl font-bold text-rose-900 tracking-tight mt-0 flex items-center gap-2">
+        <h1 className="text-xl md:text-2xl font-bold text-rose-900 tracking-tight mt-0 flex items-center gap-2">
           <HeartPulse className="w-6 h-6 text-rose-700 animate-pulse" />
           Snake Plant Root Rot: Botanical Surgical Recovery Protocol
-        </h2>
+        </h1>
         <p className="text-stone-605 text-sm mt-2 mb-0">
           Root rot is the single greatest killer of house plants. Learn how to clinically diagnose decayed cellular tissues, run surgical salvage protocols, and keep roots oxygenated.
         </p>
@@ -581,10 +581,10 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
       <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        <h2 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
+        <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
           <Layers className="w-6 h-6 text-emerald-800" />
           The Science of Containers: Best Pots for Snake Plants
-        </h2>
+        </h1>
         <p className="text-stone-650 text-sm mt-2 mb-0">
           Uncover why material choice dictates soil dry-out times. Calculate optimal container sizing metrics based on modern horticultural rules.
         </p>
@@ -784,10 +784,10 @@ export function CareGuideArticle({ onNavigate }: ArticleProps) {
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
       <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        <h2 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
+        <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
           <Compass className="w-6 h-6 text-emerald-800" />
           The Complete Care & 'Soak and Dry' Watering Masterclass
-        </h2>
+        </h1>
         <p className="text-stone-650 text-sm mt-2 mb-0">
           Decipher watering frequencies based on seasonal changes, room humidity levels, and modern botanical guidelines.
         </p>
