@@ -135,6 +135,8 @@ setTimeout(async () => {
       '/root-rot/': '/snake-plant-root-rot-guide',
       '/best-pots': '/best-pots-for-snake-plants',
       '/best-pots/': '/best-pots-for-snake-plants',
+      '/choosing-terracotta-pots': '/best-pots-for-snake-plants',
+      '/choosing-terracotta-pots/': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
       '/care-guide/': '/snake-plant-care-guide'
     };

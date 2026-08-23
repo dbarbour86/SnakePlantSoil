@@ -8,7 +8,6 @@
   ],
   "dynamic": [
     "best-fertilizer-for-snake-plant-soil",
-    "choosing-terracotta-pots",
     "winter-watering-guide"
   ],
   "metadata": {
@@ -16,13 +15,9 @@
       "title": "Snake Plant Fertilizer Guide: When & How to Fertilize",
       "description": "Learn when snake plants need fertilizer, what type to use, when to skip feeding, and how to avoid fertilizer buildup and root damage."
     },
-    "choosing-terracotta-pots": {
-      "title": "Choosing the Best Terracotta Pot",
-      "description": "Why breathable clay terracotta is the absolute best housing material for preventing Sansevieria root moisture accumulation."
-    },
     "winter-watering-guide": {
-      "title": "Ultimate Winter Watering Guide",
-      "description": "Learn how to adjust your snake plant watering schedule during the cold winter dormancy months."
+      "title": "Winter Snake Plant Watering Guide: Soil Moisture & Seasonal Care",
+      "description": "Learn how to water snake plants during winter using soil moisture, light, pot type, and indoor conditions instead of a fixed calendar."
     }
   }
 }

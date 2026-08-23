@@ -174,6 +174,8 @@ const vercelConfig = {
     { "source": "/root-rot/", "destination": "/snake-plant-root-rot-guide", "permanent": true },
     { "source": "/best-pots", "destination": "/best-pots-for-snake-plants", "permanent": true },
     { "source": "/best-pots/", "destination": "/best-pots-for-snake-plants", "permanent": true },
+    { "source": "/choosing-terracotta-pots", "destination": "/best-pots-for-snake-plants", "permanent": true },
+    { "source": "/choosing-terracotta-pots/", "destination": "/best-pots-for-snake-plants", "permanent": true },
     { "source": "/care-guide", "destination": "/snake-plant-care-guide", "permanent": true },
     { "source": "/care-guide/", "destination": "/snake-plant-care-guide", "permanent": true },
     { "source": "/dynamic-:slug", "destination": "/:slug", "permanent": true }

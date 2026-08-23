@@ -59,6 +59,7 @@ async function startServer() {
       '/diy-mix': '/diy-snake-plant-soil-mix',
       '/root-rot': '/snake-plant-root-rot-guide',
       '/best-pots': '/best-pots-for-snake-plants',
+      '/choosing-terracotta-pots': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
       '/setup-kits': '/soil-diagnosis'
     };
@@ -304,6 +305,9 @@ async function startServer() {
       if (lookupPath === '/setup-kits') {
         return res.redirect(301, '/soil-diagnosis');
       }
+      if (lookupPath === '/choosing-terracotta-pots') {
+        return res.redirect(301, '/best-pots-for-snake-plants');
+      }
 
       const validRoutes = getValidRoutes();
       if (validRoutes.has(lookupPath)) {
@@ -350,6 +354,9 @@ async function startServer() {
       // Check for Redirects first
       if (lookupPath === '/setup-kits') {
         return res.redirect(301, '/soil-diagnosis');
+      }
+      if (lookupPath === '/choosing-terracotta-pots') {
+        return res.redirect(301, '/best-pots-for-snake-plants');
       }
 
       const validRoutes = getValidRoutes();
