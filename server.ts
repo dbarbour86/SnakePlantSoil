@@ -12,7 +12,8 @@ async function startServer() {
   const getValidRoutes = () => {
     const routes = new Set([
       '/',
-      '/setup-kits',
+      '/soil-diagnosis',
+      '/about',
       '/faq',
       '/care-card'
     ]);
@@ -54,7 +55,11 @@ async function startServer() {
 
     const cleanPath = req.path.replace(/\/$/, '');
 
-    // Intercept home variations early to prevent 2 hops
+    // Intercept redirects early to prevent double hops
+    if (cleanPath === '/setup-kits') {
+      return res.redirect(301, '/soil-diagnosis');
+    }
+
     if (cleanPath === '/home' || req.path === '/index.html') {
       return res.redirect(301, '/');
     }
@@ -99,10 +104,14 @@ async function startServer() {
         title = "The Best Soil for Snake Plants — Optimal DIY Recipe & Care Guide";
         description = "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe.";
         canonicalUrl = 'https://snakeplantsoil.com/';
-      } else if (lookupPath === '/setup-kits') {
-        title = "Snake Plant Soil Mix Setup Kit Builder | SnakePlantSoil.com";
-        description = "Custom potting component calculator. Choose your pot size and design the perfect quick-draining soil mix with our custom kit builder.";
-        canonicalUrl = 'https://snakeplantsoil.com/setup-kits';
+      } else if (lookupPath === '/soil-diagnosis') {
+        title = "Snake Plant Soil Diagnosis & Custom Recommendations | SnakePlantSoil.com";
+        description = "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check.";
+        canonicalUrl = 'https://snakeplantsoil.com/soil-diagnosis';
+      } else if (lookupPath === '/about') {
+        title = "About Our Practical Soil Research | SnakePlantSoil.com";
+        description = "Learn about Snake Plant Soil Lab's mission to simplify plant care, pot, light and watering mechanics, and future soil mix trials.";
+        canonicalUrl = 'https://snakeplantsoil.com/about';
       } else if (lookupPath === '/faq') {
         title = "Snake Plant Potting & Care FAQs | SnakePlantSoil.com";
         description = "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention.";
@@ -178,7 +187,7 @@ async function startServer() {
   // Serve static files in production before routing wildcards
   if (process.env.NODE_ENV === "production") {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath, { index: false }));
+    app.use(express.static(distPath, { index: false, redirect: false }));
 
     app.get('*', (req, res, next) => {
       const cleanPath = req.path.replace(/\/$/, '');
@@ -188,10 +197,28 @@ async function startServer() {
         return next();
       }
 
+      // Check for Redirects first
+      if (lookupPath === '/setup-kits') {
+        return res.redirect(301, '/soil-diagnosis');
+      }
+
       const validRoutes = getValidRoutes();
       if (validRoutes.has(lookupPath)) {
+        // Look for prerendered file
+        const prerenderedPath = lookupPath === '/' 
+          ? path.join(distPath, 'index.html')
+          : path.join(distPath, lookupPath.replace(/^\//, ''), 'index.html');
+
+        if (fs.existsSync(prerenderedPath)) {
+          return res.status(200).sendFile(prerenderedPath);
+        }
+        
         renderHtmlResponse(path.join(distPath, 'index.html'), lookupPath, 200, res);
       } else {
+        const prerendered404 = path.join(distPath, '404.html');
+        if (fs.existsSync(prerendered404)) {
+          return res.status(404).sendFile(prerendered404);
+        }
         renderHtmlResponse(path.join(distPath, '404.html'), lookupPath, 404, res);
       }
     });
@@ -215,6 +242,11 @@ async function startServer() {
         req.path.startsWith('/node_modules/')
       ) {
         return next();
+      }
+
+      // Check for Redirects first
+      if (lookupPath === '/setup-kits') {
+        return res.redirect(301, '/soil-diagnosis');
       }
 
       const validRoutes = getValidRoutes();
@@ -260,10 +292,14 @@ async function startServer() {
         
         if (lookupPath === '/' || lookupPath === '/home') {
           // Keep defaults
-        } else if (lookupPath === '/setup-kits') {
-          title = "Snake Plant Soil Mix Setup Kit Builder | SnakePlantSoil.com";
-          description = "Custom potting component calculator. Choose your pot size and design the perfect quick-draining soil mix with our custom kit builder.";
-          canonicalUrl = 'https://snakeplantsoil.com/setup-kits';
+        } else if (lookupPath === '/soil-diagnosis') {
+          title = "Snake Plant Soil Diagnosis & Custom Recommendations | SnakePlantSoil.com";
+          description = "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check.";
+          canonicalUrl = 'https://snakeplantsoil.com/soil-diagnosis';
+        } else if (lookupPath === '/about') {
+          title = "About Our Practical Soil Research | SnakePlantSoil.com";
+          description = "Learn about Snake Plant Soil Lab's mission to simplify plant care, pot, light and watering mechanics, and future soil mix trials.";
+          canonicalUrl = 'https://snakeplantsoil.com/about';
         } else if (lookupPath === '/faq') {
           title = "Snake Plant Potting & Care FAQs | SnakePlantSoil.com";
           description = "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention.";

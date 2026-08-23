@@ -13,6 +13,11 @@
   --color-stone-750: #44403c;
   --color-stone-850: #1c1917;
   --color-stone-905: #1c1917;
+
+  /* Custom sage/mint tokens */
+  --color-sage-50: #eef7f1;
+  --color-sage-100: #dcefe3;
+  --color-sage-200: #c9e4d3;
 }
 
 body {
@@ -38,4 +43,10 @@ h1, h2, h3, h4 {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a29e;
+}
+
+/* Subtle organic soil-grain/dot texture */
+.bg-soil-texture {
+  background-image: radial-gradient(rgba(6, 78, 59, 0.025) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
 }

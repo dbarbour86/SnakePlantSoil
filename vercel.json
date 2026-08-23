@@ -18,6 +18,16 @@
       "permanent": true
     },
     {
+      "source": "/setup-kits",
+      "destination": "/soil-diagnosis",
+      "permanent": true
+    },
+    {
+      "source": "/setup-kits/",
+      "destination": "/soil-diagnosis",
+      "permanent": true
+    },
+    {
       "source": "/dynamic-:slug",
       "destination": "/:slug",
       "permanent": true
@@ -25,7 +35,7 @@
   ],
   "rewrites": [
     {
-      "source": "/:slug(setup-kits|faq|care-card|best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|best-fertilizer-for-snake-plant-soil|choosing-terracotta-pots|winter-watering-guide)",
+      "source": "/:slug(soil-diagnosis|about|faq|care-card|best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|best-fertilizer-for-snake-plant-soil|choosing-terracotta-pots|winter-watering-guide)",
       "destination": "/"
     }
   ]

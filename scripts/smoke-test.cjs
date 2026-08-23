@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { spawn, execSync } = require('child_process');
+const http = require('http');
 
 const PORT = '3001';
 const manifestPath = path.join(__dirname, '..', 'src', 'generated-manifest.json');
@@ -17,7 +18,8 @@ if (!fs.existsSync(manifestPath)) {
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
 const routesToTest = [
   '/',
-  '/setup-kits',
+  '/soil-diagnosis',
+  '/about',
   '/faq',
   '/care-card'
 ];
@@ -56,15 +58,97 @@ function cleanupAndExit(code, msg = '') {
   process.exit(code);
 }
 
+// Helper to request URL using Node HTTP (no JS execution)
+function fetchRawPage(route) {
+  return new Promise((resolve, reject) => {
+    http.get(`http://localhost:${PORT}${route}`, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        resolve({
+          statusCode: res.statusCode,
+          headers: res.headers,
+          html: data
+        });
+      });
+    }).on('error', reject);
+  });
+}
+
 // Wait for server to bind
-setTimeout(() => {
-  console.log(`Testing ${routesToTest.length} routes...`);
+setTimeout(async () => {
+  console.log(`Testing redirects and ${routesToTest.length} routes...`);
 
   try {
+    // 3. Test setup-kits 301 redirect
+    console.log("Verifying setup-kits 301 redirects...");
+    const redirectRes1 = await fetchRawPage('/setup-kits');
+    if (redirectRes1.statusCode !== 301) {
+      cleanupAndExit(1, `Expected 301 redirect for /setup-kits, got status: ${redirectRes1.statusCode}`);
+    }
+    if (redirectRes1.headers.location !== '/soil-diagnosis') {
+      cleanupAndExit(1, `Expected /setup-kits redirect location to be /soil-diagnosis, got: ${redirectRes1.headers.location}`);
+    }
+
+    const redirectRes2 = await fetchRawPage('/setup-kits/');
+    if (redirectRes2.statusCode !== 301) {
+      cleanupAndExit(1, `Expected 301 redirect for /setup-kits/, got status: ${redirectRes2.statusCode}`);
+    }
+    if (redirectRes2.headers.location !== '/soil-diagnosis') {
+      cleanupAndExit(1, `Expected /setup-kits/ redirect location to be /soil-diagnosis, got: ${redirectRes2.headers.location}`);
+    }
+
+    // 4. Test all indexable routes
     for (const route of routesToTest) {
       console.log(`Verifying route: ${route}`);
       
-      // Execute Chrome headlessly to fetch and execute JS
+      // A. Fetch raw page and inspect initial HTML (no JS)
+      const rawPage = await fetchRawPage(route);
+      if (rawPage.statusCode !== 200) {
+        cleanupAndExit(1, `Route ${route} returned non-200 status: ${rawPage.statusCode}`);
+      }
+
+      const html = rawPage.html;
+
+      // Assert page-specific title and meta description exist in raw HTML
+      if (!html.includes('<title>') || !html.includes('</title>')) {
+        cleanupAndExit(1, `Route ${route} is missing title tag in raw HTML.`);
+      }
+      if (!html.includes('name="description"')) {
+        cleanupAndExit(1, `Route ${route} is missing meta description in raw HTML.`);
+      }
+
+      // Assert self-referencing canonical tag exists in raw HTML
+      const expectedCanonical = `https://snakeplantsoil.com${route === '/' ? '/' : route}`;
+      if (!html.includes(`<link rel="canonical" href="${expectedCanonical}"`)) {
+        cleanupAndExit(1, `Route ${route} is missing correct self-referencing canonical tag in raw HTML. Expected: ${expectedCanonical}`);
+      }
+
+      // Assert crawlable links are present in raw HTML
+      if (!html.includes('<a href="/')) {
+        cleanupAndExit(1, `Route ${route} is missing crawlable internal links in raw HTML.`);
+      }
+
+      // Assert page-specific body content/H1/H2 exist in raw HTML (proving static prerendering worked!)
+      if (route === '/') {
+        if (!html.includes('Your Snake Plant Is') || !html.includes('Telling You Something')) {
+          cleanupAndExit(1, `Homepage is missing hero text in raw HTML.`);
+        }
+      } else if (route === '/soil-diagnosis') {
+        if (!html.includes('Snake Plant Soil Diagnosis')) {
+          cleanupAndExit(1, `Soil diagnosis page is missing H3 title in raw HTML.`);
+        }
+      } else if (route === '/about') {
+        if (!html.includes('About Snake Plant Soil Lab')) {
+          cleanupAndExit(1, `About page is missing H2 title in raw HTML.`);
+        }
+      } else if (route === '/faq') {
+        if (!html.includes('Exhaustive Botanical Knowledgebase')) {
+          cleanupAndExit(1, `FAQ page is missing header text in raw HTML.`);
+        }
+      }
+
+      // B. Execute Chrome headlessly to fetch and execute JS (smoke-test React mounting)
       const url = `http://localhost:${PORT}${route}`;
       let dom = '';
       try {
@@ -76,26 +160,15 @@ setTimeout(() => {
         cleanupAndExit(1, `Failed to load page ${route} using headless Chrome. Chrome path or execution failed.`);
       }
 
-      // Assertions:
-      // 1. Document should mount React successfully (#root-container)
+      // Assert React mounted successfully
       if (!dom.includes('id="root-container"')) {
-        cleanupAndExit(1, `Page ${route} failed to mount React. DOM was blank or did not contain #root-container.`);
-      }
-
-      // 2. Document must contain key branding components
-      if (!dom.includes('SnakePlantSoil')) {
-        cleanupAndExit(1, `Page ${route} is missing website branding text "SnakePlantSoil".`);
-      }
-
-      // 3. Document must render header navigation links
-      if (!dom.includes('id="nav-link-setup-kits"')) {
-        cleanupAndExit(1, `Page ${route} is missing key navigation element #nav-link-setup-kits.`);
+        cleanupAndExit(1, `Page ${route} failed to mount React. DOM did not contain #root-container.`);
       }
 
       console.log(`  -> Route ${route} verified successfully!`);
     }
 
-    cleanupAndExit(0, "All production routes rendered visibly with no uncaught JS errors!");
+    cleanupAndExit(0, "All production routes rendered visibly with correct redirects and raw HTML prerendering content!");
 
   } catch (e) {
     cleanupAndExit(1, `An unexpected error occurred during test execution: ${e.message}`);

@@ -144,8 +144,8 @@ sitemapUrls.forEach(url => {
   const parsedPath = url.replace('https://snakeplantsoil.com', '');
   const cleanPath = parsedPath.replace(/^\//, '').replace(/\/$/, '');
 
-  // Assertion: Every sitemap URL appears in the route manifest (except root, setup-kits, faq, care-card)
-  if (cleanPath && !['setup-kits', 'faq', 'care-card'].includes(cleanPath)) {
+  // Assertion: Every sitemap URL appears in the route manifest (except root, soil-diagnosis, about, faq, care-card)
+  if (cleanPath && !['soil-diagnosis', 'about', 'faq', 'care-card'].includes(cleanPath)) {
     if (!allManifestSlugs.includes(cleanPath)) {
       fail(`Sitemap URL '${url}' does not correspond to any valid slug in the manifest.`);
     }
@@ -171,7 +171,8 @@ if (!routeRewrite) {
   fail("vercel.json is missing the SPA fallback rewrite rule to '/'.");
 }
 const sourcePattern = routeRewrite.source || '';
-allManifestSlugs.forEach(slug => {
+const expectedSlugs = ["soil-diagnosis", "about", "faq", "care-card", ...allManifestSlugs];
+expectedSlugs.forEach(slug => {
   if (!sourcePattern.includes(slug)) {
     fail(`Slug '${slug}' is missing from the vercel.json rewrites rule pattern.`);
   }

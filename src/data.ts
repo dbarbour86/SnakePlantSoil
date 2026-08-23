@@ -5,22 +5,22 @@ export const QUICK_ANSWERS: QuickAnswer[] = [
   {
     id: "best-soil-essence",
     question: "What soil is best for snake plants?",
-    answer: "Snake plants thrive in a highly porous, gritty, hyper-draining soil mix with a neutral pH of 5.5 to 7.0. The standard optimal commercial configuration is a luxury organic succulent and cactus mix amended with extra pumice or perlite. This mixture simulates their native arid soils in West Africa, preventing water accumulation around their sensitive rhizomes."
+    answer: "Snake plants grow best in a well-draining soil mix with a neutral pH of 5.5 to 7.0. A practical starting formula is a succulent and cactus mix amended with perlite or pumice to simulate dry, porous conditions and prevent water accumulation around the roots."
   },
   {
     id: "regular-soil-danger",
     question: "Can snake plants grow in regular potting soil?",
-    answer: "No, standard heavy potting soil is exceptionally lethal to snake plants. Regular soil is designed to hold moisture container-wide for thirsty plants, but for snake plants, it creates an anaerobic swamp that suffocates roots. If you must use standard soil, you need to loosen it by mixing in at least 50% drainage additions like perlite, coarse sand, or pumice."
+    answer: "Standard potting soil is generally too dense and retains water too long for snake plants. If you must use regular soil, it is recommended to adjust it by mixing in at least 50% drainage additions like perlite, coarse sand, or pumice to improve airflow."
   },
   {
     id: "repotting-freq",
     question: "How often should snake plants be repotted?",
-    answer: "Snake plants are beautifully slow growers that actively prefer being slightly root-bound. They generally require repotting only once every 2 to 3 years. It is best to repot in the warm spring or early summer months, choosing a new heavy pot that is only 1 to 2 inches wider in diameter than their current container."
+    answer: "Snake plants are relatively slow growers that can remain in the same container for 2 to 3 years. It is best to repot in the warm spring or early summer, choosing a pot that is only 1 to 2 inches wider than the current container."
   },
   {
     id: "root-rot-trigger",
     question: "What causes snake plant root rot?",
-    answer: "Root rot is caused almost entirely by overwatering paired with heavy, non-draining soil mixes. When water remains stagnant in the pot for multiple days, it starves roots of vital oxygen. The soil fungus (usually Pythium or Phytophthora) becomes active in these anaerobic conditions, liquefying rhizomes and killing the plant from the base up."
+    answer: "Root rot is frequently triggered by prolonged wet conditions in heavy, slow-draining soil mixes. When water sits in the pot for multiple days, it blocks oxygen flow to the roots, allowing soil-borne pathogens to become active and damage root tissues."
   }
 ];
 
@@ -84,18 +84,18 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     brand: "Hoffman",
     category: "soil",
     imageUrl: "/hoffman-organic-cactus-soil-mix.png",
-    bestFor: "Ultimate Out-of-the-Box Convenience",
+    bestFor: "Practical Out-of-the-Box Mix",
     rating: 4.8,
-    description: "A premium, ready-to-use soil expertly blended to provide essential aeration and custom drainage for desert-native plants. Critically balanced pH levels encourage rich rhizome development without needing additional heavy adjustments.",
+    description: "A ready-to-use soil blended to provide drainage for desert-native plants. Balanced pH levels support root development without requiring additional heavy adjustments.",
     pros: [
-       "Exceptional drainage speed out of the packaging",
-       "Contains organic vermiculite and peat moss for root warmth",
-       "Perfect pH-neutral formulation preventing chemical burn",
-       "Excellent consistency with no heavy wood chunks"
+       "Good drainage speed directly from the bag",
+       "Contains organic peat moss for healthy baseline support",
+       "Neutral pH formulation",
+       "Consistent blend with no large wood chunks"
     ],
     cons: [
        "A bit pricey for very large volume repotting setups",
-       "We still recommend adding 10% perlite for huge specimens"
+       "May benefit from extra perlite for very large specimens"
     ],
     linkText: "Check Price on Amazon",
     priceEstimate: "$$",
@@ -113,17 +113,17 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     brand: "Espoma",
     category: "soil",
     imageUrl: "/espoma-organic-cactus-soil-mix.png",
-    bestFor: "Organic Enthusiasts & Root Nutrition",
+    bestFor: "Organic Option",
     rating: 4.7,
-    description: "Enriched with Espoma's trademark Myco-tone, a proprietary blend of endo and ecto-mycorrhizae that helps foster deep root absorption networks while preventing water pooling.",
+    description: "Enriched with Espoma's Myco-tone blend of mycorrhizae, designed to support root absorption and allow drainage.",
     pros: [
-       "Contains active mycorrhizae fungi for resilient roots",
-       "Sourced organically with premium forestry composts",
-       "Extremely light weight and easy to work with"
+       "Contains mycorrhizae fungi for roots",
+       "Sourced organically with forest products",
+       "Lightweight mix"
     ],
     cons: [
-       "Retains slightly more water; requires 3 weeks between waterings",
-       "Can contain minor organic bark fragrance"
+       "Retains slightly more water than high-mineral gritty mixes",
+       "Can contain minor organic wood bark fragrance"
     ],
     linkText: "Check Price on Home Depot",
     priceEstimate: "$",
@@ -143,15 +143,15 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     imageUrl: "/coarse-horticultural-silica-sand.png",
     bestFor: "Adding Custom Soil Grittiness (DIY Mix)",
     rating: 4.9,
-    description: "Washed and graded coarse sand designed explicitly for garden potting. Regular play sand is too fine and cements soil; coarse silica sand creates permanent channel voids for quick water drainage.",
+    description: "Washed coarse sand designed for garden potting. Unlike fine play sand which can compact, coarse sand creates channel voids for water drainage.",
     pros: [
-       "Will not degrade or dissolve over time",
-       "100% sterile, preventing gnat larvae or fungal weeds",
-       "Provides superb structural anchor weight for tall snake plants"
+       "Will not degrade over time",
+       "Clean and sterile, preventing gnat larvae or weeds",
+       "Provides structural anchor weight for tall snake plants"
     ],
     cons: [
-       "Adds considerable physical weight to pots",
-       "Contains zero plant nutrients (pure drainage element)"
+       "Adds physical weight to pots",
+       "Contains no plant nutrients"
     ],
     linkText: "Check Price on Amazon",
     priceEstimate: "$",
@@ -169,18 +169,18 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     brand: "Deroma",
     category: "pot",
     imageUrl: "/classic-terracotta-clay-pot.png",
-    bestFor: "Foolproof Moisture Control & Evaporation",
+    bestFor: "Breathable Container Option",
     rating: 4.9,
-    description: "The gold standard of snake plant housing. Natural baked terracotta clay has high structural porosity, absorbing excess wall-side water and naturally transpiring it into the room, reducing rot risk by 70%.",
+    description: "A traditional choice for snake plants. Porous terracotta clay allows wall-side moisture to transpire, which may help reduce prolonged wet conditions.",
     pros: [
        "Breathable material dries soil from outer edges inwards",
        "Heavy base prevents tall snake plants from tipping over",
-       "Includes extra-large centered bottom drainage hole",
-       "Aesthetically timeless warm earthy neutral look"
+       "Includes bottom drainage hole",
+       "Classic warm earthy neutral look"
     ],
     cons: [
        "Heavy and fragile if dropped",
-       "Mineral salts can leave a white patina on the clay over a couple years"
+       "Mineral salts can leave a white patina on the clay over time"
     ],
     linkText: "Check Price on Amazon",
     priceEstimate: "$",

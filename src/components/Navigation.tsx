@@ -11,26 +11,39 @@ interface NavigationProps {
 export default function Navigation({ activeTab, setActiveTab, onSearchChange, searchQuery }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Map tabs to paths
+  const tabToSlugMap: Record<string, string> = {
+    'home': '',
+    'setup-kits': 'soil-diagnosis',
+    'best-soil': 'best-snake-plant-soil',
+    'diy-mix': 'diy-snake-plant-soil-mix',
+    'root-rot': 'snake-plant-root-rot-guide',
+    'best-pots': 'best-pots-for-snake-plants',
+    'care-guide': 'snake-plant-care-guide',
+    'faq': 'faq',
+    'care-card': 'care-card',
+    'about': 'about'
+  };
+
   // Main desktop links (streamlined & clean)
   const desktopNavItems = [
     { id: 'best-soil', label: 'Best Soils' },
     { id: 'diy-mix', label: 'DIY Mix' },
-    { id: 'root-rot', label: 'Root Rot' },
-    { id: 'care-guide', label: 'Watering & Care' },
-    { id: 'setup-kits', label: 'Kit Builder' },
+    { id: 'root-rot', label: 'Soil Problems' },
+    { id: 'care-guide', label: 'Care Guides' },
+    { id: 'about', label: 'About' },
     { id: 'faq', label: 'FAQ' }
   ];
 
   // Full set for mobile drawer
   const allNavItems = [
     { id: 'home', label: 'Home' },
-    { id: 'best-soil', label: 'Best Commercial Soils' },
-    { id: 'diy-mix', label: 'DIY Soil Recipe' },
-    { id: 'root-rot', label: 'Root Rot Rescue' },
-    { id: 'best-pots', label: 'Optimal Pots' },
-    { id: 'care-guide', label: 'Watering & Care Guide' },
-    { id: 'setup-kits', label: 'Custom Kit Builder' },
-    { id: 'care-card', label: 'Free Printable Care Card' },
+    { id: 'setup-kits', label: 'Diagnose My Plant' },
+    { id: 'best-soil', label: 'Best Soils' },
+    { id: 'diy-mix', label: 'DIY Mix' },
+    { id: 'root-rot', label: 'Soil Problems' },
+    { id: 'care-guide', label: 'Care Guides' },
+    { id: 'about', label: 'About' },
     { id: 'faq', label: 'FAQ' }
   ];
 
@@ -46,8 +59,12 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
         <div className="flex justify-between items-center h-14 sm:h-16">
           
           {/* Logo Branding */}
-          <div 
-            onClick={() => handleNavClick('home')} 
+          <a 
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('home');
+            }} 
             className="flex items-center gap-2 cursor-pointer group shrink-0"
             id="brand-logo"
           >
@@ -57,24 +74,39 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
             <span className="font-bold text-stone-900 tracking-tight text-base sm:text-lg">
               SnakePlantSoil<span className="text-emerald-800">.com</span>
             </span>
-          </div>
+          </a>
 
           {/* Desktop Navigation Link Toggles (Slim & Spacious) */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {desktopNavItems.map((item) => (
-              <button
+              <a
                 key={item.id}
-                onClick={() => handleNavClick(item.id)}
+                href={"/" + tabToSlugMap[item.id]}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeTab === item.id 
-                    ? 'bg-emerald-800 text-white shadow-xs' 
+                    ? 'bg-stone-100 text-stone-900 shadow-xs' 
                     : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
                 }`}
                 id={`nav-link-${item.id}`}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
+            <a
+              href="/soil-diagnosis"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('setup-kits');
+              }}
+              className="ml-2 bg-emerald-800 hover:bg-emerald-900 text-stone-50 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all shadow-xs shrink-0"
+              id="nav-link-diagnose-cta"
+            >
+              Find Your Soil Profile
+            </a>
           </nav>
 
           {/* Mini Search Form & Mobile Toggle */}
@@ -113,19 +145,23 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
       {isOpen && (
         <div className="md:hidden border-t border-stone-100 bg-white/95 backdrop-blur-md py-3 px-4 space-y-1 shadow-md" id="mobile-nav-list-drawer">
           {allNavItems.map((item) => (
-            <button
+            <a
               key={item.id}
-              onClick={() => handleNavClick(item.id)}
+              href={"/" + tabToSlugMap[item.id]}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick(item.id);
+              }}
               className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-between ${
-                activeTab === item.id 
+                activeTab === item.id || (activeTab === 'setup-kits' && item.id === 'setup-kits')
                   ? 'bg-emerald-800 text-white' 
                   : 'text-stone-700 hover:bg-stone-50 hover:text-stone-950'
               }`}
               id={`mobile-nav-link-${item.id}`}
             >
               <span>{item.label}</span>
-              {activeTab === item.id && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-            </button>
+              {(activeTab === item.id || (activeTab === 'setup-kits' && item.id === 'setup-kits')) && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+            </a>
           ))}
         </div>
       )}

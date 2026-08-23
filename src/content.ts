@@ -9,6 +9,7 @@ export interface DynamicArticle {
   date?: string;
   content: string;
   status: string;
+  format?: string;
 }
 
 // 1. Helper to estimate reading time based on word count
@@ -43,13 +44,15 @@ export function parseMarkdownWithFrontmatter(raw: string): { metadata: Record<st
 }
 
 // 3. Eagerly load all posts in /content/posts/ directory using Vite's glob import if available
-const mdFiles = (typeof import.meta !== 'undefined' && typeof import.meta.glob === 'function')
-  ? import.meta.glob(['/content/posts/*.md', '../content/posts/*.md'], { query: '?raw', eager: true }) as Record<string, { default: string }>
-  : {};
+let mdFiles: Record<string, { default: string }> = {};
+try {
+  mdFiles = import.meta.glob(['/content/posts/*.md', '../content/posts/*.md'], { query: '?raw', eager: true }) as any;
+} catch (e) {}
 
-const jsonFiles = (typeof import.meta !== 'undefined' && typeof import.meta.glob === 'function')
-  ? import.meta.glob(['/content/posts/*.json', '../content/posts/*.json'], { query: '?raw', eager: true }) as Record<string, { default: string }>
-  : {};
+let jsonFiles: Record<string, { default: string }> = {};
+try {
+  jsonFiles = import.meta.glob(['/content/posts/*.json', '../content/posts/*.json'], { query: '?raw', eager: true }) as any;
+} catch (e) {}
 
 export function getDynamicArticles(): DynamicArticle[] {
   const articles: DynamicArticle[] = [];
@@ -85,7 +88,8 @@ export function getDynamicArticles(): DynamicArticle[] {
         slug,
         date: metadata.date,
         content: body,
-        status: metadata.status || 'published'
+        status: metadata.status || 'published',
+        format: 'md'
       });
     } catch (e) {
       console.error(`Failed to parse Markdown post at ${path}:`, e);
@@ -119,7 +123,8 @@ export function getDynamicArticles(): DynamicArticle[] {
         slug,
         date: data.date,
         content: data.content || '',
-        status: data.status || 'published'
+        status: data.status || 'published',
+        format: 'json'
       });
     } catch (e) {
       console.error(`Failed to parse JSON post at ${path}:`, e);

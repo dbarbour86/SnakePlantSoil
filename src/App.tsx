@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Trees, Beaker, HeartPulse, Layers, Compass, HelpCircle, 
   ChevronRight, Check, AlertTriangle, Info, Search, 
-  Sparkles, Award, Star, ArrowRight, ShieldCheck, HelpCircle as QuestionIcon, Plus, Minus
+  Sparkles, Award, Star, ArrowRight, ShieldCheck, HelpCircle as QuestionIcon, Plus, Minus,
+  ExternalLink
 } from 'lucide-react';
 
 import Navigation from './components/Navigation';
@@ -26,6 +27,7 @@ import { CONTENT_GUIDES, STATIC_GUIDES, FAQ_ITEMS } from './data';
 import { getDynamicArticles } from './content';
 import routeManifest from './generated-manifest.json';
 import DynamicArticleView from './components/DynamicArticle';
+import { SOIL_PROFILES, COMMERCIAL_PRODUCTS } from './diagnosticConfig';
 
 
 const HERO_CARE_TIPS = [
@@ -42,8 +44,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe."
   },
   'setup-kits': {
-    title: "Snake Plant Soil Mix Setup Kit Builder | SnakePlantSoil.com",
-    description: "Custom potting component calculator. Choose your pot size and design the perfect quick-draining soil mix with our custom kit builder."
+    title: "Snake Plant Soil Diagnosis & Custom Recommendations | SnakePlantSoil.com",
+    description: "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check."
   },
   'best-soil': {
     title: "Best Commercial Soils for Snake Plants | SnakePlantSoil.com",
@@ -69,6 +71,10 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     title: "Snake Plant Potting & Care FAQs | SnakePlantSoil.com",
     description: "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention."
   },
+  about: {
+    title: "About Our Practical Soil Research | SnakePlantSoil.com",
+    description: "Learn about Snake Plant Soil Lab's mission to simplify plant care, pot, light and watering mechanics, and future soil mix trials."
+  },
   'care-card': {
     title: "Free Printable Snake Plant Care Card Generator | SnakePlantSoil.com",
     description: "Generate a custom PDF care card with your snake plant's name, optimal watering frequency, and sunlight requirements."
@@ -85,6 +91,7 @@ export default function App() {
     const cleanPath = path.replace(/^\//, '').split('?')[0].split('#')[0];
     switch (cleanPath) {
       case 'setup-kits':
+      case 'soil-diagnosis':
         return 'setup-kits';
       case 'best-soil':
       case 'best-snake-plant-soil':
@@ -101,9 +108,12 @@ export default function App() {
       case 'care-guide':
       case 'snake-plant-care-guide':
         return 'care-guide';
-      case 'care-card':
       case 'faq':
-        return cleanPath;
+        return 'faq';
+      case 'about':
+        return 'about';
+      case 'care-card':
+        return 'care-card';
       case '':
       case 'home':
         return 'home';
@@ -135,6 +145,8 @@ export default function App() {
         );
         if (dynamicMatch) {
           targetPath = `/${dynamicMatch.slug}`;
+        } else if (normalizedTab === 'setup-kits') {
+          targetPath = '/soil-diagnosis';
         } else {
           const staticMatch = STATIC_GUIDES.find(s => s.id === normalizedTab || s.slug === tab || s.id === tab);
           targetPath = `/${staticMatch ? staticMatch.slug : normalizedTab}`;
@@ -189,9 +201,13 @@ export default function App() {
       title = PAGE_METADATA[activeTab].title;
       description = PAGE_METADATA[activeTab].description;
       if (activeTab !== 'home') {
-        const staticMatch = STATIC_GUIDES.find(s => s.id === activeTab);
-        const slug = staticMatch ? staticMatch.slug : activeTab;
-        canonicalUrl = `https://snakeplantsoil.com/${slug}`;
+        if (activeTab === 'setup-kits') {
+          canonicalUrl = 'https://snakeplantsoil.com/soil-diagnosis';
+        } else {
+          const staticMatch = STATIC_GUIDES.find(s => s.id === activeTab);
+          const slug = staticMatch ? staticMatch.slug : activeTab;
+          canonicalUrl = `https://snakeplantsoil.com/${slug}`;
+        }
       }
     } else {
       is404 = true;
@@ -289,138 +305,349 @@ export default function App() {
               id="homepage-view"
             >
               
-              {/* Modern Minimal Hero Section */}
-              <section className="bg-white border-b border-stone-200 overflow-hidden" id="hero-heading-block">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Hero Section */}
+              <section className="bg-white border-b border-stone-200 overflow-hidden shadow-2xs" id="hero-heading-block">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                   
                   {/* Hero Left Content */}
-                  <div className="lg:col-span-7 space-y-6 text-left max-w-2xl">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-150">
-                      <ShieldCheck className="w-3.5 h-3.5" /> 100% Expert-Backed Soil & Care Guides
+                  <div className="lg:col-span-7 space-y-5 text-left max-w-2xl">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-805 border border-emerald-100 uppercase tracking-wider">
+                      🌿 Built specifically for snake plants
                     </span>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-stone-900 tracking-tight leading-[1.1]" id="hero-main-title">
-                      The Best Soil for <span className="text-emerald-800 decoration-emerald-800 underline decoration-wavy">Snake Plants</span> — Explained Simply
+                      Your Snake Plant Is <span className="text-emerald-850 decoration-emerald-850 underline decoration-wavy">Telling You Something.</span>
                     </h1>
-                    <p className="text-stone-600 text-sm sm:text-base leading-relaxed pl-1">
-                      Beginner-friendly soil guides, drainage tips, care advice, and trusted recommendations to help your snake plants thrive. Learn how to calibrate mineral grittiness and avoid root-rotting moisture traps.
+                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed pl-0.5">
+                      Tell us what the leaves, soil and growing conditions are doing. We’ll help you identify the soil profile that best fits your plant and compare suitable ready-made options.
                     </p>
                     
-                    <div className="flex flex-wrap items-center gap-3 pt-2 pl-1">
+                    <div className="flex flex-wrap items-center gap-3 pt-1">
                       <button 
                         onClick={() => navigateToArticle('setup-kits')}
-                        className="bg-emerald-800 text-stone-50 hover:bg-emerald-950 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all shadow-sm flex items-center gap-2"
+                        className="bg-emerald-800 text-stone-50 hover:bg-emerald-950 px-5 py-2.5 rounded-lg text-xs font-bold font-sans transition-all shadow-xs flex items-center gap-2 cursor-pointer"
                         id="hero-cta-setup-kits"
                       >
-                        <Sparkles className="w-4 h-4 text-emerald-300 animate-pulse" />
-                        <span>Build Custom Setup Kit</span>
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
+                        <span>Find My Soil Profile</span>
                       </button>
                       <button 
                         onClick={() => navigateToArticle('best-soil')}
-                        className="bg-stone-100 text-stone-800 hover:bg-stone-200 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all border border-stone-250 flex items-center gap-2"
+                        className="bg-stone-100 text-stone-850 hover:bg-stone-200 px-5 py-2.5 rounded-lg text-xs font-bold font-sans transition-all border border-stone-250 flex items-center gap-2 cursor-pointer"
                         id="hero-cta-best-soil"
                       >
-                        <span>Best Soils</span>
-                      </button>
-                      <button 
-                        onClick={() => navigateToArticle('diy-mix')}
-                        className="bg-stone-100 text-stone-800 hover:bg-stone-200 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all border border-stone-250 flex items-center gap-2"
-                        id="hero-cta-diy"
-                      >
-                        <span>DIY Recipe</span>
+                        <span>Compare Ready-Made Soils</span>
                       </button>
                     </div>
 
-                    {/* SEO schema & citations micro badge */}
-                    <div className="pt-2 flex items-center gap-4 text-xs text-stone-450 border-t border-stone-100">
-                      <div>• Indexed by <span className="font-bold text-stone-700">Academic Databases</span></div>
-                      <div>• Rated <span className="font-bold text-emerald-800">Crawlable Specs</span></div>
-                      <div>• Verified <span className="font-bold text-stone-700">Pure Botany</span></div>
+                    <div className="pt-3 flex items-center gap-4 text-[10px] sm:text-xs text-stone-450 border-t border-stone-100">
+                      <div>• Answer a few questions</div>
+                      <div>• Find the right soil type</div>
+                      <div>• Practical guidance for real homes</div>
                     </div>
                   </div>
 
-                  {/* Hero Right Image Graphic */}
+                  {/* Hero Right Graphic - Snake Plant Image + Overlay Card */}
                   <div className="lg:col-span-5 relative" id="hero-graphic-image-box">
-                    <div className="absolute inset-0 bg-emerald-800/5 rounded-3xl -rotate-2 transform scale-102" />
-                    <a 
-                      href="https://www.amazon.com/Terracotta-Drainage-Cylinder-Planter-587-42-0/dp/B08QYLP91Q?th=1&tag=snakeplantsoi-20"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative border border-stone-200 bg-stone-100 rounded-3xl overflow-hidden shadow-md aspect-4/3 sm:aspect-square block group cursor-pointer"
-                      id="hero-affiliate-image-link"
-                    >
+                    {/* Snake Plant Image */}
+                    <div className="relative w-full aspect-4/3 sm:aspect-square lg:aspect-4/3 rounded-3xl overflow-hidden border border-stone-200 shadow-sm bg-stone-100">
                       <img 
-                        src="/terracotta-cylinder-planter.png"
-                        alt="Terracotta Cylinder Planter Pot with Drainage" 
-                        className="w-full h-full object-cover select-none transition-transform duration-300 group-hover:scale-102"
+                        src="/hero-snake-plant.png" 
+                        alt="Healthy snake plant in a terracotta pot with well-drained soil in a naturally lit room" 
+                        className="w-full h-full object-cover"
+                        loading="eager"
                       />
-                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-stone-150/50 shadow-sm overflow-hidden min-h-[46px] flex items-center">
-                        <div className="flex items-center gap-2.5 w-full">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-                          <div className="flex-1 overflow-hidden">
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                key={heroTipIndex}
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -8 }}
-                                transition={{ duration: 0.35, ease: 'easeOut' }}
-                                className="text-[11px] font-mono font-bold text-stone-750 uppercase tracking-tight flex items-center gap-1.5 truncate"
-                              >
-                                <span className="text-xs shrink-0">{HERO_CARE_TIPS[heroTipIndex].icon}</span>
-                                <span className="text-emerald-900 font-extrabold shrink-0">{HERO_CARE_TIPS[heroTipIndex].label}:</span>
-                                <span className="text-stone-700 truncate">{HERO_CARE_TIPS[heroTipIndex].value}</span>
-                              </motion.div>
-                            </AnimatePresence>
-                          </div>
-                        </div>
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent" />
+                    </div>
+
+                    {/* Layered Soil Profile Preview Card (Partially overlapping) */}
+                    <div className="absolute -bottom-4 -left-4 md:-left-6 max-w-[260px] sm:max-w-[280px] border border-stone-200 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg text-left space-y-2.5 hidden sm:block">
+                      <div className="flex items-center justify-between border-b border-stone-100 pb-1.5">
+                        <span className="text-[8px] font-mono font-bold text-emerald-805 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase">
+                          Profile Preview
+                        </span>
+                        <span className="text-[8px] font-mono text-stone-400">
+                          everyday-balance
+                        </span>
                       </div>
-                    </a>
+                      
+                      <h3 className="font-bold text-stone-900 text-xs flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                        Everyday Balance
+                      </h3>
+                      <p className="text-stone-500 text-[10px] leading-relaxed">
+                        A balanced organic-mineral mix. Best for average indoor conditions.
+                      </p>
+                      
+                      <div className="flex items-center justify-between text-[9px] text-stone-600 border-t border-stone-100 pt-2 font-mono">
+                        <span>Dry-down: 3-5 days</span>
+                        <button
+                          onClick={() => navigateToArticle('setup-kits')}
+                          className="text-emerald-800 hover:text-emerald-950 font-bold hover:underline cursor-pointer"
+                        >
+                          Find My Profile →
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
                 </div>
               </section>
 
-              {/* SECTION 2: QUICK ANSWERS (Botanical Fact Deck) */}
-              <AIAnswerCards />
+              {/* SECTION 2: HOW IT WORKS */}
+              <section className="py-14 bg-sage-50 border-t border-b border-sage-100 relative overflow-hidden" id="homepage-how-it-works">
+                {/* Subtle organic dot background texture */}
+                <div className="absolute inset-0 bg-soil-texture pointer-events-none" />
 
-              {/* COMPREHENSIVE LEAD MAGNET PROMOTION SECTION */}
-              <section className="bg-emerald-950 text-stone-100 py-12 px-4 shadow-inner" id="cta-lead-magnet-banner">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                  <div className="md:col-span-8 space-y-3.5">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] uppercase font-mono font-bold bg-emerald-900 text-emerald-300 border border-emerald-800">
-                      🌿 Interactive Botanical Care Card Maker
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                  <div className="text-center max-w-2xl mx-auto mb-10">
+                    <span className="text-[10px] sm:text-xs font-mono font-bold text-emerald-805 uppercase tracking-widest block mb-2">
+                      HOW IT WORKS
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-display font-black tracking-tight leading-tight">
-                      Free Printable Care Card & Custom Watering Schedule
-                    </h3>
-                    <p className="text-emerald-100/90 text-xs sm:text-sm max-w-xl leading-relaxed">
-                      Stop guessing or relying on standard calendars. Feed our calculation matrix your pot type, light level, and active season to generate a custom-tailored care card ready to tape alongside your pots in exchange for your email!
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
+                      How the Soil Check Works
+                    </h2>
+                    <p className="text-stone-650 text-xs sm:text-sm mt-2 leading-relaxed">
+                      Answer a few questions, find your soil profile and compare ready-made options that fit your plant’s conditions.
                     </p>
                   </div>
-                  <div className="md:col-span-4 flex justify-start md:justify-end">
+
+                  <div className="relative">
+                    {/* Directional Progression Lines: Vertical on mobile, Horizontal on desktop */}
+                    <div className="absolute left-[44px] md:left-[15%] md:right-[15%] top-10 bottom-10 md:bottom-auto md:top-[44px] w-0 md:w-auto h-full md:h-0 border-l border-dashed md:border-l-0 md:border-t border-emerald-800/15 z-0" />
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                      {/* Step 1 */}
+                      <div className="bg-white p-6 sm:p-7 rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 motion-safe:transform-none flex flex-col justify-between h-full">
+                        <div className="space-y-4">
+                          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 font-mono font-bold text-sm flex items-center justify-center border border-emerald-100/50 shadow-2xs">
+                            01
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-900">
+                              TELL US WHAT YOU SEE
+                            </h3>
+                            <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
+                              Answer a few questions about the leaves, soil, pot and growing conditions.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Step 2 */}
+                      <div className="bg-white p-6 sm:p-7 rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 motion-safe:transform-none flex flex-col justify-between h-full">
+                        <div className="space-y-4">
+                          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 font-mono font-bold text-sm flex items-center justify-center border border-emerald-100/50 shadow-2xs">
+                            02
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-900">
+                              FIND YOUR SOIL PROFILE
+                            </h3>
+                            <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
+                              We’ll match those conditions to one of five practical soil profiles.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Step 3 */}
+                      <div className="bg-white p-6 sm:p-7 rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 motion-safe:transform-none flex flex-col justify-between h-full">
+                        <div className="space-y-4">
+                          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 font-mono font-bold text-sm flex items-center justify-center border border-emerald-100/50 shadow-2xs">
+                            03
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-900">
+                              COMPARE READY-MADE SOILS
+                            </h3>
+                            <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
+                              See suitable commercial options, including their strengths and limitations.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Centered CTA */}
+                  <div className="mt-10 flex justify-center">
                     <button
-                      onClick={() => navigateToArticle('care-card')}
-                      className="w-full md:w-auto bg-stone-50 hover:bg-white text-emerald-900 px-6 py-3.5 rounded-xl font-bold font-sans text-xs transition-all shadow-md flex items-center justify-center gap-2"
-                      id="home-trigger-lead-magnet"
+                      onClick={() => navigateToArticle('setup-kits')}
+                      className="bg-emerald-800 text-stone-50 hover:bg-emerald-950 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:shadow-md"
+                      id="how-it-works-cta"
                     >
-                      <span>Create Free Custom Care Card</span>
-                      <Sparkles className="w-4 h-4 text-emerald-700 animate-pulse" />
+                      <span>Find My Soil Profile</span>
+                      <span className="text-emerald-300">→</span>
                     </button>
                   </div>
                 </div>
               </section>
 
-              {/* SECTION 3: FEATURED GUIDES GRID */}
+              {/* SECTION 3: SOIL PROFILE PREVIEW LIST */}
+              <section className="py-12 bg-white" id="homepage-soil-profiles-preview">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center max-w-xl mx-auto mb-8">
+                    <h2 className="text-2xl font-bold text-stone-900 tracking-tight">
+                      The Five Soil Profiles
+                    </h2>
+                    <p className="text-stone-500 text-xs mt-1.5">
+                      Explore the characteristics of our five primary soil profiles. Click to run the soil check and find which profile fits your plant.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {SOIL_PROFILES.map((profile) => {
+                      let conciseDesc = '';
+                      if (profile.id === 'fast-drain') {
+                        conciseDesc = 'For soil that stays wet too long, humid homes or frequent watering.';
+                      } else if (profile.id === 'everyday-balance') {
+                        conciseDesc = 'For healthy plants, routine repotting and average indoor conditions.';
+                      } else if (profile.id === 'dry-home') {
+                        conciseDesc = 'For soil that dries very quickly, dry rooms or breathable terracotta pots.';
+                      } else if (profile.id === 'recovery') {
+                        conciseDesc = 'For repotting after damaged roots or rhizomes have been properly addressed.';
+                      } else if (profile.id === 'propagation') {
+                        conciseDesc = 'For rooted cuttings, young plants and smaller containers.';
+                      }
+
+                      return (
+                        <div 
+                          key={profile.id}
+                          className="border border-stone-200 p-5 rounded-2xl bg-stone-50/45 space-y-4 hover:border-emerald-700/30 transition-all flex flex-col justify-between"
+                        >
+                          <div className="space-y-2">
+                            <span className="text-[8px] font-mono font-bold text-emerald-808 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 block w-fit">
+                              Profile Spec
+                            </span>
+                            <h3 className="font-mono font-bold text-stone-900 text-xs uppercase tracking-wide">
+                              {profile.name}
+                            </h3>
+                            <p className="text-stone-550 text-xs leading-relaxed">
+                              {conciseDesc}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => navigateToArticle('setup-kits')}
+                            className="w-full bg-white border border-stone-200 hover:bg-stone-50 text-stone-750 py-2 rounded-lg text-xs font-bold transition-all text-center flex items-center justify-center gap-1 cursor-pointer"
+                          >
+                            <span>See If This Fits My Plant</span>
+                            <span>→</span>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </section>
+
+              {/* SECTION 4: BEST READY-MADE SOILS PREVIEW */}
+              <section className="py-10 bg-stone-100/50 border-t border-b border-stone-200" id="homepage-ready-made-soils">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center max-w-xl mx-auto mb-8">
+                    <h2 className="text-2xl font-bold text-stone-900 tracking-tight">
+                      Compare Ready-Made Soils
+                    </h2>
+                    <p className="text-stone-500 text-xs mt-1.5">
+                      An editorial overview of recommended commercial soil mixes from our catalog, matching their qualities to different home conditions.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {COMMERCIAL_PRODUCTS.slice(0, 3).map((prod) => (
+                      <div key={prod.id} className="bg-white border border-stone-200 p-5 rounded-2xl flex flex-col justify-between hover:border-emerald-700/20 transition-all">
+                        <div className="space-y-3">
+                          <div className="flex gap-3">
+                            <div className="w-14 h-14 shrink-0 rounded-lg overflow-hidden bg-stone-50 border border-stone-200 flex items-center justify-center p-1">
+                              <img src={prod.imageUrl} alt={prod.name} className="max-w-full max-h-full object-contain" />
+                            </div>
+                            <div className="space-y-1">
+                              <span className="text-[8px] font-mono font-bold text-emerald-805 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase block w-fit">
+                                BEST FOR
+                              </span>
+                              <span className="text-xs font-bold text-stone-705">
+                                {prod.id === 'bonsai-jack-gritty' ? 'Fast drainage' :
+                                 prod.id === 'hoffman-succulent' ? 'Balanced potting' :
+                                 prod.id === 'espoma-cactus' ? 'Organic roots' : 'Budget potting'}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-0.5">
+                            <div className="text-[9px] font-mono text-stone-400 font-bold uppercase">{prod.brand}</div>
+                            <h3 className="font-bold text-stone-900 text-xs leading-snug">
+                              {prod.name}
+                            </h3>
+                          </div>
+
+                          <p className="text-stone-550 text-xs leading-relaxed">
+                            {prod.id === 'bonsai-jack-gritty' 
+                              ? 'Very gritty and fast draining, but its largely mineral structure may require different watering and feeding habits.'
+                              : prod.id === 'hoffman-succulent'
+                              ? 'Ready-to-use organic-mineral mix with perlite, but holds more moisture than gritty mixes and requires strict dry periods.'
+                              : prod.id === 'espoma-cactus'
+                              ? 'Active Mycorrhizae root stimulator base, though its organic peat humus retention demands careful watering checks.'
+                              : 'Highly affordable local option, but its fine peat content is prone to dry compaction if left unwatered.'
+                            }
+                          </p>
+
+                          <div className="text-[10px] border-t border-stone-100 pt-2 space-y-1 font-sans">
+                            <div className="flex items-start gap-1 text-stone-605">
+                              <span className="text-emerald-700 font-bold">✓</span>
+                              <span><strong>Strength:</strong> {prod.strengths[0]}</span>
+                            </div>
+                            <div className="flex items-start gap-1 text-stone-605">
+                              <span className="text-amber-600 font-bold">⚠</span>
+                              <span><strong>Limitation:</strong> {prod.limitations[0]}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="pt-3 flex items-center justify-between border-t border-stone-100 mt-4">
+                          <a
+                            href="/best-snake-plant-soil"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigateToArticle('best-soil');
+                            }}
+                            className="text-xs font-bold text-emerald-800 hover:text-emerald-950 hover:underline inline-flex items-center gap-0.5"
+                          >
+                            <span>View Review</span>
+                            <span>→</span>
+                          </a>
+                          <span className="text-[8px] text-stone-400 font-mono italic">
+                            *Affiliate link
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="text-center">
+                    <button
+                      onClick={() => navigateToArticle('best-soil')}
+                      className="inline-flex items-center gap-1 bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-5 py-2.5 rounded-lg text-xs transition-colors shadow-xs cursor-pointer"
+                      id="view-all-commercial-btn"
+                    >
+                      <span>Compare Ready-Made Soils</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              {/* SECTION 5: USEFUL GUIDES */}
               <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="featured-guides">
                 <div className="text-center max-w-xl mx-auto mb-10">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-805 bg-emerald-100/50 px-2.5 py-1 rounded font-bold">
-                    In-depth Authority Materials
+                    Practical Soil Manuals
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-sans font-bold text-stone-900 tracking-tight mt-2.5">
-                    Browse Our Specialist Soil & Care Guides
+                    Useful Soil &amp; Potting Guides
                   </h2>
                   <p className="text-stone-550 text-sm mt-1.5">
-                    Select a curated topic block below to explore advanced water transport science, soil porosity, and troubleshooting guidelines.
+                    Browse our guides to learn about soil ingredients, root rot recovery, breathable containers, and seasonal watering checks.
                   </p>
                 </div>
 
@@ -468,137 +695,54 @@ export default function App() {
                 </div>
               </section>
 
-              {/* INTERACTIVE SETUP KIT PROMOTION BLOCK */}
-              <section className="py-12 bg-gradient-to-br from-emerald-900 to-stone-900 text-stone-100 border-t border-b border-emerald-950 animate-fade-in" id="homepage-setup-kits-banner">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div className="lg:col-span-8 space-y-3">
-                      <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-300 bg-emerald-950/60 border border-emerald-800 px-2.5 py-1 rounded">
-                        <Sparkles className="w-3.5 h-3.5 animate-pulse text-emerald-450" /> Interactive Shopping Tool
-                      </span>
-                      <h2 className="text-2xl sm:text-3xl font-mono font-bold text-white tracking-tight">
-                        Perfect Mix & Container Kit Builder
-                      </h2>
-                      <p className="text-stone-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
-                        Are you ready to repot your snake plant? Select your goal (such as simple pre-mix, golden ratio 3-2-1 recipe, or root rot recovery) and your exact plant height. Our algorithm will compile a custom recommended materials list with verified, high-drainage direct Amazon and nursery buying links!
-                      </p>
-                    </div>
-                    <div className="lg:col-span-4 flex lg:justify-end">
-                      <button
-                        onClick={() => navigateToArticle('setup-kits')}
-                        className="w-full lg:w-auto bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-stone-950 font-bold font-sans text-xs px-6 py-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 uppercase tracking-wider"
-                        id="home-promo-setup-kits-btn"
-                      >
-                        <span>Build Custom Kit Setup</span>
-                        <ArrowRight className="w-4 h-4 shrink-0" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* SECTION 4 — INTERACTIVE SOIL COLUMN DIAGRAM */}
-              <section className="py-12 bg-stone-100/50 border-t border-b border-stone-200" id="soil-layering-breakdown">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-2xl mx-auto mb-8">
-                    <h2 className="text-xl md:text-2xl font-bold text-stone-905 tracking-tight">
-                      Visualize the Soil Composition Ratios
+              {/* SECTION 6: FUTURE SOILS WAITLIST INVITATION */}
+              <section className="bg-emerald-950 text-stone-100 py-12 px-4" id="homepage-waitlist-block">
+                <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                  <div className="md:col-span-7 space-y-3">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] uppercase font-mono font-bold bg-emerald-900 text-emerald-300 border border-emerald-805">
+                      🌿 Custom Soil Research
+                    </span>
+                    <h2 className="text-2xl font-bold text-white tracking-tight leading-tight">
+                      We’re Developing Soil Specifically for Snake Plants
                     </h2>
-                    <p className="text-stone-500 text-xs mt-1.5">
-                      Understanding how inorganic minerals isolate water from organic matters is crucial. Click a raw tier inside the visual model to analyze its botanical properties.
+                    <p className="text-emerald-100/90 text-xs leading-relaxed">
+                      We’re researching ready-made soil options and learning which conditions cause snake plant owners the most trouble. Your soil check will help guide what we develop.
                     </p>
                   </div>
-                  <SoilMixDiagram />
-                </div>
-              </section>
-
-              {/* SECTION 5 — DETAILED PRODUCT RECOMMENDATIONS (AFFILIATE SITES) */}
-              <ProductSection />
-
-              {/* SECTION 6 — BEGINNER CARE TIPS METRIC */}
-              <section className="py-16 bg-white border-t border-stone-200" id="beginner-care-tips-box">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    
-                    <div className="lg:col-span-5 space-y-4">
-                      <span className="text-emerald-850 font-bold text-xs uppercase tracking-wider font-mono">
-                        Beginner Care Strategy
-                      </span>
-                      <h2 className="text-2xl sm:text-3xl font-bold font-sans text-stone-900 tracking-tight leading-none">
-                        Four Non-Negotiable Snake Plant Rules
-                      </h2>
-                      <p className="text-stone-550 text-sm leading-relaxed">
-                        90% of snake plant fatalities occur because beginners treat them like standard tropical soft plants. Adopt these minimal physical checks to secure their moisture margins.
+                  <div className="md:col-span-5 bg-white/5 border border-white/10 p-5 rounded-2xl space-y-4">
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-bold text-white tracking-tight">Help Shape What We Make</h3>
+                      <p className="text-xs text-stone-300 leading-relaxed">
+                        Complete the soil check to help us understand what snake plant owners actually need.
                       </p>
-                      
-                      <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex gap-3 text-xs leading-relaxed text-stone-600">
-                        <Info className="w-5 h-5 text-emerald-805 shrink-0 mt-0.5" />
-                        <div>
-                          <strong>Horticultural Fact:</strong> In dark rooms, snake plants lose up to 92% of their natural evaporation capacity. If your soil doesn’t dry completely within 7 days, shift position or halt all watering vectors!
-                        </div>
-                      </div>
                     </div>
-
-                    {/* Simple Tips Grid */}
-                    <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      
-                      {/* Tip 1 */}
-                      <div className="p-5 rounded-xl border border-stone-200 bg-stone-50/50 hover:bg-white hover:shadow-xs transition-all">
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs flex items-center justify-center mb-3">01</div>
-                        <h4 className="font-bold text-sm text-stone-900 mb-1">Ditch Calendars: Use the Chopstick Test</h4>
-                        <p className="text-xs text-stone-550 leading-relaxed">
-                          Never water on a weekly cycle. Push a raw wood chopstick deep into the soil. If it returns with dark spots or damp particles, the soil is damp inside.
-                        </p>
-                      </div>
-
-                      {/* Tip 2 */}
-                      <div className="p-5 rounded-xl border border-stone-200 bg-stone-50/50 hover:bg-white hover:shadow-xs transition-all">
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs flex items-center justify-center mb-3">02</div>
-                        <h4 className="font-bold text-sm text-stone-900 mb-1">Diligently Check Leaf Turgor</h4>
-                        <p className="text-xs text-stone-550 leading-relaxed">
-                          Healthy leaves behave like firm swords. Squeeze the leaf midsection; if it feels soft or displays subtle structural wrinkles, it has exhausted its water reservoirs and is finally ready for a soak.
-                        </p>
-                      </div>
-
-                      {/* Tip 3 */}
-                      <div className="p-5 rounded-xl border border-stone-200 bg-stone-50/50 hover:bg-white hover:shadow-xs transition-all">
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs flex items-center justify-center mb-3">03</div>
-                        <h4 className="font-bold text-sm text-stone-900 mb-1">Avoid the Dark Corner Trap</h4>
-                        <p className="text-xs text-stone-550 leading-relaxed">
-                          Low light stops photosynthesis. Without sun, the plant consumes no soil water. Placed in dim areas, only water the substrate once every 8 to 10 weeks to prevent slow rot.
-                        </p>
-                      </div>
-
-                      {/* Tip 4 */}
-                      <div className="p-5 rounded-xl border border-stone-200 bg-stone-50/50 hover:bg-white hover:shadow-xs transition-all">
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs flex items-center justify-center mb-3">04</div>
-                        <h4 className="font-bold text-sm text-stone-900 mb-1">Drain the Pot Saucer</h4>
-                        <p className="text-xs text-stone-550 leading-relaxed">
-                          Water deeply, but never let the bottom of your clay pot sit in static standing water inside the decor plate. Empty the tray completely 20 minutes after watering.
-                        </p>
-                      </div>
-
-                    </div>
-
+                    <button
+                      onClick={() => navigateToArticle('setup-kits')}
+                      className="w-full bg-stone-50 hover:bg-white text-emerald-950 font-bold px-5 py-2.5 rounded-xl font-sans text-xs transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                      id="home-trigger-waitlist"
+                    >
+                      <span>Find My Soil Profile</span>
+                      <ArrowRight className="w-4 h-4 text-emerald-900" />
+                    </button>
                   </div>
                 </div>
               </section>
 
-              {/* SECTION 7 — FAQ PREVIEW BOX */}
+              {/* SECTION 7: FAQ PREVIEW */}
               <section className="py-16 bg-stone-50 border-t border-stone-200" id="homepage-faq-accordions">
                 <div className="max-w-4xl mx-auto px-4 md:px-6">
                   
                   <div className="text-center mb-10">
-                    <h2 className="text-2xl md:text-3xl font-sans font-bold text-stone-90) tracking-tight">
-                      Frequently Asked Soil Questions
+                    <h2 className="text-2xl md:text-3xl font-sans font-bold text-stone-900 tracking-tight">
+                      Common Soil Questions
                     </h2>
-                    <p className="text-stone-500 text-xs mt-1">
-                      Check verified structural rules about soil materials, Miracle-Gro qualities, low light survival, and more.
+                    <p className="text-stone-550 text-xs mt-1">
+                      Read clear explanations about snake plant watering cycles, container drainage, and soil additives.
                     </p>
                   </div>
 
                   <div className="space-y-3 bg-white p-6 rounded-2xl border border-stone-250 shadow-xs">
-                    {FAQ_ITEMS.slice(0, 5).map((faq) => {
+                    {FAQ_ITEMS.slice(0, 3).map((faq) => {
                       const expanded = !!faqExpanded[faq.id];
                       return (
                         <div 
@@ -621,7 +765,7 @@ export default function App() {
                           </button>
                           
                           {expanded && (
-                            <div className="pl-6 pb-2 text-xs text-stone-605 leading-relaxed" id={`faq-answer-collapsible-${faq.id}`}>
+                            <div className="pl-6 pb-2 text-xs text-stone-605 leading-relaxed font-sans" id={`faq-answer-collapsible-${faq.id}`}>
                               {faq.answer}
                             </div>
                           )}
@@ -635,7 +779,7 @@ export default function App() {
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:underline hover:text-emerald-950"
                         id="view-all-faq-btn-home"
                       >
-                        <span>View All FAQ Questions & Structured Answers</span>
+                        <span>View All Potting &amp; Care FAQs</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -952,6 +1096,54 @@ export default function App() {
             </motion.div>
           )}
 
+          {activeTab === 'about' && (
+            <motion.div
+              key="about-view"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              id="about-page"
+            >
+              <div className="mb-6">
+                <button 
+                  onClick={() => navigateToArticle('home')}
+                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
+                  id="back-home-about"
+                >
+                  ← Return to Home Portal
+                </button>
+              </div>
+
+              <article className="prose prose-stone max-w-none text-stone-705 leading-relaxed space-y-6">
+                <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
+                  <h2 className="text-xl md:text-2xl font-mono font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
+                    About Snake Plant Soil Lab
+                  </h2>
+                  <p className="text-stone-600 text-xs mt-2 mb-0 leading-relaxed">
+                    Our mission is to help snake plant owners understand how pot type, light, watering habits, and soil characteristics interact.
+                  </p>
+                </div>
+
+                <h3 className="text-sm font-mono font-bold text-stone-900 mt-6 uppercase tracking-wider">Our Approach to Plant Care</h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Snake Plant Soil Lab was founded to replace confusing, overly complex plant advice with straightforward, practical resources. We believe that caring for plants shouldn't require advanced botanical degrees. By examining the basic mechanics of how materials hold and release water, any beginner can grow resilient, healthy snake plants.
+                </p>
+                
+                <h3 className="text-sm font-mono font-bold text-stone-900 mt-6 uppercase tracking-wider">Practical Product Comparisons</h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  We compile independent product reviews and organize potting soil characteristics into distinct categories. Every catalog product is annotated with disclosed ingredients, price indicators, and best-use conditions to help you make informed buying decisions.
+                </p>
+
+                <h3 className="text-sm font-mono font-bold text-stone-900 mt-6 uppercase tracking-wider">Future Soil Blends Research</h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  We are currently documenting the development of our own line of future snake plant soil profiles. We are researching recipes designed specifically for different homes, containers, and watering habits to make repotting as easy as possible.
+                </p>
+              </article>
+            </motion.div>
+          )}
+
           {activeDynamicArticle && (
             <motion.div
               key="dynamic-article-view"
@@ -977,7 +1169,7 @@ export default function App() {
           )}
 
           {/* Fallback View if tab is not a known static tab and dynamic article is not found */}
-          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card'].includes(activeTab) && !activeDynamicArticle && (
+          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card', 'about'].includes(activeTab) && !activeDynamicArticle && (
             <motion.div
               key="not-found-view"
               initial={{ opacity: 0, y: 12 }}

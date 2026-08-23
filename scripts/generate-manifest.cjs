@@ -87,7 +87,13 @@ let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   </url>
   <!-- Static Pages -->
   <url>
-    <loc>https://snakeplantsoil.com/setup-kits</loc>
+    <loc>https://snakeplantsoil.com/soil-diagnosis</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snakeplantsoil.com/about</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -132,7 +138,8 @@ console.log(`Generated sitemap at ${sitemapPath}`);
 
 // 5. Generate vercel.json
 const allSlugs = [
-  "setup-kits",
+  "soil-diagnosis",
+  "about",
   "faq",
   "care-card",
   ...uniqueStaticSlugs,
@@ -146,6 +153,8 @@ const vercelConfig = {
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/home/", "destination": "/", "permanent": true },
     { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/setup-kits", "destination": "/soil-diagnosis", "permanent": true },
+    { "source": "/setup-kits/", "destination": "/soil-diagnosis", "permanent": true },
     { "source": "/dynamic-:slug", "destination": "/:slug", "permanent": true }
   ],
   "rewrites": [
