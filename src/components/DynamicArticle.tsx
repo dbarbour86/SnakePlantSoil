@@ -11,17 +11,69 @@ interface DynamicArticleViewProps {
   onNavigate: (tab: string) => void;
 }
 
-// Simple helper to parse inline styles like bold (**text**), italics (*text* or _text_), and inline code (`code`)
-function parseInlineStyles(text: string): React.ReactNode {
-  const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`)/g;
+// Simple helper to parse inline styles like links ([text](url)), bold (**text**), italics (*text* or _text_), and inline code (`code`)
+function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): React.ReactNode {
+  // Matches [label](url), **bold**, *italics*, `code`
+  const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*|\*.*?\*|`.*?`)/g;
   const parts = text.split(regex);
   
   return parts.map((part, idx) => {
+    if (part.startsWith('[') && part.includes('](') && part.endsWith(')')) {
+      const match = part.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (match) {
+        const linkText = match[1];
+        const linkUrl = match[2];
+        const isExternal = /^https?:\/\//i.test(linkUrl);
+        
+        if (isExternal) {
+          return (
+            <a 
+              key={idx} 
+              href={linkUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-emerald-808 font-bold underline hover:text-emerald-950"
+            >
+              {parseInlineStyles(linkText, onNavigate)}
+            </a>
+          );
+        } else {
+          const slug = linkUrl.replace(/^\//, '');
+          const tabMap: Record<string, string> = {
+            'snake-plant-care-guide': 'care-guide',
+            'best-snake-plant-soil': 'best-soil',
+            'diy-snake-plant-soil-mix': 'diy-mix',
+            'snake-plant-root-rot-guide': 'root-rot',
+            'best-pots-for-snake-plants': 'best-pots',
+            'soil-diagnosis': 'setup-kits',
+            'winter-watering-guide': 'winter-guide',
+            'best-fertilizer-for-snake-plant-soil': 'best-fertilizer'
+          };
+          const targetTab = tabMap[slug] || slug;
+
+          return (
+            <a
+              key={idx}
+              href={linkUrl}
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate(targetTab);
+                }
+              }}
+              className="text-emerald-808 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              {parseInlineStyles(linkText, onNavigate)}
+            </a>
+          );
+        }
+      }
+    }
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={idx} className="font-bold text-stone-900">{part.slice(2, -2)}</strong>;
+      return <strong key={idx} className="font-bold text-stone-900">{parseInlineStyles(part.slice(2, -2), onNavigate)}</strong>;
     }
     if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={idx} className="italic text-stone-850">{part.slice(1, -1)}</em>;
+      return <em key={idx} className="italic text-stone-850">{parseInlineStyles(part.slice(1, -1), onNavigate)}</em>;
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return <code key={idx} className="font-mono bg-stone-100 px-1.5 py-0.5 rounded text-stone-800 text-[11px] font-semibold">{part.slice(1, -1)}</code>;
@@ -31,7 +83,7 @@ function parseInlineStyles(text: string): React.ReactNode {
 }
 
 // Zero-dependency block parser for Markdown
-function MarkdownRenderer({ content }: { content: string }) {
+function MarkdownRenderer({ content, onNavigate }: { content: string; onNavigate?: (tab: string) => void }) {
   // Split by double newlines for block separation
   const blocks = content.split(/\r?\n\r?\n/);
   
@@ -41,15 +93,20 @@ function MarkdownRenderer({ content }: { content: string }) {
         const trimmed = block.trim();
         if (!trimmed) return null;
         
+        // Horizontal Rules
+        if (trimmed === '---' || trimmed === '***' || trimmed === '___') {
+          return <hr key={idx} className="border-t border-stone-250/80 my-6" />;
+        }
+
         // Headers
         if (trimmed.startsWith('# ')) {
-          return <h1 key={idx} className="text-2xl sm:text-3xl font-sans font-bold text-stone-900 tracking-tight mt-6 mb-3">{trimmed.slice(2)}</h1>;
+          return <h1 key={idx} className="text-2xl sm:text-3xl font-sans font-bold text-stone-900 tracking-tight mt-6 mb-3">{parseInlineStyles(trimmed.slice(2), onNavigate)}</h1>;
         }
         if (trimmed.startsWith('## ')) {
-          return <h2 key={idx} className="text-xl sm:text-2xl font-sans font-bold text-stone-900 tracking-tight mt-5 mb-3">{trimmed.slice(3)}</h2>;
+          return <h2 key={idx} className="text-xl sm:text-2xl font-sans font-bold text-stone-900 tracking-tight mt-5 mb-3">{parseInlineStyles(trimmed.slice(3), onNavigate)}</h2>;
         }
         if (trimmed.startsWith('### ')) {
-          return <h3 key={idx} className="text-lg font-sans font-bold text-stone-900 mt-4 mb-2">{trimmed.slice(4)}</h3>;
+          return <h3 key={idx} className="text-lg font-sans font-bold text-stone-900 mt-4 mb-2">{parseInlineStyles(trimmed.slice(4), onNavigate)}</h3>;
         }
         
         // Blockquotes
@@ -58,7 +115,7 @@ function MarkdownRenderer({ content }: { content: string }) {
           return (
             <blockquote key={idx} className="border-l-4 border-emerald-800 pl-4 py-1.5 italic text-stone-600 bg-stone-50 rounded-r-xl my-4">
               {quoteLines.map((line, lIdx) => (
-                <p key={lIdx} className="m-0 text-sm leading-relaxed">{parseInlineStyles(line)}</p>
+                <p key={lIdx} className="m-0 text-sm leading-relaxed">{parseInlineStyles(line, onNavigate)}</p>
               ))}
             </blockquote>
           );
@@ -70,7 +127,7 @@ function MarkdownRenderer({ content }: { content: string }) {
           return (
             <ul key={idx} className="list-disc pl-5 space-y-2 text-stone-700 my-4">
               {items.map((item, itemIdx) => (
-                <li key={itemIdx} className="text-sm sm:text-base leading-relaxed">{parseInlineStyles(item)}</li>
+                <li key={itemIdx} className="text-sm sm:text-base leading-relaxed">{parseInlineStyles(item, onNavigate)}</li>
               ))}
             </ul>
           );
@@ -82,7 +139,7 @@ function MarkdownRenderer({ content }: { content: string }) {
           return (
             <ol key={idx} className="list-decimal pl-5 space-y-2 text-stone-700 my-4">
               {items.map((item, itemIdx) => (
-                <li key={itemIdx} className="text-sm sm:text-base leading-relaxed">{parseInlineStyles(item)}</li>
+                <li key={itemIdx} className="text-sm sm:text-base leading-relaxed">{parseInlineStyles(item, onNavigate)}</li>
               ))}
             </ol>
           );
@@ -95,7 +152,7 @@ function MarkdownRenderer({ content }: { content: string }) {
             {lines.map((line, lineIdx) => (
               <React.Fragment key={lineIdx}>
                 {lineIdx > 0 && <br />}
-                {parseInlineStyles(line)}
+                {parseInlineStyles(line, onNavigate)}
               </React.Fragment>
             ))}
           </p>
@@ -152,7 +209,7 @@ export default function DynamicArticleView({ article, onNavigate }: DynamicArtic
 
       {/* Main Rich Content */}
       <div className="bg-white border border-stone-200 rounded-2xl p-6 md:p-8 shadow-xs">
-        <MarkdownRenderer content={article.content} />
+        <MarkdownRenderer content={article.content} onNavigate={onNavigate} />
       </div>
 
       {/* Authority footer note */}
