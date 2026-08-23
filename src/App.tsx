@@ -40,8 +40,8 @@ const HERO_CARE_TIPS = [
 
 const PAGE_METADATA: Record<string, { title: string; description: string }> = {
   home: {
-    title: "The Best Soil for Snake Plants — Optimal DIY Recipe & Care Guide",
-    description: "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe."
+    title: "Snake Plant Soil Guide, Diagnosis & Care | SnakePlantSoil.com",
+    description: "Find the right soil for your snake plant, diagnose drainage problems, make a DIY mix, recover from root rot, and choose the right pot with practical guides and tools."
   },
   'setup-kits': {
     title: "Snake Plant Soil Diagnosis & Custom Recommendations | SnakePlantSoil.com",
@@ -315,11 +315,17 @@ export default function App() {
                       🌿 Built specifically for snake plants
                     </span>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-stone-900 tracking-tight leading-[1.1]" id="hero-main-title">
-                      Your Snake Plant Is <span className="text-emerald-850 decoration-emerald-850 underline decoration-wavy">Telling You Something.</span>
+                      Snake Plant Soil: <span className="text-emerald-850 underline decoration-wavy">Find the Right Mix for Your Plant</span>
                     </h1>
                     <p className="text-stone-600 text-xs sm:text-sm leading-relaxed pl-0.5">
                       Tell us what the leaves, soil and growing conditions are doing. We’ll help you identify the soil profile that best fits your plant and compare suitable ready-made options.
                     </p>
+
+                    {/* Concise Quick Answer Box */}
+                    <div className="bg-emerald-50/80 border border-emerald-200/70 p-4 rounded-xl text-stone-700 text-xs sm:text-sm leading-relaxed" id="hero-quick-answer">
+                      <span className="font-bold text-emerald-950 block mb-1">🌱 Core Soil Principle:</span>
+                      Snake plants do best in fast-draining soil that does not stay wet around the roots. A cactus or succulent mix can work well, especially when amended with perlite or pumice for better drainage.
+                    </div>
                     
                     <div className="flex flex-wrap items-center gap-3 pt-1">
                       <button 
@@ -391,6 +397,115 @@ export default function App() {
                     </div>
                   </div>
 
+                </div>
+              </section>
+
+              {/* SECTION 1B: INTENT NAVIGATION HUB */}
+              <section className="py-12 bg-stone-50 border-b border-stone-200" id="intent-navigation-hub">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center max-w-2xl mx-auto mb-8">
+                    <span className="text-[10px] sm:text-xs font-mono font-bold text-emerald-805 uppercase tracking-widest block mb-1">
+                      SOIL &amp; CARE HUB
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
+                      How Can We Help Your Snake Plant Today?
+                    </h2>
+                    <p className="text-stone-600 text-xs sm:text-sm mt-1.5">
+                      Select your goal to find practical guides, diagnostic assessments, and soil formulas.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {/* Intent 1: Buy Soil */}
+                    <a 
+                      href="/best-snake-plant-soil"
+                      onClick={(e) => { e.preventDefault(); navigateToArticle('best-soil'); }}
+                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
+                      id="intent-link-buy-soil"
+                    >
+                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I want to buy soil</span>
+                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
+                        <span>Best Soil for Snake Plants</span>
+                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
+                      </h3>
+                      <p className="text-stone-550 text-xs mt-1">Compare ready-made commercial succulent and cactus mixes.</p>
+                    </a>
+
+                    {/* Intent 2: Make DIY Soil */}
+                    <a 
+                      href="/diy-snake-plant-soil-mix"
+                      onClick={(e) => { e.preventDefault(); navigateToArticle('diy-mix'); }}
+                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
+                      id="intent-link-diy-mix"
+                    >
+                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I want to make my own</span>
+                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
+                        <span>DIY Snake Plant Soil Mix</span>
+                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
+                      </h3>
+                      <p className="text-stone-550 text-xs mt-1">Get our 3-2-1 gritty recipe and custom volume calculator.</p>
+                    </a>
+
+                    {/* Intent 3: Root Rot */}
+                    <a 
+                      href="/snake-plant-root-rot-guide"
+                      onClick={(e) => { e.preventDefault(); navigateToArticle('root-rot'); }}
+                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
+                      id="intent-link-root-rot"
+                    >
+                      <span className="text-[10px] font-mono font-bold text-rose-800 uppercase tracking-wider block mb-1">My plant may have root rot</span>
+                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-rose-850 flex items-center justify-between">
+                        <span>Snake Plant Root Rot Guide</span>
+                        <span className="text-rose-700 group-hover:translate-x-1 transition-transform">→</span>
+                      </h3>
+                      <p className="text-stone-550 text-xs mt-1">Identify mushy leaves and follow our root recovery protocol.</p>
+                    </a>
+
+                    {/* Intent 4: Right Pot */}
+                    <a 
+                      href="/best-pots-for-snake-plants"
+                      onClick={(e) => { e.preventDefault(); navigateToArticle('best-pots'); }}
+                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
+                      id="intent-link-best-pots"
+                    >
+                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I need the right pot</span>
+                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
+                        <span>Best Pots for Snake Plants</span>
+                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
+                      </h3>
+                      <p className="text-stone-550 text-xs mt-1">Learn why breathable terracotta pots prevent overwatering.</p>
+                    </a>
+
+                    {/* Intent 5: General Care */}
+                    <a 
+                      href="/snake-plant-care-guide"
+                      onClick={(e) => { e.preventDefault(); navigateToArticle('care-guide'); }}
+                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
+                      id="intent-link-care-guide"
+                    >
+                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I need general care help</span>
+                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
+                        <span>Snake Plant Care Guide</span>
+                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
+                      </h3>
+                      <p className="text-stone-550 text-xs mt-1">Master light levels, seasonal routines, and soak-and-dry watering.</p>
+                    </a>
+
+                    {/* Intent 6: Soil Diagnosis */}
+                    <a 
+                      href="/soil-diagnosis"
+                      onClick={(e) => { e.preventDefault(); navigateToArticle('setup-kits'); }}
+                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
+                      id="intent-link-soil-diagnosis"
+                    >
+                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I am not sure what is wrong</span>
+                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
+                        <span>Check My Snake Plant Soil</span>
+                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
+                      </h3>
+                      <p className="text-stone-550 text-xs mt-1">Take our quick diagnostic quiz to find your recommended soil profile.</p>
+                    </a>
+                  </div>
                 </div>
               </section>
 

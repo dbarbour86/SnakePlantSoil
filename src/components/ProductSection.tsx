@@ -14,7 +14,7 @@ export default function ProductSection() {
             Editorial Soil Ingredients & Supplies
           </h2>
           <p className="text-stone-500 text-sm mt-2">
-            These are the physical soils, drainage minerals, and breathable containers we physically utilize in our own greenhouse trials. Standard retail stores sell many soggy soils; choose these to reduce root death.
+            These are practical soils, drainage minerals, and breathable containers selected for optimal snake plant health and root aeration. Standard retail stores sell many soggy soils; choose these to reduce root rot risks.
           </p>
         </div>
 

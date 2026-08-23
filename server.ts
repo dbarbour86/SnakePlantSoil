@@ -185,8 +185,8 @@ async function startServer() {
       let html = fs.readFileSync(filePath, "utf-8");
 
       // Default values
-      let title = "The Best Soil for Snake Plants — Optimal DIY Recipe & Care Guide";
-      let description = "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe.";
+      let title = "Snake Plant Soil Guide, Diagnosis & Care | SnakePlantSoil.com";
+      let description = "Find the right soil for your snake plant, diagnose drainage problems, make a DIY mix, recover from root rot, and choose the right pot with practical guides and tools.";
       let canonicalUrl = 'https://snakeplantsoil.com/';
       let is404 = statusCode === 404;
 
@@ -198,8 +198,8 @@ async function startServer() {
       }
 
       if (lookupPath === '/' || lookupPath === '/home') {
-        title = "The Best Soil for Snake Plants — Optimal DIY Recipe & Care Guide";
-        description = "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe.";
+        title = "Snake Plant Soil Guide, Diagnosis & Care | SnakePlantSoil.com";
+        description = "Find the right soil for your snake plant, diagnose drainage problems, make a DIY mix, recover from root rot, and choose the right pot with practical guides and tools.";
         canonicalUrl = 'https://snakeplantsoil.com/';
       } else if (lookupPath === '/soil-diagnosis') {
         title = "Snake Plant Soil Diagnosis & Custom Recommendations | SnakePlantSoil.com";
@@ -382,8 +382,8 @@ async function startServer() {
         const cleanPath = req.path.replace(/\/$/, '');
         const lookupPath = cleanPath === '' ? '/' : cleanPath;
         
-        let title = "The Best Soil for Snake Plants — Optimal DIY Recipe & Care Guide";
-        let description = "Ultimate master botanical guide to selecting, mixing, and buying the absolute best soil for snake plants (Sansevieria). Get our golden ratio DIY recipe.";
+        let title = "Snake Plant Soil Guide, Diagnosis & Care | SnakePlantSoil.com";
+        let description = "Find the right soil for your snake plant, diagnose drainage problems, make a DIY mix, recover from root rot, and choose the right pot with practical guides and tools.";
         let canonicalUrl = 'https://snakeplantsoil.com/';
         
         const staticMatch = STATIC_GUIDES.find(s => `/${s.slug}` === lookupPath || `/${s.id}` === lookupPath);
