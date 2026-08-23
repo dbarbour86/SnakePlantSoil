@@ -71,65 +71,112 @@ export function TopicalClusterNav({ currentTab, onNavigate }: { currentTab: stri
 // SUBMODULE 1: BEST COMMERCIAL SOILS PAGE
 // ----------------------------------------------------
 export function BestSoilArticle({ onNavigate }: ArticleProps) {
-  const [selectedSoil, setSelectedSoil] = useState<'all' | 'cactus' | 'organic' | 'standard'>('all');
-
   const comparisonData = [
-    { name: "Hoffman Organic Succulent", drainage: "9.5/10", retention: "Low", aeration: "Excellent", nutrient: "Medium-Low", price: "$$", rating: "4.8/5", rec: "Best out of the box option." },
-    { name: "Espoma Organic Cactus Mix", drainage: "8.5/10", retention: "Medium-Low", aeration: "Very Good", nutrient: "Medium-High", price: "$", rating: "4.7/5", rec: "Best organic bio-active root formula." },
-    { name: "Super Mineral Desert Mix", drainage: "10/10", retention: "Very Low", aeration: "Exceptional", nutrient: "Low", price: "$$$", rating: "4.9/5", rec: "Best for root rot recovery phases." },
-    { name: "Retail Standard Soil (Unamended)", drainage: "2.0/10", retention: "Extreme", aeration: "Very Dense", nutrient: "High", price: "$", rating: "1.2/5", rec: "❌ Dangerous. High chance of overwatering rot." }
+    { name: "Hoffman Organic Succulent", base: "Organic peat & sand base", aeration: "Perlite & limestone", drainage: "Faster drying", retention: "Moderate", verdict: "Convenient ready-to-use commercial option." },
+    { name: "Espoma Organic Cactus Mix", base: "Peat humus & organic base", aeration: "Perlite & Myco-tone", drainage: "Moderate drying", retention: "Moderate-High", verdict: "Organic bio-active formula; requires thorough dry periods." },
+    { name: "Bonsai Jack Gritty Mix #111", base: "Calcined clay & pine bark", aeration: "Coarse pumice grit", drainage: "Very fast drying", retention: "Low", verdict: "Mineral-dominant mix for humid homes or rot recovery." },
+    { name: "Unamended Standard Potting Soil", base: "Fine sphagnum peat moss", aeration: "Low (compacts easily)", drainage: "Slow drying", retention: "High", verdict: "⚠️ Retains water too long; amend with perlite before using." }
   ];
 
   return (
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
       {/* Intro Header */}
-      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
+      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-6">
         <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
           <Trees className="w-6 h-6 text-emerald-800" />
-          The Science of Drainage: Evaluating Commercial Snake Plant Soils
+          Best Soil for Snake Plants: Commercial Mixes &amp; Buyer's Guide
         </h1>
         <p className="text-stone-600 text-sm mt-2 mb-0">
-          The secret to a thriving snake plant starts below the surface. This article identifies the physical traits of optimal soils and provides side-by-side performance metrics of leading ready-to-use premium mixes.
+          Find the right ready-made soil mix for your snake plant, compare popular commercial options, and learn key drainage ingredients to keep root systems healthy.
         </p>
       </div>
 
-      <h3 className="text-lg font-bold text-stone-900 mt-6">Why Standard Garden Soil is a Lethal Mistake</h3>
+      {/* Direct Quick Answer Callout */}
+      <div className="bg-emerald-50/80 border border-emerald-200/80 p-5 rounded-2xl text-stone-700 text-sm leading-relaxed mb-6" id="quick-answer-box">
+        <h3 className="font-bold text-emerald-950 text-base mt-0 mb-1 flex items-center gap-2">
+          <span>🌱 Quick Answer</span>
+        </h3>
+        <p className="m-0 text-stone-800">
+          For most snake plants, a loose, fast-draining cactus or succulent potting mix is a practical starting point. Look for mixes containing coarse aeration materials such as perlite or pumice, and avoid dense mixes that remain wet around the roots for long periods.
+        </p>
+      </div>
+
+      {/* User Intent Navigation Bar */}
+      <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl mb-8">
+        <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-2">Explore Your Soil Options</span>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-sans">
+          <a
+            href="#commercial-comparison"
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-commercial"
+          >
+            <span>Compare Commercial Soils</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">See ready-made mixes</span>
+          </a>
+          <a
+            href="/diy-snake-plant-soil-mix"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-diy"
+          >
+            <span>DIY Snake Plant Soil Mix</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">3-2-1 recipe &amp; calculator</span>
+          </a>
+          <a
+            href="/snake-plant-root-rot-guide"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('root-rot'); } }}
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-rot"
+          >
+            <span>Snake Plant Root Rot Guide</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">Rot rescue protocol</span>
+          </a>
+          <a
+            href="/soil-diagnosis"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('setup-kits'); } }}
+            className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
+            id="intent-link-diagnosis"
+          >
+            <span>Check My Snake Plant Soil</span>
+            <span className="text-[10px] font-mono font-normal text-stone-400">Soil diagnostic quiz</span>
+          </a>
+        </div>
+      </div>
+
+      <h2 className="text-lg font-bold text-stone-900 mt-6">What Kind of Soil Do Snake Plants Need?</h2>
       <p>
-        In their natural habitats across humid-arid tropical West Africa, snake plants (<em>Sansevieria trifasciata</em>) thrive in rugged, craggy terrains and hyper-porous sandy clays. Unlike modern soft houseplants, their underground root systems consist of thick, fleshy <strong>rhizomes</strong>. These rhizomes store massive reserves of water and nutrients to survive long dry spells.
+        In their natural habitats across tropical West Africa, snake plants (<em>Sansevieria trifasciata</em>) grow in gritty, porous soils that drain quickly after rain. Snake plants store water in their thick, upright leaves and underground <strong>rhizomes</strong>. Because these storage organs hold moisture for weeks, snake plant roots are susceptible to rotting if left in stagnant water.
       </p>
       <p>
-        When you plant a snake plant in generic, heavy black potting soil, you are introducing a high water-retention matrix. Standard organic potting mixes contain a high percentage of finely ground <strong>sphagnum peat moss</strong>. 
-        Under the weight of repeated watering, this peat moss acts like a permanent sponge, compacting into an anaerobic layer. This denies air to the rhizomes and begins dissolving the soft cellulose walls of the root system.
+        Good snake plant soil must balance rapid drainage with enough moisture retention to support the roots. Standard all-purpose potting soil contains high proportions of fine peat moss, which can compact over time and remain wet for too long indoors. Selecting a commercial cactus or succulent mix—or amending standard soil with coarse grit—ensures air pockets remain open around the roots.
       </p>
 
       {/* Attributes Comparison */}
-      <div className="my-8">
-        <h4 className="text-base font-bold text-stone-900 mb-4 flex items-center gap-2">
+      <div className="my-8" id="commercial-comparison">
+        <h3 className="text-base font-bold text-stone-900 mb-4 flex items-center gap-2">
           <Sliders className="w-5 h-5 text-emerald-800" />
-          How Different Soil Options Stack Up (Greenhouse Performance Data)
-        </h4>
+          Commercial Soil Options Comparison
+        </h3>
         <div className="overflow-x-auto border border-stone-200 rounded-xl shadow-sm bg-white">
           <table className="min-w-full divide-y divide-stone-200 text-sm">
             <thead className="bg-stone-50">
               <tr>
-                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Mix Option</th>
-                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Drainage Rate</th>
-                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Wet Retention</th>
-                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Aeration Space</th>
-                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Rating</th>
-                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Verdict</th>
+                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Commercial Mix Option</th>
+                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Base Composition</th>
+                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Aeration Media</th>
+                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Drying Characteristics</th>
+                <th className="px-4 py-3 text-left font-bold text-stone-900 uppercase tracking-wider text-[11px]">Best Use / Verdict</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-stone-100">
               {comparisonData.map((soil, idx) => (
-                <tr key={idx} className={soil.name.includes("Lethal") ? "bg-rose-50/40 hover:bg-rose-50" : "hover:bg-stone-50"}>
+                <tr key={idx} className={soil.name.includes("Unamended") ? "bg-amber-50/40 hover:bg-amber-50" : "hover:bg-stone-50"}>
                   <td className="px-4 py-3 font-semibold text-stone-900">{soil.name}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-stone-700">{soil.drainage}</td>
-                  <td className="px-4 py-3 text-stone-600">{soil.retention}</td>
-                  <td className="px-4 py-3 text-stone-600">{soil.aeration}</td>
-                  <td className="px-4 py-3 font-mono text-xs font-bold text-emerald-800">{soil.rating}</td>
-                  <td className="px-4 py-3 text-xs text-stone-500 italic">{soil.rec}</td>
+                  <td className="px-4 py-3 text-stone-600 text-xs">{soil.base}</td>
+                  <td className="px-4 py-3 text-stone-600 text-xs">{soil.aeration}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-emerald-850 font-bold">{soil.drainage}</td>
+                  <td className="px-4 py-3 text-xs text-stone-600 italic">{soil.verdict}</td>
                 </tr>
               ))}
             </tbody>
@@ -153,35 +200,45 @@ export function BestSoilArticle({ onNavigate }: ArticleProps) {
         </li>
       </ul>
 
+      {/* Sourced University Extension Citation Callout */}
       <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100 flex gap-3 my-6">
         <Info className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
-        <div className="text-xs text-emerald-850">
-          <strong>Authority Botanical Citation:</strong> University agricultural extensions consistently find that <em>Sansevieria</em> thrive best in sandy-mineral loams with a neutral pH. Keep organic proportions below 40% of the total soil dry weight for indoor environments.
+        <div className="text-xs text-emerald-900 leading-relaxed">
+          <strong>Horticultural Extension Reference:</strong> Research published by the{' '}
+          <a
+            href="https://edis.ifas.ufl.edu/publication/EP027"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-bold hover:text-emerald-950"
+          >
+            University of Florida IFAS Extension (Sansevieria Production Guide)
+          </a>{' '}
+          recommends porous, well-draining potting media with good aeration for commercial and indoor <em>Sansevieria</em> cultivation. Soil mixes should allow water to pass through cleanly to prevent anaerobic pathogen development around rhizomes.
         </div>
       </div>
 
-      <h3 className="text-lg font-bold text-stone-900">The Final Botanical Verdict</h3>
+      <h3 className="text-lg font-bold text-stone-900">Selecting the Right Soil Mix</h3>
       <p>
-        For maximum safety, purchase a reliable organic compost mix (like <strong>Espoma Cactus Mix</strong>) or a dedicated premium prep mix (like <strong>Hoffman Succulent Soil</strong>) and ensure your container material has optimal breathability.
+        For most home environments, selecting a dedicated commercial mix like <strong>Espoma Organic Cactus Mix</strong> or <strong>Hoffman Succulent Soil</strong> provides a convenient, well-buffered foundation. If growing in humid conditions or plastic pots, amending with extra perlite or pumice provides additional airflow.
       </p>
 
       {/* Inline Recommended Soils Grid */}
       <div className="bg-stone-50 border border-stone-200 rounded-xl p-5 my-8 space-y-4">
         <div className="flex justify-between items-center">
           <h4 className="text-sm font-bold text-stone-900 mt-0 flex items-center gap-1.5 uppercase tracking-wide">
-            <ShoppingBag className="w-4.5 h-4.5 text-emerald-805" /> Recommended Quick Soil Upgrades
+            <ShoppingBag className="w-4.5 h-4.5 text-emerald-805" /> Recommended Commercial Mixes &amp; Ingredients
           </h4>
           <span className="text-[10px] font-mono font-bold text-stone-400 italic">Affiliate Referral</span>
         </div>
         <p className="text-xs text-stone-550 leading-relaxed mb-0">
-          These are the top greenhouse-verified options available on Amazon with active organic mycorrhizae or custom mineral drainage:
+          These commercial soil options and amendments are widely used for potting indoor snake plants:
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
           
           <div className="bg-white p-4 rounded-lg border border-stone-200 flex flex-col justify-between text-xs hover:border-emerald-800/30 transition-all shadow-xs">
             <div className="space-y-1.5">
               <span className="text-[9px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded uppercase border border-emerald-150">Hoffman Premium</span>
-              <strong className="block text-stone-900 font-bold">Organic Cactus & Succulent Mix</strong>
+              <strong className="block text-stone-900 font-bold">Organic Cactus &amp; Succulent Mix</strong>
               <p className="text-[11px] text-stone-500 leading-relaxed">Ready to use out of the box. Provides an excellent peat-neutral and limestone buffered sandy foundation.</p>
             </div>
             <a 
@@ -198,7 +255,7 @@ export function BestSoilArticle({ onNavigate }: ArticleProps) {
           <div className="bg-white p-4 rounded-lg border border-stone-200 flex flex-col justify-between text-xs hover:border-emerald-800/30 transition-all shadow-xs">
             <div className="space-y-1.5">
               <span className="text-[9px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded uppercase border border-emerald-150">Espoma Organic</span>
-              <strong className="block text-stone-900 font-bold">Cactus & Succulent Soil Mix</strong>
+              <strong className="block text-stone-900 font-bold">Cactus &amp; Succulent Soil Mix</strong>
               <p className="text-[11px] text-stone-500 leading-relaxed">Infused with active Myco-tone microbes that promote extensive cellular root nutrient and water transport networks.</p>
             </div>
             <a 
@@ -215,24 +272,34 @@ export function BestSoilArticle({ onNavigate }: ArticleProps) {
         </div>
       </div>
 
-      {/* Internal Linking Topical Cluster Section */}
-      <div className="border-t border-stone-250/60 pt-6 mt-10">
-        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+      {/* Internal Linking & Related Guides Section */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10 space-y-3">
+        <h4 className="text-sm font-bold text-stone-900 mt-0">Related Snake Plant Guides</h4>
         <p className="text-xs text-stone-600 leading-relaxed mt-1">
-          Ready to take full control of your soil's physical porosity and grain distribution? Continue to our step-by-step{' '}
-          <button 
-            onClick={() => onNavigate?.('diy-mix')} 
+          Looking to mix your own custom soil at home? Follow our step-by-step{' '}
+          <a 
+            href="/diy-snake-plant-soil-mix"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
             className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
           >
-            DIY 3-2-1 Soil Mix Recipe & Interactive Calculator
-          </button>. 
-          If your plant's base leaves are already showing mushy, yellowing tissue, bypass preparation and go straight to our emergency{' '}
-          <button 
-            onClick={() => onNavigate?.('root-rot')} 
+            DIY Snake Plant Soil Mix Recipe
+          </a>{' '}
+          with our custom volume calculator. If your plant is showing soft, yellowing leaves or root damage, consult our emergency{' '}
+          <a 
+            href="/snake-plant-root-rot-guide"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('root-rot'); } }}
             className="text-rose-700 font-bold underline hover:text-rose-900 focus:outline-none cursor-pointer"
           >
-            Surgical Root Rot Recovery Guide
-          </button> to save your plant before cell rot spreads.
+            Snake Plant Root Rot Guide
+          </a>{' '}
+          for step-by-step root recovery. For guidance on pot selection, read our guide on the{' '}
+          <a 
+            href="/best-pots-for-snake-plants"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-pots'); } }}
+            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
+          >
+            Best Pots for Snake Plants
+          </a>.
         </p>
       </div>
 

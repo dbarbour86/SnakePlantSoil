@@ -48,8 +48,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check."
   },
   'best-soil': {
-    title: "Best Commercial Soils for Snake Plants | SnakePlantSoil.com",
-    description: "Honest, editorial review of the top 4 commercial succulent and cactus mixes tested specifically for Sansevieria drainage."
+    title: "Best Soil for Snake Plants: Commercial Mixes & Buyer Guide",
+    description: "Discover the best soil for snake plants. Compare commercial succulent mixes, learn what improves drainage, and choose a mix that helps reduce root rot risk."
   },
   'diy-mix': {
     title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",
