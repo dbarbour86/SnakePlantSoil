@@ -4,7 +4,7 @@ import {
   HelpCircle, ChevronRight, Check, AlertCircle, Info,
   Search, Sliders, Droplet, Sun, Wind, Thermometer,
   ShieldCheck, RefreshCw, AlertTriangle, ArrowRight,
-  ShoppingBag, ExternalLink
+  ShoppingBag, ExternalLink, CheckCircle2
 } from 'lucide-react';
 import InteractiveCalculator from './InteractiveCalculator';
 
@@ -1053,78 +1053,115 @@ export function CareGuideArticle({ onNavigate }: ArticleProps) {
 
   const seasonalRoutine = {
     spring: {
-      frequency: "Every 14 to 18 Days",
-      growth: "Active new pup shoots forming. Roots absorbing water rapidly.",
-      light: "Bright indirect morning light is ideal. Sills warming up.",
-      tip: "Excellent window to add organic liquid fertilizer diluted to 25% capacity."
+      guidance: "Growth and water use may begin increasing as light strengthens. Check the potting mix and water when it has dried appropriately.",
+      light: "Bright, indirect light is ideal as days lengthen.",
+      tip: "If fertilizing, apply an appropriate indoor plant fertilizer conservatively during active growth."
     },
     summer: {
-      frequency: "Every 10 to 14 Days",
-      growth: "Peak vegetative growth. Faster soil drying due to house heat.",
-      light: "Protect from intense hot afternoon window sun which sunburns stems.",
-      tip: "Water early in the morning so excess moisture evaporates by afternoon heat."
+      guidance: "Warmer temperatures and stronger light can increase drying speed, but actual watering frequency still depends on soil, pot, light, airflow, and humidity.",
+      light: "Protect from intense afternoon sun which can scorch unacclimated leaves.",
+      tip: "Always check soil dryness deep in the root zone before re-watering."
     },
     fall: {
-      frequency: "Every 21 to 28 Days",
-      growth: "Growth scaling down. Evaporation rate slows as temp drops.",
-      light: "Maximize natural light. Move plant closer to brighter south sills.",
-      tip: "Cease all fertilizing activities. Begin checking soil with wood chopsticks."
+      guidance: "As light levels and growth decrease, the potting mix may take longer to dry. Check moisture before watering rather than maintaining summer routines.",
+      light: "Position plants to capture available indirect daylight.",
+      tip: "Cease fertilizing as growth slows entering cooler months."
     },
     winter: {
-      frequency: "Every 35 to 45 Days (Or Less!)",
-      growth: "Deep physiological dormancy. Metabolic activities stop completely.",
-      light: "Gently wipe leaf blades with a moist cloth to clear dust and capture max sun.",
-      tip: "Absolute danger zone! When in doubt, withhold water. Cold damp soil is fatal."
+      guidance: "Lower light and cooler conditions often slow water use substantially. Allow adequate drying and be especially cautious about persistently wet soil.",
+      light: "Wipe dust off leaves to help maximize daylight capture.",
+      tip: "Keep plants away from cold window drafts and heating vents."
     }
   };
 
   return (
     <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
       
-      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
-          <Compass className="w-6 h-6 text-emerald-800" />
-          The Complete Care & 'Soak and Dry' Watering Masterclass
+      {/* Intro Header */}
+      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-stone-950 tracking-tight mt-0 flex items-center gap-2">
+          <Compass className="w-6 h-6 text-emerald-800 shrink-0" />
+          Snake Plant Care Guide: Watering, Light, Soil &amp; Indoor Care
         </h1>
-        <p className="text-stone-650 text-sm mt-2 mb-0">
-          Decipher watering frequencies based on seasonal changes, room humidity levels, and modern botanical guidelines.
+        <p className="text-stone-600 text-sm mt-2 mb-0">
+          Learn how to care for a snake plant indoors, including watering, light, soil, pots, seasonal care, fertilizer, and common signs of plant stress.
         </p>
       </div>
 
-      <p>
-        "How often should I water my snake plant?" resides as the most frequent question in agricultural forums. The correct botanical response is never date-based. Watering schedules depend on seasonal temperature, moisture evaporation scales, container porosity, and available sunlight.
-      </p>
+      {/* Direct Quick Answer Callout */}
+      <div className="bg-emerald-50/80 border border-emerald-200/80 p-5 rounded-2xl text-stone-700 text-sm leading-relaxed mb-6" id="quick-answer-box">
+        <h3 className="font-bold text-emerald-950 text-base mt-0 mb-1 flex items-center gap-2">
+          <span>🌱 Quick Answer</span>
+        </h3>
+        <p className="m-0 text-stone-800">
+          Snake plants are adaptable indoor plants, but they still need appropriate light, fast-draining soil, functional container drainage, and careful watering. Allow the potting mix to dry substantially between waterings rather than following a fixed calendar. Brighter useful light generally supports stronger growth and faster water use, while lower-light conditions usually mean the soil dries more slowly.
+        </p>
+      </div>
 
-      <h3 className="text-lg font-bold text-stone-900">Mastering the 'Soak and Dry' Botanical Cycle</h3>
+      {/* Care at a Glance Matrix */}
+      <div className="bg-stone-50 border border-stone-200 p-5 rounded-xl mb-8" id="care-at-a-glance">
+        <h2 className="text-sm font-bold text-stone-900 uppercase tracking-wide mt-0 mb-3 flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-800" />
+          Care at a Glance
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div className="bg-white p-3 rounded-lg border border-stone-200">
+            <span className="font-bold text-stone-900 block mb-1 text-emerald-900">💧 Water</span>
+            <p className="text-stone-650 m-0 leading-relaxed">
+              Check the potting mix instead of relying on a calendar. Avoid keeping the root zone persistently wet.
+            </p>
+          </div>
+          <div className="bg-white p-3 rounded-lg border border-stone-200">
+            <span className="font-bold text-stone-900 block mb-1 text-amber-900">☀️ Light</span>
+            <p className="text-stone-650 m-0 leading-relaxed">
+              Tolerates lower light, but performs better with bright indirect light. Avoid treating as a no-light plant.
+            </p>
+          </div>
+          <div className="bg-white p-3 rounded-lg border border-stone-200">
+            <span className="font-bold text-stone-900 block mb-1 text-stone-900">🪴 Soil &amp; Pot</span>
+            <p className="text-stone-650 m-0 leading-relaxed">
+              Use fast-draining potting media and containers with functional bottom drainage holes.
+            </p>
+          </div>
+          <div className="bg-white p-3 rounded-lg border border-stone-200">
+            <span className="font-bold text-stone-900 block mb-1 text-blue-900">🌡️ Environment</span>
+            <p className="text-stone-650 m-0 leading-relaxed">
+              Protect from cold drafts. Normal indoor humidity is fine. Fertilize conservatively during active growth.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h2 className="text-lg font-bold text-stone-900 mt-6" id="soak-and-dry">The "Soak and Dry" Watering Method</h2>
       <p>
-        In arid grasslands, snake plants thrive under sparse tropical downpours followed by prolonged bone-dry periods. This defines our watering strategy:
+        Watering frequency for indoor snake plants should be dictated by soil dryness rather than a fixed calendar schedule. Environmental conditions such as light, temperature, humidity, and pot material determine how quickly soil dries out:
       </p>
-      <ul className="space-y-4 list-none pl-0">
-        <li className="bg-stone-50 border border-stone-100 p-4 rounded-xl">
+      <ul className="space-y-4 list-none pl-0 my-4">
+        <li className="bg-stone-50 border border-stone-200 p-4 rounded-xl">
           <span className="font-bold text-stone-900 text-sm flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Phase 1: Heavy Drenching ("Soak")
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> 1. Drench Thoroughly When Watering
           </span>
-          <p className="text-xs text-stone-600 mt-1 leading-relaxed">
-            Pour water slowly around the base of the plant until it flows completely out of the bottom drainage hole. This ensures that every dry dirt crevice is humidified and dry soil channels are thoroughly opened.
+          <p className="text-xs text-stone-650 mt-1 leading-relaxed m-0">
+            Pour water evenly around the base of the plant until liquid drains freely out of the bottom drainage hole. This ensures that the entire root zone receives moisture.
           </p>
         </li>
-        <li className="bg-stone-50 border border-stone-100 p-4 rounded-xl">
+        <li className="bg-stone-50 border border-stone-200 p-4 rounded-xl">
           <span className="font-bold text-stone-900 text-sm flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Phase 2: Absolute Aeration ("Dry")
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> 2. Allow Complete Soil Drying
           </span>
-          <p className="text-xs text-stone-600 mt-1 leading-relaxed">
-            Allow the soil column to dry out completely—from the surface crust all the way to the bottom nursery liner. The soil must feel 100% bone-dry before you pour even a single drop of water again.
+          <p className="text-xs text-stone-650 mt-1 leading-relaxed m-0">
+            Allow the potting medium to dry out substantially before watering again. Check moisture levels deep in the container (using a wooden chopstick or finger test) rather than relying solely on the dry surface.
           </p>
         </li>
       </ul>
 
-      {/* Interactive Seasonal Watering Matrix */}
-      <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-xs my-6">
-        <h4 className="text-sm font-bold text-stone-900 flex items-center gap-1.5 uppercase tracking-wide mb-3">
-          <Sun className="w-4.5 h-4.5 text-amber-500" /> Seasonal Watering & Care Planner
-        </h4>
+      {/* Interactive Condition-Based Seasonal Planner */}
+      <div className="bg-white rounded-xl border border-stone-200 p-5 shadow-xs my-6" id="seasonal-planner">
+        <h3 className="text-sm font-bold text-stone-900 flex items-center gap-1.5 uppercase tracking-wide mt-0 mb-3">
+          <Sun className="w-4.5 h-4.5 text-amber-500" /> Seasonal Care Guidance Planner
+        </h3>
         <p className="text-xs text-stone-500 mb-4">
-          Select the current season to fetch verified care adjustments:
+          Select a season to learn how changing light and temperatures alter indoor water use:
         </p>
 
         <div className="flex flex-wrap gap-2 mb-4">
@@ -1132,7 +1169,7 @@ export function CareGuideArticle({ onNavigate }: ArticleProps) {
             <button
               key={s}
               onClick={() => setSeason(s)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all cursor-pointer ${
                 season === s 
                   ? 'bg-stone-900 text-white shadow-xs' 
                   : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
@@ -1145,52 +1182,108 @@ export function CareGuideArticle({ onNavigate }: ArticleProps) {
         </div>
 
         {/* Output */}
-        <div className="bg-stone-50 p-4 rounded-lg border border-stone-150 space-y-2.5 text-xs">
-          <div className="flex justify-between items-center bg-white px-3 py-2 rounded-md border border-stone-100">
-            <span className="font-semibold text-stone-750">Watering Target:</span>
-            <span className="font-mono font-bold text-emerald-850 bg-emerald-50 px-2 py-0.5 rounded">{seasonalRoutine[season].frequency}</span>
-          </div>
+        <div className="bg-stone-50 p-4 rounded-lg border border-stone-200 space-y-3 text-xs">
           <div>
-            <span className="font-bold text-stone-905 block">Physiological Stage:</span>
-            <p className="text-stone-600 text-[11px] mt-0.5">{seasonalRoutine[season].growth}</p>
+            <span className="font-bold text-stone-900 block mb-1">Seasonal Watering Principle:</span>
+            <p className="text-stone-700 text-xs leading-relaxed m-0">{seasonalRoutine[season].guidance}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-            <div className="bg-white p-2.5 rounded-md border border-stone-100">
-              <span className="font-bold text-stone-905 text-[10px] uppercase block tracking-wider text-amber-800">Light Guidance</span>
-              <p className="text-[11px] text-stone-500 mt-0.5">{seasonalRoutine[season].light}</p>
+            <div className="bg-white p-3 rounded-md border border-stone-200">
+              <span className="font-bold text-amber-800 text-[10px] uppercase block tracking-wider">Light Adjustments</span>
+              <p className="text-[11px] text-stone-600 mt-1 m-0">{seasonalRoutine[season].light}</p>
             </div>
-            <div className="bg-white p-2.5 rounded-md border border-stone-100">
-              <span className="font-bold text-stone-905 text-[10px] uppercase block tracking-wider text-emerald-800">Direct Tip</span>
-              <p className="text-[11px] text-stone-500 mt-0.5">{seasonalRoutine[season].tip}</p>
+            <div className="bg-white p-3 rounded-md border border-stone-200">
+              <span className="font-bold text-emerald-800 text-[10px] uppercase block tracking-wider">Seasonal Tip</span>
+              <p className="text-[11px] text-stone-600 mt-1 m-0">{seasonalRoutine[season].tip}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <h3 className="text-lg font-bold text-stone-900">Light Spectrum: The Fuel for Evaporation</h3>
+      <h2 className="text-lg font-bold text-stone-900 mt-6" id="light-guidance">Light Requirements: How Sunlight Drives Water Use</h2>
       <p>
-        While marketed as low-light survivors, snake plants biologically crave <strong>bright indirect light</strong>. Sunlight powers photosynthesis, prompting leaves to consume soil water. If placed in a dark interior powder room, the plant's metabolic activity slows to near-zero, meaning stagnant water in the soil has no avenue to escape via tissue transpiration, severely increasing root rot risk.
+        Sunlight fuels photosynthesis and plant transpiration. Although snake plants are widely known for surviving lower-light conditions, brighter indirect light supports healthier foliage growth and faster water consumption. In low-light rooms, metabolic activity slows, meaning soil moisture evaporates more slowly and root rot risks increase if watering is not reduced accordingly. Direct sunlight can be tolerated if plants are gradually acclimated, though intense afternoon sun can scorch leaves.
       </p>
 
-      {/* Internal Linking Topical Cluster Section */}
-      <div className="border-t border-stone-250/60 pt-6 mt-10">
-        <h4 className="text-sm font-bold text-stone-900 mt-0">Next Steps in the Soil Cluster</h4>
+      <h2 className="text-lg font-bold text-stone-900 mt-6" id="environment-guidance">Temperature, Humidity &amp; Fertilizer</h2>
+      <ul className="space-y-3 list-disc pl-5 text-sm">
+        <li>
+          <strong>Temperature:</strong> Snake plants prefer warm indoor conditions and should be protected from damaging cold and abrupt cold drafts.
+        </li>
+        <li>
+          <strong>Humidity:</strong> Snake plants tolerate typical dry indoor air and generally do not require routine misting.
+        </li>
+        <li>
+          <strong>Fertilizer:</strong> Snake plants are light feeders. If fertilizing, use an appropriate indoor houseplant fertilizer conservatively during periods of active growth in spring and summer, and follow label instructions. Avoid fertilizing when growth slows during cooler months.
+        </li>
+        <li>
+          <strong>Winter Care:</strong> Growth and water use can slow substantially during periods of shorter days, lower light, or cooler indoor conditions. For detailed winter watering strategies, read our dedicated{' '}
+          <a
+            href="/winter-watering-guide"
+            onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('winter-guide'); } }}
+            className="text-emerald-808 font-bold underline hover:text-emerald-950 cursor-pointer"
+          >
+            Winter Snake Plant Watering Guide
+          </a>.
+        </li>
+      </ul>
+
+      {/* Related Guides Hub Navigation */}
+      <div className="border-t border-stone-250/60 pt-6 mt-10 space-y-3" id="related-guides">
+        <h3 className="text-sm font-bold text-stone-900 mt-0">Explore Specialized Snake Plant Guides</h3>
         <p className="text-xs text-stone-600 leading-relaxed mt-1">
-          Watering frequencies and evaporation ratios are heavily controlled by container material physics. Discover why materials matter in our{' '}
-          <button 
-            onClick={() => onNavigate?.('best-pots')} 
-            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
-          >
-            Best Pots for Snake Plants Guide
-          </button>, 
-          or compile your customized agricultural materials checklist using our interactive{' '}
-          <button 
-            onClick={() => onNavigate?.('setup-kits')} 
-            className="text-emerald-805 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
-          >
-            Perfect Soil & Repotting Kit Builder
-          </button>.
+          For specialized topics, explore our detailed guides across the Snake Plant Soil cluster:
         </p>
+        <ul className="text-xs space-y-2 list-none pl-0 font-sans">
+          <li>
+            🪴 <strong>Soil Selection:</strong> Compare commercial soil mixes in our{' '}
+            <a 
+              href="/best-snake-plant-soil"
+              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-soil'); } }}
+              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              Best Soil for Snake Plants Buyer's Guide
+            </a>{' '}
+            or mix your own using our{' '}
+            <a 
+              href="/diy-snake-plant-soil-mix"
+              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
+              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio)
+            </a>.
+          </li>
+          <li>
+            🌿 <strong>Pot Materials &amp; Drainage:</strong> Learn how pot materials affect drying times in our{' '}
+            <a 
+              href="/best-pots-for-snake-plants"
+              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-pots'); } }}
+              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              Best Pots for Snake Plants Guide
+            </a>.
+          </li>
+          <li>
+            🚨 <strong>Root Rot Treatment:</strong> If your plant shows yellowing leaves or mushy roots, follow our{' '}
+            <a 
+              href="/snake-plant-root-rot-guide"
+              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('root-rot'); } }}
+              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              Snake Plant Root Rot Symptoms &amp; Recovery Guide
+            </a>.
+          </li>
+          <li>
+            🔬 <strong>Interactive Setup Diagnosis:</strong> Troubleshoot your plant's specific soil, light, and pot setup with our{' '}
+            <a 
+              href="/soil-diagnosis"
+              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('setup-kits'); } }}
+              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              Soil Diagnosis Quiz
+            </a>.
+          </li>
+        </ul>
       </div>
 
       <TopicalClusterNav currentTab="care-guide" onNavigate={onNavigate} />

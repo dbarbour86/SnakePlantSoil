@@ -64,8 +64,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Discover the best pots for snake plants. Compare terracotta, ceramic, and plastic containers, choose an appropriate pot size, and learn practical drainage rules."
   },
   'care-guide': {
-    title: "Seasonal Snake Plant Care & Watering Masterclass | SnakePlantSoil.com",
-    description: "Mastering the 'Soak and Dry' watering cycle, seasonal routines, winter dryness tactics, and light level placements."
+    title: "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
+    description: "Learn how to care for a snake plant indoors, including watering, light, soil, pots, seasonal care, fertilizer, and common signs of plant stress."
   },
   faq: {
     title: "Snake Plant Potting & Care FAQs | SnakePlantSoil.com",
