@@ -214,6 +214,34 @@ setTimeout(async () => {
         if (!html.includes('Exhaustive Botanical Knowledgebase')) {
           cleanupAndExit(1, `FAQ page is missing header text in raw HTML.`);
         }
+      } else if (route === '/best-snake-plant-soil') {
+        if (!html.includes('Best Soil for Snake Plants')) {
+          cleanupAndExit(1, `Best soil route missing 'Best Soil for Snake Plants' in raw HTML.`);
+        }
+      } else if (route === '/snake-plant-root-rot-guide') {
+        if (!html.includes('Snake Plant Root Rot')) {
+          cleanupAndExit(1, `Root rot route missing 'Snake Plant Root Rot' in raw HTML.`);
+        }
+      } else if (route === '/best-pots-for-snake-plants') {
+        if (!html.includes('Best Pots for Snake Plants')) {
+          cleanupAndExit(1, `Best pots route missing 'Best Pots for Snake Plants' in raw HTML.`);
+        }
+      } else if (route === '/snake-plant-care-guide') {
+        if (!html.includes('Snake Plant Care Guide')) {
+          cleanupAndExit(1, `Care guide route missing 'Snake Plant Care Guide' in raw HTML.`);
+        }
+      } else if (route === '/best-fertilizer-for-snake-plant-soil') {
+        if (!html.includes('Snake Plant Fertilizer Guide')) {
+          cleanupAndExit(1, `Fertilizer route missing 'Snake Plant Fertilizer Guide' in raw HTML.`);
+        }
+      } else if (route === '/winter-watering-guide') {
+        if (!html.includes('Winter Snake Plant Watering Guide')) {
+          cleanupAndExit(1, `Winter watering route missing 'Winter Snake Plant Watering Guide' in raw HTML.`);
+        }
+      } else if (route === '/diy-snake-plant-soil-mix') {
+        if (!html.includes('DIY Snake Plant Soil Mix')) {
+          cleanupAndExit(1, `DIY mix route missing 'DIY Snake Plant Soil Mix' in raw HTML.`);
+        }
       }
 
       // B. Execute Chrome headlessly if available to smoke-test React client mounting
