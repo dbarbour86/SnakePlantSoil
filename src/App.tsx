@@ -56,8 +56,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
   },
   'root-rot': {
-    title: "How to Identify & Save Snake Plant Root Rot | SnakePlantSoil.com",
-    description: "How to identify, treat, and surgically recover a snake plant suffering from mushy leaves, soggy stems, or black rhizomes."
+    title: "Snake Plant Root Rot: Symptoms, Treatment & Recovery Guide",
+    description: "Learn how to recognize snake plant root rot, remove badly damaged tissue, repot viable roots or rhizomes, and correct the moisture conditions that caused the problem."
   },
   'best-pots': {
     title: "Best Pots for Snake Plants (Breathable Terracotta) | SnakePlantSoil.com",
