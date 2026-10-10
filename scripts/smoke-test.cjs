@@ -63,7 +63,8 @@ const routesToTest = [
   '/soil-diagnosis',
   '/about',
   '/faq',
-  '/care-card'
+  '/care-card',
+  '/radio'
 ];
 
 if (manifest.static) {
@@ -71,6 +72,9 @@ if (manifest.static) {
 }
 if (manifest.dynamic) {
   manifest.dynamic.forEach(slug => routesToTest.push(`/${slug}`));
+}
+if (manifest.episodes) {
+  manifest.episodes.forEach(slug => routesToTest.push(`/radio/${slug}`));
 }
 
 // 2. Start production server locally on port 3001
@@ -138,7 +142,9 @@ setTimeout(async () => {
       '/choosing-terracotta-pots': '/best-pots-for-snake-plants',
       '/choosing-terracotta-pots/': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
-      '/care-guide/': '/snake-plant-care-guide'
+      '/care-guide/': '/snake-plant-care-guide',
+      '/podcast': '/radio',
+      '/podcast/': '/radio'
     };
 
     for (const [alias, destination] of Object.entries(aliasMap)) {

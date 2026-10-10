@@ -72,23 +72,59 @@ Executed before Vite compilation during `npm run build` and CI deployment:
 
 ---
 
-## 3. Operations & Publishing Workflow
+## 3. Operations & Safe Publishing Workflow
 
-### Publishing a New Article
-1. Create a markdown or JSON file in `content/posts/` (e.g. `content/posts/my-new-guide.md`).
-2. Run:
+> **CRITICAL PRODUCTION SAFEGUARD:**  
+> Never push directly to `main`. All article and podcast updates must be developed on a dedicated branch, validated locally via `npm run publish-check`, pushed to a remote branch, reviewed, and merged via Pull Request.
+
+### Publishing a New Article or Guide
+1. Create and switch to a dedicated content branch:
+   ```bash
+   git checkout -b content/publish-<slug>
+   ```
+2. Create or edit the markdown file in `content/posts/` (e.g., `content/posts/<slug>.md`).
+3. Run the automated local gatekeeper check:
    ```bash
    npm run publish-check
    ```
    *(This regenerates the manifest, sitemap, vercel.json, verifies all SEO rules, and runs the production compiler).*
-3. Commit and push the new article and the updated configurations:
+4. Stage the content file and regenerated artifacts, then commit and push to the feature branch:
    ```bash
-   git add .
-   git commit -m "Publish: my-new-guide"
-   git push origin main
+   git add content/posts/<slug>.md src/generated-manifest.json public/sitemap.xml vercel.json
+   git commit -m "feat(content): publish <slug>"
+   git push origin content/publish-<slug>
    ```
+5. Open a Pull Request into `main`. Verify CI build checks and review preview deployments before merging to production.
 
-### Deleting an Article
-1. Delete the article file inside `content/posts/`.
-2. Run `npm run publish-check`.
-3. Commit and push the deletions and the regenerated files.
+---
+
+### Weekly Thursday Snake Plant Radio Episode Workflow
+1. Check out a dedicated podcast branch:
+   ```bash
+   git checkout -b podcast/ep-<number>-<slug>
+   ```
+2. Create the episode markdown file in `content/episodes/<slug>.md`:
+   - Set verified frontmatter metadata (`title`, `slug`, `episodeNumber`, `date`, `duration`, `category`).
+   - If audio is published on Spotify, insert the live `spotifyUrl` and `spotifyEmbedUrl`. If pending, leave empty (the page will display a polished "Audio Feed Connecting" notice).
+   - Link 2–3 existing pillar guides in `relatedGuides`.
+   - Provide show notes and companion formulas.
+3. Validate and regenerate the registry:
+   ```bash
+   npm run publish-check
+   ```
+4. Commit, push the branch, and open a Pull Request:
+   ```bash
+   git add content/episodes/<slug>.md src/generated-manifest.json public/sitemap.xml vercel.json
+   git commit -m "feat(podcast): release episode <number> - <slug>"
+   git push origin podcast/ep-<number>-<slug>
+   ```
+5. Review the Vercel branch preview deployment. Once verified, merge the PR into `main` to trigger the production deploy.
+
+---
+
+### Deleting an Article or Episode
+1. Check out a maintenance branch: `git checkout -b content/retire-<slug>`.
+2. Delete or archive the file in `content/posts/` or `content/episodes/`.
+3. If necessary, configure a 301 redirect in `scripts/generate-manifest.cjs`.
+4. Run `npm run publish-check`.
+5. Push the branch, open a PR, and merge after review.

@@ -126,6 +126,20 @@ export default function Footer({ setActiveTab }: FooterProps) {
                   Watering and Care Guide
                 </a>
               </li>
+              <li>
+                <a 
+                  href="/radio"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick('radio');
+                  }} 
+                  className="text-stone-400 hover:text-white transition-colors flex items-center gap-1.5"
+                  id="foot-link-radio"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Snake Plant Radio (Podcast)
+                </a>
+              </li>
             </ul>
           </div>
 

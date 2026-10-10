@@ -20,6 +20,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
     'root-rot': 'snake-plant-root-rot-guide',
     'best-pots': 'best-pots-for-snake-plants',
     'care-guide': 'snake-plant-care-guide',
+    'radio': 'radio',
     'faq': 'faq',
     'care-card': 'care-card',
     'about': 'about'
@@ -31,6 +32,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
     { id: 'diy-mix', label: 'DIY Mix' },
     { id: 'root-rot', label: 'Soil Problems' },
     { id: 'care-guide', label: 'Care Guides' },
+    { id: 'radio', label: 'Radio' },
     { id: 'about', label: 'About' },
     { id: 'faq', label: 'FAQ' }
   ];
@@ -43,6 +45,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
     { id: 'diy-mix', label: 'DIY Mix' },
     { id: 'root-rot', label: 'Soil Problems' },
     { id: 'care-guide', label: 'Care Guides' },
+    { id: 'radio', label: 'Snake Plant Radio' },
     { id: 'about', label: 'About' },
     { id: 'faq', label: 'FAQ' }
   ];

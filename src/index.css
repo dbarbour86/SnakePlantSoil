@@ -24,10 +24,34 @@ body {
   background-color: #fafaf9; /* soft warm stone background */
   color: #292524; /* deep warm charcoal text */
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Enhanced article reading typography */
+.prose {
+  color: #383431;
+  line-height: 1.75;
+}
+
+.prose h2, .prose h3, .prose h4 {
+  color: #1c1917;
+  font-family: var(--font-display);
+}
+
+.prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose a {
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
 }
 
 /* Custom scrollbar to keep layout minimal */
@@ -50,3 +74,4 @@ h1, h2, h3, h4 {
   background-image: radial-gradient(rgba(6, 78, 59, 0.025) 1.5px, transparent 1.5px);
   background-size: 24px 24px;
 }
+

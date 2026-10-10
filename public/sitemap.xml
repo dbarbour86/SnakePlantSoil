@@ -3,75 +3,87 @@
   <!-- Homepage -->
   <url>
     <loc>https://snakeplantsoil.com/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Static Pages -->
   <url>
     <loc>https://snakeplantsoil.com/soil-diagnosis</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://snakeplantsoil.com/radio</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://snakeplantsoil.com/about</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/faq</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/care-card</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/best-snake-plant-soil</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/diy-snake-plant-soil-mix</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/snake-plant-root-rot-guide</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/best-pots-for-snake-plants</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/snake-plant-care-guide</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/best-fertilizer-for-snake-plant-soil</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/winter-watering-guide</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://snakeplantsoil.com/radio/the-root-rot-lie</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>

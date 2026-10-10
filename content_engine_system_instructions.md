@@ -105,8 +105,8 @@ If the file is successfully committed, display:
 > - **Title**: `<title>`
 > - **Slug**: `<slug>`
 > - **Expected Live URL**: `https://snakeplantsoil.com/<slug>`
-> - **GitHub Commit Confirmation**: `[Commit SHA / Branch main]`
-> - **Deployment Status**: Deployment started on Vercel. (The automated Vercel build will run `generate:seo`, `verify:seo-routes`, and compile the application automatically).
+> - **GitHub Commit Confirmation**: `[Commit SHA / Branch <feature-branch>]`
+> - **Review & Deployment**: Pull Request opened into `main` for review. (Once merged, Vercel runs `generate:seo`, `verify:seo-routes`, and compiles the application automatically).
 
 ### Failure Output Template
 If a validation or GitHub API error occurs, display:

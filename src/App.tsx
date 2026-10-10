@@ -4,7 +4,7 @@ import {
   Trees, Beaker, HeartPulse, Layers, Compass, HelpCircle, 
   ChevronRight, Check, AlertTriangle, Info, Search, 
   Sparkles, Award, Star, ArrowRight, ShieldCheck, HelpCircle as QuestionIcon, Plus, Minus,
-  ExternalLink
+  ExternalLink, Radio, Headphones
 } from 'lucide-react';
 
 import Navigation from './components/Navigation';
@@ -14,6 +14,9 @@ import ProductSection from './components/ProductSection';
 import SoilMixDiagram from './components/SoilMixDiagram';
 import LeadMagnet from './components/LeadMagnet';
 import SoilSetupKit from './components/SoilSetupKit';
+import RadioHub from './components/RadioHub';
+import EpisodeDetail from './components/EpisodeDetail';
+import { getEpisodes } from './episodes';
 
 import { 
   BestSoilArticle, 
@@ -67,6 +70,10 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     title: "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
     description: "Learn how to care for a snake plant indoors, including watering, light, soil, pots, seasonal care, fertilizer, and common signs of plant stress."
   },
+  radio: {
+    title: "Snake Plant Radio | Soil Science, Drainage & Care Podcast",
+    description: "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, potting physics, root rot recovery, and resilient houseplant cultivation."
+  },
   faq: {
     title: "Snake Plant Potting & Care FAQs | SnakePlantSoil.com",
     description: "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention."
@@ -108,6 +115,9 @@ export default function App() {
       case 'care-guide':
       case 'snake-plant-care-guide':
         return 'care-guide';
+      case 'radio':
+      case 'podcast':
+        return 'radio';
       case 'faq':
         return 'faq';
       case 'about':
@@ -118,6 +128,9 @@ export default function App() {
       case 'home':
         return 'home';
       default: {
+        if (cleanPath.startsWith('radio/')) {
+          return cleanPath;
+        }
         const isDynamic = routeManifest.dynamic.includes(cleanPath) || routeManifest.dynamic.includes(cleanPath.replace(/^dynamic-/, ''));
         if (isDynamic) {
           return cleanPath.replace(/^dynamic-/, '');
@@ -140,16 +153,22 @@ export default function App() {
     if (typeof window !== 'undefined') {
       let targetPath = '/';
       if (normalizedTab !== 'home') {
-        const dynamicMatch = dynamicArticles.find(
-          a => a.slug === tab || a.id === tab || a.slug === normalizedTab
-        );
-        if (dynamicMatch) {
-          targetPath = `/${dynamicMatch.slug}`;
-        } else if (normalizedTab === 'setup-kits') {
-          targetPath = '/soil-diagnosis';
+        if (normalizedTab === 'radio') {
+          targetPath = '/radio';
+        } else if (normalizedTab.startsWith('radio/')) {
+          targetPath = `/${normalizedTab}`;
         } else {
-          const staticMatch = STATIC_GUIDES.find(s => s.id === normalizedTab || s.slug === tab || s.id === tab);
-          targetPath = `/${staticMatch ? staticMatch.slug : normalizedTab}`;
+          const dynamicMatch = dynamicArticles.find(
+            a => a.slug === tab || a.id === tab || a.slug === normalizedTab
+          );
+          if (dynamicMatch) {
+            targetPath = `/${dynamicMatch.slug}`;
+          } else if (normalizedTab === 'setup-kits') {
+            targetPath = '/soil-diagnosis';
+          } else {
+            const staticMatch = STATIC_GUIDES.find(s => s.id === normalizedTab || s.slug === tab || s.id === tab);
+            targetPath = `/${staticMatch ? staticMatch.slug : normalizedTab}`;
+          }
         }
       }
       if (window.location.pathname !== targetPath) {
@@ -186,6 +205,15 @@ export default function App() {
     );
   }, [dynamicArticles, activeTab]);
 
+  const episodes = useMemo(() => getEpisodes(), []);
+  const activeEpisode = useMemo(() => {
+    if (activeTab.startsWith('radio/')) {
+      const epSlug = activeTab.replace(/^radio\//, '');
+      return episodes.find(e => e.slug === epSlug || e.id === `episode-${epSlug}`);
+    }
+    return null;
+  }, [episodes, activeTab]);
+
   // Dynamic Title, Description, and Canonical Tag Manager
   useEffect(() => {
     let title = PAGE_METADATA.home.title;
@@ -197,6 +225,14 @@ export default function App() {
       title = `${activeDynamicArticle.title} | SnakePlantSoil.com`;
       description = activeDynamicArticle.shortDescription;
       canonicalUrl = `https://snakeplantsoil.com/${activeDynamicArticle.slug}`;
+    } else if (activeEpisode) {
+      title = `${activeEpisode.title} | Snake Plant Radio`;
+      description = activeEpisode.description;
+      canonicalUrl = `https://snakeplantsoil.com/radio/${activeEpisode.slug}`;
+    } else if (activeTab === 'radio') {
+      title = PAGE_METADATA.radio.title;
+      description = PAGE_METADATA.radio.description;
+      canonicalUrl = 'https://snakeplantsoil.com/radio';
     } else if (PAGE_METADATA[activeTab]) {
       title = PAGE_METADATA[activeTab].title;
       description = PAGE_METADATA[activeTab].description;
@@ -314,7 +350,7 @@ export default function App() {
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-805 border border-emerald-100 uppercase tracking-wider">
                       🌿 Built specifically for snake plants
                     </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-stone-900 tracking-tight leading-[1.1]" id="hero-main-title">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-stone-900 tracking-tight leading-[1.15]" id="hero-main-title">
                       Snake Plant Soil: <span className="text-emerald-850 underline decoration-wavy">Find the Right Mix for Your Plant</span>
                     </h1>
                     <p className="text-stone-600 text-xs sm:text-sm leading-relaxed pl-0.5">
@@ -810,6 +846,83 @@ export default function App() {
                 </div>
               </section>
 
+              {/* SECTION: TASTEFUL SNAKE PLANT RADIO FEATURE */}
+              <section className="py-14 bg-gradient-to-br from-stone-900 to-emerald-950 text-white relative overflow-hidden" id="homepage-snake-plant-radio">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <div className="lg:col-span-7 space-y-4 text-left">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-800/80 text-emerald-200 border border-emerald-700/60">
+                        <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                        <span>Now Streaming • Snake Plant Radio</span>
+                      </div>
+
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
+                        Deep-Dive Soil Science for Your Ears
+                      </h2>
+
+                      <p className="text-stone-300 text-xs sm:text-sm leading-relaxed max-w-xl">
+                        Listen to our weekly botanical podcast. We deconstruct common houseplant advice, 
+                        explore soil oxygenation physics, and help you keep your Sansevieria rot-free.
+                      </p>
+
+                      <div className="flex flex-wrap items-center gap-3 pt-2">
+                        <button
+                          onClick={() => navigateToArticle('radio')}
+                          className="px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-bold text-xs transition-all shadow-xs flex items-center gap-2 cursor-pointer"
+                          id="home-radio-hub-cta"
+                        >
+                          <Headphones className="w-4 h-4" />
+                          <span>Explore Snake Plant Radio</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                        
+                        <a 
+                          href="https://open.spotify.com/show/6XOicuhWNSvmswXniqX4Yu"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2.5 rounded-lg bg-stone-800/90 hover:bg-stone-800 text-stone-200 font-bold text-xs transition-all border border-stone-700 flex items-center gap-1.5"
+                        >
+                          <span>Spotify Feed</span>
+                          <ExternalLink className="w-3 h-3 opacity-60" />
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-5 bg-stone-850/90 border border-stone-700/80 rounded-2xl p-5 sm:p-6 space-y-4 shadow-xl">
+                      <div className="flex items-center justify-between border-b border-stone-750 pb-3">
+                        <span className="text-[11px] font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                          Featured Episode #1
+                        </span>
+                        <span className="text-[10px] font-mono text-stone-400">
+                          5 min
+                        </span>
+                      </div>
+
+                      <h3 className="text-base sm:text-lg font-display font-bold text-white leading-snug">
+                        Why Your Snake Plant Is Dying (It's Probably Water)
+                      </h3>
+
+                      <p className="text-stone-400 text-xs leading-relaxed line-clamp-2">
+                        Overwatering kills more snake plants than anything else. Maya and Jordan walk through the five-step recovery protocol that can save your plant.
+                      </p>
+
+                      <div className="pt-2">
+                        <button
+                          onClick={() => navigateToArticle('radio/the-root-rot-lie')}
+                          className="w-full py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+                          id="home-episode-1-cta"
+                        >
+                          <span>Listen & View Show Notes</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+
               {/* SECTION 6: FUTURE SOILS WAITLIST INVITATION */}
               <section className="bg-emerald-950 text-stone-100 py-12 px-4" id="homepage-waitlist-block">
                 <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
@@ -1283,8 +1396,40 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* ====================================================
+              VIEW RADIO: PODCAST HUB
+              ==================================================== */}
+          {activeTab === 'radio' && (
+            <motion.div
+              key="radio-hub-view"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              id="radio-page"
+            >
+              <RadioHub onNavigate={navigateToArticle} />
+            </motion.div>
+          )}
+
+          {/* ====================================================
+              VIEW RADIO: EPISODE DETAIL
+              ==================================================== */}
+          {activeEpisode && (
+            <motion.div
+              key={`episode-view-${activeEpisode.slug}`}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              id={`episode-detail-${activeEpisode.slug}`}
+            >
+              <EpisodeDetail episode={activeEpisode} onNavigate={navigateToArticle} />
+            </motion.div>
+          )}
+
           {/* Fallback View if tab is not a known static tab and dynamic article is not found */}
-          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card', 'about'].includes(activeTab) && !activeDynamicArticle && (
+          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card', 'about', 'radio'].includes(activeTab) && !activeDynamicArticle && !activeEpisode && (
             <motion.div
               key="not-found-view"
               initial={{ opacity: 0, y: 12 }}
