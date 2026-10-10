@@ -88,6 +88,16 @@
       "permanent": true
     },
     {
+      "source": "/radio/the-root-rot-lie",
+      "destination": "/radio/why-your-snake-plant-is-dying",
+      "permanent": true
+    },
+    {
+      "source": "/radio/the-root-rot-lie/",
+      "destination": "/radio/why-your-snake-plant-is-dying",
+      "permanent": true
+    },
+    {
       "source": "/podcast",
       "destination": "/radio",
       "permanent": true

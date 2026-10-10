@@ -143,6 +143,8 @@ setTimeout(async () => {
       '/choosing-terracotta-pots/': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
       '/care-guide/': '/snake-plant-care-guide',
+      '/radio/the-root-rot-lie': '/radio/why-your-snake-plant-is-dying',
+      '/radio/the-root-rot-lie/': '/radio/why-your-snake-plant-is-dying',
       '/podcast': '/radio',
       '/podcast/': '/radio'
     };

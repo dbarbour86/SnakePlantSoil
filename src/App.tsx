@@ -909,7 +909,7 @@ export default function App() {
 
                       <div className="pt-2">
                         <button
-                          onClick={() => navigateToArticle('radio/the-root-rot-lie')}
+                          onClick={() => navigateToArticle('radio/why-your-snake-plant-is-dying')}
                           className="w-full py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
                           id="home-episode-1-cta"
                         >

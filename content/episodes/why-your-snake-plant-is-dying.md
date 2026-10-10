@@ -1,6 +1,6 @@
 ---
 title: "Why Your Snake Plant Is Dying (It's Probably Water)"
-slug: "the-root-rot-lie"
+slug: "why-your-snake-plant-is-dying"
 episodeNumber: 1
 seasonNumber: 1
 date: "2026-10-10"

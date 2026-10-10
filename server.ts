@@ -69,6 +69,7 @@ async function startServer() {
       '/choosing-terracotta-pots': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
       '/setup-kits': '/soil-diagnosis',
+      '/radio/the-root-rot-lie': '/radio/why-your-snake-plant-is-dying',
       '/podcast': '/radio',
       '/podcast/': '/radio'
     };
