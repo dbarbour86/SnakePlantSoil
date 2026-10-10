@@ -11,7 +11,65 @@ interface EpisodeDetailProps {
   onNavigate: (tab: string) => void;
 }
 
-// Simple inline markdown formatter helper
+// Helper to parse inline markdown styles like links ([text](url)), bold (**text**), italics (*text*), and code (`code`)
+function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): React.ReactNode {
+  const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*|\*.*?\*|`.*?`)/g;
+  const parts = text.split(regex);
+  
+  return parts.map((part, idx) => {
+    if (part.startsWith('[') && part.includes('](') && part.endsWith(')')) {
+      const match = part.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (match) {
+        const linkText = match[1];
+        const linkUrl = match[2];
+        const isExternal = /^https?:\/\//i.test(linkUrl);
+        
+        if (isExternal) {
+          return (
+            <a 
+              key={idx} 
+              href={linkUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-emerald-800 font-bold underline hover:text-emerald-950"
+            >
+              {parseInlineStyles(linkText, onNavigate)}
+            </a>
+          );
+        } else {
+          const cleanSlug = linkUrl.replace(/^\//, '');
+          return (
+            <a
+              key={idx}
+              href={linkUrl}
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate(cleanSlug);
+                }
+              }}
+              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
+            >
+              {parseInlineStyles(linkText, onNavigate)}
+            </a>
+          );
+        }
+      }
+    }
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      return <strong key={idx} className="font-bold text-stone-900">{parseInlineStyles(part.slice(2, -2), onNavigate)}</strong>;
+    }
+    if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
+      return <em key={idx} className="italic text-stone-800">{parseInlineStyles(part.slice(1, -1), onNavigate)}</em>;
+    }
+    if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+      return <code key={idx} className="font-mono bg-stone-100 px-1.5 py-0.5 rounded text-stone-800 text-[11px] font-semibold">{part.slice(1, -1)}</code>;
+    }
+    return part;
+  });
+}
+
+// Markdown formatter helper
 function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => void) {
   const lines = content.split(/\r?\n/);
   const elements: React.ReactNode[] = [];
@@ -21,7 +79,7 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
   const flushList = (key: string) => {
     if (inList && listItems.length > 0) {
       elements.push(
-        <ul key={key} className="space-y-2 my-4 list-disc list-inside text-stone-700 text-sm leading-relaxed">
+        <ul key={key} className="space-y-2.5 my-4 list-disc list-inside text-stone-700 text-sm sm:text-base leading-relaxed">
           {listItems}
         </ul>
       );
@@ -45,12 +103,23 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
       return;
     }
 
+    // H1 Headings later in body
+    if (trimmed.startsWith('# ')) {
+      flushList(`list-${index}`);
+      elements.push(
+        <h1 key={index} className="text-2xl sm:text-3xl font-display font-bold text-stone-900 mt-8 mb-4 tracking-tight">
+          {parseInlineStyles(trimmed.replace(/^#\s*/, ''), onNavigate)}
+        </h1>
+      );
+      return;
+    }
+
     // H2 Headings
     if (trimmed.startsWith('## ')) {
       flushList(`list-${index}`);
       elements.push(
         <h2 key={index} className="text-xl sm:text-2xl font-display font-bold text-stone-900 mt-8 mb-4 tracking-tight">
-          {trimmed.replace(/^##\s*/, '')}
+          {parseInlineStyles(trimmed.replace(/^##\s*/, ''), onNavigate)}
         </h2>
       );
       return;
@@ -61,7 +130,7 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
       flushList(`list-${index}`);
       elements.push(
         <h3 key={index} className="text-lg font-display font-bold text-stone-900 mt-6 mb-3">
-          {trimmed.replace(/^###\s*/, '')}
+          {parseInlineStyles(trimmed.replace(/^###\s*/, ''), onNavigate)}
         </h3>
       );
       return;
@@ -70,49 +139,24 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
     // Blockquote
     if (trimmed.startsWith('> ')) {
       flushList(`list-${index}`);
-      const quoteText = trimmed.replace(/^>\s*/, '').replace(/^"|"$/g, '').replace(/^\*|\*$/g, '');
+      const quoteText = trimmed.replace(/^>\s*/, '').replace(/^"|"$/g, '');
       elements.push(
         <blockquote key={index} className="my-6 p-4 border-l-4 border-emerald-700 bg-emerald-50/50 rounded-r-xl italic text-stone-800 text-sm sm:text-base leading-relaxed">
-          "{quoteText}"
+          {parseInlineStyles(quoteText, onNavigate)}
         </blockquote>
       );
       return;
     }
 
-    // List item
+    // List item (unordered)
     if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
       inList = true;
       const rawText = trimmed.replace(/^[-*]\s*/, '');
-      
-      // Parse inline markdown link like [text](url)
-      const linkMatch = rawText.match(/\[(.*?)\]\((.*?)\)/);
-      if (linkMatch) {
-        const linkLabel = linkMatch[1];
-        const linkTarget = linkMatch[2];
-        const cleanSlug = linkTarget.replace(/^\//, '');
-        listItems.push(
-          <li key={index} className="text-stone-700">
-            {rawText.substring(0, linkMatch.index)}
-            <a 
-              href={linkTarget}
-              onClick={(e) => {
-                e.preventDefault();
-                onNavigate(cleanSlug);
-              }}
-              className="text-emerald-800 font-bold underline hover:text-emerald-950 cursor-pointer"
-            >
-              {linkLabel}
-            </a>
-            {rawText.substring((linkMatch.index || 0) + linkMatch[0].length)}
-          </li>
-        );
-      } else {
-        listItems.push(
-          <li key={index} className="text-stone-700">
-            {rawText}
-          </li>
-        );
-      }
+      listItems.push(
+        <li key={index} className="text-stone-700 text-sm sm:text-base leading-relaxed">
+          {parseInlineStyles(rawText, onNavigate)}
+        </li>
+      );
       return;
     }
 
@@ -126,7 +170,7 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
     flushList(`list-${index}`);
     elements.push(
       <p key={index} className="my-3 text-stone-700 text-sm sm:text-base leading-relaxed font-sans">
-        {trimmed}
+        {parseInlineStyles(trimmed, onNavigate)}
       </p>
     );
   });

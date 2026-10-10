@@ -16,6 +16,7 @@ const uniqueStaticSlugs = [...new Set(staticSlugs)];
 // 2. Scan content/posts/ directory
 const postsDir = path.join(__dirname, '..', 'content', 'posts');
 const dynamicSlugs = [];
+const dynamicDates = {};
 const metadata = {};
 
 if (fs.existsSync(postsDir)) {
@@ -46,8 +47,10 @@ if (fs.existsSync(postsDir)) {
             const slug = meta.slug || file.replace(/\.md$/, '');
             const title = meta.title || '';
             const description = meta.excerpt || meta.description || '';
+            const date = meta.updated || meta.date || '2026-10-01';
             
             dynamicSlugs.push(slug);
+            dynamicDates[slug] = date;
             metadata[slug] = { title, description };
           }
         }
@@ -63,8 +66,10 @@ if (fs.existsSync(postsDir)) {
           const slug = data.slug || file.replace(/\.json$/, '');
           const title = data.title || '';
           const description = data.excerpt || data.description || '';
+          const date = data.updated || data.date || '2026-10-01';
           
           dynamicSlugs.push(slug);
+          dynamicDates[slug] = date;
           metadata[slug] = { title, description };
         }
       } catch (e) {
@@ -77,6 +82,7 @@ if (fs.existsSync(postsDir)) {
 // 2b. Scan content/episodes/ directory
 const episodesDir = path.join(__dirname, '..', 'content', 'episodes');
 const episodeSlugs = [];
+const episodeDates = {};
 
 if (fs.existsSync(episodesDir)) {
   const files = fs.readdirSync(episodesDir);
@@ -106,8 +112,10 @@ if (fs.existsSync(episodesDir)) {
             const slug = meta.slug || file.replace(/\.md$/, '');
             const title = meta.title || '';
             const description = meta.excerpt || meta.description || '';
+            const date = meta.date || meta.pubDate || '2026-10-10';
             
             episodeSlugs.push(slug);
+            episodeDates[slug] = date;
             metadata[`radio/${slug}`] = { title: `${title} | Snake Plant Radio`, description };
           }
         }
@@ -123,8 +131,10 @@ if (fs.existsSync(episodesDir)) {
           const slug = data.slug || file.replace(/\.json$/, '');
           const title = data.title || '';
           const description = data.excerpt || data.description || '';
+          const date = data.date || data.pubDate || '2026-10-10';
           
           episodeSlugs.push(slug);
+          episodeDates[slug] = date;
           metadata[`radio/${slug}`] = { title: `${title} | Snake Plant Radio`, description };
         }
       } catch (e) {
@@ -153,44 +163,45 @@ fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), 'utf-8');
 console.log(`Generated manifest at ${manifestPath}`);
 
 // 4. Generate sitemap.xml
-const lastmod = new Date().toISOString().split('T')[0];
+// Accurate lastmod reflects meaningful content updates, not raw build timestamps
+const siteLaunchLastmod = '2026-10-10';
 let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
     <loc>https://snakeplantsoil.com/</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <!-- Static Pages -->
   <url>
     <loc>https://snakeplantsoil.com/soil-diagnosis</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/radio</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/about</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/faq</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snakeplantsoil.com/care-card</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -199,25 +210,27 @@ let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 uniqueStaticSlugs.forEach(slug => {
   sitemapXml += `  <url>
     <loc>https://snakeplantsoil.com/${slug}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${siteLaunchLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>\n`;
 });
 
 dynamicSlugs.forEach(slug => {
+  const modDate = dynamicDates[slug] || siteLaunchLastmod;
   sitemapXml += `  <url>
     <loc>https://snakeplantsoil.com/${slug}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${modDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>\n`;
 });
 
 episodeSlugs.forEach(slug => {
+  const modDate = episodeDates[slug] || siteLaunchLastmod;
   sitemapXml += `  <url>
     <loc>https://snakeplantsoil.com/radio/${slug}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${modDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>\n`;

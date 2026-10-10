@@ -196,7 +196,7 @@ async function startServer() {
   "name": "Snake Plant Radio",
   "url": "https://snakeplantsoil.com/radio",
   "description": "${cleanDesc}",
-  "webFeed": "https://snakeplantsoil.com/radio",
+  "webFeed": "https://anchor.fm/s/118565be4/podcast/rss",
   "inLanguage": "en-US",
   "publisher": {
     "@type": "Organization",
@@ -209,16 +209,45 @@ async function startServer() {
       return `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "PodcastEpisode",
-  "@id": "${canonicalUrl}#episode",
-  "name": "${cleanTitle}",
-  "description": "${cleanDesc}",
-  "url": "${canonicalUrl}",
-  "partOfSeries": {
-    "@type": "PodcastSeries",
-    "name": "Snake Plant Radio",
-    "url": "https://snakeplantsoil.com/radio"
-  }
+  "@graph": [
+    {
+      "@type": "PodcastEpisode",
+      "@id": "${canonicalUrl}#episode",
+      "name": "${cleanTitle}",
+      "description": "${cleanDesc}",
+      "url": "${canonicalUrl}",
+      "partOfSeries": {
+        "@type": "PodcastSeries",
+        "name": "Snake Plant Radio",
+        "url": "https://snakeplantsoil.com/radio",
+        "webFeed": "https://anchor.fm/s/118565be4/podcast/rss"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "${canonicalUrl}#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://snakeplantsoil.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Radio",
+          "item": "https://snakeplantsoil.com/radio"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "${cleanTitle}",
+          "item": "${canonicalUrl}"
+        }
+      ]
+    }
+  ]
 }
 </script>`;
     }

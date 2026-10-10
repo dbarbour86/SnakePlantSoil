@@ -82,8 +82,14 @@ jobs:
           npm run build
           npm run test:smoke
 
+      - name: Simulation Mode Completed (Safeguard: Never Deploy Simulation)
+        if: github.event.inputs.simulate == 'true'
+        run: |
+          echo "⚠️ Simulation mode active: Full verification suite passed."
+          echo "🌿 Safeguard verified: Simulated episodes are NEVER committed or deployed to production." >> "$GITHUB_STEP_SUMMARY"
+
       - name: Commit and Publish New Episode to Main
-        if: steps.change_check.outputs.has_changes == 'true'
+        if: steps.change_check.outputs.has_changes == 'true' && github.event.inputs.simulate != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -98,7 +104,7 @@ jobs:
             exit 0
           fi
 
-          COMMIT_MSG="feat(podcast): auto-publish Snake Plant Radio episode from RSS [skip ci]"
+          COMMIT_MSG="feat(podcast): auto-publish Snake Plant Radio episode from RSS"
           git commit -m "$COMMIT_MSG"
 
           # Pull latest main and push to trigger Vercel deployment
