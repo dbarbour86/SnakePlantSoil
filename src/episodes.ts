@@ -9,6 +9,8 @@ export interface Episode {
   duration: string;
   spotifyUrl: string;
   spotifyEmbedUrl: string;
+  audioUrl?: string;
+  guid?: string;
   category: string;
   status: string;
   relatedGuides: string[];
@@ -170,6 +172,8 @@ export function getEpisodes(): Episode[] {
         duration: metadata.duration || '20 min',
         spotifyUrl,
         spotifyEmbedUrl,
+        audioUrl: metadata.audioUrl || '',
+        guid: metadata.guid || '',
         category: metadata.category || 'Soil Science',
         status: metadata.status || 'published',
         relatedGuides,

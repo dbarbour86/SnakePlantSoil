@@ -98,27 +98,50 @@ Executed before Vite compilation during `npm run build` and CI deployment:
 
 ---
 
+### Snake Plant Radio RSS Sync & Publishing System
+
+Snake Plant Radio is syndicated via the official Anchor/Spotify RSS feed:
+`https://anchor.fm/s/118565be4/podcast/rss`
+
+#### Build-Time RSS Synchronization (`scripts/sync-episodes-rss.cjs`)
+1. **Zero Runtime Dependency**: RSS sync runs entirely at build time during `npm run build` or manually via `npm run sync:podcast`. No network requests occur during visitor browsing or express request execution.
+2. **Editorial Preservation**: Local Markdown files in `content/episodes/` retain 100% of their human-curated content (transcripts, companion guide cross-links, interactive tools, and editorial excerpts). The sync script only updates technical feed fields (`audioUrl`, `guid`, exact `duration`).
+3. **Automatic Scaffold for New Releases**: When a new episode is published to Anchor/Spotify, the build script automatically scaffolds a new `content/episodes/<slug>.md` file with the official title, audio enclosure MP3, publication date, and formatted runtime.
+4. **Offline & Build Resilience**: If the Anchor RSS endpoint is unreachable or times out (8s limit), the build falls back to existing local markdown files without interrupting the build or failing prerendering.
+5. **Spotify Web Link Limitation**: Anchor RSS XML feeds provide direct audio enclosures (`.mp3`) and podcaster links, but do *not* contain consumer Spotify player URLs (`open.spotify.com/episode/...`). The web player gracefully falls back to a clean native `<audio>` stream when `audioUrl` is present, while Spotify player links can be added to frontmatter (`spotifyUrl` / `spotifyEmbedUrl`) for the embedded Spotify iframe.
+
+#### How Future Episodes Appear & What Triggers a Vercel Build
+Future podcast releases appear on SnakePlantSoil.com via two triggers:
+- **Git Push (Standard Workflow)**: A publisher runs `npm run sync:podcast`, adds companion guide links or transcripts in `content/episodes/`, commits to a branch, and merges a Pull Request to `main`. Vercel automatically detects the push and initiates a new production build.
+- **Vercel Deploy Hook (Automated Cron / Webhook)**: A Vercel Deploy Hook URL can be triggered by a weekly GitHub Action, Zapier, or RSS feed monitor when a new `<item>` is published. When triggered, Vercel executes `npm run build`, which runs `sync:podcast`, detects the new episode, updates `sitemap.xml` and `generated-manifest.json`, and prerenders `/radio/<slug>` into static HTML.
+
+---
+
 ### Weekly Thursday Snake Plant Radio Episode Workflow
 1. Check out a dedicated podcast branch:
    ```bash
    git checkout -b podcast/ep-<number>-<slug>
    ```
-2. Create the episode markdown file in `content/episodes/<slug>.md`:
-   - Set verified frontmatter metadata (`title`, `slug`, `episodeNumber`, `date`, `duration`, `category`).
-   - If audio is published on Spotify, insert the live `spotifyUrl` and `spotifyEmbedUrl`. If pending, leave empty (the page will display a polished "Audio Feed Connecting" notice).
-   - Link 2–3 existing pillar guides in `relatedGuides`.
-   - Provide show notes and companion formulas.
-3. Validate and regenerate the registry:
+2. Sync the latest episode from the feed or create the file:
+   ```bash
+   npm run sync:podcast
+   ```
+3. Enrich the episode markdown file in `content/episodes/<slug>.md`:
+   - Verify frontmatter (`title`, `slug`, `date`, `duration`, `category`).
+   - Add the consumer `spotifyUrl` and `spotifyEmbedUrl` from Spotify.
+   - Cross-link 2–3 relevant companion guides in `relatedGuides`.
+   - Add detailed episode notes, takeaways, or full transcript.
+4. Validate and regenerate the registry:
    ```bash
    npm run publish-check
    ```
-4. Commit, push the branch, and open a Pull Request:
+5. Commit, push the branch, and open a Pull Request:
    ```bash
-   git add content/episodes/<slug>.md src/generated-manifest.json public/sitemap.xml vercel.json
+   git add content/episodes/ src/generated-manifest.json public/sitemap.xml vercel.json
    git commit -m "feat(podcast): release episode <number> - <slug>"
    git push origin podcast/ep-<number>-<slug>
    ```
-5. Review the Vercel branch preview deployment. Once verified, merge the PR into `main` to trigger the production deploy.
+6. Review the Vercel branch preview deployment. Once verified, merge the PR into `main` to trigger the production deploy.
 
 ---
 

@@ -4,7 +4,9 @@ slug: "the-root-rot-lie"
 episodeNumber: 1
 seasonNumber: 1
 date: "2026-10-10"
-duration: "5 min 21 sec"
+duration: "5 min 20 sec"
+audioUrl: "https://anchor.fm/s/118565be4/podcast/play/127239261/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-10%2F6d4074ed-d192-6460-876a-82137c646e1c.mp3"
+guid: "3e551c94-f14a-4cb4-a823-d6f64607e396"
 excerpt: "Overwatering kills more snake plants than anything else. Maya and Jordan explain how to spot root rot early and walk through the five-step recovery protocol that can save your plant."
 spotifyUrl: "https://open.spotify.com/episode/3ansQag8u2WYVYl036TxGl"
 spotifyEmbedUrl: "https://open.spotify.com/embed/episode/3ansQag8u2WYVYl036TxGl"

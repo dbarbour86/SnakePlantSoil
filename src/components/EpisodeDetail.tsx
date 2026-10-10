@@ -240,7 +240,7 @@ export default function EpisodeDetail({ episode, onNavigate }: EpisodeDetailProp
               Stream Episode Audio
             </span>
             <span className="text-[11px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-150">
-              {hasValidSpotify(episode) ? 'Spotify Player Active' : 'Recording Feed Pending'}
+              {hasValidSpotify(episode) ? 'Spotify Player Active' : episode.audioUrl ? 'Audio Feed Active' : 'Recording Feed Pending'}
             </span>
           </div>
 
@@ -257,6 +257,18 @@ export default function EpisodeDetail({ episode, onNavigate }: EpisodeDetailProp
                 title={episode.title}
                 id="spotify-episode-iframe"
               />
+            </div>
+          ) : episode.audioUrl ? (
+            <div className="bg-stone-50 rounded-xl border border-stone-200 p-5 space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono text-stone-600">
+                <span className="font-bold flex items-center gap-1.5 text-emerald-800">
+                  <Headphones className="w-4 h-4" /> Direct Podcast Audio Feed
+                </span>
+                <span>MP3 Audio Stream</span>
+              </div>
+              <audio controls className="w-full" src={episode.audioUrl} preload="none">
+                Your browser does not support the audio element.
+              </audio>
             </div>
           ) : (
             <div className="bg-stone-50 rounded-xl border border-dashed border-stone-250 p-6 sm:p-8 text-center space-y-2">
