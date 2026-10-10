@@ -4,7 +4,7 @@ import {
   HelpCircle, ChevronRight, Check, AlertCircle, Info,
   Search, Sliders, Droplet, Sun, Wind, Thermometer,
   ShieldCheck, RefreshCw, AlertTriangle, ArrowRight,
-  ShoppingBag, ExternalLink, CheckCircle2
+  ShoppingBag, ExternalLink, CheckCircle2, Radio
 } from 'lucide-react';
 import InteractiveCalculator from './InteractiveCalculator';
 
@@ -484,6 +484,27 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
         <p className="m-0 text-stone-800">
           Snake plant root rot is commonly associated with persistently wet, poorly aerated growing media. Affected roots or rhizomes may become soft, dark, discolored, or deteriorated. Recovery usually involves removing the plant from wet soil, trimming clearly damaged tissue with clean tools, repotting viable tissue in fresh fast-draining mix, and correcting future watering conditions.
         </p>
+      </div>
+
+      {/* Contextual Audio Deep Dive Callout */}
+      <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs mb-6">
+        <div className="flex items-start gap-3">
+          <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+            <Radio className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="text-xs font-bold text-stone-900 block">Listen to Snake Plant Radio: Episode #1</span>
+            <span className="text-xs text-stone-500">Maya and Jordan discuss early warning signs of overwatering and walk through this 5-step surgical recovery protocol.</span>
+          </div>
+        </div>
+        <a
+          href="/radio/why-your-snake-plant-is-dying"
+          onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('radio/why-your-snake-plant-is-dying'); } }}
+          className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1.5 shrink-0 hover:underline"
+        >
+          <span>Listen to Episode</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
       </div>
 
       {/* User Intent Navigation Bar */}

@@ -10,6 +10,9 @@
     "best-fertilizer-for-snake-plant-soil",
     "winter-watering-guide"
   ],
+  "episodes": [
+    "why-your-snake-plant-is-dying"
+  ],
   "metadata": {
     "best-fertilizer-for-snake-plant-soil": {
       "title": "Snake Plant Fertilizer Guide: When & How to Fertilize",
@@ -18,6 +21,14 @@
     "winter-watering-guide": {
       "title": "Winter Snake Plant Watering Guide: Soil Moisture & Seasonal Care",
       "description": "Learn how to water snake plants during winter using soil moisture, light, pot type, and indoor conditions instead of a fixed calendar."
+    },
+    "radio/why-your-snake-plant-is-dying": {
+      "title": "Why Your Snake Plant Is Dying (It's Probably Water) | Snake Plant Radio",
+      "description": "Overwatering kills more snake plants than anything else. Maya and Jordan explain how to spot root rot early and walk through the five-step recovery protocol that can save your plant."
+    },
+    "radio": {
+      "title": "Snake Plant Radio | Soil Science, Drainage & Care Podcast",
+      "description": "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, potting physics, root rot recovery, and resilient houseplant cultivation."
     }
   }
 }

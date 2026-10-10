@@ -15,7 +15,8 @@ async function startServer() {
       '/soil-diagnosis',
       '/about',
       '/faq',
-      '/care-card'
+      '/care-card',
+      '/radio'
     ]);
     
     STATIC_GUIDES.forEach(guide => {
@@ -25,6 +26,12 @@ async function startServer() {
     if (routeManifest && routeManifest.dynamic) {
       routeManifest.dynamic.forEach(slug => {
         routes.add(`/${slug}`);
+      });
+    }
+
+    if (routeManifest && routeManifest.episodes) {
+      routeManifest.episodes.forEach(slug => {
+        routes.add(`/radio/${slug}`);
       });
     }
 
@@ -61,7 +68,10 @@ async function startServer() {
       '/best-pots': '/best-pots-for-snake-plants',
       '/choosing-terracotta-pots': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
-      '/setup-kits': '/soil-diagnosis'
+      '/setup-kits': '/soil-diagnosis',
+      '/radio/the-root-rot-lie': '/radio/why-your-snake-plant-is-dying',
+      '/podcast': '/radio',
+      '/podcast/': '/radio'
     };
 
     if (ALIAS_REDIRECTS[cleanPath]) {
@@ -177,6 +187,69 @@ async function startServer() {
   "url": "${canonicalUrl}"
 }
 </script>`;
+    } else if (lookupPath === '/radio') {
+      return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PodcastSeries",
+  "@id": "https://snakeplantsoil.com/radio#series",
+  "name": "Snake Plant Radio",
+  "url": "https://snakeplantsoil.com/radio",
+  "description": "${cleanDesc}",
+  "webFeed": "https://anchor.fm/s/118565be4/podcast/rss",
+  "inLanguage": "en-US",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Snake Plant Soil Lab",
+    "url": "https://snakeplantsoil.com/"
+  }
+}
+</script>`;
+    } else if (lookupPath.startsWith('/radio/')) {
+      return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "PodcastEpisode",
+      "@id": "${canonicalUrl}#episode",
+      "name": "${cleanTitle}",
+      "description": "${cleanDesc}",
+      "url": "${canonicalUrl}",
+      "partOfSeries": {
+        "@type": "PodcastSeries",
+        "name": "Snake Plant Radio",
+        "url": "https://snakeplantsoil.com/radio",
+        "webFeed": "https://anchor.fm/s/118565be4/podcast/rss"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "${canonicalUrl}#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://snakeplantsoil.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Radio",
+          "item": "https://snakeplantsoil.com/radio"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "${cleanTitle}",
+          "item": "${canonicalUrl}"
+        }
+      ]
+    }
+  ]
+}
+</script>`;
     }
     return '';
   };
@@ -194,7 +267,7 @@ async function startServer() {
       const staticMatch = STATIC_GUIDES.find(s => `/${s.slug}` === lookupPath || `/${s.id}` === lookupPath);
       
       let dynamicMatch = null;
-      if (lookupPath.startsWith('/') && lookupPath.length > 1) {
+      if (lookupPath.startsWith('/') && lookupPath.length > 1 && !lookupPath.startsWith('/radio/')) {
         dynamicMatch = getDynamicArticleMeta(lookupPath.substring(1));
       }
 
@@ -206,6 +279,16 @@ async function startServer() {
         title = "Snake Plant Soil Diagnosis & Custom Recommendations | SnakePlantSoil.com";
         description = "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check.";
         canonicalUrl = 'https://snakeplantsoil.com/soil-diagnosis';
+      } else if (lookupPath === '/radio') {
+        title = "Snake Plant Radio | Soil Science, Drainage & Care Podcast";
+        description = "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, potting physics, root rot recovery, and resilient houseplant cultivation.";
+        canonicalUrl = 'https://snakeplantsoil.com/radio';
+      } else if (lookupPath.startsWith('/radio/')) {
+        const epSlug = lookupPath.replace('/radio/', '');
+        const epMeta = (routeManifest?.metadata as any)?.[`radio/${epSlug}`] || null;
+        title = epMeta?.title || "Episode | Snake Plant Radio";
+        description = epMeta?.description || "Snake Plant Radio audio guide.";
+        canonicalUrl = `https://snakeplantsoil.com/radio/${epSlug}`;
       } else if (lookupPath === '/about') {
         title = "About Our Practical Soil Research | SnakePlantSoil.com";
         description = "Learn about Snake Plant Soil Lab's mission to simplify plant care, pot, light and watering mechanics, and future soil mix trials.";
@@ -289,7 +372,7 @@ async function startServer() {
   };
 
   // Serve static files in production before routing wildcards
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV?.trim() === "production") {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath, { index: false, redirect: false }));
 
@@ -332,7 +415,7 @@ async function startServer() {
   }
 
   // Development setup with the dev server middleware
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV?.trim() !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "custom",
@@ -418,6 +501,16 @@ async function startServer() {
           title = "Free Printable Snake Plant Care Card Generator | SnakePlantSoil.com";
           description = "Generate a custom PDF care card with your snake plant's name, optimal watering frequency, and sunlight requirements.";
           canonicalUrl = 'https://snakeplantsoil.com/care-card';
+        } else if (lookupPath === '/radio') {
+          title = "Snake Plant Radio | Soil Science, Drainage & Care Podcast";
+          description = "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, potting physics, root rot recovery, and resilient houseplant cultivation.";
+          canonicalUrl = 'https://snakeplantsoil.com/radio';
+        } else if (lookupPath.startsWith('/radio/')) {
+          const epSlug = lookupPath.replace('/radio/', '');
+          const epMeta = (routeManifest?.metadata as any)?.[`radio/${epSlug}`] || null;
+          title = epMeta?.title || "Episode | Snake Plant Radio";
+          description = epMeta?.description || "Snake Plant Radio audio guide.";
+          canonicalUrl = `https://snakeplantsoil.com/radio/${epSlug}`;
         } else if (staticMatch) {
           const staticMetaMap: Record<string, { title: string; desc: string }> = {
             'best-soil': {

@@ -75,7 +75,8 @@ async function main() {
     '/snake-plant-care-guide',
     '/faq',
     '/about',
-    '/care-card'
+    '/care-card',
+    '/radio'
   ];
 
   if (fs.existsSync(manifestPath)) {
@@ -83,6 +84,11 @@ async function main() {
     if (manifest.dynamic) {
       manifest.dynamic.forEach(slug => {
         routesToPrerender.push(`/${slug}`);
+      });
+    }
+    if (manifest.episodes) {
+      manifest.episodes.forEach(slug => {
+        routesToPrerender.push(`/radio/${slug}`);
       });
     }
   }

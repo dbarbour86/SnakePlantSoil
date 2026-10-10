@@ -1,0 +1,115 @@
+name: Snake Plant Radio RSS Auto-Publisher
+
+on:
+  schedule:
+    # Thursday Evening ET (23:00 UTC Thu / 02:00 UTC Fri)
+    - cron: '0 23 * * 4'
+    - cron: '0 2 * * 5'
+    # Friday Morning ET (12:00 UTC / 15:00 UTC Fri)
+    - cron: '0 12 * * 5'
+    - cron: '0 15 * * 5'
+  workflow_dispatch:
+    inputs:
+      simulate:
+        description: 'Simulate a new test episode'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-and-publish:
+    name: Sync RSS & Publish Episodes
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check & Synchronize Podcast RSS
+        id: rss_sync
+        env:
+          SIMULATE_EPISODE: ${{ inputs.simulate && 'true' || 'false' }}
+        run: |
+          if [ "${{ inputs.simulate }}" = "true" ]; then
+            node scripts/sync-episodes-rss.cjs --simulate
+          else
+            node scripts/sync-episodes-rss.cjs
+          fi
+
+      - name: Check for New Episodes or Content Changes
+        id: change_check
+        run: |
+          if [ -f .rss-sync-result.json ]; then
+            HAS_CHANGES=$(node -e "const r = require('./.rss-sync-result.json'); console.log(r.hasChanges);")
+            CREATED_COUNT=$(node -e "const r = require('./.rss-sync-result.json'); console.log(r.createdCount);")
+            echo "has_changes=$HAS_CHANGES" >> "$GITHUB_OUTPUT"
+            echo "created_count=$CREATED_COUNT" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "created_count=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: No Changes Detected
+        if: steps.change_check.outputs.has_changes != 'true'
+        run: |
+          echo "🌿 Snake Plant Radio RSS feed is up to date. No new episodes detected."
+          echo "No deployments needed." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run Complete SEO & Prerender Verification Suite
+        if: steps.change_check.outputs.has_changes == 'true'
+        run: |
+          echo "Verifying new episode content and prerendering static routes..."
+          npm run generate:seo
+          npm run verify:seo-routes
+          npm run lint
+          npm run build
+          npm run test:smoke
+
+      - name: Simulation Mode Completed (Safeguard: Never Deploy Simulation)
+        if: github.event.inputs.simulate == 'true'
+        run: |
+          echo "⚠️ Simulation mode active: Full verification suite passed."
+          echo "🌿 Safeguard verified: Simulated episodes are NEVER committed or deployed to production." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit and Publish New Episode to Main
+        if: steps.change_check.outputs.has_changes == 'true' && github.event.inputs.simulate != 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "Snake Plant Radio Publisher"
+          git config user.email "radio-bot@snakeplantsoil.com"
+
+          # Only stage generated podcast content and generated SEO artifacts
+          git add content/episodes/ src/generated-manifest.json public/sitemap.xml vercel.json
+
+          if git diff --staged --quiet; then
+            echo "No file differences to commit."
+            exit 0
+          fi
+
+          COMMIT_MSG="feat(podcast): auto-publish Snake Plant Radio episode from RSS"
+          git commit -m "$COMMIT_MSG"
+
+          # Pull latest main and push to trigger Vercel deployment
+          git pull --rebase origin main
+          git push origin main
+
+          echo "### 🎙️ Snake Plant Radio: New Episode Published!" >> "$GITHUB_STEP_SUMMARY"
+          echo "Successfully published to \`main\` and initiated Vercel deployment." >> "$GITHUB_STEP_SUMMARY"

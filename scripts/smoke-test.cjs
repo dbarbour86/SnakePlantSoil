@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { spawn, execSync } = require('child_process');
 const http = require('http');
 
 const PORT = '3001';
 const manifestPath = path.join(__dirname, '..', 'src', 'generated-manifest.json');
+const tmpProfileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'chrome-smoke-'));
 
 function getChromePath() {
   if (process.env.CHROME_BIN) return process.env.CHROME_BIN;
@@ -58,12 +60,14 @@ if (!fs.existsSync(manifestPath)) {
 }
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+
 const routesToTest = [
   '/',
   '/soil-diagnosis',
   '/about',
   '/faq',
-  '/care-card'
+  '/care-card',
+  '/radio'
 ];
 
 if (manifest.static) {
@@ -71,6 +75,9 @@ if (manifest.static) {
 }
 if (manifest.dynamic) {
   manifest.dynamic.forEach(slug => routesToTest.push(`/${slug}`));
+}
+if (manifest.episodes) {
+  manifest.episodes.forEach(slug => routesToTest.push(`/radio/${slug}`));
 }
 
 // 2. Start production server locally on port 3001
@@ -89,6 +96,9 @@ serverProcess.stderr.on('data', (data) => {
 
 // Helper to kill the server and exit the script
 function cleanupAndExit(code, msg = '') {
+  try {
+    fs.rmSync(tmpProfileDir, { recursive: true, force: true });
+  } catch (e) {}
   serverProcess.kill('SIGTERM');
   if (msg) {
     if (code === 0) {
@@ -138,7 +148,11 @@ setTimeout(async () => {
       '/choosing-terracotta-pots': '/best-pots-for-snake-plants',
       '/choosing-terracotta-pots/': '/best-pots-for-snake-plants',
       '/care-guide': '/snake-plant-care-guide',
-      '/care-guide/': '/snake-plant-care-guide'
+      '/care-guide/': '/snake-plant-care-guide',
+      '/radio/the-root-rot-lie': '/radio/why-your-snake-plant-is-dying',
+      '/radio/the-root-rot-lie/': '/radio/why-your-snake-plant-is-dying',
+      '/podcast': '/radio',
+      '/podcast/': '/radio'
     };
 
     for (const [alias, destination] of Object.entries(aliasMap)) {
@@ -249,7 +263,7 @@ setTimeout(async () => {
         const url = `http://localhost:${PORT}${route}`;
         let dom = '';
         try {
-          dom = execSync(`${chromePath} --headless --disable-gpu --dump-dom ${url}`, { 
+          dom = execSync(`${chromePath} --headless --disable-gpu --user-data-dir="${tmpProfileDir}" --dump-dom ${url}`, { 
             encoding: 'utf-8', 
             stdio: ['ignore', 'pipe', 'ignore'] 
           });

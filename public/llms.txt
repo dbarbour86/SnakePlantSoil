@@ -15,6 +15,7 @@ We provide precise calculators, step-by-step DIY mixing recipes, container diagn
 * **Surgical Root Rot Protocol (`https://snakeplantsoil.com/root-rot`)**: High-intensity rescue manual to trim, sterilize, and callous yellowing, mushy roots.
 * **Best Container Pots (`https://snakeplantsoil.com/best-pots`)**: Structural exploration of clay breathability and side-wall evaporation physics.
 * **Complete Care Manual (`https://snakeplantsoil.com/care-guide`)**: Practical seasonal guidelines covering the "Soak and Dry" watering protocol and light requirements.
+* **Snake Plant Radio (`https://snakeplantsoil.com/radio`)**: Official audio companion podcast providing weekly deep dives into soil aeration physics, root rot recovery, and container transpiration.
 * **Structured FAQ Catalog (`https://snakeplantsoil.com/faq`)**: Fast lookup for drainage requirements, compost pH levels, and overwatering diagnostics.
 
 ---

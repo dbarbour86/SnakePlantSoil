@@ -88,6 +88,26 @@
       "permanent": true
     },
     {
+      "source": "/radio/the-root-rot-lie",
+      "destination": "/radio/why-your-snake-plant-is-dying",
+      "permanent": true
+    },
+    {
+      "source": "/radio/the-root-rot-lie/",
+      "destination": "/radio/why-your-snake-plant-is-dying",
+      "permanent": true
+    },
+    {
+      "source": "/podcast",
+      "destination": "/radio",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/",
+      "destination": "/radio",
+      "permanent": true
+    },
+    {
       "source": "/dynamic-:slug",
       "destination": "/:slug",
       "permanent": true
@@ -95,7 +115,11 @@
   ],
   "rewrites": [
     {
-      "source": "/:slug(soil-diagnosis|about|faq|care-card|best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|best-fertilizer-for-snake-plant-soil|winter-watering-guide)",
+      "source": "/:slug(soil-diagnosis|radio|about|faq|care-card|best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|best-fertilizer-for-snake-plant-soil|winter-watering-guide)",
+      "destination": "/"
+    },
+    {
+      "source": "/radio/:slug",
       "destination": "/"
     }
   ]
