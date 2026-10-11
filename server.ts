@@ -164,7 +164,49 @@ async function startServer() {
   ]
 }
 </script>`;
-    } else if (['/best-snake-plant-soil', '/snake-plant-root-rot-guide', '/best-pots-for-snake-plants', '/snake-plant-care-guide'].includes(lookupPath) || isDynamic) {
+    } else if (lookupPath === '/best-snake-plant-soil') {
+      return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "${canonicalUrl}#article",
+      "headline": "${cleanTitle}",
+      "description": "${cleanDesc}",
+      "url": "${canonicalUrl}",
+      "mainEntityOfPage": "${canonicalUrl}"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "${canonicalUrl}#itemlist",
+      "name": "The 3 Best Soils for Snake Plants",
+      "description": "Editorial rankings of the top 3 commercial soil mixes for snake plants.",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Bonsai Jack Gritty Mix #111",
+          "description": "Best Overall / Best for Fast Drainage"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hoffman Organic Cactus and Succulent Soil Mix",
+          "description": "Best for Beginners"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Espoma Organic Cactus & Succulent Mix",
+          "description": "Best Organic Option"
+        }
+      ]
+    }
+  ]
+}
+</script>`;
+    } else if (['/snake-plant-root-rot-guide', '/best-pots-for-snake-plants', '/snake-plant-care-guide'].includes(lookupPath) || isDynamic) {
       return `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -514,8 +556,8 @@ async function startServer() {
         } else if (staticMatch) {
           const staticMetaMap: Record<string, { title: string; desc: string }> = {
             'best-soil': {
-              title: "Best Commercial Soils for Snake Plants | SnakePlantSoil.com",
-              desc: "Honest, editorial review of the top 4 commercial succulent and cactus mixes tested specifically for Sansevieria drainage."
+              title: "The 3 Best Soils for Snake Plants | SnakePlantSoil.com",
+              desc: "Editorial guide comparing the 3 best commercial soil mixes for snake plants, ranked by drainage speed, aeration, and root rot prevention."
             },
             'diy-mix': {
               title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",

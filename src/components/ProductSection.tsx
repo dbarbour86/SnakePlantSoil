@@ -26,13 +26,24 @@ export default function ProductSection() {
               id={`product-item-${prod.id}`}
             >
               {/* Product Image Panel */}
-              <div className="md:col-span-4 relative bg-stone-100 min-h-[220px] md:min-h-full">
-                <img 
-                  src={prod.imageUrl} 
-                  alt={prod.name} 
-                  referrerPolicy="no-referrer"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              <div className="md:col-span-4 relative bg-stone-100 min-h-[220px] md:min-h-full flex items-center justify-center p-6">
+                {prod.imageUrl ? (
+                  <img 
+                    src={prod.imageUrl} 
+                    alt={prod.name} 
+                    referrerPolicy="no-referrer"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="text-center p-6 space-y-2">
+                    <span className="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center text-lg">
+                      #{prod.id === 'bonsai-jack-gritty' ? '1' : '•'}
+                    </span>
+                    <span className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider block">
+                      {prod.brand}
+                    </span>
+                  </div>
+                )}
                 <div className="absolute top-4 left-4">
                   <span className="shadow-sm inline-flex items-center gap-1 bg-emerald-800 text-white font-bold text-xs uppercase tracking-wide px-3 py-1.5 rounded-full">
                     <Tag className="w-3 h-3" /> {prod.bestFor}

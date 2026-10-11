@@ -31,6 +31,7 @@ import { getDynamicArticles } from './content';
 import routeManifest from './generated-manifest.json';
 import DynamicArticleView from './components/DynamicArticle';
 import { SOIL_PROFILES, COMMERCIAL_PRODUCTS } from './diagnosticConfig';
+import { RANKED_SOIL_PRODUCTS } from './soilRankings';
 
 
 const HERO_CARE_TIPS = [
@@ -51,8 +52,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check."
   },
   'best-soil': {
-    title: "Best Soil for Snake Plants: Commercial Mixes & Buyer Guide",
-    description: "Discover the best soil for snake plants. Compare commercial succulent mixes, learn what improves drainage, and choose a mix that helps reduce root rot risk."
+    title: "The 3 Best Soils for Snake Plants: Buyer's Guide | SnakePlantSoil.com",
+    description: "Compare the 3 best commercial soil mixes for snake plants. Learn what improves drainage, avoid common potting mistakes, and reduce root rot risk."
   },
   'diy-mix': {
     title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",
@@ -706,21 +707,30 @@ export default function App() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    {COMMERCIAL_PRODUCTS.slice(0, 3).map((prod) => (
-                      <div key={prod.id} className="bg-white border border-stone-200 p-5 rounded-2xl flex flex-col justify-between hover:border-emerald-700/20 transition-all">
+                    {RANKED_SOIL_PRODUCTS.map((prod) => (
+                      <div key={prod.id} className="bg-white border border-stone-200 p-5 rounded-2xl flex flex-col justify-between hover:border-emerald-700/20 transition-all shadow-2xs">
                         <div className="space-y-3">
                           <div className="flex gap-3">
                             <div className="w-14 h-14 shrink-0 rounded-lg overflow-hidden bg-stone-50 border border-stone-200 flex items-center justify-center p-1">
-                              <img src={prod.imageUrl} alt={prod.name} className="max-w-full max-h-full object-contain" />
+                              {prod.hasVerifiedImage && prod.imageUrl ? (
+                                <img src={prod.imageUrl} alt={prod.name} className="max-w-full max-h-full object-contain" />
+                              ) : (
+                                <div className="w-8 h-8 rounded-full bg-[#24532e] text-white font-bold flex items-center justify-center text-xs">
+                                  #{prod.rank}
+                                </div>
+                              )}
                             </div>
                             <div className="space-y-1">
-                              <span className="text-[8px] font-mono font-bold text-emerald-805 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase block w-fit">
-                                BEST FOR
-                              </span>
-                              <span className="text-xs font-bold text-stone-705">
-                                {prod.id === 'bonsai-jack-gritty' ? 'Fast drainage' :
-                                 prod.id === 'hoffman-succulent' ? 'Balanced potting' :
-                                 prod.id === 'espoma-cactus' ? 'Organic roots' : 'Budget potting'}
+                              <div className="flex items-center gap-1.5">
+                                <span className="w-5 h-5 rounded-full bg-[#24532e] text-white font-bold text-[10px] flex items-center justify-center shrink-0">
+                                  {prod.rank}
+                                </span>
+                                <span className="text-[8px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase block w-fit">
+                                  {prod.badge}
+                                </span>
+                              </div>
+                              <span className="text-xs font-bold text-stone-700 block">
+                                {prod.award}
                               </span>
                             </div>
                           </div>
@@ -732,25 +742,18 @@ export default function App() {
                             </h3>
                           </div>
 
-                          <p className="text-stone-550 text-xs leading-relaxed">
-                            {prod.id === 'bonsai-jack-gritty' 
-                              ? 'Very gritty and fast draining, but its largely mineral structure may require different watering and feeding habits.'
-                              : prod.id === 'hoffman-succulent'
-                              ? 'Ready-to-use organic-mineral mix with perlite, but holds more moisture than gritty mixes and requires strict dry periods.'
-                              : prod.id === 'espoma-cactus'
-                              ? 'Active Mycorrhizae root stimulator base, though its organic peat humus retention demands careful watering checks.'
-                              : 'Highly affordable local option, but its fine peat content is prone to dry compaction if left unwatered.'
-                            }
+                          <p className="text-stone-600 text-xs leading-relaxed">
+                            {prod.verdict}
                           </p>
 
                           <div className="text-[10px] border-t border-stone-100 pt-2 space-y-1 font-sans">
-                            <div className="flex items-start gap-1 text-stone-605">
+                            <div className="flex items-start gap-1 text-stone-700">
                               <span className="text-emerald-700 font-bold">✓</span>
-                              <span><strong>Strength:</strong> {prod.strengths[0]}</span>
+                              <span><strong>Strength:</strong> {prod.strength}</span>
                             </div>
-                            <div className="flex items-start gap-1 text-stone-605">
+                            <div className="flex items-start gap-1 text-stone-700">
                               <span className="text-amber-600 font-bold">⚠</span>
-                              <span><strong>Limitation:</strong> {prod.limitations[0]}</span>
+                              <span><strong>Limitation:</strong> {prod.limitation}</span>
                             </div>
                           </div>
                         </div>
@@ -762,13 +765,13 @@ export default function App() {
                               e.preventDefault();
                               navigateToArticle('best-soil');
                             }}
-                            className="text-xs font-bold text-emerald-800 hover:text-emerald-950 hover:underline inline-flex items-center gap-0.5"
+                            className="text-xs font-bold text-emerald-800 hover:text-emerald-950 hover:underline inline-flex items-center gap-1 group/btn"
                           >
-                            <span>View Review</span>
-                            <span>→</span>
+                            <span>Read Ranking</span>
+                            <span className="text-[10px] group-hover/btn:translate-x-0.5 transition-transform">→</span>
                           </a>
-                          <span className="text-[8px] text-stone-400 font-mono italic">
-                            *Affiliate link
+                          <span className="text-[8px] text-stone-400 font-mono">
+                            Rank #{prod.rank}
                           </span>
                         </div>
                       </div>
@@ -1056,13 +1059,13 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10"
               id="best-soil-page"
             >
               <div className="mb-6">
                 <button 
                   onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
+                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none cursor-pointer"
                   id="back-home-best-soil"
                 >
                   ← Return to Home Portal
@@ -1070,10 +1073,6 @@ export default function App() {
               </div>
 
               <BestSoilArticle onNavigate={navigateToArticle} />
-              
-              <div className="pt-8 border-t border-stone-200 mt-12">
-                <ProductSection />
-              </div>
             </motion.div>
           )}
 

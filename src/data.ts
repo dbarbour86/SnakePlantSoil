@@ -27,8 +27,8 @@ export const QUICK_ANSWERS: QuickAnswer[] = [
 export const STATIC_GUIDES: ContentGuide[] = [
   {
     id: "best-soil",
-    title: "Best Commercial Soils",
-    shortDescription: "Honest, editorial review of the top 4 commercial succulent and cactus mixes tested specifically for Sansevieria drainage.",
+    title: "The 3 Best Soils for Snake Plants",
+    shortDescription: "Editorial comparison of the 3 best commercial soil mixes for snake plants, ranked by drainage speed, aeration, and overwatering prevention.",
     category: "soil",
     readTime: "6 min read",
     iconName: "Trees",
@@ -77,14 +77,50 @@ export const CONTENT_GUIDES: ContentGuide[] = [
   ...getDynamicArticles()
 ];
 
+export {
+  RANKED_SOIL_PRODUCTS,
+  type RankedSoilProduct,
+  DECISION_GUIDE,
+  SOIL_RANKINGS_DISCLOSURE,
+  getRankedSoilById
+} from './soilRankings';
+
 export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
+  {
+    id: "bonsai-jack-gritty",
+    name: "Bonsai Jack Gritty Mix #111",
+    brand: "Bonsai Jack",
+    category: "soil",
+    imageUrl: "", // No verified photo asset in repository
+    bestFor: "Best Overall / Fast Drainage",
+    rating: 4.9,
+    description: "Almost entirely mineral — water runs straight through, so overwatering becomes nearly impossible. The best insurance policy for your plant.",
+    pros: [
+       "Virtually eliminates overwatering risk",
+       "Permanent aeration channels that never compact",
+       "Does not break down or mold over time"
+    ],
+    cons: [
+       "Requires more frequent watering cycles",
+       "Zero natural organic nutrients; requires liquid fertilizing"
+    ],
+    linkText: "Check Price on Amazon",
+    priceEstimate: "$$$",
+    specs: {
+      "Volume": "2 Quarts",
+      "Ingredients": "33% Pine Bark, 33% Calcined Clay, 33% Pumice",
+      "pH Range": "5.5 - 6.5",
+      "Moisture": "Extremely low retention"
+    },
+    affiliateUrl: "https://www.amazon.com/s?k=Bonsai+Jack+Succulent+and+Cactus+Soil+Mix+Gritty+Mix+111&tag=snakeplantsoi-20"
+  },
   {
     id: "hoffman-succulent",
     name: "Organic Cactus and Succulent Soil Mix",
     brand: "Hoffman",
     category: "soil",
     imageUrl: "/hoffman-organic-cactus-soil-mix.png",
-    bestFor: "Practical Out-of-the-Box Mix",
+    bestFor: "Best for Beginners",
     rating: 4.8,
     description: "A ready-to-use soil blended to provide drainage for desert-native plants. Balanced pH levels support root development without requiring additional heavy adjustments.",
     pros: [
@@ -94,7 +130,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
        "Consistent blend with no large wood chunks"
     ],
     cons: [
-       "A bit pricey for very large volume repotting setups",
+       "Holds more moisture than gritty mixes; must dry completely between waterings",
        "May benefit from extra perlite for very large specimens"
     ],
     linkText: "Check Price on Amazon",
@@ -113,7 +149,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     brand: "Espoma",
     category: "soil",
     imageUrl: "/espoma-organic-cactus-soil-mix.png",
-    bestFor: "Organic Option",
+    bestFor: "Best Organic Option",
     rating: 4.7,
     description: "Enriched with Espoma's Myco-tone blend of mycorrhizae, designed to support root absorption and allow drainage.",
     pros: [
@@ -125,7 +161,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
        "Retains slightly more water than high-mineral gritty mixes",
        "Can contain minor organic wood bark fragrance"
     ],
-    linkText: "Check Price on Home Depot",
+    linkText: "Check Price on Amazon",
     priceEstimate: "$",
     specs: {
       "Volume": "4 Quarts",
@@ -133,7 +169,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "pH Range": "5.8 - 6.5",
       "Weight": "3.5 lbs"
     },
-    affiliateUrl: "https://www.homedepot.com/s/Espoma+Cactus+and+Succulent+Soil"
+    affiliateUrl: "https://www.amazon.com/s?k=Espoma+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20"
   },
   {
     id: "horticultural-sand",
