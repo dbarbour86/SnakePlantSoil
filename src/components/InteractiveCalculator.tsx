@@ -364,20 +364,25 @@ export default function InteractiveCalculator() {
               const sandPct = ingredients.find(i => i.id === 'coarse-sand')?.percentage || 0;
               const pumicePct = ingredients.find(i => i.id === 'pumice')?.percentage || 0;
               
-              let recommendedBrand = RECOMMENDED_PRODUCTS[0]; // Hoffman default
+              const bonsaiJack = RECOMMENDED_PRODUCTS.find(p => p.id === 'bonsai-jack-gritty');
+              const hoffman = RECOMMENDED_PRODUCTS.find(p => p.id === 'hoffman-succulent');
+              const espoma = RECOMMENDED_PRODUCTS.find(p => p.id === 'espoma-cactus');
+              const sand = RECOMMENDED_PRODUCTS.find(p => p.id === 'horticultural-sand');
+
+              let recommendedBrand = hoffman || RECOMMENDED_PRODUCTS[0];
               let recommendationReason = "";
 
-              if (compostPct > 65) {
-                recommendedBrand = RECOMMENDED_PRODUCTS[2]; // Silica Sand Amendment
+              if (sandPct + pumicePct >= 40) {
+                recommendedBrand = bonsaiJack || recommendedBrand;
+                recommendationReason = `Your formula favors heavy mineral grittiness (${Math.round(sandPct + pumicePct)}%). Bonsai Jack Gritty Mix #111 provides matching rapid-drainage mineral voids with near-zero rot risk.`;
+              } else if (compostPct > 65) {
+                recommendedBrand = sand || recommendedBrand;
                 recommendationReason = `Your mix is heavy in compost (${Math.round(compostPct)}%). To achieve safe drainage without full custom mixing, incorporate Coarse Silica Sand to create permanent drainage channels.`;
-              } else if (sandPct + pumicePct >= 40) {
-                recommendedBrand = RECOMMENDED_PRODUCTS[2]; // Silica Sand
-                recommendationReason = `Your formula favors heavy mineral grittiness (${Math.round(sandPct + pumicePct)}%). Use Coarse Silica Sand for non-degrading structural root voids.`;
               } else if (compostPct >= 45 && compostPct <= 65) {
-                recommendedBrand = RECOMMENDED_PRODUCTS[1]; // Espoma
+                recommendedBrand = espoma || recommendedBrand;
                 recommendationReason = `Your custom ratio closely matches Espoma Organic Cactus & Succulent Mix, enriched with mycorrhizae fungi for resilient root development.`;
               } else {
-                recommendedBrand = RECOMMENDED_PRODUCTS[0]; // Hoffman
+                recommendedBrand = hoffman || recommendedBrand;
                 recommendationReason = `Your custom ratio matches Hoffman Organic Cactus & Succulent Soil Mix for ultimate out-of-the-box convenience and ideal 6.0–6.8 pH balance.`;
               }
 

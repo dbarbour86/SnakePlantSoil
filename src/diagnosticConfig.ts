@@ -93,7 +93,7 @@ export const COMMERCIAL_PRODUCTS: CatalogProduct[] = [
     id: 'bonsai-jack-gritty',
     name: 'Bonsai Jack Succulent and Cactus Soil Mix - Jacks Gritty Mix #111',
     brand: 'Bonsai Jack',
-    imageUrl: '/coarse-silica-sand.png', // Fallback to an existing static image path
+    imageUrl: '', // No verified image asset in repository; do not fabricate
     affiliateUrl: 'https://www.amazon.com/s?k=Bonsai+Jack+Succulent+and+Cactus+Soil+Mix+Gritty+Mix+111&tag=snakeplantsoi-20',
     packageVolume: '2 Quarts',
     priceTier: '$$$',
