@@ -82,7 +82,7 @@ jobs:
           npm run build
           npm run test:smoke
 
-      - name: Simulation Mode Completed (Safeguard: Never Deploy Simulation)
+      - name: "Simulation Mode Completed (Safeguard: Never Deploy Simulation)"
         if: github.event.inputs.simulate == 'true'
         run: |
           echo "⚠️ Simulation mode active: Full verification suite passed."

@@ -11,6 +11,7 @@
     "winter-watering-guide"
   ],
   "episodes": [
+    "the-3-2-1-soil-recipe",
     "why-your-snake-plant-is-dying"
   ],
   "metadata": {
@@ -21,6 +22,10 @@
     "winter-watering-guide": {
       "title": "Winter Snake Plant Watering Guide: Soil Moisture & Seasonal Care",
       "description": "Learn how to water snake plants during winter using soil moisture, light, pot type, and indoor conditions instead of a fixed calendar."
+    },
+    "radio/the-3-2-1-soil-recipe": {
+      "title": "The 3-2-1 Soil Recipe: Mix Your Own Like a Pro | Snake Plant Radio",
+      "description": "Bagged mixes are convenient, but mixing your own snake plant soil is cheaper, better, and takes about ten minutes."
     },
     "radio/why-your-snake-plant-is-dying": {
       "title": "Why Your Snake Plant Is Dying (It's Probably Water) | Snake Plant Radio",
