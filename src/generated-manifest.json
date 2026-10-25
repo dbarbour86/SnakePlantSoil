@@ -11,6 +11,7 @@
     "winter-watering-guide"
   ],
   "episodes": [
+    "store-bought-soil-that-wont-kill-your-plant",
     "the-3-2-1-soil-recipe",
     "why-your-snake-plant-is-dying"
   ],
@@ -22,6 +23,10 @@
     "winter-watering-guide": {
       "title": "Winter Snake Plant Watering Guide: Soil Moisture & Seasonal Care",
       "description": "Learn how to water snake plants during winter using soil moisture, light, pot type, and indoor conditions instead of a fixed calendar."
+    },
+    "radio/store-bought-soil-that-wont-kill-your-plant": {
+      "title": "Store-Bought Soil That Won't Kill Your Plant | Snake Plant Radio",
+      "description": "Not everyone wants to mix their own soil — and you don&#39;t have to. You just need to know how to read a bag."
     },
     "radio/the-3-2-1-soil-recipe": {
       "title": "The 3-2-1 Soil Recipe: Mix Your Own Like a Pro | Snake Plant Radio",
