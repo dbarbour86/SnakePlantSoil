@@ -55,7 +55,7 @@ Executed before Vite compilation during `npm run build` and CI deployment:
 - Asserts that every sitemap URL is listed in the manifest and vice-versa.
 - Validates sitemap URL formats (clean slugs, no www, no insecure HTTP, no file extensions, and no trailing slashes).
 - Checks for duplicate slugs across static and dynamic content.
-- **CI Stale Check**: Runs `git status --porcelain` in CI environments to fail the build if the committed `vercel.json` or `sitemap.xml` are stale compared to what is currently generated.
+- **CI Stale Check**: Runs `git status --porcelain` in CI environments to fail the build if the committed `vercel.json`, `sitemap.xml`, or `generated-manifest.json` are stale compared to what is currently generated. In automated publishing workflows (such as `.github/workflows/podcast-sync.yml`), this check is bypassed via `ALLOW_UNCOMMITTED_SEO=true` so newly generated files can be verified and smoke-tested prior to being committed.
 
 ### 4. Edge Router (`vercel.json`)
 - **Redirects**: Evaluates 1-hop redirects to the canonical domain and strips homepage variants (`/home`, `/index.html`) and legacy `/dynamic-*` paths.

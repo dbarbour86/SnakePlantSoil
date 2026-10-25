@@ -291,7 +291,9 @@ if (!radioRewrite) {
 
 // 5. CI check: Verify that committed files match the newly generated files (fail if there are uncommitted changes to manifest, sitemap, or vercel.json in CI/Vercel)
 const isCI = process.env.CI === 'true' || process.env.VERCEL === '1' || process.env.GITHUB_ACTIONS === 'true';
-if (isCI) {
+const allowUncommitted = process.env.ALLOW_UNCOMMITTED_SEO === 'true' || process.argv.includes('--allow-uncommitted');
+
+if (isCI && !allowUncommitted) {
   try {
     const uncommitted = execSync('git status --porcelain vercel.json public/sitemap.xml src/generated-manifest.json', { encoding: 'utf-8' }).trim();
     if (uncommitted) {
@@ -300,6 +302,8 @@ if (isCI) {
   } catch (e) {
     console.warn("Warning: Git command failed or is not available. Skipping uncommitted files diff check.");
   }
+} else if (allowUncommitted) {
+  console.log("Allow uncommitted SEO configurations active: skipping stale CI configuration check.");
 } else {
   console.log("Local environment detected: skipping stale CI configuration check.");
 }

@@ -25,6 +25,8 @@ jobs:
     name: Sync RSS & Publish Episodes
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      ALLOW_UNCOMMITTED_SEO: 'true'
 
     steps:
       - name: Checkout repository
