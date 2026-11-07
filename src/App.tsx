@@ -413,96 +413,108 @@ export default function App() {
                   {/* Path 1: Root Rot Recovery */}
                   <div 
                     onClick={() => navigateToArticle('root-rot')}
-                    className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+                    className="relative bg-white rounded-2xl md:rounded-3xl border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all group cursor-pointer overflow-hidden min-h-[175px] sm:min-h-[190px] md:min-h-[205px] flex items-center"
                     id="path-card-fix-plant"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-2 flex-1">
-                        <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
-                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
-                        </div>
-                        <h2 className="font-serif-editorial text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29]">
-                          Root Rot Recovery
-                        </h2>
-                        <p className="text-stone-650 text-base leading-snug">
-                          Recognize root rot and learn the steps to help your plant recover.
-                        </p>
+                    {/* Left Content Column */}
+                    <div className="relative z-10 w-[58%] sm:w-[56%] md:w-[57%] p-5 sm:p-6 space-y-2.5 sm:space-y-3">
+                      <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
                       </div>
-                      <div className="w-[42%] shrink-0 h-32 rounded-xl overflow-hidden border border-[#EAE4D8]">
-                        <img 
-                          src="/leaf-troubleshoot.jpg" 
-                          alt="Snake plant leaf showing yellowing edge symptoms" 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                        />
+                      <h2 className="font-serif-editorial text-lg sm:text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29] leading-snug">
+                        Root Rot Recovery
+                      </h2>
+                      <p className="text-stone-650 text-sm sm:text-base leading-relaxed">
+                        Recognize root rot and learn the steps to help your plant recover.
+                      </p>
+                      <div className="pt-0.5">
+                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#1A3B29] group-hover:underline">
+                          <span>Get Help</span>
+                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </span>
                       </div>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-[#F2ECE1] flex items-center justify-between text-xs font-bold text-[#1A3B29] group-hover:underline">
-                      <span>Get Help</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+
+                    {/* Right 45% Flush Photography with Left Gradient Blend */}
+                    <div className="absolute right-0 top-0 bottom-0 w-[45%] sm:w-[46%] md:w-[45%] h-full pointer-events-none overflow-hidden">
+                      <div className="absolute inset-y-0 left-0 w-8 sm:w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+                      <img 
+                        src="/leaf-troubleshoot.jpg" 
+                        alt="Snake plant leaf showing yellowing edge symptoms" 
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+                      />
                     </div>
                   </div>
 
                   {/* Path 2: Find the Right Soil */}
                   <div 
                     onClick={() => navigateToArticle('best-soil')}
-                    className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+                    className="relative bg-white rounded-2xl md:rounded-3xl border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all group cursor-pointer overflow-hidden min-h-[175px] sm:min-h-[190px] md:min-h-[205px] flex items-center"
                     id="path-card-right-soil"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-2 flex-1">
-                        <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
-                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h20c-1.5-5-5-8-10-8s-8.5 3-10 8z"/></svg>
-                        </div>
-                        <h2 className="font-serif-editorial text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29]">
-                          Find the Right Soil
-                        </h2>
-                        <p className="text-stone-650 text-base leading-snug">
-                          Learn the perfect mix for healthy growth.
-                        </p>
+                    {/* Left Content Column */}
+                    <div className="relative z-10 w-[58%] sm:w-[56%] md:w-[57%] p-5 sm:p-6 space-y-2.5 sm:space-y-3">
+                      <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h20c-1.5-5-5-8-10-8s-8.5 3-10 8z"/></svg>
                       </div>
-                      <div className="w-[42%] shrink-0 h-32 rounded-xl overflow-hidden border border-[#EAE4D8]">
-                        <img 
-                          src="/soil-mound.jpg" 
-                          alt="Mound of rich, dark, aerated potting soil" 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                        />
+                      <h2 className="font-serif-editorial text-lg sm:text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29] leading-snug">
+                        Find the Right Soil
+                      </h2>
+                      <p className="text-stone-650 text-sm sm:text-base leading-relaxed">
+                        Learn the perfect mix for healthy growth.
+                      </p>
+                      <div className="pt-0.5">
+                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#1A3B29] group-hover:underline">
+                          <span>Explore Soil</span>
+                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </span>
                       </div>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-[#F2ECE1] flex items-center justify-between text-xs font-bold text-[#1A3B29] group-hover:underline">
-                      <span>Explore Soil</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+
+                    {/* Right 45% Flush Photography with Left Gradient Blend */}
+                    <div className="absolute right-0 top-0 bottom-0 w-[45%] sm:w-[46%] md:w-[45%] h-full pointer-events-none overflow-hidden">
+                      <div className="absolute inset-y-0 left-0 w-8 sm:w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+                      <img 
+                        src="/soil-mound.jpg" 
+                        alt="Mound of rich, dark, aerated potting soil" 
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+                      />
                     </div>
                   </div>
 
                   {/* Path 3: Make My Own Mix */}
                   <div 
                     onClick={() => navigateToArticle('diy-mix')}
-                    className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+                    className="relative bg-white rounded-2xl md:rounded-3xl border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all group cursor-pointer overflow-hidden min-h-[175px] sm:min-h-[190px] md:min-h-[205px] flex items-center"
                     id="path-card-diy-mix"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-2 flex-1">
-                        <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
-                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                        </div>
-                        <h2 className="font-serif-editorial text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29]">
-                          Make My Own Mix
-                        </h2>
-                        <p className="text-stone-650 text-base leading-snug">
-                          Simple recipes for snake plant soil.
-                        </p>
+                    {/* Left Content Column */}
+                    <div className="relative z-10 w-[58%] sm:w-[56%] md:w-[57%] p-5 sm:p-6 space-y-2.5 sm:space-y-3">
+                      <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                       </div>
-                      <div className="w-[42%] shrink-0 h-32 rounded-xl overflow-hidden border border-[#EAE4D8]">
-                        <img 
-                          src="/mix-bowl.jpg" 
-                          alt="Shallow stoneware bowl with gritty potting mix" 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                        />
+                      <h2 className="font-serif-editorial text-lg sm:text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29] leading-snug">
+                        Make My Own Mix
+                      </h2>
+                      <p className="text-stone-650 text-sm sm:text-base leading-relaxed">
+                        Simple recipes for snake plant soil.
+                      </p>
+                      <div className="pt-0.5">
+                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#1A3B29] group-hover:underline">
+                          <span>Try It</span>
+                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </span>
                       </div>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-[#F2ECE1] flex items-center justify-between text-xs font-bold text-[#1A3B29] group-hover:underline">
-                      <span>Try It</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+
+                    {/* Right 45% Flush Photography with Left Gradient Blend */}
+                    <div className="absolute right-0 top-0 bottom-0 w-[45%] sm:w-[46%] md:w-[45%] h-full pointer-events-none overflow-hidden">
+                      <div className="absolute inset-y-0 left-0 w-8 sm:w-12 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+                      <img 
+                        src="/mix-bowl.jpg" 
+                        alt="Shallow stoneware bowl with gritty potting mix" 
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
+                      />
                     </div>
                   </div>
 
@@ -753,186 +765,187 @@ export default function App() {
                 </div>
               </section>
 
-              {/* SECTION 2: HOW IT WORKS */}
-              <section className="py-14 bg-sage-50 border-t border-b border-sage-100 relative overflow-hidden" id="homepage-how-it-works">
-                {/* Subtle organic dot background texture */}
-                <div className="absolute inset-0 bg-soil-texture pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              {/* ====================================================
+                  BEAT 4: COMPACT SOIL DIAGNOSIS & FIVE PROFILES
+                  ==================================================== */}
+              <section className="py-14 bg-[#F7F4EE] border-t border-b border-[#EAE4D8] relative overflow-hidden" id="homepage-soil-diagnosis">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                   <div className="text-center max-w-2xl mx-auto mb-10">
-                    <span className="text-[10px] sm:text-xs font-mono font-bold text-emerald-805 uppercase tracking-widest block mb-2">
-                      HOW IT WORKS
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#235837] bg-[#E2EFE5] px-2.5 py-1 rounded-full">
+                      SOIL CHECK &amp; MATCHING
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
+                    <h2 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-[#142B1E] tracking-tight mt-2.5">
                       How the Soil Check Works
                     </h2>
-                    <p className="text-stone-650 text-xs sm:text-sm mt-2 leading-relaxed">
-                      Answer a few questions, find your soil profile and compare ready-made options that fit your plant’s conditions.
+                    <p className="text-stone-650 text-sm mt-2 leading-relaxed">
+                      Answer a few questions about your plant, pot, and room conditions to find your matching soil profile and compare suitable options.
                     </p>
                   </div>
 
-                  <div className="relative">
-                    {/* Directional Progression Lines: Vertical on mobile, Horizontal on desktop */}
-                    <div className="absolute left-[44px] md:left-[15%] md:right-[15%] top-10 bottom-10 md:bottom-auto md:top-[44px] w-0 md:w-auto h-full md:h-0 border-l border-dashed md:border-l-0 md:border-t border-emerald-800/15 z-0" />
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                      {/* Step 1 */}
-                      <div className="bg-white p-6 sm:p-7 rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 motion-safe:transform-none flex flex-col justify-between h-full">
-                        <div className="space-y-4">
-                          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 font-mono font-bold text-sm flex items-center justify-center border border-emerald-100/50 shadow-2xs">
-                            01
-                          </div>
-                          <div className="space-y-2">
-                            <h3 className="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-900">
-                              TELL US WHAT YOU SEE
-                            </h3>
-                            <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
-                              Answer a few questions about the leaves, soil, pot and growing conditions.
-                            </p>
-                          </div>
+                  {/* 3 Step Progression */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+                    <div className="bg-white/95 rounded-2xl p-5 border border-[#EAE4D8] shadow-xs flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="w-8 h-8 rounded-full bg-[#E2EFE5] text-[#1A3B29] font-bold text-xs flex items-center justify-center">
+                          01
                         </div>
+                        <h3 className="font-serif-editorial font-bold text-base text-[#142B1E]">
+                          Tell Us What You See
+                        </h3>
+                        <p className="text-stone-650 text-xs sm:text-sm leading-relaxed">
+                          Answer a few questions about the leaves, soil, pot material, and growing conditions.
+                        </p>
                       </div>
+                    </div>
 
-                      {/* Step 2 */}
-                      <div className="bg-white p-6 sm:p-7 rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 motion-safe:transform-none flex flex-col justify-between h-full">
-                        <div className="space-y-4">
-                          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 font-mono font-bold text-sm flex items-center justify-center border border-emerald-100/50 shadow-2xs">
-                            02
-                          </div>
-                          <div className="space-y-2">
-                            <h3 className="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-900">
-                              FIND YOUR SOIL PROFILE
-                            </h3>
-                            <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
-                              We’ll match those conditions to one of five practical soil profiles.
-                            </p>
-                          </div>
+                    <div className="bg-white/95 rounded-2xl p-5 border border-[#EAE4D8] shadow-xs flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="w-8 h-8 rounded-full bg-[#E2EFE5] text-[#1A3B29] font-bold text-xs flex items-center justify-center">
+                          02
                         </div>
+                        <h3 className="font-serif-editorial font-bold text-base text-[#142B1E]">
+                          Find Your Soil Profile
+                        </h3>
+                        <p className="text-stone-650 text-xs sm:text-sm leading-relaxed">
+                          We match those conditions to one of our five established botanical soil profiles below.
+                        </p>
                       </div>
+                    </div>
 
-                      {/* Step 3 */}
-                      <div className="bg-white p-6 sm:p-7 rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 motion-safe:transform-none flex flex-col justify-between h-full">
-                        <div className="space-y-4">
-                          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 font-mono font-bold text-sm flex items-center justify-center border border-emerald-100/50 shadow-2xs">
-                            03
-                          </div>
-                          <div className="space-y-2">
-                            <h3 className="font-display font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-900">
-                              COMPARE READY-MADE SOILS
-                            </h3>
-                            <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
-                              See suitable commercial options, including their strengths and limitations.
-                            </p>
-                          </div>
+                    <div className="bg-white/95 rounded-2xl p-5 border border-[#EAE4D8] shadow-xs flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="w-8 h-8 rounded-full bg-[#E2EFE5] text-[#1A3B29] font-bold text-xs flex items-center justify-center">
+                          03
                         </div>
+                        <h3 className="font-serif-editorial font-bold text-base text-[#142B1E]">
+                          Compare Ready-Made Soils
+                        </h3>
+                        <p className="text-stone-650 text-xs sm:text-sm leading-relaxed">
+                          Review suitable commercial options, including their practical strengths and limitations.
+                        </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Centered CTA */}
-                  <div className="mt-10 flex justify-center">
-                    <button
-                      onClick={() => navigateToArticle('setup-kits')}
-                      className="bg-emerald-800 text-stone-50 hover:bg-emerald-950 px-6 py-3 rounded-lg text-xs font-bold font-sans transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:shadow-md"
-                      id="how-it-works-cta"
-                    >
-                      <span>Find My Soil Profile</span>
-                      <span className="text-emerald-300">→</span>
-                    </button>
-                  </div>
-                </div>
-              </section>
+                  {/* Five Soil Profiles Visible Grid */}
+                  <div className="space-y-4">
+                    <div className="text-center max-w-xl mx-auto">
+                      <h3 className="font-serif-editorial text-xl font-bold text-[#142B1E]">
+                        The Five Soil Profiles
+                      </h3>
+                      <p className="text-stone-600 text-xs mt-1">
+                        Explore the characteristics of our primary profiles. Run the soil check to see which one fits your plant.
+                      </p>
+                    </div>
 
-              {/* SECTION 3: SOIL PROFILE PREVIEW LIST */}
-              <section className="py-12 bg-white" id="homepage-soil-profiles-preview">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-xl mx-auto mb-8">
-                    <h2 className="text-2xl font-bold text-stone-900 tracking-tight">
-                      The Five Soil Profiles
-                    </h2>
-                    <p className="text-stone-500 text-xs mt-1.5">
-                      Explore the characteristics of our five primary soil profiles. Click to run the soil check and find which profile fits your plant.
-                    </p>
-                  </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {SOIL_PROFILES.map((profile) => {
+                        let conciseDesc = '';
+                        if (profile.id === 'fast-drain') {
+                          conciseDesc = 'For soil that stays wet too long, humid rooms, nonporous pots, or frequent watering habits.';
+                        } else if (profile.id === 'everyday-balance') {
+                          conciseDesc = 'For healthy plants, routine repotting, and typical indoor lighting and average humidity.';
+                        } else if (profile.id === 'dry-home') {
+                          conciseDesc = 'For plants in dry rooms, heated air, breathable terracotta pots, or infrequent watering habits.';
+                        } else if (profile.id === 'recovery') {
+                          conciseDesc = 'For repotting after mushy roots or damaged rhizomes have been properly pruned and calloused.';
+                        } else if (profile.id === 'propagation') {
+                          conciseDesc = 'For rooted leaf cuttings, young pups, and small starters in shallow containers.';
+                        }
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {SOIL_PROFILES.map((profile) => {
-                      let conciseDesc = '';
-                      if (profile.id === 'fast-drain') {
-                        conciseDesc = 'For soil that stays wet too long, humid homes or frequent watering.';
-                      } else if (profile.id === 'everyday-balance') {
-                        conciseDesc = 'For healthy plants, routine repotting and average indoor conditions.';
-                      } else if (profile.id === 'dry-home') {
-                        conciseDesc = 'For soil that dries very quickly, dry rooms or breathable terracotta pots.';
-                      } else if (profile.id === 'recovery') {
-                        conciseDesc = 'For repotting after damaged roots or rhizomes have been properly addressed.';
-                      } else if (profile.id === 'propagation') {
-                        conciseDesc = 'For rooted cuttings, young plants and smaller containers.';
-                      }
-
-                      return (
-                        <div 
-                          key={profile.id}
-                          className="border border-stone-200 p-5 rounded-2xl bg-stone-50/45 space-y-4 hover:border-emerald-700/30 transition-all flex flex-col justify-between"
-                        >
-                          <div className="space-y-2">
-                            <span className="text-[8px] font-mono font-bold text-emerald-808 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 block w-fit">
-                              Profile Spec
-                            </span>
-                            <h3 className="font-mono font-bold text-stone-900 text-xs uppercase tracking-wide">
-                              {profile.name}
-                            </h3>
-                            <p className="text-stone-550 text-xs leading-relaxed">
-                              {conciseDesc}
-                            </p>
-                          </div>
-
-                          <button
-                            onClick={() => navigateToArticle('setup-kits')}
-                            className="w-full bg-white border border-stone-200 hover:bg-stone-50 text-stone-750 py-2 rounded-lg text-xs font-bold transition-all text-center flex items-center justify-center gap-1 cursor-pointer"
+                        return (
+                          <div 
+                            key={profile.id}
+                            className="bg-white rounded-2xl p-5 border border-[#EAE4D8] space-y-3 hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between shadow-2xs"
                           >
-                            <span>See If This Fits My Plant</span>
-                            <span>→</span>
-                          </button>
+                            <div className="space-y-2">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded w-fit block">
+                                Soil Profile
+                              </span>
+                              <h4 className="font-serif-editorial font-bold text-base text-[#142B1E]">
+                                {profile.name}
+                              </h4>
+                              <p className="text-stone-650 text-xs sm:text-sm leading-relaxed">
+                                {conciseDesc}
+                              </p>
+                            </div>
+
+                            <button
+                              onClick={() => navigateToArticle('setup-kits')}
+                              className="w-full bg-[#FAF7F2] hover:bg-[#F2ECE1] border border-[#EAE4D8] text-[#142B1E] py-2 px-3 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+                            >
+                              <span>See If This Fits My Plant</span>
+                              <span className="text-[#235837]">→</span>
+                            </button>
+                          </div>
+                        );
+                      })}
+
+                      {/* 6th Interactive Tool CTA Card */}
+                      <div className="bg-[#142B1E] text-stone-50 rounded-2xl p-5 border border-[#235837] flex flex-col justify-between shadow-xs">
+                        <div className="space-y-2">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#9EC4A9]">
+                            Interactive Diagnosis
+                          </span>
+                          <h4 className="font-serif-editorial font-bold text-lg text-white leading-snug">
+                            Not Sure Which Profile Fits?
+                          </h4>
+                          <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
+                            Take our 2-minute diagnostic check to assess leaf firmness, drainage, and light.
+                          </p>
                         </div>
-                      );
-                    })}
+
+                        <button
+                          onClick={() => navigateToArticle('setup-kits')}
+                          className="w-full bg-[#C4DCC8] hover:bg-[#B3D3B8] text-[#142B1E] font-bold text-xs py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-4 shadow-xs"
+                          id="compact-soil-check-cta"
+                        >
+                          <span>Find My Soil Profile</span>
+                          <span>→</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
 
-              {/* SECTION 4: BEST READY-MADE SOILS PREVIEW */}
-              <section className="py-10 bg-stone-100/50 border-t border-b border-stone-200" id="homepage-ready-made-soils">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-xl mx-auto mb-8">
-                    <h2 className="text-2xl font-bold text-stone-900 tracking-tight">
+              {/* ====================================================
+                  BEAT 5: COMPARE READY-MADE SOILS (COMMERCIAL MIXES)
+                  ==================================================== */}
+              <section className="py-14 bg-[#FAF7F2] border-b border-[#EAE4D8]" id="homepage-ready-made-soils">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center max-w-xl mx-auto mb-10">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#235837] bg-[#E2EFE5] px-2.5 py-1 rounded-full">
+                      COMMERCIAL COMPARISON
+                    </span>
+                    <h2 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-[#142B1E] tracking-tight mt-2.5">
                       Compare Ready-Made Soils
                     </h2>
-                    <p className="text-stone-500 text-xs mt-1.5">
+                    <p className="text-stone-650 text-sm mt-1.5">
                       An editorial overview of recommended commercial soil mixes from our catalog, matching their qualities to different home conditions.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     {RANKED_SOIL_PRODUCTS.map((prod) => (
-                      <div key={prod.id} className="bg-white border border-stone-200 p-5 rounded-2xl flex flex-col justify-between hover:border-emerald-700/20 transition-all shadow-2xs">
+                      <div key={prod.id} className="bg-white border border-[#EAE4D8] p-5 rounded-2xl flex flex-col justify-between hover:border-[#1A3B29]/30 transition-all shadow-xs">
                         <div className="space-y-3">
-                          <div className="flex gap-3">
-                            <div className="w-14 h-14 shrink-0 rounded-lg overflow-hidden bg-stone-50 border border-stone-200 flex items-center justify-center p-1">
+                          <div className="flex gap-3 items-center">
+                            <div className="w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#EAE4D8] flex items-center justify-center p-1">
                               {prod.hasVerifiedImage && prod.imageUrl ? (
                                 <img src={prod.imageUrl} alt={prod.name} className="max-w-full max-h-full object-contain" />
                               ) : (
-                                <div className="w-8 h-8 rounded-full bg-[#24532e] text-white font-bold flex items-center justify-center text-xs">
+                                <div className="w-8 h-8 rounded-full bg-[#1B3B2B] text-white font-bold flex items-center justify-center text-xs">
                                   #{prod.rank}
                                 </div>
                               )}
                             </div>
                             <div className="space-y-1">
                               <div className="flex items-center gap-1.5">
-                                <span className="w-5 h-5 rounded-full bg-[#24532e] text-white font-bold text-[10px] flex items-center justify-center shrink-0">
+                                <span className="w-5 h-5 rounded-full bg-[#1B3B2B] text-white font-bold text-[10px] flex items-center justify-center shrink-0">
                                   {prod.rank}
                                 </span>
-                                <span className="text-[8px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase block w-fit">
+                                <span className="text-[9px] font-bold uppercase text-[#235837] bg-[#E2EFE5] px-1.5 py-0.5 rounded">
                                   {prod.badge}
                                 </span>
                               </div>
@@ -943,41 +956,41 @@ export default function App() {
                           </div>
                           
                           <div className="space-y-0.5">
-                            <div className="text-[9px] font-mono text-stone-400 font-bold uppercase">{prod.brand}</div>
-                            <h3 className="font-bold text-stone-900 text-xs leading-snug">
+                            <div className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">{prod.brand}</div>
+                            <h3 className="font-serif-editorial font-bold text-[#142B1E] text-base leading-snug">
                               {prod.name}
                             </h3>
                           </div>
 
-                          <p className="text-stone-600 text-xs leading-relaxed">
+                          <p className="text-stone-650 text-xs sm:text-sm leading-relaxed">
                             {prod.verdict}
                           </p>
 
-                          <div className="text-[10px] border-t border-stone-100 pt-2 space-y-1 font-sans">
-                            <div className="flex items-start gap-1 text-stone-700">
-                              <span className="text-emerald-700 font-bold">✓</span>
+                          <div className="text-xs border-t border-[#F2ECE1] pt-3 space-y-1.5">
+                            <div className="flex items-start gap-1.5 text-stone-700">
+                              <span className="text-[#235837] font-bold">✓</span>
                               <span><strong>Strength:</strong> {prod.strength}</span>
                             </div>
-                            <div className="flex items-start gap-1 text-stone-700">
-                              <span className="text-amber-600 font-bold">⚠</span>
+                            <div className="flex items-start gap-1.5 text-stone-700">
+                              <span className="text-amber-700 font-bold">⚠</span>
                               <span><strong>Limitation:</strong> {prod.limitation}</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="pt-3 flex items-center justify-between border-t border-stone-100 mt-4">
+                        <div className="pt-3 flex items-center justify-between border-t border-[#F2ECE1] mt-4">
                           <a
                             href="/best-snake-plant-soil"
                             onClick={(e) => {
                               e.preventDefault();
                               navigateToArticle('best-soil');
                             }}
-                            className="text-xs font-bold text-emerald-800 hover:text-emerald-950 hover:underline inline-flex items-center gap-1 group/btn"
+                            className="text-xs font-bold text-[#1A3B29] hover:underline inline-flex items-center gap-1 group/btn"
                           >
                             <span>Read Ranking</span>
-                            <span className="text-[10px] group-hover/btn:translate-x-0.5 transition-transform">→</span>
+                            <span className="group-hover/btn:translate-x-0.5 transition-transform">→</span>
                           </a>
-                          <span className="text-[8px] text-stone-400 font-mono">
+                          <span className="text-[10px] text-stone-400 font-bold">
                             Rank #{prod.rank}
                           </span>
                         </div>
@@ -988,222 +1001,140 @@ export default function App() {
                   <div className="text-center">
                     <button
                       onClick={() => navigateToArticle('best-soil')}
-                      className="inline-flex items-center gap-1 bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-5 py-2.5 rounded-lg text-xs transition-colors shadow-xs cursor-pointer"
+                      className="inline-flex items-center gap-2 bg-[#1B3B2B] hover:bg-[#122A1E] text-stone-50 font-bold px-6 py-3 rounded-full text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
                       id="view-all-commercial-btn"
                     >
-                      <span>Compare Ready-Made Soils</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Compare All Ready-Made Soils</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-[#9EC4A9]" />
                     </button>
                   </div>
                 </div>
               </section>
 
-              {/* SECTION 5: USEFUL GUIDES */}
-              <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="featured-guides">
-                <div className="text-center max-w-xl mx-auto mb-10">
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-805 bg-emerald-100/50 px-2.5 py-1 rounded font-bold">
-                    Practical Soil Manuals
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-sans font-bold text-stone-900 tracking-tight mt-2.5">
-                    Useful Soil &amp; Potting Guides
-                  </h2>
-                  <p className="text-stone-550 text-sm mt-1.5">
-                    Browse our guides to learn about soil ingredients, root rot recovery, breathable containers, and seasonal watering checks.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {CONTENT_GUIDES.map((guide) => {
-                    const targetTab = guide.slug || guide.id;
-                    const iconName = guide.iconName || guide.id;
-                    return (
-                      <div
-                        key={guide.id}
-                        onClick={() => navigateToArticle(targetTab)}
-                        className="bg-white p-6 rounded-2xl border border-stone-200 hover:border-emerald-700/40 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
-                        id={`guide-card-${guide.id}`}
-                      >
-                        <div className="space-y-3">
-                          <div className="w-10 h-10 rounded-xl bg-stone-100 group-hover:bg-emerald-50 text-stone-700 group-hover:text-emerald-800 flex items-center justify-center transition-colors">
-                            {iconName === 'Trees' || iconName === 'best-soil' ? <Trees className="w-5 h-5" /> :
-                             iconName === 'Beaker' || iconName === 'diy-mix' ? <Beaker className="w-5 h-5" /> :
-                             iconName === 'HeartPulse' || iconName === 'root-rot' ? <HeartPulse className="w-5 h-5" /> :
-                             iconName === 'Layers' || iconName === 'best-pots' ? <Layers className="w-5 h-5" /> :
-                             <Compass className="w-5 h-5" />}
-                          </div>
-                          <div>
-                            <span className="text-[10px] font-mono font-bold text-stone-400 capitalize bg-stone-50 px-1.5 py-0.5 rounded">
-                              {guide.category.replace('-', ' ')}
-                            </span>
-                            <h3 className="font-bold text-base text-stone-900 mt-1.5 tracking-tight group-hover:text-emerald-850">
-                              {guide.title}
-                            </h3>
-                            <p className="text-stone-500 text-xs mt-1.5 leading-relaxed line-clamp-2">
-                              {guide.shortDescription}
-                            </p>
-                          </div>
+              {/* ====================================================
+                  BEAT 6: SNAKE PLANT RADIO FEATURE (BOTANICAL STYLING)
+                  ==================================================== */}
+              <section className="py-14 bg-[#FAF7F2] border-b border-[#EAE4D8]" id="homepage-snake-plant-radio">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="bg-[#142B1E] text-stone-50 rounded-3xl p-7 sm:p-10 border border-[#235837] shadow-sm relative overflow-hidden">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                      
+                      <div className="lg:col-span-7 space-y-4 text-left">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#235837] text-[#C4DCC8]">
+                          <Radio className="w-3.5 h-3.5 text-[#9EC4A9] animate-pulse" />
+                          <span>Now Streaming • Snake Plant Radio</span>
                         </div>
 
-                        <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-xs font-mono text-stone-400 font-medium">
-                          <span>{guide.readTime}</span>
-                          <span className="text-emerald-800 font-bold group-hover:underline flex items-center gap-1">
-                            Read Guide <ChevronRight className="w-3.5 h-3.5" />
+                        <h2 className="font-serif-editorial text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+                          Deep-Dive Soil Science for Your Ears
+                        </h2>
+
+                        <p className="text-stone-300 text-sm leading-relaxed max-w-xl">
+                          Listen to our weekly botanical podcast. We deconstruct common houseplant advice, 
+                          explore soil oxygenation physics, and help you keep your Sansevieria rot-free.
+                        </p>
+
+                        <div className="flex flex-wrap items-center gap-3 pt-2">
+                          <button
+                            onClick={() => navigateToArticle('radio')}
+                            className="px-5 py-2.5 rounded-full bg-[#C4DCC8] hover:bg-[#B3D3B8] text-[#142B1E] font-bold text-xs transition-all shadow-xs flex items-center gap-2 cursor-pointer"
+                            id="home-radio-hub-cta"
+                          >
+                            <Headphones className="w-4 h-4" />
+                            <span>Explore Snake Plant Radio</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                          
+                          <a 
+                            href="https://open.spotify.com/show/6XOicuhWNSvmswXniqX4Yu"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-stone-200 font-bold text-xs transition-all border border-white/20 flex items-center gap-1.5"
+                          >
+                            <span>Spotify Feed</span>
+                            <ExternalLink className="w-3 h-3 opacity-70" />
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="lg:col-span-5 bg-[#0E2015] border border-[#235837] rounded-2xl p-5 sm:p-6 space-y-3.5 shadow-md">
+                        <div className="flex items-center justify-between border-b border-[#235837] pb-3">
+                          <span className="text-[11px] font-bold text-[#9EC4A9] uppercase tracking-wider">
+                            Featured Episode #1
+                          </span>
+                          <span className="text-[10px] text-stone-400 font-medium">
+                            5 min
                           </span>
                         </div>
+
+                        <h3 className="font-serif-editorial text-lg font-bold text-white leading-snug">
+                          Why Your Snake Plant Is Dying (It's Probably Water)
+                        </h3>
+
+                        <p className="text-stone-400 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                          Overwatering kills more snake plants than anything else. Maya and Jordan walk through the five-step recovery protocol that can save your plant.
+                        </p>
+
+                        <div className="pt-2">
+                          <button
+                            onClick={() => navigateToArticle('radio/why-your-snake-plant-is-dying')}
+                            className="w-full py-2.5 rounded-xl bg-[#235837] hover:bg-[#1A452B] text-white font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+                            id="home-episode-1-cta"
+                          >
+                            <span>Listen &amp; View Show Notes</span>
+                            <ArrowRight className="w-3.5 h-3.5 text-[#9EC4A9]" />
+                          </button>
+                        </div>
                       </div>
-                    );
-                  })}
-                </div>
-              </section>
 
-              {/* SECTION: TASTEFUL SNAKE PLANT RADIO FEATURE */}
-              <section className="py-14 bg-gradient-to-br from-stone-900 to-emerald-950 text-white relative overflow-hidden" id="homepage-snake-plant-radio">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    
-                    <div className="lg:col-span-7 space-y-4 text-left">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-800/80 text-emerald-200 border border-emerald-700/60">
-                        <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-                        <span>Now Streaming • Snake Plant Radio</span>
-                      </div>
-
-                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
-                        Deep-Dive Soil Science for Your Ears
-                      </h2>
-
-                      <p className="text-stone-300 text-xs sm:text-sm leading-relaxed max-w-xl">
-                        Listen to our weekly botanical podcast. We deconstruct common houseplant advice, 
-                        explore soil oxygenation physics, and help you keep your Sansevieria rot-free.
-                      </p>
-
-                      <div className="flex flex-wrap items-center gap-3 pt-2">
-                        <button
-                          onClick={() => navigateToArticle('radio')}
-                          className="px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-bold text-xs transition-all shadow-xs flex items-center gap-2 cursor-pointer"
-                          id="home-radio-hub-cta"
-                        >
-                          <Headphones className="w-4 h-4" />
-                          <span>Explore Snake Plant Radio</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                        
-                        <a 
-                          href="https://open.spotify.com/show/6XOicuhWNSvmswXniqX4Yu"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-4 py-2.5 rounded-lg bg-stone-800/90 hover:bg-stone-800 text-stone-200 font-bold text-xs transition-all border border-stone-700 flex items-center gap-1.5"
-                        >
-                          <span>Spotify Feed</span>
-                          <ExternalLink className="w-3 h-3 opacity-60" />
-                        </a>
-                      </div>
                     </div>
-
-                    <div className="lg:col-span-5 bg-stone-850/90 border border-stone-700/80 rounded-2xl p-5 sm:p-6 space-y-4 shadow-xl">
-                      <div className="flex items-center justify-between border-b border-stone-750 pb-3">
-                        <span className="text-[11px] font-mono font-bold text-emerald-400 uppercase tracking-wider">
-                          Featured Episode #1
-                        </span>
-                        <span className="text-[10px] font-mono text-stone-400">
-                          5 min
-                        </span>
-                      </div>
-
-                      <h3 className="text-base sm:text-lg font-display font-bold text-white leading-snug">
-                        Why Your Snake Plant Is Dying (It's Probably Water)
-                      </h3>
-
-                      <p className="text-stone-400 text-xs leading-relaxed line-clamp-2">
-                        Overwatering kills more snake plants than anything else. Maya and Jordan walk through the five-step recovery protocol that can save your plant.
-                      </p>
-
-                      <div className="pt-2">
-                        <button
-                          onClick={() => navigateToArticle('radio/why-your-snake-plant-is-dying')}
-                          className="w-full py-2.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
-                          id="home-episode-1-cta"
-                        >
-                          <span>Listen & View Show Notes</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-
                   </div>
                 </div>
               </section>
 
-              {/* SECTION 6: FUTURE SOILS WAITLIST INVITATION */}
-              <section className="bg-emerald-950 text-stone-100 py-12 px-4" id="homepage-waitlist-block">
-                <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                  <div className="md:col-span-7 space-y-3">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] uppercase font-mono font-bold bg-emerald-900 text-emerald-300 border border-emerald-805">
-                      🌿 Custom Soil Research
-                    </span>
-                    <h2 className="text-2xl font-bold text-white tracking-tight leading-tight">
-                      We’re Developing Soil Specifically for Snake Plants
-                    </h2>
-                    <p className="text-emerald-100/90 text-xs leading-relaxed">
-                      We’re researching ready-made soil options and learning which conditions cause snake plant owners the most trouble. Your soil check will help guide what we develop.
-                    </p>
-                  </div>
-                  <div className="md:col-span-5 bg-white/5 border border-white/10 p-5 rounded-2xl space-y-4">
-                    <div className="space-y-1">
-                      <h3 className="text-sm font-bold text-white tracking-tight">Help Shape What We Make</h3>
-                      <p className="text-xs text-stone-300 leading-relaxed">
-                        Complete the soil check to help us understand what snake plant owners actually need.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => navigateToArticle('setup-kits')}
-                      className="w-full bg-stone-50 hover:bg-white text-emerald-950 font-bold px-5 py-2.5 rounded-xl font-sans text-xs transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                      id="home-trigger-waitlist"
-                    >
-                      <span>Find My Soil Profile</span>
-                      <ArrowRight className="w-4 h-4 text-emerald-900" />
-                    </button>
-                  </div>
-                </div>
-              </section>
-
-              {/* SECTION 7: FAQ PREVIEW */}
-              <section className="py-16 bg-stone-50 border-t border-stone-200" id="homepage-faq-accordions">
+              {/* ====================================================
+                  BEAT 7: COMMON SOIL QUESTIONS & CARE DIRECTORY
+                  ==================================================== */}
+              <section className="py-16 bg-[#FAF7F2]" id="homepage-faq-accordions">
                 <div className="max-w-4xl mx-auto px-4 md:px-6">
                   
                   <div className="text-center mb-10">
-                    <h2 className="text-2xl md:text-3xl font-sans font-bold text-stone-900 tracking-tight">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#235837] bg-[#E2EFE5] px-2.5 py-1 rounded-full">
+                      PRACTICAL ANSWERS
+                    </span>
+                    <h2 className="font-serif-editorial text-2xl md:text-3xl font-bold text-[#142B1E] tracking-tight mt-2.5">
                       Common Soil Questions
                     </h2>
-                    <p className="text-stone-550 text-xs mt-1">
+                    <p className="text-stone-650 text-sm mt-1.5">
                       Read clear explanations about snake plant watering cycles, container drainage, and soil additives.
                     </p>
                   </div>
 
-                  <div className="space-y-3 bg-white p-6 rounded-2xl border border-stone-250 shadow-xs">
+                  <div className="space-y-3 bg-white p-6 sm:p-7 rounded-2xl border border-[#EAE4D8] shadow-xs mb-14">
                     {FAQ_ITEMS.slice(0, 3).map((faq) => {
                       const expanded = !!faqExpanded[faq.id];
                       return (
                         <div 
                           key={faq.id}
-                          className="border-b border-stone-100 last:border-0 pb-3 last:pb-0"
+                          className="border-b border-[#F2ECE1] last:border-0 pb-3.5 last:pb-0"
                           id={`faq-item-collapsible-${faq.id}`}
                         >
                           <button
                             onClick={() => toggleFaq(faq.id)}
-                            className="w-full text-left py-3 font-bold text-stone-900 text-xs sm:text-sm flex justify-between items-center hover:text-emerald-800 transition-colors focus:outline-none"
+                            className="w-full text-left py-3 font-serif-editorial font-bold text-[#142B1E] text-sm sm:text-base flex justify-between items-center hover:text-[#235837] transition-colors focus:outline-none cursor-pointer"
                             id={`faq-toggle-btn-${faq.id}`}
                           >
-                            <span className="flex items-center gap-2">
-                              <QuestionIcon className="w-4 h-4 text-emerald-700 shrink-0" />
+                            <span className="flex items-center gap-2.5 pr-3">
+                              <span className="w-2 h-2 rounded-full bg-[#235837] shrink-0" />
                               {faq.question}
                             </span>
-                            <span className="font-mono text-stone-400 text-xs font-bold shrink-0 ml-2">
-                              {expanded ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                            <span className="text-stone-400 text-xs font-bold shrink-0 ml-2">
+                              {expanded ? <Minus className="w-4 h-4 text-[#235837]" /> : <Plus className="w-4 h-4 text-stone-500" />}
                             </span>
                           </button>
                           
                           {expanded && (
-                            <div className="pl-6 pb-2 text-xs text-stone-605 leading-relaxed font-sans" id={`faq-answer-collapsible-${faq.id}`}>
+                            <div className="pl-4 pb-2 text-stone-650 text-xs sm:text-sm leading-relaxed font-sans" id={`faq-answer-collapsible-${faq.id}`}>
                               {faq.answer}
                             </div>
                           )}
@@ -1211,15 +1142,105 @@ export default function App() {
                       );
                     })}
 
-                    <div className="pt-4 text-center">
+                    <div className="pt-4 text-center border-t border-[#F2ECE1]">
                       <button
                         onClick={() => navigateToArticle('faq')}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:underline hover:text-emerald-950"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1A3B29] hover:underline cursor-pointer"
                         id="view-all-faq-btn-home"
                       >
                         <span>View All Potting &amp; Care FAQs</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </button>
+                    </div>
+                  </div>
+
+                  {/* Complete Care Guide Directory Strip */}
+                  <div className="border-t border-[#EAE4D8] pt-10">
+                    <div className="text-center mb-6">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#235837]">
+                        COMPLETE GUIDE DIRECTORY
+                      </span>
+                      <h3 className="font-serif-editorial text-xl font-bold text-[#142B1E] mt-1">
+                        Additional Field Guides &amp; Resources
+                      </h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Guide 1: Fertilizer */}
+                      <div 
+                        onClick={() => navigateToArticle('best-fertilizer-for-snake-plant-soil')}
+                        className="bg-white p-4 rounded-xl border border-[#EAE4D8] hover:border-[#1A3B29]/30 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+                      >
+                        <div className="space-y-0.5">
+                          <span className="text-[10px] font-bold uppercase text-[#235837] bg-[#E2EFE5] px-1.5 py-0.5 rounded">
+                            Nutrients
+                          </span>
+                          <h4 className="font-serif-editorial font-bold text-sm text-[#142B1E] group-hover:text-[#1A3B29]">
+                            Snake Plant Fertilizer Guide
+                          </h4>
+                          <p className="text-stone-500 text-xs">
+                            Low-nitrogen feeding schedules for gritty soil.
+                          </p>
+                        </div>
+                        <span className="text-[#1A3B29] font-bold text-xs group-hover:translate-x-0.5 transition-transform ml-2">→</span>
+                      </div>
+
+                      {/* Guide 2: Winter Watering */}
+                      <div 
+                        onClick={() => navigateToArticle('winter-watering-guide')}
+                        className="bg-white p-4 rounded-xl border border-[#EAE4D8] hover:border-[#1A3B29]/30 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+                      >
+                        <div className="space-y-0.5">
+                          <span className="text-[10px] font-bold uppercase text-[#235837] bg-[#E2EFE5] px-1.5 py-0.5 rounded">
+                            Seasonal Care
+                          </span>
+                          <h4 className="font-serif-editorial font-bold text-sm text-[#142B1E] group-hover:text-[#1A3B29]">
+                            Winter Watering Guide
+                          </h4>
+                          <p className="text-stone-500 text-xs">
+                            Cold dormancy and extended dry-down cycles.
+                          </p>
+                        </div>
+                        <span className="text-[#1A3B29] font-bold text-xs group-hover:translate-x-0.5 transition-transform ml-2">→</span>
+                      </div>
+
+                      {/* Guide 3: Full FAQ Knowledgebase */}
+                      <div 
+                        onClick={() => navigateToArticle('faq')}
+                        className="bg-white p-4 rounded-xl border border-[#EAE4D8] hover:border-[#1A3B29]/30 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+                      >
+                        <div className="space-y-0.5">
+                          <span className="text-[10px] font-bold uppercase text-[#235837] bg-[#E2EFE5] px-1.5 py-0.5 rounded">
+                            Knowledgebase
+                          </span>
+                          <h4 className="font-serif-editorial font-bold text-sm text-[#142B1E] group-hover:text-[#1A3B29]">
+                            Exhaustive Care FAQ
+                          </h4>
+                          <p className="text-stone-500 text-xs">
+                            Searchable library of answers for soil and pot queries.
+                          </p>
+                        </div>
+                        <span className="text-[#1A3B29] font-bold text-xs group-hover:translate-x-0.5 transition-transform ml-2">→</span>
+                      </div>
+
+                      {/* Guide 4: About Lab */}
+                      <div 
+                        onClick={() => navigateToArticle('about')}
+                        className="bg-white p-4 rounded-xl border border-[#EAE4D8] hover:border-[#1A3B29]/30 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+                      >
+                        <div className="space-y-0.5">
+                          <span className="text-[10px] font-bold uppercase text-[#235837] bg-[#E2EFE5] px-1.5 py-0.5 rounded">
+                            Field Mission
+                          </span>
+                          <h4 className="font-serif-editorial font-bold text-sm text-[#142B1E] group-hover:text-[#1A3B29]">
+                            About Snake Plant Soil Lab
+                          </h4>
+                          <p className="text-stone-500 text-xs">
+                            Our background in soil physics and plant care research.
+                          </p>
+                        </div>
+                        <span className="text-[#1A3B29] font-bold text-xs group-hover:translate-x-0.5 transition-transform ml-2">→</span>
+                      </div>
                     </div>
                   </div>
 
