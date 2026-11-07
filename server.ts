@@ -242,7 +242,7 @@ async function startServer() {
   "inLanguage": "en-US",
   "publisher": {
     "@type": "Organization",
-    "name": "Snake Plant Soil Lab",
+    "name": "SnakePlantSoil.com",
     "url": "https://snakeplantsoil.com/"
   }
 }
@@ -323,7 +323,7 @@ async function startServer() {
         canonicalUrl = 'https://snakeplantsoil.com/soil-diagnosis';
       } else if (lookupPath === '/radio') {
         title = "Snake Plant Radio | Soil Science, Drainage & Care Podcast";
-        description = "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, potting physics, root rot recovery, and resilient houseplant cultivation.";
+        description = "Listen to Snake Plant Radio for discussions on soil drainage, potting mixes, root rot recovery, and practical plant care.";
         canonicalUrl = 'https://snakeplantsoil.com/radio';
       } else if (lookupPath.startsWith('/radio/')) {
         const epSlug = lookupPath.replace('/radio/', '');
@@ -332,12 +332,12 @@ async function startServer() {
         description = epMeta?.description || "Snake Plant Radio audio guide.";
         canonicalUrl = `https://snakeplantsoil.com/radio/${epSlug}`;
       } else if (lookupPath === '/about') {
-        title = "About Our Practical Soil Research | SnakePlantSoil.com";
-        description = "Learn about Snake Plant Soil Lab's mission to simplify plant care, pot, light and watering mechanics, and future soil mix trials.";
+        title = "About SnakePlantSoil.com | Practical Plant Care & Disclosures";
+        description = "Learn why SnakePlantSoil.com was created, our practical approach to snake plant care, and our affiliate transparency disclosures.";
         canonicalUrl = 'https://snakeplantsoil.com/about';
       } else if (lookupPath === '/faq') {
         title = "Snake Plant Potting & Care FAQs | SnakePlantSoil.com";
-        description = "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention.";
+        description = "Practical answers to common snake plant questions about watering frequency, soil amendments, pot sizes, and rot prevention.";
         canonicalUrl = 'https://snakeplantsoil.com/faq';
       } else if (lookupPath === '/care-card') {
         title = "Free Printable Snake Plant Care Card Generator | SnakePlantSoil.com";
@@ -532,12 +532,12 @@ async function startServer() {
           description = "Troubleshoot your snake plant's leaves, pot, and watering conditions. Get a recommended commercial soil profile and fit check.";
           canonicalUrl = 'https://snakeplantsoil.com/soil-diagnosis';
         } else if (lookupPath === '/about') {
-          title = "About Our Practical Soil Research | SnakePlantSoil.com";
-          description = "Learn about Snake Plant Soil Lab's mission to simplify plant care, pot, light and watering mechanics, and future soil mix trials.";
+          title = "About SnakePlantSoil.com | Practical Plant Care & Disclosures";
+          description = "Learn why SnakePlantSoil.com was created, our practical approach to snake plant care, and our affiliate transparency disclosures.";
           canonicalUrl = 'https://snakeplantsoil.com/about';
         } else if (lookupPath === '/faq') {
           title = "Snake Plant Potting & Care FAQs | SnakePlantSoil.com";
-          description = "Botanist-verified answers to common questions about watering frequency, soil amendments, pot sizes, and rot prevention.";
+          description = "Practical answers to common snake plant questions about watering frequency, soil amendments, pot sizes, and rot prevention.";
           canonicalUrl = 'https://snakeplantsoil.com/faq';
         } else if (lookupPath === '/care-card') {
           title = "Free Printable Snake Plant Care Card Generator | SnakePlantSoil.com";
@@ -545,7 +545,7 @@ async function startServer() {
           canonicalUrl = 'https://snakeplantsoil.com/care-card';
         } else if (lookupPath === '/radio') {
           title = "Snake Plant Radio | Soil Science, Drainage & Care Podcast";
-          description = "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, potting physics, root rot recovery, and resilient houseplant cultivation.";
+          description = "Listen to Snake Plant Radio for discussions on soil drainage, potting mixes, root rot recovery, and practical plant care.";
           canonicalUrl = 'https://snakeplantsoil.com/radio';
         } else if (lookupPath.startsWith('/radio/')) {
           const epSlug = lookupPath.replace('/radio/', '');
@@ -565,7 +565,7 @@ async function startServer() {
             },
             'root-rot': {
               title: "How to Identify & Save Snake Plant Root Rot | SnakePlantSoil.com",
-              desc: "How to identify, treat, and surgically recover a snake plant suffering from mushy leaves, soggy stems, or black rhizomes."
+              desc: "Learn how to recognize snake plant root rot, remove badly damaged tissue, repot viable roots or rhizomes, and correct watering conditions."
             },
             'best-pots': {
               title: "Best Pots for Snake Plants (Breathable Terracotta) | SnakePlantSoil.com",
