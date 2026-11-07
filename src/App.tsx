@@ -342,207 +342,414 @@ export default function App() {
               id="homepage-view"
             >
               
-              {/* Hero Section */}
-              <section className="bg-white border-b border-stone-200 overflow-hidden shadow-2xs" id="hero-heading-block">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                  
-                  {/* Hero Left Content */}
-                  <div className="lg:col-span-7 space-y-5 text-left max-w-2xl">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-805 border border-emerald-100 uppercase tracking-wider">
-                      🌿 Built specifically for snake plants
-                    </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-stone-900 tracking-tight leading-[1.15]" id="hero-main-title">
-                      Snake Plant Soil: <span className="text-emerald-850 underline decoration-wavy">Find the Right Mix for Your Plant</span>
+              {/* ====================================================
+                  BOTANICAL FIELD GUIDE HERO (SINGLE H1 FOR ALL VIEWPORTS)
+                  ==================================================== */}
+              <section className="relative bg-[#FAF7F2] border-b border-[#EAE4D8] overflow-hidden" id="hero-botanical-field-guide">
+                
+                {/* Desktop Room Photography Background (Hidden on Mobile) */}
+                <div className="hidden md:block absolute inset-0 pointer-events-none">
+                  <img 
+                    src="/hero-botanical-room.jpg" 
+                    alt="Bright room featuring a snake plant in a stoneware pot on a wooden table" 
+                    className="w-full h-full object-cover object-right-top" 
+                    loading="eager" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#FAF7F2] via-[#FAF7F2]/95 to-transparent w-full md:w-[68%] lg:w-[58%]" />
+                </div>
+
+                {/* Main Hero Content Container (Shared across Mobile & Desktop) */}
+                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 pt-7 pb-6 md:py-20 flex flex-col justify-center min-h-0 md:min-h-[500px] lg:min-h-[560px]">
+                  <div className="max-w-xl space-y-4 md:space-y-5 text-left">
+                    <div className="flex items-center gap-2 md:gap-2.5">
+                      <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-[#235837]">HEALTHY ROOTS. THRIVING PLANTS.</span>
+                      <div className="w-8 md:w-12 h-0.5 bg-[#8BA894]/70 rounded-full"></div>
+                    </div>
+
+                    {/* Single Exposed Homepage H1 for All Viewports and Screen Readers */}
+                    <h1 className="font-serif-editorial text-[28px] sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-[#142B1E] tracking-tight leading-[1.14] sm:leading-[1.12]">
+                      The Complete Guide to Snake Plant Care
                     </h1>
-                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed pl-0.5">
-                      Tell us what the leaves, soil and growing conditions are doing. We’ll help you identify the soil profile that best fits your plant and compare suitable ready-made options.
+
+                    <p className="text-stone-700 text-base md:text-lg leading-relaxed">
+                      Choose the right soil. Spot problems early. Keep your snake plant happy for years.
                     </p>
 
-                    {/* Concise Quick Answer Box */}
-                    <div className="bg-emerald-50/80 border border-emerald-200/70 p-4 rounded-xl text-stone-700 text-xs sm:text-sm leading-relaxed" id="hero-quick-answer">
-                      <span className="font-bold text-emerald-950 block mb-1">🌱 Core Soil Principle:</span>
-                      Snake plants do best in fast-draining soil that does not stay wet around the roots. A cactus or succulent mix can work well, especially when amended with perlite or pumice for better drainage.
-                    </div>
-                    
-                    <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <div className="pt-1 md:pt-2">
                       <button 
-                        onClick={() => navigateToArticle('setup-kits')}
-                        className="bg-emerald-800 text-stone-50 hover:bg-emerald-950 px-5 py-2.5 rounded-lg text-xs font-bold font-sans transition-all shadow-xs flex items-center gap-2 cursor-pointer"
-                        id="hero-cta-setup-kits"
+                        onClick={() => {
+                          const el = document.getElementById('field-guide-paths');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                          else navigateToArticle('setup-kits');
+                        }}
+                        className="inline-flex items-center gap-2 bg-[#1B3B2B] hover:bg-[#122A1E] text-stone-50 px-5 md:px-6 py-2.5 md:py-3 rounded-full text-xs md:text-sm font-bold shadow-xs hover:shadow-md transition-all cursor-pointer"
+                        id="hero-start-cta"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
-                        <span>Find My Soil Profile</span>
-                      </button>
-                      <button 
-                        onClick={() => navigateToArticle('best-soil')}
-                        className="bg-stone-100 text-stone-850 hover:bg-stone-200 px-5 py-2.5 rounded-lg text-xs font-bold font-sans transition-all border border-stone-250 flex items-center gap-2 cursor-pointer"
-                        id="hero-cta-best-soil"
-                      >
-                        <span>Compare Ready-Made Soils</span>
+                        <span>Start Here</span>
+                        <span className="text-[#9EC4A9]">→</span>
                       </button>
                     </div>
 
-                    <div className="pt-3 flex items-center gap-4 text-[10px] sm:text-xs text-stone-450 border-t border-stone-100">
-                      <div>• Answer a few questions</div>
-                      <div>• Find the right soil type</div>
-                      <div>• Practical guidance for real homes</div>
+                    {/* Compact, Full-Width Plant Photograph for Mobile Only (195px tall, clean crop, zero white fade) */}
+                    <div className="block md:hidden relative w-full h-[195px] rounded-xl overflow-hidden shadow-xs border border-[#EAE4D8] mt-3">
+                      <img 
+                        src="/hero-botanical-mobile.jpg" 
+                        alt="Snake plant in minimalist stoneware pot" 
+                        className="w-full h-full object-cover object-center" 
+                        loading="eager" 
+                      />
+                    </div>
+                  </div>
+                </div>
+
+              </section>
+
+              {/* ====================================================
+                  THREE PROMINENT BOTANICAL FEATURE CARDS
+                  ==================================================== */}
+              <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 md:-mt-20 lg:-mt-24 relative z-20" id="field-guide-paths">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  
+                  {/* Path 1: Root Rot Recovery */}
+                  <div 
+                    onClick={() => navigateToArticle('root-rot')}
+                    className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+                    id="path-card-fix-plant"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-2 flex-1">
+                        <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
+                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+                        </div>
+                        <h2 className="font-serif-editorial text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29]">
+                          Root Rot Recovery
+                        </h2>
+                        <p className="text-stone-650 text-base leading-snug">
+                          Recognize root rot and learn the steps to help your plant recover.
+                        </p>
+                      </div>
+                      <div className="w-[42%] shrink-0 h-32 rounded-xl overflow-hidden border border-[#EAE4D8]">
+                        <img 
+                          src="/leaf-troubleshoot.jpg" 
+                          alt="Snake plant leaf showing yellowing edge symptoms" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-[#F2ECE1] flex items-center justify-between text-xs font-bold text-[#1A3B29] group-hover:underline">
+                      <span>Get Help</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                   </div>
 
-                  {/* Hero Right Graphic - Snake Plant Image + Overlay Card */}
-                  <div className="lg:col-span-5 relative" id="hero-graphic-image-box">
-                    {/* Snake Plant Image */}
-                    <div className="relative w-full aspect-4/3 sm:aspect-square lg:aspect-4/3 rounded-3xl overflow-hidden border border-stone-200 shadow-sm bg-stone-100">
-                      <img 
-                        src="/hero-snake-plant.png" 
-                        alt="Healthy snake plant in a terracotta pot with well-drained soil in a naturally lit room" 
-                        className="w-full h-full object-cover"
-                        loading="eager"
-                      />
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent" />
+                  {/* Path 2: Find the Right Soil */}
+                  <div 
+                    onClick={() => navigateToArticle('best-soil')}
+                    className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+                    id="path-card-right-soil"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-2 flex-1">
+                        <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
+                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h20c-1.5-5-5-8-10-8s-8.5 3-10 8z"/></svg>
+                        </div>
+                        <h2 className="font-serif-editorial text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29]">
+                          Find the Right Soil
+                        </h2>
+                        <p className="text-stone-650 text-base leading-snug">
+                          Learn the perfect mix for healthy growth.
+                        </p>
+                      </div>
+                      <div className="w-[42%] shrink-0 h-32 rounded-xl overflow-hidden border border-[#EAE4D8]">
+                        <img 
+                          src="/soil-mound.jpg" 
+                          alt="Mound of rich, dark, aerated potting soil" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
+                      </div>
                     </div>
+                    <div className="mt-4 pt-3 border-t border-[#F2ECE1] flex items-center justify-between text-xs font-bold text-[#1A3B29] group-hover:underline">
+                      <span>Explore Soil</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
 
-                    {/* Layered Soil Profile Preview Card (Partially overlapping) */}
-                    <div className="absolute -bottom-4 -left-4 md:-left-6 max-w-[260px] sm:max-w-[280px] border border-stone-200 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg text-left space-y-2.5 hidden sm:block">
-                      <div className="flex items-center justify-between border-b border-stone-100 pb-1.5">
-                        <span className="text-[8px] font-mono font-bold text-emerald-805 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase">
-                          Profile Preview
-                        </span>
-                        <span className="text-[8px] font-mono text-stone-400">
-                          everyday-balance
-                        </span>
+                  {/* Path 3: Make My Own Mix */}
+                  <div 
+                    onClick={() => navigateToArticle('diy-mix')}
+                    className="bg-white/95 backdrop-blur-md rounded-2xl p-5 border border-[#EAE4D8] shadow-sm hover:shadow-md hover:border-[#1A3B29]/30 transition-all flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+                    id="path-card-diy-mix"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-2 flex-1">
+                        <div className="w-9 h-9 rounded-full bg-[#E2EFE5] text-[#1A3B29] flex items-center justify-center shrink-0">
+                          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        </div>
+                        <h2 className="font-serif-editorial text-xl font-bold text-[#142B1E] tracking-tight group-hover:text-[#1A3B29]">
+                          Make My Own Mix
+                        </h2>
+                        <p className="text-stone-650 text-base leading-snug">
+                          Simple recipes for snake plant soil.
+                        </p>
                       </div>
-                      
-                      <h3 className="font-bold text-stone-900 text-xs flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                        Everyday Balance
-                      </h3>
-                      <p className="text-stone-500 text-[10px] leading-relaxed">
-                        A balanced organic-mineral mix. Best for average indoor conditions.
-                      </p>
-                      
-                      <div className="flex items-center justify-between text-[9px] text-stone-600 border-t border-stone-100 pt-2 font-mono">
-                        <span>Dry-down: 3-5 days</span>
-                        <button
-                          onClick={() => navigateToArticle('setup-kits')}
-                          className="text-emerald-800 hover:text-emerald-950 font-bold hover:underline cursor-pointer"
-                        >
-                          Find My Profile →
-                        </button>
+                      <div className="w-[42%] shrink-0 h-32 rounded-xl overflow-hidden border border-[#EAE4D8]">
+                        <img 
+                          src="/mix-bowl.jpg" 
+                          alt="Shallow stoneware bowl with gritty potting mix" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
                       </div>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-[#F2ECE1] flex items-center justify-between text-xs font-bold text-[#1A3B29] group-hover:underline">
+                      <span>Try It</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                   </div>
 
                 </div>
               </section>
 
-              {/* SECTION 1B: INTENT NAVIGATION HUB */}
-              <section className="py-12 bg-stone-50 border-b border-stone-200" id="intent-navigation-hub">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-2xl mx-auto mb-8">
-                    <span className="text-[10px] sm:text-xs font-mono font-bold text-emerald-805 uppercase tracking-widest block mb-1">
-                      SOIL &amp; CARE HUB
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-                      How Can We Help Your Snake Plant Today?
-                    </h2>
-                    <p className="text-stone-600 text-xs sm:text-sm mt-1.5">
-                      Select your goal to find practical guides, diagnostic assessments, and soil formulas.
-                    </p>
+              {/* ====================================================
+                  VISUAL EXPLANATIONS: ROOTS & 3-2-1 MIX
+                  ==================================================== */}
+              <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6" id="roots-and-mix-section">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                  
+                  {/* Left: Healthy vs. Rotting Roots */}
+                  <div className="lg:col-span-7 bg-[#163524] rounded-2xl p-6 sm:p-7 text-white shadow-sm flex flex-col justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                      <div className="space-y-2.5 max-w-xs text-left">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#9EC4A9]">KNOW YOUR ROOTS</span>
+                          <div className="w-10 h-0.5 bg-[#8BA894]/70 rounded-full"></div>
+                        </div>
+                        <h3 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-white leading-tight">
+                          Healthy vs. Rotting Roots
+                        </h3>
+                        <p className="text-stone-300 text-base leading-relaxed">
+                          Know the difference. Save your plant.
+                        </p>
+                        <div className="pt-2">
+                          <button 
+                            onClick={() => navigateToArticle('root-rot')}
+                            className="bg-[#C4DCC8] hover:bg-[#B3D3B8] text-[#142B1E] font-bold text-xs px-4 py-2 rounded-full transition-all inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+                          >
+                            <span>See the Guide</span>
+                            <span>→</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Side-by-side Root Photos */}
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="relative w-28 sm:w-32 h-36 rounded-xl overflow-hidden border border-[#235837] shadow-inner">
+                          <img 
+                            src="/healthy-roots.jpg" 
+                            alt="Firm pale healthy snake plant roots and rhizome" 
+                            className="w-full h-full object-cover" 
+                          />
+                          <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-emerald-950/90 text-emerald-200 text-[10px] font-bold py-0.5 px-1.5 rounded-full text-center border border-emerald-600/50 flex items-center justify-center gap-1">
+                            <span className="text-emerald-400 font-bold">✓</span> Healthy
+                          </div>
+                        </div>
+                        <div className="relative w-28 sm:w-32 h-36 rounded-xl overflow-hidden border border-[#235837] shadow-inner">
+                          <img 
+                            src="/rotting-roots.jpg" 
+                            alt="Dark mushy decaying roots affected by root rot" 
+                            className="w-full h-full object-cover" 
+                          />
+                          <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-rose-950/90 text-rose-200 text-[10px] font-bold py-0.5 px-1.5 rounded-full text-center border border-rose-600/50 flex items-center justify-center gap-1">
+                            <span className="text-rose-400 font-bold">✕</span> Rotting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {/* Intent 1: Buy Soil */}
-                    <a 
-                      href="/best-snake-plant-soil"
-                      onClick={(e) => { e.preventDefault(); navigateToArticle('best-soil'); }}
-                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
-                      id="intent-link-buy-soil"
-                    >
-                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I want to buy soil</span>
-                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
-                        <span>Best Soil for Snake Plants</span>
-                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
+                  {/* Right: The 3-2-1 Soil Mix */}
+                  <div className="lg:col-span-5 bg-[#F2EDE4] rounded-2xl p-6 sm:p-7 border border-[#E5DFD3] shadow-sm flex flex-col justify-between text-left">
+                    <div className="space-y-1.5">
+                      <h3 className="font-serif-editorial text-2xl font-bold text-[#142B1E]">
+                        The 3-2-1 Soil Mix
                       </h3>
-                      <p className="text-stone-550 text-xs mt-1">Compare ready-made commercial succulent and cactus mixes.</p>
-                    </a>
+                      <p className="text-stone-600 text-sm">
+                        The perfect blend for snake plants.
+                      </p>
+                    </div>
 
-                    {/* Intent 2: Make DIY Soil */}
-                    <a 
-                      href="/diy-snake-plant-soil-mix"
-                      onClick={(e) => { e.preventDefault(); navigateToArticle('diy-mix'); }}
-                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
-                      id="intent-link-diy-mix"
-                    >
-                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I want to make my own</span>
-                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
-                        <span>DIY Snake Plant Soil Mix</span>
-                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
-                      </h3>
-                      <p className="text-stone-550 text-xs mt-1">Get our 3-2-1 gritty recipe and custom volume calculator.</p>
-                    </a>
+                    <div className="grid grid-cols-3 gap-1 sm:gap-3 py-4 my-auto text-center">
+                      <div className="space-y-1.5">
+                        <div className="w-14 h-14 sm:w-18 sm:h-18 mx-auto rounded-full overflow-hidden border border-[#DFD8CC] shadow-2xs">
+                          <img src="/pile-soil.jpg" alt="Standard potting soil pile" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="font-bold text-xs text-[#142B1E]">3 Parts</div>
+                        <div className="text-[10px] sm:text-[11px] text-stone-500">Potting Soil</div>
+                      </div>
+                      <div className="space-y-1.5">
+                        <div className="w-14 h-14 sm:w-18 sm:h-18 mx-auto rounded-full overflow-hidden border border-[#DFD8CC] shadow-2xs">
+                          <img src="/pile-perlite.jpg" alt="Horticultural perlite pile" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="font-bold text-xs text-[#142B1E]">2 Parts</div>
+                        <div className="text-[10px] sm:text-[11px] text-stone-500">Perlite</div>
+                      </div>
+                      <div className="space-y-1.5">
+                        <div className="w-14 h-14 sm:w-18 sm:h-18 mx-auto rounded-full overflow-hidden border border-[#DFD8CC] shadow-2xs">
+                          <img src="/pile-sand.jpg" alt="Coarse sand pile" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="font-bold text-xs text-[#142B1E]">1 Part</div>
+                        <div className="text-[10px] sm:text-[11px] text-stone-500">Sand</div>
+                      </div>
+                    </div>
 
-                    {/* Intent 3: Root Rot */}
-                    <a 
-                      href="/snake-plant-root-rot-guide"
-                      onClick={(e) => { e.preventDefault(); navigateToArticle('root-rot'); }}
-                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
-                      id="intent-link-root-rot"
-                    >
-                      <span className="text-[10px] font-mono font-bold text-rose-800 uppercase tracking-wider block mb-1">My plant may have root rot</span>
-                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-rose-850 flex items-center justify-between">
-                        <span>Snake Plant Root Rot Guide</span>
-                        <span className="text-rose-700 group-hover:translate-x-1 transition-transform">→</span>
-                      </h3>
-                      <p className="text-stone-550 text-xs mt-1">Identify mushy leaves and follow our root recovery protocol.</p>
-                    </a>
-
-                    {/* Intent 4: Right Pot */}
-                    <a 
-                      href="/best-pots-for-snake-plants"
-                      onClick={(e) => { e.preventDefault(); navigateToArticle('best-pots'); }}
-                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
-                      id="intent-link-best-pots"
-                    >
-                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I need the right pot</span>
-                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
-                        <span>Best Pots for Snake Plants</span>
-                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
-                      </h3>
-                      <p className="text-stone-550 text-xs mt-1">Learn why breathable terracotta pots prevent overwatering.</p>
-                    </a>
-
-                    {/* Intent 5: General Care */}
-                    <a 
-                      href="/snake-plant-care-guide"
-                      onClick={(e) => { e.preventDefault(); navigateToArticle('care-guide'); }}
-                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
-                      id="intent-link-care-guide"
-                    >
-                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I need general care help</span>
-                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
-                        <span>Snake Plant Care Guide</span>
-                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
-                      </h3>
-                      <p className="text-stone-550 text-xs mt-1">Master light levels, seasonal routines, and soak-and-dry watering.</p>
-                    </a>
-
-                    {/* Intent 6: Soil Diagnosis */}
-                    <a 
-                      href="/soil-diagnosis"
-                      onClick={(e) => { e.preventDefault(); navigateToArticle('setup-kits'); }}
-                      className="bg-white p-5 rounded-xl border border-stone-200 hover:border-emerald-700/50 hover:shadow-md transition-all group block"
-                      id="intent-link-soil-diagnosis"
-                    >
-                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">I am not sure what is wrong</span>
-                      <h3 className="font-bold text-stone-900 text-sm group-hover:text-emerald-850 flex items-center justify-between">
-                        <span>Check My Snake Plant Soil</span>
-                        <span className="text-emerald-700 group-hover:translate-x-1 transition-transform">→</span>
-                      </h3>
-                      <p className="text-stone-550 text-xs mt-1">Take our quick diagnostic quiz to find your recommended soil profile.</p>
-                    </a>
+                    <div>
+                      <button 
+                        onClick={() => navigateToArticle('diy-mix')}
+                        className="bg-[#1B3B2B] hover:bg-[#122A1E] text-stone-50 font-bold text-xs px-5 py-2.5 rounded-full shadow-xs hover:shadow-sm transition-all inline-flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <span>Learn the Recipe</span>
+                        <span className="text-[#9EC4A9]">→</span>
+                      </button>
+                    </div>
                   </div>
+
+                </div>
+              </section>
+
+              {/* ====================================================
+                  TRUST / BENEFITS STRIP (PURE SVG ICONS)
+                  ==================================================== */}
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-[#EAE4D8] text-sm text-[#142B1E] font-medium">
+                  <div className="flex items-center justify-center gap-2.5">
+                    <svg className="w-5 h-5 text-[#235837]" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
+                    <span>Expert Tips</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2.5">
+                    <svg className="w-5 h-5 text-[#235837]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>Easy Guides</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2.5">
+                    <svg className="w-5 h-5 text-[#235837]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    <span>Healthy Plants</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2.5">
+                    <svg className="w-5 h-5 text-[#235837]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>A Greener Home</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ====================================================
+                  THREE PHOTO-LED ARTICLE CARDS
+                  ==================================================== */}
+              <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="featured-field-articles">
+                <div className="text-center max-w-xl mx-auto mb-10">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#235837] bg-[#E2EFE5] px-2.5 py-1 rounded-full">
+                    PRACTICAL FIELD GUIDES
+                  </span>
+                  <h2 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-[#142B1E] tracking-tight mt-2.5">
+                    Essential Guides for Healthy Plants
+                  </h2>
+                  <p className="text-stone-650 text-sm mt-1.5">
+                    Practical, science-backed guidance for repotting, pot selection, and root rot prevention.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  
+                  {/* Article 1: Root Rot */}
+                  <div 
+                    onClick={() => navigateToArticle('root-rot')}
+                    className="bg-white rounded-2xl border border-[#EAE4D8] overflow-hidden shadow-xs hover:shadow-md hover:border-[#1A3B29]/30 transition-all cursor-pointer flex flex-col justify-between group"
+                  >
+                    <div>
+                      <div className="h-48 w-full overflow-hidden bg-stone-100">
+                        <img 
+                          src="/article-root-rot.jpg" 
+                          alt="Trimming and repotting a plant affected by root rot" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
+                      </div>
+                      <div className="p-5 space-y-2 text-left">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-rose-800 bg-rose-50 px-2 py-0.5 rounded">
+                          PROBLEM SOLVER
+                        </span>
+                        <h3 className="font-serif-editorial text-lg font-bold text-[#142B1E] group-hover:text-[#1A3B29] leading-snug">
+                          How to Spot &amp; Treat Snake Plant Root Rot
+                        </h3>
+                        <p className="text-stone-600 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                          Learn the early warning signs of soggy soil and mushy roots before damage spreads.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="px-5 pb-5 pt-2 text-xs font-bold text-[#1A3B29] group-hover:underline flex items-center justify-between border-t border-[#F2ECE1] mt-3">
+                      <span>Read Guide</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+
+                  {/* Article 2: Best Pots */}
+                  <div 
+                    onClick={() => navigateToArticle('best-pots')}
+                    className="bg-white rounded-2xl border border-[#EAE4D8] overflow-hidden shadow-xs hover:shadow-md hover:border-[#1A3B29]/30 transition-all cursor-pointer flex flex-col justify-between group"
+                  >
+                    <div>
+                      <div className="h-48 w-full overflow-hidden bg-stone-100">
+                        <img 
+                          src="/article-best-pots.jpg" 
+                          alt="Terracotta pots on wooden shelf with good drainage" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
+                      </div>
+                      <div className="p-5 space-y-2 text-left">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded">
+                          POT SELECTION
+                        </span>
+                        <h3 className="font-serif-editorial text-lg font-bold text-[#142B1E] group-hover:text-[#1A3B29] leading-snug">
+                          Why Unglazed Terracotta Saves Snake Plants
+                        </h3>
+                        <p className="text-stone-600 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                          Discover how breathable clay prevents moisture buildup and aeration issues at the root level.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="px-5 pb-5 pt-2 text-xs font-bold text-[#1A3B29] group-hover:underline flex items-center justify-between border-t border-[#F2ECE1] mt-3">
+                      <span>Read Guide</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+
+                  {/* Article 3: Daily Care */}
+                  <div 
+                    onClick={() => navigateToArticle('care-guide')}
+                    className="bg-white rounded-2xl border border-[#EAE4D8] overflow-hidden shadow-xs hover:shadow-md hover:border-[#1A3B29]/30 transition-all cursor-pointer flex flex-col justify-between group"
+                  >
+                    <div>
+                      <div className="h-48 w-full overflow-hidden bg-stone-100">
+                        <img 
+                          src="/article-care-guide.jpg" 
+                          alt="Healthy snake plant receiving natural living room light" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
+                      </div>
+                      <div className="p-5 space-y-2 text-left">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded">
+                          CARE ROUTINE
+                        </span>
+                        <h3 className="font-serif-editorial text-lg font-bold text-[#142B1E] group-hover:text-[#1A3B29] leading-snug">
+                          Seasonal Watering &amp; Soil Dry-Down Times
+                        </h3>
+                        <p className="text-stone-600 text-xs sm:text-sm leading-relaxed line-clamp-2">
+                          Master the soak-and-dry cycle to keep your Sansevieria happy through summer and winter.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="px-5 pb-5 pt-2 text-xs font-bold text-[#1A3B29] group-hover:underline flex items-center justify-between border-t border-[#F2ECE1] mt-3">
+                      <span>Read Guide</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+
                 </div>
               </section>
 

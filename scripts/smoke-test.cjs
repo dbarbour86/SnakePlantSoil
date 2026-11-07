@@ -213,7 +213,7 @@ setTimeout(async () => {
 
       // Assert page-specific body content/H1/H2 exist in raw HTML (proving static prerendering worked!)
       if (route === '/') {
-        if (!html.includes('Snake Plant Soil:') || !html.includes('Find the Right Mix for Your Plant')) {
+        if (!html.includes('The Complete Guide to Snake Plant Care')) {
           cleanupAndExit(1, `Homepage is missing updated H1 hero text in raw HTML.`);
         }
       } else if (route === '/soil-diagnosis') {

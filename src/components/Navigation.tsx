@@ -57,7 +57,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200">
+    <header className="sticky top-0 z-50 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#EAE4D8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16">
           
@@ -71,11 +71,11 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
             className="flex items-center gap-2 cursor-pointer group shrink-0"
             id="brand-logo"
           >
-            <div className="w-8 h-8 rounded-lg bg-emerald-800 text-stone-50 flex items-center justify-center font-bold text-sm shadow-xs transition-all group-hover:bg-emerald-950">
-              S
-            </div>
-            <span className="font-bold text-stone-900 tracking-tight text-base sm:text-lg">
-              SnakePlantSoil<span className="text-emerald-800">.com</span>
+            <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#1A3B29] transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+            </svg>
+            <span className="font-serif-editorial font-bold text-[#142B1E] tracking-tight text-lg sm:text-xl">
+              SnakePlant<span className="text-[#235837] font-sans-editorial font-semibold">Soil</span><span className="text-stone-400 font-sans text-xs">.com</span>
             </span>
           </a>
 
@@ -89,10 +89,10 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
                   e.preventDefault();
                   handleNavClick(item.id);
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === item.id 
-                    ? 'bg-stone-100 text-stone-900 shadow-xs' 
-                    : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                    ? 'bg-[#EFE9DD] text-[#142B1E] shadow-2xs font-bold' 
+                    : 'text-stone-600 hover:text-[#142B1E] hover:bg-[#F3EEE3]'
                 }`}
                 id={`nav-link-${item.id}`}
               >
@@ -105,7 +105,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
                 e.preventDefault();
                 handleNavClick('setup-kits');
               }}
-              className="ml-2 bg-emerald-800 hover:bg-emerald-900 text-stone-50 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all shadow-xs shrink-0"
+              className="ml-2 bg-[#1B3B2B] hover:bg-[#122A1E] text-stone-50 px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs hover:shadow-sm shrink-0"
               id="nav-link-diagnose-cta"
             >
               Find Your Soil Profile
@@ -124,7 +124,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
-                  className="w-full text-xs pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-700 focus:bg-white placeholder-stone-400 font-sans transition-all"
+                  className="w-full text-xs pl-8 pr-3 py-1.5 bg-white/90 border border-[#E0D9CB] rounded-full focus:outline-none focus:ring-1 focus:ring-[#1A3B29] focus:bg-white placeholder-stone-400 font-sans transition-all"
                   id="search-input-header"
                 />
               </div>
@@ -146,7 +146,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
 
       {/* Mobile Drawer Menu Overlays */}
       {isOpen && (
-        <div className="md:hidden border-t border-stone-100 bg-white/95 backdrop-blur-md py-3 px-4 space-y-1 shadow-md" id="mobile-nav-list-drawer">
+        <div className="md:hidden border-t border-[#EAE4D8] bg-[#FAF7F2]/98 backdrop-blur-md py-3 px-4 space-y-1 shadow-md" id="mobile-nav-list-drawer">
           {allNavItems.map((item) => (
             <a
               key={item.id}
@@ -155,15 +155,15 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
                 e.preventDefault();
                 handleNavClick(item.id);
               }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-between ${
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-between ${
                 activeTab === item.id || (activeTab === 'setup-kits' && item.id === 'setup-kits')
-                  ? 'bg-emerald-800 text-white' 
-                  : 'text-stone-700 hover:bg-stone-50 hover:text-stone-950'
+                  ? 'bg-[#1B3B2B] text-white font-bold shadow-xs' 
+                  : 'text-stone-700 hover:bg-[#EFE9DD] hover:text-[#142B1E]'
               }`}
               id={`mobile-nav-link-${item.id}`}
             >
               <span>{item.label}</span>
-              {(activeTab === item.id || (activeTab === 'setup-kits' && item.id === 'setup-kits')) && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+              {(activeTab === item.id || (activeTab === 'setup-kits' && item.id === 'setup-kits')) && <span className="w-1.5 h-1.5 rounded-full bg-[#BEDFC7]" />}
             </a>
           ))}
         </div>

@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;550;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;550;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* Custom earthy color palette extensions */
@@ -14,10 +15,27 @@
   --color-stone-850: #1c1917;
   --color-stone-905: #1c1917;
 
+  /* Botanical field guide tokens */
+  --color-forest-900: #0E2015;
+  --color-forest-800: #142B1E;
+  --color-forest-700: #1A3B29;
+  --color-forest-600: #235837;
+  --color-cream-50: #FAF7F2;
+  --color-cream-100: #F4EFE6;
+  --color-cream-200: #EAE4D8;
+
   /* Custom sage/mint tokens */
   --color-sage-50: #eef7f1;
   --color-sage-100: #dcefe3;
   --color-sage-200: #c9e4d3;
+}
+
+.font-serif-editorial {
+  font-family: var(--font-serif);
+}
+
+.font-sans-editorial {
+  font-family: var(--font-sans);
 }
 
 body {
