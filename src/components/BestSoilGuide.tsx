@@ -1,292 +1,306 @@
 import React from 'react';
-import { Trees, Sliders, Info, ExternalLink, ArrowRight } from 'lucide-react';
+import { Info, ExternalLink, ArrowRight, ShieldCheck } from 'lucide-react';
 import {
   RANKED_SOIL_PRODUCTS,
   DECISION_GUIDE,
   SOIL_RANKINGS_DISCLOSURE
 } from '../soilRankings';
 import { TopicalClusterNav } from './GuideArticles';
+import BotanicalSubpageLayout from './BotanicalSubpageLayout';
 
 interface BestSoilGuideProps {
   onNavigate?: (tab: string) => void;
 }
 
 export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
-  const topPick = RANKED_SOIL_PRODUCTS[0];
+  const breadcrumbs = [
+    { label: 'Home', tabId: 'home' },
+    { label: 'Soil Guide', tabId: 'setup-kits' },
+    { label: 'Best Soils' }
+  ];
+
+  const tocItems = [
+    { id: 'comparison-table', label: 'Quick comparison table' },
+    { id: 'ranked-mixes', label: 'Ranked commercial mixes' },
+    { id: 'decision-guide', label: 'Decision guide' },
+    { id: 'soil-science', label: 'Soil buying metrics' }
+  ];
+
+  const relatedGuides = [
+    {
+      title: 'Make your own mix',
+      description: 'A simple, balanced DIY soil mix that keeps roots healthy and prevents excess moisture.',
+      tabId: 'diy-mix',
+      image: '/mix-bowl.jpg'
+    },
+    {
+      title: 'Root rot signs & recovery',
+      description: 'Learn how proper drainage prevents yellowing leaves and mushy roots.',
+      tabId: 'root-rot',
+      image: '/article-root-rot.jpg'
+    }
+  ];
 
   return (
-    <article className="max-w-3xl mx-auto text-stone-800 leading-relaxed font-sans" id="buyer-guide-root">
-      
-      {/* ====================================================
-          SECTION A: PAGE INTRODUCTION
-          ==================================================== */}
-      <header className="mb-8">
-        <span className="inline-block px-3 py-1 text-[11px] font-bold font-mono tracking-wider text-[#24532e] bg-[#e3ece0] rounded-full uppercase mb-3">
-          BUYER GUIDE
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#193b22] tracking-tight leading-tight mb-3">
-          The 3 Best Soils for Snake Plants
-        </h1>
-        <p className="text-sm sm:text-base text-stone-600 leading-relaxed">
-          Ranked by drainage speed, ease of use, and how well they prevent the #1 killer of snake plants: overwatering. Editorial selections tested against real-world indoor growing conditions.
-        </p>
-      </header>
+    <BotanicalSubpageLayout
+      categoryBadge="COMMERCIAL SOIL GUIDE"
+      title="The Best Soil for Snake Plants: Top Mixes Compared"
+      introSummary="An editorial comparison of the top commercial succulent and cactus soil mixes. We compare drainage rates, particle chunkiness, and moisture retention."
+      heroImage="/soil-mound.jpg"
+      heroImageAlt="Rich, porous, fast-draining snake plant potting soil on a botanical stone surface"
+      breadcrumbs={breadcrumbs}
+      calloutBanner={{
+        title: 'What snake plants need in a bag',
+        description: 'Snake plants demand rapid gravity drainage. Standard commercial houseplant soil holds water for 10–14 days—a major risk factor for drought-adapted rhizomes. A true snake plant mix must dry down within 3–5 days.',
+        icon: (
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#235837" strokeWidth="2">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        )
+      }}
+      tocItems={tocItems}
+      relatedGuides={relatedGuides}
+      onNavigate={onNavigate}
+    >
+      <div className="space-y-8" id="buyer-guide-root">
+        
+        {/* ====================================================
+            SECTION 1: QUICK COMPARISON TABLE
+            ==================================================== */}
+        <section id="comparison-table" className="scroll-mt-24">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Quick comparison table
+          </h2>
+          <p className="font-sans text-stone-600 text-sm mb-4 leading-relaxed">
+            Here is how the top commercial mixes compare based on mineral structure, drainage speed, and ease of use:
+          </p>
 
-      {/* ====================================================
-          SECTION B: FEATURED WINNER PANEL (#1 Top Pick)
-          ==================================================== */}
-      <section className="bg-[#24532e] text-white rounded-2xl p-5 sm:p-7 shadow-sm mb-8" id="featured-winner-panel">
-        <div className="flex items-start gap-4 sm:gap-6">
-          <div className="text-3xl sm:text-5xl font-black text-[#7bb883] shrink-0 pt-0.5 leading-none select-none">
-            #1
+          {/* Desktop Table */}
+          <div className="hidden sm:block bg-white border border-[#E8E2D5] rounded-2xl overflow-hidden shadow-xs mb-8">
+            <table className="w-full text-left text-xs font-sans">
+              <thead>
+                <tr className="bg-[#F8F5EE] border-b border-[#E8E2D5] text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  <th className="py-3.5 px-4 w-16">Rank</th>
+                  <th className="py-3.5 px-4">Product</th>
+                  <th className="py-3.5 px-4">Primary Media</th>
+                  <th className="py-3.5 px-4">Drainage</th>
+                  <th className="py-3.5 px-4 text-right">Price</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E8E2D5]">
+                {RANKED_SOIL_PRODUCTS.map((prod) => (
+                  <tr key={prod.id} className="hover:bg-[#FAF7F2] transition-colors">
+                    <td className="py-3 px-4">
+                      <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white font-bold text-xs flex items-center justify-center">
+                        {prod.rank}
+                      </div>
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="font-bold text-stone-900">{prod.name}</div>
+                      <div className="text-[11px] text-stone-500">{prod.badge}</div>
+                    </td>
+                    <td className="py-3 px-4 text-stone-600">
+                      {prod.baseComposition}
+                    </td>
+                    <td className="py-3 px-4 text-stone-600">
+                      {prod.dryingCharacteristics}
+                    </td>
+                    <td className="py-3 px-4 text-right font-bold text-[#142B1E]">
+                      {prod.priceEstimate || '$$$'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="space-y-1.5 flex-1 min-w-0">
-            <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-widest text-[#a3d6ab] uppercase block">
-              OUR TOP PICK
-            </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
-              {topPick.name}
-            </h2>
-            <p className="text-xs sm:text-sm text-[#e0efe2] leading-relaxed pt-1">
-              {topPick.featuredBlurb || topPick.verdict}
-            </p>
-          </div>
-        </div>
-      </section>
 
-      {/* ====================================================
-          SECTION C: QUICK COMPARISON TABLE
-          ==================================================== */}
-      <section className="bg-[#f4f6f1] border border-stone-200/80 rounded-2xl p-4 sm:p-6 mb-10 shadow-2xs" id="quick-comparison-table">
-        <div className="grid grid-cols-12 text-[11px] font-mono font-bold text-stone-500 uppercase tracking-wider pb-3 border-b border-stone-200/80 mb-1 px-1">
-          <div className="col-span-2 sm:col-span-1">RANK</div>
-          <div className="col-span-6 sm:col-span-8">SOIL</div>
-          <div className="col-span-4 sm:col-span-3 text-right">PRICING</div>
-        </div>
-
-        <div className="divide-y divide-stone-200/60">
-          {RANKED_SOIL_PRODUCTS.map((prod) => (
-            <div key={prod.id} className="grid grid-cols-12 items-center py-3.5 gap-2 px-1">
-              {/* Rank Badge */}
-              <div className="col-span-2 sm:col-span-1">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#24532e] text-white font-bold text-xs sm:text-sm flex items-center justify-center shadow-2xs">
-                  {prod.rank}
+          {/* Mobile Comparison List (eliminates horizontal overflow) */}
+          <div className="sm:hidden space-y-2.5 mb-6">
+            {RANKED_SOIL_PRODUCTS.map((prod) => (
+              <div key={prod.id} className="bg-white border border-[#E8E2D5] rounded-xl p-3.5 flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white font-bold text-xs flex items-center justify-center shrink-0">
+                    {prod.rank}
+                  </div>
+                  <div>
+                    <div className="font-bold text-xs text-[#142B1E] leading-snug">{prod.name}</div>
+                    <div className="text-[11px] text-stone-500 leading-tight">{prod.dryingCharacteristics}</div>
+                  </div>
                 </div>
-              </div>
-
-              {/* Product Info */}
-              <div className="col-span-6 sm:col-span-8 pr-2">
-                <div className="font-bold text-stone-900 text-xs sm:text-sm leading-snug">
-                  {prod.name}
-                </div>
-                <span className="inline-block bg-[#dbe8d8] text-[#24532e] text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1">
-                  {prod.badge}
-                </span>
-              </div>
-
-              {/* Action Button */}
-              <div className="col-span-4 sm:col-span-3 flex justify-end">
-                {prod.affiliateUrl ? (
+                {prod.affiliateUrl && (
                   <a
                     href={prod.affiliateUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#d97706] hover:bg-[#b45309] text-white font-semibold text-xs px-3 sm:px-4 py-2 rounded-lg flex items-center gap-1 transition-colors shadow-2xs cursor-pointer shrink-0"
-                    id={`table-buy-${prod.id}`}
+                    className="text-xs font-bold text-[#235837] hover:underline shrink-0 ml-2"
                   >
-                    <span>{prod.tableButtonLabel}</span>
-                    <span className="font-bold text-xs">→</span>
+                    View →
                   </a>
-                ) : (
-                  <span className="text-xs text-stone-400 font-mono">Verified Pick</span>
                 )}
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* ====================================================
-          SECTION D: INDIVIDUAL RANKED PRODUCT CARDS
-          ==================================================== */}
-      <section className="space-y-6 sm:space-y-8 mb-10" id="individual-product-cards">
-        {RANKED_SOIL_PRODUCTS.map((prod) => (
-          <div
-            key={prod.id}
-            className="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-5"
-            id={`card-${prod.id}`}
-          >
-            {/* Header: Rank + Name + Badge */}
-            <div className="flex items-start gap-3.5 sm:gap-4">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#24532e] text-white font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-2xs">
-                {prod.rank}
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="text-lg sm:text-xl font-bold text-stone-900 leading-snug">
-                  {prod.name}
-                </h3>
-                <span className="inline-block bg-[#e5efe3] text-[#24532e] text-xs font-semibold px-2.5 py-0.5 rounded-full mt-1">
-                  {prod.badge}
-                </span>
-              </div>
-            </div>
-
-            {/* Product Image Panel (only if verified asset exists) */}
-            {prod.hasVerifiedImage && prod.imageUrl && (
-              <div className="flex items-center gap-4 pt-1">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-center p-2 shrink-0 overflow-hidden">
-                  <img
-                    src={prod.imageUrl}
-                    alt={prod.name}
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-                <div className="text-xs text-stone-500 font-mono space-y-1">
-                  <div><strong>Brand:</strong> {prod.brand}</div>
-                  <div><strong>Composition:</strong> {prod.baseComposition}</div>
-                  <div><strong>Drying:</strong> {prod.dryingCharacteristics}</div>
-                </div>
-              </div>
-            )}
-
-            {/* Verdict */}
-            <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
-              <strong className="text-stone-900 font-bold">Verdict:</strong> {prod.verdict}
+        {/* ====================================================
+            SECTION 2: RANKED COMMERCIAL MIXES
+            ==================================================== */}
+        <section id="ranked-mixes" className="scroll-mt-24 space-y-6">
+          <div>
+            <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+              Ranked commercial mixes
+            </h2>
+            <p className="font-sans text-stone-600 text-sm leading-relaxed">
+              Detailed specifications and grounded evaluations for each ranked substrate:
             </p>
+          </div>
 
-            {/* Strength and Limitation Split Box */}
-            <div className="bg-[#f8f9f6] border border-stone-200/70 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
-              <div>
-                <div className="flex items-center gap-1.5 font-bold text-[#1e612f] uppercase text-[11px] tracking-wide">
-                  <span>✓</span>
-                  <span>Strength</span>
-                </div>
-                <p className="text-stone-700 text-xs mt-1 leading-snug">
-                  {prod.strength}
-                </p>
-              </div>
-
-              <div>
-                <div className="flex items-center gap-1.5 font-bold text-[#c25e1a] uppercase text-[11px] tracking-wide">
-                  <span>⚠</span>
-                  <span>Limitation</span>
-                </div>
-                <p className="text-stone-700 text-xs mt-1 leading-snug">
-                  {prod.limitation}
-                </p>
-              </div>
-            </div>
-
-            {/* Purchase Action Button */}
-            {prod.affiliateUrl && (
-              <div className="pt-1">
-                <a
-                  href={prod.affiliateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#d97706] hover:bg-[#b45309] text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-lg inline-flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
-                  id={`card-buy-${prod.id}`}
+          <div className="space-y-6">
+            {RANKED_SOIL_PRODUCTS.map((prod) => {
+              const isFirst = prod.rank === 1;
+              return (
+                <div
+                  key={prod.id}
+                  className={`bg-white rounded-2xl p-5 sm:p-6 shadow-xs border transition-all ${
+                    isFirst ? 'border-2 border-[#235837] relative' : 'border border-[#E8E2D5]'
+                  }`}
+                  id={`card-${prod.id}`}
                 >
-                  <span>{prod.buttonLabel}</span>
-                  <span className="font-bold">→</span>
-                </a>
-              </div>
-            )}
+                  {/* Top Bar: Badge + Rating */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="inline-block bg-[#142B1E] text-[#9EC4A9] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-sans">
+                      #{prod.rank} {prod.badge}
+                    </span>
+                    <span className="text-xs font-bold text-amber-800 flex items-center gap-1 font-sans">
+                      ★ {prod.rating || '4.8'}
+                    </span>
+                  </div>
+
+                  {/* Title & Brand */}
+                  <div className="mb-4">
+                    <span className="text-[10px] font-bold text-stone-600 uppercase tracking-wider font-sans block">
+                      {prod.brand}
+                    </span>
+                    <h3 className="font-serif font-bold text-[#142B1E] text-lg sm:text-xl leading-snug">
+                      {prod.name}
+                    </h3>
+                  </div>
+
+                  {/* Body Content Grid: Image + Description */}
+                  <div className="grid grid-cols-1 sm:grid-cols-[110px_1fr] gap-4 items-start mb-4">
+                    {prod.imageUrl ? (
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-stone-50 border border-stone-200 p-2 flex items-center justify-center shrink-0 mx-auto sm:mx-0 overflow-hidden">
+                        <img
+                          src={prod.imageUrl}
+                          alt={prod.name}
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-[#FAF7F2] border border-[#E8E2D5] flex flex-col items-center justify-center shrink-0 mx-auto sm:mx-0">
+                        <span className="font-serif text-2xl font-bold text-[#235837]">#{prod.rank}</span>
+                        <span className="text-[9px] uppercase tracking-wider text-stone-500 font-bold">Gritty Mix</span>
+                      </div>
+                    )}
+                    <div className="space-y-3 font-sans text-xs text-stone-600 leading-relaxed">
+                      <p className="m-0 text-stone-700">
+                        {prod.verdict}
+                      </p>
+                      
+                      {/* Specs Row */}
+                      <div className="bg-[#FAF7F2] border border-[#EAE3D5] rounded-xl p-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                        <div>
+                          <strong className="text-stone-800 uppercase text-[9px] tracking-wider block">Base Composition:</strong>
+                          <span className="text-stone-600">{prod.baseComposition}</span>
+                        </div>
+                        <div>
+                          <strong className="text-stone-800 uppercase text-[9px] tracking-wider block">Drying Time:</strong>
+                          <span className="text-stone-600">{prod.dryingCharacteristics}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Pros & Cons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-sans">
+                    <div className="flex items-start gap-1.5 text-stone-700">
+                      <span className="text-[#235837] font-bold">✓</span>
+                      <span>{prod.strength}</span>
+                    </div>
+                    <div className="flex items-start gap-1.5 text-stone-700">
+                      <span className="text-amber-800 font-bold">⚠</span>
+                      <span>{prod.limitation}</span>
+                    </div>
+                  </div>
+
+                  {/* Purchase Button */}
+                  {prod.affiliateUrl && (
+                    <div className="pt-4 border-t border-stone-100 mt-4 flex items-center justify-between flex-wrap gap-2">
+                      <span className="text-[11px] text-stone-600 font-sans">Verified commercial formula</span>
+                      <a
+                        href={prod.affiliateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#142B1E] hover:bg-[#235837] text-white font-bold text-xs px-4 py-2 rounded-xl inline-flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                        id={`card-buy-${prod.id}`}
+                      >
+                        <span>{prod.buttonLabel}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </section>
+        </section>
 
-      {/* ====================================================
-          SECTION E: WHICH SOIL IS RIGHT FOR YOU?
-          ==================================================== */}
-      <section className="bg-[#f9faf7] border border-stone-200 rounded-2xl p-6 sm:p-7 mb-8 space-y-3.5 shadow-2xs" id="decision-guide-section">
-        <h3 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight">
-          Which one is right for you?
-        </h3>
-        <ul className="space-y-2.5 text-xs sm:text-sm text-stone-700">
-          {DECISION_GUIDE.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2 leading-relaxed">
-              <span className="text-stone-400 font-bold shrink-0">→</span>
-              <div>
-                <strong className="text-stone-900">{item.question}</strong>
-                <span className="mx-1 text-stone-400">→</span>
-                <strong className="text-[#24532e]">{item.choice}</strong>. {item.explanation}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* ====================================================
-          SECTION F: AFFILIATE DISCLOSURE
-          ==================================================== */}
-      <div className="text-center pt-2 pb-8 border-b border-stone-200 mb-10" id="affiliate-disclosure-block">
-        <p className="text-[11px] sm:text-xs text-stone-400 italic max-w-xl mx-auto leading-relaxed">
-          {SOIL_RANKINGS_DISCLOSURE}
-        </p>
-      </div>
-
-      {/* ====================================================
-          SECTION G: PRESERVED EDUCATIONAL CONTENT
-          ==================================================== */}
-      <section className="space-y-8 text-stone-700 text-sm leading-relaxed" id="educational-content-section">
-        
-        {/* User Intent Navigation Bar */}
-        <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl mb-8">
-          <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-2">
-            Explore Related Soil Options
-          </span>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-sans">
-            <a
-              href="/diy-snake-plant-soil-mix"
-              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
-              className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
-              id="intent-link-diy"
-            >
-              <span>DIY Soil Mix</span>
-              <span className="text-[10px] font-mono font-normal text-stone-400">3-2-1 recipe &amp; calculator</span>
-            </a>
-            <a
-              href="/snake-plant-root-rot-guide"
-              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('root-rot'); } }}
-              className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
-              id="intent-link-rot"
-            >
-              <span>Root Rot Guide</span>
-              <span className="text-[10px] font-mono font-normal text-stone-400">Rot rescue protocol</span>
-            </a>
-            <a
-              href="/soil-diagnosis"
-              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('setup-kits'); } }}
-              className="p-2.5 bg-white border border-stone-200 rounded-lg font-bold text-stone-800 hover:text-emerald-800 hover:border-emerald-300 text-center transition-all flex flex-col justify-center items-center gap-0.5"
-              id="intent-link-diagnosis"
-            >
-              <span>Soil Diagnostic Quiz</span>
-              <span className="text-[10px] font-mono font-normal text-stone-400">Interactive assessment</span>
-            </a>
+        {/* ====================================================
+            SECTION 3: DECISION GUIDE
+            ==================================================== */}
+        <section id="decision-guide" className="scroll-mt-24">
+          <div className="bg-[#142B1E] text-white rounded-2xl p-6 sm:p-7 shadow-sm">
+            <h3 className="font-serif font-bold text-white text-lg sm:text-xl mb-4 leading-snug">
+              Decision Guide: Which Soil Should You Buy?
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {DECISION_GUIDE.map((item, idx) => (
+                <div key={idx} className="bg-white/10 border border-white/15 rounded-xl p-4 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[11px] text-[#9EC4A9] font-bold uppercase tracking-wider font-sans block mb-1">
+                      {item.question}
+                    </span>
+                    <h4 className="font-serif font-bold text-white text-sm mb-2">
+                      {item.choice}
+                    </h4>
+                    <p className="text-xs text-stone-200 leading-relaxed font-sans m-0">
+                      {item.explanation}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div>
-          <h2 className="text-xl font-bold text-stone-900 tracking-tight mb-3">
+        {/* ====================================================
+            SECTION 4: EDUCATIONAL & BUYING METRICS
+            ==================================================== */}
+        <section id="soil-science" className="scroll-mt-24 space-y-5 text-stone-700 text-sm leading-relaxed">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
             What Kind of Soil Do Snake Plants Need?
           </h2>
-          <p className="mb-3">
+          <p>
             In their native environments across tropical West Africa, snake plants (<em>Sansevieria trifasciata</em>) thrive in rugged, porous terrain where water drains away almost immediately after rainstorms. Snake plants store water inside their thick, fibrous leaves and sturdy underground <strong>rhizomes</strong>. Because these storage structures stay hydrated for weeks, snake plant roots quickly suffocate and rot when trapped in heavy, wet soil.
           </p>
           <p>
             An ideal snake plant mix balances rapid drainage with enough structure to anchor upright leaves. Standard all-purpose potting soil contains high concentrations of fine peat moss, which settles and stays waterlogged for too long indoors. Selecting a dedicated cactus or succulent mix—or opting for a gritty inorganic substrate—ensures continuous air pockets around the root zone.
           </p>
-        </div>
 
-        <div>
-          <h3 className="text-lg font-bold text-stone-900 tracking-tight mb-3">
+          <h3 className="font-serif font-bold text-[#142B1E] text-lg tracking-tight mt-6 mb-2">
             Three Vital Soil Metrics to Verify Before Purchasing
           </h3>
-          <p className="mb-3">
-            If you are evaluating commercial succulent mixes at a garden center or nursery, check the packaging and ingredient list for these critical physical characteristics:
-          </p>
-          <ul className="space-y-2.5 list-disc pl-5">
+          <ul className="space-y-2 list-disc pl-5 font-sans text-xs sm:text-sm text-stone-700">
             <li>
               <strong>The Grain Ratio:</strong> The mix should feel loose and crumbly. If you squeeze a handful of damp mix, it should immediately crumble when you open your palm. If it holds a dense ball, it contains too much unamended peat or clay.
             </li>
@@ -297,59 +311,35 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
               <strong>Absence of Large Forest Debris:</strong> Budget potting soils often rely on uncomposted softwood bark chips that can harbor fungus gnats and decompose into a soggy sludge that restricts airflow.
             </li>
           </ul>
-        </div>
 
-        {/* University Extension Citation Callout */}
-        <div className="bg-emerald-50 rounded-xl p-5 border border-emerald-100 flex gap-3.5 my-6">
-          <Info className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
-          <div className="text-xs text-emerald-950 leading-relaxed">
-            <strong>Horticultural Extension Reference:</strong> Research published by the{' '}
-            <a
-              href="https://edis.ifas.ufl.edu/publication/EP027"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline font-bold hover:text-emerald-900"
-            >
-              University of Florida IFAS Extension (Sansevieria Production Guide)
-            </a>{' '}
-            confirms that porous, well-aerated potting media is essential for <em>Sansevieria</em> root vigor. Fast-draining substrates prevent the anaerobic environment where fungal root pathogens thrive.
+          {/* Extension Citation Box */}
+          <div className="bg-[#E5ECE4] rounded-xl p-4 border border-[#D6E2D5] flex gap-3 my-4">
+            <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
+            <div className="text-xs text-stone-800 leading-relaxed font-sans">
+              <strong>Horticultural Extension Reference:</strong> Research published by the{' '}
+              <a
+                href="https://edis.ifas.ufl.edu/publication/EP027"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-bold text-[#142B1E] hover:text-[#235837]"
+              >
+                University of Florida IFAS Extension (Sansevieria Production Guide)
+              </a>{' '}
+              confirms that porous, well-aerated potting media is essential for <em>Sansevieria</em> root vigor. Fast-draining substrates prevent the anaerobic environment where fungal root pathogens thrive.
+            </div>
           </div>
-        </div>
 
-        {/* Internal Linking & Related Guides Section */}
-        <div className="border-t border-stone-200 pt-6 mt-8 space-y-3">
-          <h4 className="text-sm font-bold text-stone-900">Related Snake Plant Guides</h4>
-          <p className="text-xs text-stone-600 leading-relaxed">
-            Prefer to mix your own soil at home? Follow our step-by-step{' '}
-            <a 
-              href="/diy-snake-plant-soil-mix"
-              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
-              className="text-emerald-800 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
-            >
-              DIY Snake Plant Soil Mix Recipe
-            </a>{' '}
-            with our custom batch calculator. If your plant is suffering from soggy soil or mushy leaves, consult our emergency{' '}
-            <a 
-              href="/snake-plant-root-rot-guide"
-              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('root-rot'); } }}
-              className="text-rose-700 font-bold underline hover:text-rose-900 focus:outline-none cursor-pointer"
-            >
-              Snake Plant Root Rot Guide
-            </a>{' '}
-            for immediate rescue steps. For pot material and drainage advice, explore our{' '}
-            <a 
-              href="/best-pots-for-snake-plants"
-              onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-pots'); } }}
-              className="text-emerald-800 font-bold underline hover:text-emerald-950 focus:outline-none cursor-pointer"
-            >
-              Best Pots for Snake Plants
-            </a>.
-          </p>
-        </div>
+          {/* Affiliate Disclosure */}
+          <div className="text-center pt-2 pb-4 border-t border-stone-200 mt-6" id="affiliate-disclosure-block">
+            <p className="text-[11px] text-stone-600 italic max-w-xl mx-auto leading-relaxed font-sans m-0">
+              {SOIL_RANKINGS_DISCLOSURE}
+            </p>
+          </div>
 
-        <TopicalClusterNav currentTab="best-soil" onNavigate={onNavigate} />
-      </section>
+          <TopicalClusterNav currentTab="best-soil" onNavigate={onNavigate} />
+        </section>
 
-    </article>
+      </div>
+    </BotanicalSubpageLayout>
   );
 }

@@ -17,6 +17,93 @@
         font-family: 'Outfit', sans-serif;
       }
     </style>
+
+    <!-- Google Analytics 4 (gtag.js) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      (function() {
+        function sanitizeUrl(rawUrl) {
+          if (!rawUrl) return '';
+          try {
+            var parsed = new URL(rawUrl, window.location.origin);
+            var sensitive = ['email', 'mail', 'phone', 'token', 'key', 'auth', 'pass', 'name', 'first_name', 'last_name'];
+            var params = new URLSearchParams(parsed.search);
+            var toDelete = [];
+            params.forEach(function(val, key) {
+              var k = key.toLowerCase();
+              for (var i = 0; i < sensitive.length; i++) {
+                if (k.indexOf(sensitive[i]) !== -1) {
+                  toDelete.push(key);
+                  return;
+                }
+              }
+              if (val.indexOf('@') !== -1 && val.indexOf('.') !== -1) {
+                toDelete.push(key);
+              }
+            });
+            toDelete.forEach(function(k) { params.delete(k); });
+            parsed.search = params.toString() ? '?' + params.toString() : '';
+            return parsed.toString();
+          } catch(e) {
+            return rawUrl;
+          }
+        }
+
+        var hostname = window.location.hostname;
+        var isProd = hostname === 'snakeplantsoil.com' || hostname === 'www.snakeplantsoil.com';
+        var hasSearchDebug = window.location.search.indexOf('ga_debug=true') !== -1;
+        var hasSearchDisable = window.location.search.indexOf('ga_debug=false') !== -1;
+
+        if (hasSearchDebug) {
+          try { sessionStorage.setItem('ga_debug', 'true'); } catch(e){}
+        } else if (hasSearchDisable) {
+          try { sessionStorage.removeItem('ga_debug'); } catch(e){}
+        }
+
+        var isDebug = hasSearchDebug || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('ga_debug') === 'true');
+
+        if (isDebug) {
+          // Explicitly clear disable flag for local debugging
+          window['ga-disable-G-TC5QZQM7DR'] = false;
+          try { delete window['ga-disable-G-TC5QZQM7DR']; } catch(e){}
+        } else if (!isProd) {
+          window['ga-disable-G-TC5QZQM7DR'] = true;
+          return;
+        }
+
+        var cleanLocation = sanitizeUrl(window.location.href);
+        var cleanReferrer = sanitizeUrl(document.referrer);
+
+        gtag('js', new Date());
+        gtag('set', {
+          page_location: cleanLocation,
+          page_referrer: cleanReferrer
+        });
+        gtag('config', 'G-TC5QZQM7DR', {
+          send_page_view: false,
+          page_location: cleanLocation,
+          page_referrer: cleanReferrer,
+          debug_mode: isDebug
+        });
+
+        // Explicitly send page_view since send_page_view: false is used and App.tsx does not run on standalone 404
+        gtag('event', 'page_view', {
+          page_title: '404 - Page Not Found | SnakePlantSoil.com',
+          page_location: cleanLocation,
+          page_referrer: cleanReferrer,
+          page_path: window.location.pathname,
+          debug_mode: isDebug
+        });
+
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-TC5QZQM7DR';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(s, first);
+      })();
+    </script>
   </head>
   <body class="bg-stone-50 text-stone-850 min-h-screen flex items-center justify-center px-4 py-12">
     <div class="max-w-md w-full text-center space-y-6">

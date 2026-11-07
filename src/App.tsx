@@ -32,6 +32,7 @@ import routeManifest from './generated-manifest.json';
 import DynamicArticleView from './components/DynamicArticle';
 import { SOIL_PROFILES, COMMERCIAL_PRODUCTS } from './diagnosticConfig';
 import { RANKED_SOIL_PRODUCTS } from './soilRankings';
+import { trackPageView } from './utils/analytics';
 
 
 const HERO_CARE_TIPS = [
@@ -278,7 +279,10 @@ export default function App() {
       }
       link.setAttribute('href', canonicalUrl);
     }
-  }, [activeTab, activeDynamicArticle]);
+
+    // Trigger GA4 page_view after document.title and canonical link are fully set
+    trackPageView(window.location.pathname, title);
+  }, [activeTab, activeDynamicArticle, activeEpisode]);
 
   const toggleFaq = (id: string) => {
     setFaqExpanded(prev => ({
@@ -1260,19 +1264,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id="setup-kits-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-setup-kits"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <SoilSetupKit />
             </motion.div>
           )}
@@ -1287,19 +1281,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10"
+              className="w-full"
               id="best-soil-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none cursor-pointer"
-                  id="back-home-best-soil"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <BestSoilArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
@@ -1314,19 +1298,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id="diy-mix-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-diy"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <DIYMixArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
@@ -1341,19 +1315,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id="root-rot-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-root-rot"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <RootRotArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
@@ -1368,19 +1332,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id="best-pots-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-best-pots"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <BestPotsArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
@@ -1395,19 +1349,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id="care-guide-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-care"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <CareGuideArticle onNavigate={navigateToArticle} />
             </motion.div>
           )}
@@ -1422,103 +1366,101 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full bg-[#FAF7F2] min-h-screen py-10 md:py-16 font-sans"
               id="faq-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-faq"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Breadcrumbs */}
+                <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-[#5C6E60]">
+                  <a href="/" onClick={(e) => { e.preventDefault(); navigateToArticle('home'); }} className="hover:text-[#142B1E] transition-colors cursor-pointer">Home</a>
+                  <span>/</span>
+                  <span className="text-[#142B1E] font-medium">FAQ</span>
+                </nav>
 
-              <div className="mb-8">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-850 mb-2">
-                  <QuestionIcon className="w-4.5 h-4.5" /> Structured FAQ Catalog
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-stone-950 tracking-tight mt-1">
-                  Exhaustive Botanical Knowledgebase
-                </h2>
-                <p className="text-stone-600 text-sm mt-1.5">
-                  Our raw FAQ lists are engineered with optimized heading elements and direct answers designed to be indexable by third-party search engines. Use the page search bar above to drill down instantly.
-                </p>
-              </div>
-
-              {/* Dynamic Filter Search Feedback Box */}
-              {searchQuery.trim() !== '' && (
-                <div className="bg-emerald-50 text-emerald-800 text-xs p-3.5 rounded-xl border border-emerald-100 mb-6 flex justify-between items-center">
-                  <span>Filtered questions matching "<strong>{searchQuery}</strong>": found <strong>{filteredFAQs.length}</strong> results.</span>
-                  <button 
-                    onClick={() => setSearchQuery('')}
-                    className="underline font-bold hover:text-emerald-950 ml-2 text-emerald-850 shrink-0"
-                    id="clear-search-faq"
-                  >
-                    Reset Filter
-                  </button>
+                <div className="mb-8">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#E2EFE5] text-[#235837] border border-[#C2DEC9] mb-2.5">
+                    <QuestionIcon className="w-4 h-4 text-[#235837]" /> Structured FAQ Catalog
+                  </span>
+                  <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#142B1E] tracking-tight mt-1">
+                    Exhaustive Botanical Knowledgebase
+                  </h1>
+                  <p className="text-[#4D5D53] text-sm sm:text-base mt-2 leading-relaxed">
+                    Our raw FAQ lists are engineered with optimized heading elements and direct answers designed to be indexable by third-party search engines. Use the page search bar above to drill down instantly.
+                  </p>
                 </div>
-              )}
 
-              <div className="space-y-4">
-                {filteredFAQs.length === 0 ? (
-                  <div className="p-8 text-center rounded-xl border border-dashed border-stone-200 bg-white">
-                    <p className="text-stone-650 text-sm">No specific FAQ items found matching "{searchQuery}".</p>
+                {/* Dynamic Filter Search Feedback Box */}
+                {searchQuery.trim() !== '' && (
+                  <div className="bg-[#E2EFE5]/50 text-[#235837] text-xs p-3.5 rounded-xl border border-[#C2DEC9] mb-6 flex justify-between items-center">
+                    <span>Filtered questions matching "<strong>{searchQuery}</strong>": found <strong>{filteredFAQs.length}</strong> results.</span>
                     <button 
                       onClick={() => setSearchQuery('')}
-                      className="mt-3 text-xs text-emerald-800 font-bold bg-stone-100 px-3.5 py-2 rounded-lg hover:bg-stone-200"
-                      id="reset-faq-query"
+                      className="underline font-bold hover:text-[#142B1E] ml-2 text-[#235837] shrink-0 cursor-pointer"
+                      id="clear-search-faq"
                     >
                       Reset Filter
                     </button>
                   </div>
-                ) : (
-                  filteredFAQs.map((faq) => {
-                    const expanded = faqExpanded[faq.id] ?? true; // defaults to expanded!
-                    return (
-                      <div 
-                        key={faq.id} 
-                        className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs flex flex-col justify-between"
-                        id={`faq-article-container-${faq.id}`}
-                      >
-                        <div>
-                          <div className="flex items-start justify-between gap-4">
-                            <span className="text-[9px] uppercase font-mono font-bold text-white bg-stone-900 px-2 py-0.5 rounded tracking-widest shrink-0">
-                              Category: {faq.category}
-                            </span>
-                            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-emerald-805 bg-emerald-50 px-2 py-0.5 rounded-md shrink-0 border border-emerald-100">
-                              Verified
-                            </span>
-                          </div>
-                          
-                          <h3 className="text-base sm:text-lg font-bold text-stone-955 mt-4 flex items-center gap-2">
-                            <span className="w-1.5 h-6 bg-emerald-800 rounded-full shrink-0" />
-                            {faq.question}
-                          </h3>
-
-                          {/* Direct Quotable Answer */}
-                          <p className="text-stone-701 text-sm leading-relaxed mt-2.5 pl-3.5 border-l-2 border-stone-200 italic font-sans">
-                            "{faq.answer}"
-                          </p>
-                        </div>
-
-                        <div className="mt-8 pt-4 border-t border-stone-100 flex flex-wrap gap-2 items-center justify-between text-[11px] text-stone-450">
-                          <span>Verified by SnakePlantSoil.com Greenhouse Trial Systems</span>
-                          <span className="font-mono text-emerald-800 font-bold">Schema Class: FAQPage</span>
-                        </div>
-                      </div>
-                    );
-                  })
                 )}
-              </div>
 
-              <div className="mt-12 p-6 rounded-2xl bg-white border border-stone-200 shadow-xs max-w-2xl mx-auto text-center space-y-4">
-                <Award className="w-8 h-8 text-amber-500 mx-auto" />
-                <h4 className="font-bold text-stone-900">Have a customized agricultural soil question?</h4>
-                <p className="text-xs text-stone-605 leading-relaxed">
-                  We are constantly expanding our sitemaps and catalog decks. Send us your botanical inquiries or pot dimensions at <strong>hello@snakeplantsoil.com</strong>, and we will update our data schemas!
-                </p>
+                <div className="space-y-4">
+                  {filteredFAQs.length === 0 ? (
+                    <div className="p-8 text-center rounded-2xl border border-dashed border-[#D5CDBD] bg-white">
+                      <p className="text-[#5C6E60] text-sm">No specific FAQ items found matching "{searchQuery}".</p>
+                      <button 
+                        onClick={() => setSearchQuery('')}
+                        className="mt-3 text-xs text-[#235837] font-bold bg-[#F3EFE6] px-3.5 py-2 rounded-xl hover:bg-[#E8E2D5] cursor-pointer transition-colors"
+                        id="reset-faq-query"
+                      >
+                        Reset Filter
+                      </button>
+                    </div>
+                  ) : (
+                    filteredFAQs.map((faq) => {
+                      return (
+                        <div 
+                          key={faq.id} 
+                          className="bg-white rounded-2xl border border-[#E8E2D5] p-6 shadow-xs flex flex-col justify-between"
+                          id={`faq-article-container-${faq.id}`}
+                        >
+                          <div>
+                            <div className="flex items-start justify-between gap-4">
+                              <span className="text-[10px] uppercase font-mono font-bold text-[#4A5D4E] bg-[#F3EFE6] border border-[#E8E2D5] px-2.5 py-0.5 rounded tracking-wider shrink-0">
+                                Category: {faq.category}
+                              </span>
+                              <span className="text-[10px] uppercase font-mono font-bold tracking-wider text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded-md shrink-0 border border-[#C2DEC9]">
+                                Verified
+                              </span>
+                            </div>
+                            
+                            <h3 className="text-base sm:text-lg font-serif font-bold text-[#142B1E] mt-4 flex items-center gap-2">
+                              <span className="w-1.5 h-6 bg-[#235837] rounded-full shrink-0" />
+                              {faq.question}
+                            </h3>
+
+                            {/* Direct Quotable Answer */}
+                            <p className="text-[#4D5D53] text-sm leading-relaxed mt-2.5 pl-3.5 border-l-2 border-[#235837] italic font-sans">
+                              "{faq.answer}"
+                            </p>
+                          </div>
+
+                          <div className="mt-8 pt-4 border-t border-[#F0EBE1] flex flex-wrap gap-2 items-center justify-between text-[11px] text-[#6B7C70]">
+                            <span>Verified by SnakePlantSoil.com Greenhouse Trial Systems</span>
+                            <span className="font-mono text-[#235837] font-bold">Schema Class: FAQPage</span>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                <div className="mt-12 p-6 rounded-2xl bg-white border border-[#E8E2D5] shadow-xs max-w-2xl mx-auto text-center space-y-3">
+                  <Award className="w-8 h-8 text-[#235837] mx-auto" />
+                  <h4 className="font-serif font-bold text-[#142B1E] text-base">Have a customized agricultural soil question?</h4>
+                  <p className="text-xs text-[#5C6E60] leading-relaxed">
+                    We are constantly expanding our sitemaps and catalog decks. Send us your botanical inquiries or pot dimensions at <strong>hello@snakeplantsoil.com</strong>, and we will update our data schemas!
+                  </p>
+                </div>
               </div>
 
             </motion.div>
@@ -1534,20 +1476,10 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id="care-card-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-care-card-magnet"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
-              <LeadMagnet />
+              <LeadMagnet onNavigate={navigateToArticle} />
             </motion.div>
           )}
 
@@ -1558,44 +1490,52 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full bg-[#FAF7F2] min-h-screen py-10 md:py-16 font-sans"
               id="about-page"
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-about"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                {/* Breadcrumbs */}
+                <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#5C6E60]">
+                  <a href="/" onClick={(e) => { e.preventDefault(); navigateToArticle('home'); }} className="hover:text-[#142B1E] transition-colors cursor-pointer">Home</a>
+                  <span>/</span>
+                  <span className="text-[#142B1E] font-medium">About</span>
+                </nav>
 
-              <article className="prose prose-stone max-w-none text-stone-705 leading-relaxed space-y-6">
-                <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-                  <h2 className="text-xl md:text-2xl font-mono font-bold text-stone-900 tracking-tight mt-0 flex items-center gap-2">
+                <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E8E2D5] shadow-xs space-y-3">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#E2EFE5] text-[#235837] border border-[#C2DEC9]">
+                    Botanical Research & Substrate Mechanics
+                  </span>
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#142B1E] tracking-tight">
                     About Snake Plant Soil Lab
-                  </h2>
-                  <p className="text-stone-600 text-xs mt-2 mb-0 leading-relaxed">
+                  </h1>
+                  <p className="text-[#4D5D53] text-sm sm:text-base leading-relaxed">
                     Our mission is to help snake plant owners understand how pot type, light, watering habits, and soil characteristics interact.
                   </p>
                 </div>
 
-                <h3 className="text-sm font-mono font-bold text-stone-900 mt-6 uppercase tracking-wider">Our Approach to Plant Care</h3>
-                <p className="text-xs text-stone-600 leading-relaxed">
-                  Snake Plant Soil Lab was founded to replace confusing, overly complex plant advice with straightforward, practical resources. We believe that caring for plants shouldn't require advanced botanical degrees. By examining the basic mechanics of how materials hold and release water, any beginner can grow resilient, healthy snake plants.
-                </p>
-                
-                <h3 className="text-sm font-mono font-bold text-stone-900 mt-6 uppercase tracking-wider">Practical Product Comparisons</h3>
-                <p className="text-xs text-stone-600 leading-relaxed">
-                  We compile independent product reviews and organize potting soil characteristics into distinct categories. Every catalog product is annotated with disclosed ingredients, price indicators, and best-use conditions to help you make informed buying decisions.
-                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white p-6 rounded-2xl border border-[#E8E2D5] shadow-xs space-y-2.5">
+                    <h2 className="text-base font-serif font-bold text-[#142B1E]">Our Approach to Plant Care</h2>
+                    <p className="text-xs text-[#4D5D53] leading-relaxed">
+                      Snake Plant Soil Lab was founded to replace confusing, overly complex plant advice with straightforward, practical resources. We believe that caring for plants shouldn't require advanced botanical degrees. By examining the basic mechanics of how materials hold and release water, any beginner can grow resilient, healthy snake plants.
+                    </p>
+                  </div>
 
-                <h3 className="text-sm font-mono font-bold text-stone-900 mt-6 uppercase tracking-wider">Future Soil Blends Research</h3>
-                <p className="text-xs text-stone-600 leading-relaxed">
-                  We are currently documenting the development of our own line of future snake plant soil profiles. We are researching recipes designed specifically for different homes, containers, and watering habits to make repotting as easy as possible.
-                </p>
-              </article>
+                  <div className="bg-white p-6 rounded-2xl border border-[#E8E2D5] shadow-xs space-y-2.5">
+                    <h2 className="text-base font-serif font-bold text-[#142B1E]">Practical Product Comparisons</h2>
+                    <p className="text-xs text-[#4D5D53] leading-relaxed">
+                      We compile independent product reviews and organize potting soil characteristics into distinct categories. Every catalog product is annotated with disclosed ingredients, price indicators, and best-use conditions to help you make informed buying decisions.
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-6 rounded-2xl border border-[#E8E2D5] shadow-xs space-y-2.5">
+                    <h2 className="text-base font-serif font-bold text-[#142B1E]">Future Soil Blends Research</h2>
+                    <p className="text-xs text-[#4D5D53] leading-relaxed">
+                      We are currently documenting the development of our own line of future snake plant soil profiles. We are researching recipes designed specifically for different homes, containers, and watering habits to make repotting as easy as possible.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -1606,19 +1546,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
+              className="w-full"
               id={`dynamic-article-page-${activeDynamicArticle.slug}`}
             >
-              <div className="mb-6">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1 focus:outline-none"
-                  id="back-home-dynamic"
-                >
-                  ← Return to Home Portal
-                </button>
-              </div>
-
               <DynamicArticleView article={activeDynamicArticle} onNavigate={navigateToArticle} />
             </motion.div>
           )}
@@ -1663,24 +1593,26 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-4"
+              className="w-full bg-[#FAF7F2] min-h-[70vh] flex items-center justify-center py-16 px-4 font-sans"
               id="not-found-page"
             >
-              <div className="w-16 h-16 bg-emerald-50 text-emerald-800 rounded-2xl flex items-center justify-center mx-auto text-xl font-bold font-mono border border-emerald-200">
-                404
-              </div>
-              <h2 className="text-2xl font-bold font-sans text-stone-900 tracking-tight">Article or Guide Not Found</h2>
-              <p className="text-stone-600 text-sm max-w-md mx-auto leading-relaxed">
-                The requested guide link could not be located. Browse our main botanical resources or search for care definitions below.
-              </p>
-              <div className="pt-2">
-                <button 
-                  onClick={() => navigateToArticle('home')}
-                  className="bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow-sm"
-                  id="return-home-from-404"
-                >
-                  ← Return to Home Portal
-                </button>
+              <div className="max-w-md w-full bg-white rounded-2xl border border-[#E8E2D5] p-8 text-center space-y-4 shadow-xs">
+                <div className="w-16 h-16 bg-[#E2EFE5] text-[#235837] rounded-2xl flex items-center justify-center mx-auto text-xl font-bold font-serif border border-[#C2DEC9]">
+                  404
+                </div>
+                <h1 className="text-2xl font-serif font-bold text-[#142B1E] tracking-tight">Article or Guide Not Found</h1>
+                <p className="text-[#4D5D53] text-sm leading-relaxed">
+                  The requested guide link could not be located. Browse our main botanical resources or search for care definitions below.
+                </p>
+                <div className="pt-2">
+                  <button 
+                    onClick={() => navigateToArticle('home')}
+                    className="bg-[#235837] hover:bg-[#1A4329] text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow-xs cursor-pointer"
+                    id="return-home-from-404"
+                  >
+                    ← Return to Home Portal
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}

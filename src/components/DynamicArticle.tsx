@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { DynamicArticle } from '../content';
 import { TopicalClusterNav } from './GuideArticles';
+import BotanicalSubpageLayout from './BotanicalSubpageLayout';
 
 interface DynamicArticleViewProps {
   article: DynamicArticle;
@@ -32,7 +33,7 @@ function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): Re
               href={linkUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-emerald-808 font-bold underline hover:text-emerald-950"
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
             >
               {parseInlineStyles(linkText, onNavigate)}
             </a>
@@ -61,7 +62,7 @@ function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): Re
                   onNavigate(targetTab);
                 }
               }}
-              className="text-emerald-808 font-bold underline hover:text-emerald-950 cursor-pointer"
+              className="text-[#235837] font-bold underline hover:text-[#142B1E] cursor-pointer"
             >
               {parseInlineStyles(linkText, onNavigate)}
             </a>
@@ -73,7 +74,7 @@ function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): Re
       return <strong key={idx} className="font-bold text-stone-900">{parseInlineStyles(part.slice(2, -2), onNavigate)}</strong>;
     }
     if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={idx} className="italic text-stone-850">{parseInlineStyles(part.slice(1, -1), onNavigate)}</em>;
+      return <em key={idx} className="italic text-stone-800">{parseInlineStyles(part.slice(1, -1), onNavigate)}</em>;
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return <code key={idx} className="font-mono bg-stone-100 px-1.5 py-0.5 rounded text-stone-800 text-[11px] font-semibold">{part.slice(1, -1)}</code>;
@@ -88,32 +89,47 @@ function MarkdownRenderer({ content, onNavigate }: { content: string; onNavigate
   const blocks = content.split(/\r?\n\r?\n/);
   
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {blocks.map((block, idx) => {
         const trimmed = block.trim();
         if (!trimmed) return null;
         
         // Horizontal Rules
         if (trimmed === '---' || trimmed === '***' || trimmed === '___') {
-          return <hr key={idx} className="border-t border-stone-250/80 my-6" />;
+          return <hr key={idx} className="border-t border-[#E8E2D5] my-6" />;
         }
 
         // Headers
         if (trimmed.startsWith('# ')) {
-          return <h1 key={idx} className="text-2xl sm:text-3xl font-sans font-bold text-stone-900 tracking-tight mt-6 mb-3">{parseInlineStyles(trimmed.slice(2), onNavigate)}</h1>;
+          // Skip H1 if it repeats the article title rendered by BotanicalSubpageLayout
+          return null;
         }
         if (trimmed.startsWith('## ')) {
-          return <h2 key={idx} className="text-xl sm:text-2xl font-sans font-bold text-stone-900 tracking-tight mt-5 mb-3">{parseInlineStyles(trimmed.slice(3), onNavigate)}</h2>;
+          const headingText = trimmed.slice(3).trim();
+          const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          return (
+            <h2 
+              key={idx} 
+              id={headingId} 
+              className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mt-8 mb-3 scroll-mt-24"
+            >
+              {parseInlineStyles(headingText, onNavigate)}
+            </h2>
+          );
         }
         if (trimmed.startsWith('### ')) {
-          return <h3 key={idx} className="text-lg font-sans font-bold text-stone-900 mt-4 mb-2">{parseInlineStyles(trimmed.slice(4), onNavigate)}</h3>;
+          return (
+            <h3 key={idx} className="font-serif font-bold text-[#142B1E] text-lg mt-5 mb-2">
+              {parseInlineStyles(trimmed.slice(4), onNavigate)}
+            </h3>
+          );
         }
         
         // Blockquotes
         if (trimmed.startsWith('> ')) {
           const quoteLines = trimmed.split(/\r?\n/).map(line => line.replace(/^>\s?/, ''));
           return (
-            <blockquote key={idx} className="border-l-4 border-emerald-800 pl-4 py-1.5 italic text-stone-600 bg-stone-50 rounded-r-xl my-4">
+            <blockquote key={idx} className="border-l-4 border-[#235837] pl-4 py-2 italic text-stone-700 bg-[#E2EFE5]/40 rounded-r-xl my-4">
               {quoteLines.map((line, lIdx) => (
                 <p key={lIdx} className="m-0 text-sm leading-relaxed">{parseInlineStyles(line, onNavigate)}</p>
               ))}
@@ -125,9 +141,9 @@ function MarkdownRenderer({ content, onNavigate }: { content: string; onNavigate
         if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
           const items = trimmed.split(/\r?\n/).map(item => item.replace(/^[-*]\s+/, ''));
           return (
-            <ul key={idx} className="list-disc pl-5 space-y-2 text-stone-700 my-4">
+            <ul key={idx} className="list-disc pl-5 space-y-2 text-stone-700 my-4 font-sans text-sm sm:text-base">
               {items.map((item, itemIdx) => (
-                <li key={itemIdx} className="text-sm sm:text-base leading-relaxed">{parseInlineStyles(item, onNavigate)}</li>
+                <li key={itemIdx} className="leading-relaxed">{parseInlineStyles(item, onNavigate)}</li>
               ))}
             </ul>
           );
@@ -137,9 +153,9 @@ function MarkdownRenderer({ content, onNavigate }: { content: string; onNavigate
         if (/^\d+\.\s+/.test(trimmed)) {
           const items = trimmed.split(/\r?\n/).map(item => item.replace(/^\d+\.\s+/, ''));
           return (
-            <ol key={idx} className="list-decimal pl-5 space-y-2 text-stone-700 my-4">
+            <ol key={idx} className="list-decimal pl-5 space-y-2 text-stone-700 my-4 font-sans text-sm sm:text-base">
               {items.map((item, itemIdx) => (
-                <li key={itemIdx} className="text-sm sm:text-base leading-relaxed">{parseInlineStyles(item, onNavigate)}</li>
+                <li key={itemIdx} className="leading-relaxed">{parseInlineStyles(item, onNavigate)}</li>
               ))}
             </ol>
           );
@@ -148,7 +164,7 @@ function MarkdownRenderer({ content, onNavigate }: { content: string; onNavigate
         // Paragraph with linebreaks mapping
         const lines = trimmed.split(/\r?\n/);
         return (
-          <p key={idx} className="text-stone-700 leading-relaxed text-sm sm:text-base mb-4">
+          <p key={idx} className="text-stone-700 leading-relaxed text-sm sm:text-base mb-4 font-sans">
             {lines.map((line, lineIdx) => (
               <React.Fragment key={lineIdx}>
                 {lineIdx > 0 && <br />}
@@ -163,63 +179,77 @@ function MarkdownRenderer({ content, onNavigate }: { content: string; onNavigate
 }
 
 export default function DynamicArticleView({ article, onNavigate }: DynamicArticleViewProps) {
-  // Dynamically resolve matching Lucide icons
-  const getIcon = (name: string) => {
-    switch (name) {
-      case 'Trees': return <Trees className="w-6 h-6 text-emerald-800" />;
-      case 'Beaker': return <Beaker className="w-6 h-6 text-emerald-800" />;
-      case 'HeartPulse': return <HeartPulse className="w-6 h-6 text-emerald-800" />;
-      case 'Layers': return <Layers className="w-6 h-6 text-emerald-800" />;
-      default: return <Compass className="w-6 h-6 text-emerald-800" />;
+  const breadcrumbs = [
+    { label: 'Home', tabId: 'home' },
+    { label: 'Care Guides', tabId: 'care-guide' },
+    { label: article.title }
+  ];
+
+  // Extract H2 headings for Table of Contents
+  const tocItems = article.content
+    .split(/\r?\n/)
+    .filter(line => line.startsWith('## '))
+    .map(line => {
+      const text = line.replace(/^##\s+/, '').trim();
+      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return { id, label: text };
+    });
+
+  const relatedGuides = [
+    {
+      title: 'Choose the right soil',
+      description: 'See what makes a great commercial succulent soil and compare top-ranked mixes.',
+      tabId: 'best-soil',
+      image: '/gritty-mix.jpg'
+    },
+    {
+      title: 'Make your own mix',
+      description: 'A simple, balanced DIY 3-2-1 soil mix that keeps roots healthy and aerated.',
+      tabId: 'diy-mix',
+      image: '/mix-bowl.jpg'
     }
-  };
+  ];
 
   return (
-    <article className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
-      
-      {/* Intro Header */}
-      <div className="bg-gradient-to-br from-emerald-50 to-stone-100 p-6 rounded-2xl border border-stone-200 mb-8">
-        
-        {/* Category Badge & Date */}
-        <div className="flex flex-wrap gap-3 items-center text-xs font-mono text-stone-500 mb-3">
-          <span className="inline-flex items-center gap-1 text-[9px] uppercase font-bold text-white bg-stone-900 px-2 py-0.5 rounded tracking-widest">
-            {article.category.replace('-', ' ')}
-          </span>
+    <BotanicalSubpageLayout
+      categoryBadge={article.category.toUpperCase().replace('-', ' ')}
+      title={article.title}
+      introSummary={article.shortDescription}
+      heroImage="/hero-botanical-room.jpg"
+      heroImageAlt={article.title}
+      breadcrumbs={breadcrumbs}
+      calloutBanner={{
+        title: "Science-backed indoor plant cultivation",
+        description: article.shortDescription,
+        icon: <Compass className="w-4 h-4 text-[#235837]" />
+      }}
+      tocItems={tocItems.length > 0 ? tocItems : [{ id: 'article-body', label: 'Article Overview' }]}
+      relatedGuides={relatedGuides}
+      onNavigate={onNavigate}
+    >
+      <div id="article-body" className="space-y-6">
+        {/* Published Date & Reading Time */}
+        <div className="flex flex-wrap items-center gap-3 text-xs text-stone-500 font-sans pb-3 border-b border-[#E8E2D5]">
           {article.date && (
             <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" />
-              {article.date}
+              <Calendar className="w-3.5 h-3.5 text-[#235837]" />
+              Published {article.date}
             </span>
           )}
           <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
+            <Clock className="w-3.5 h-3.5 text-[#235837]" />
             {article.readTime}
           </span>
         </div>
 
-        <h1 className="text-xl md:text-3xl font-sans font-bold text-stone-900 tracking-tight mt-0 flex items-start gap-2.5">
-          <span className="shrink-0 mt-1">{getIcon(article.iconName)}</span>
-          <span>{article.title}</span>
-        </h1>
-        
-        <p className="text-stone-600 text-sm md:text-base mt-3 mb-0 font-medium pl-1 leading-relaxed">
-          {article.shortDescription}
-        </p>
+        {/* Main Parsed Markdown Content */}
+        <div className="bg-white border border-[#E8E2D5] rounded-2xl p-6 sm:p-8 shadow-xs">
+          <MarkdownRenderer content={article.content} onNavigate={onNavigate} />
+        </div>
+
+        {/* Reusable Topical Cluster Navigation */}
+        <TopicalClusterNav currentTab={article.slug} onNavigate={onNavigate} />
       </div>
-
-      {/* Main Rich Content */}
-      <div className="bg-white border border-stone-200 rounded-2xl p-6 md:p-8 shadow-xs">
-        <MarkdownRenderer content={article.content} onNavigate={onNavigate} />
-      </div>
-
-      {/* Authority footer note */}
-      <div className="text-[11px] text-stone-400 font-mono italic text-right pr-2">
-        Source: Content Engine Draft ({article.format?.toUpperCase() || 'MD'})
-      </div>
-
-      {/* Reusable Cluster Navigation */}
-      <TopicalClusterNav currentTab={article.slug} onNavigate={onNavigate} />
-
-    </article>
+    </BotanicalSubpageLayout>
   );
 }

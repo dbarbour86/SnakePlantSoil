@@ -140,151 +140,167 @@ export default function SoilSetupKit() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm p-6 sm:p-8" id="soil-setup-kit-container">
-      
-      {/* Questionnaire Phase */}
-      {!isCompleted && (
-        <div>
-          {/* Header Info */}
-          <div className="border-b border-stone-100 pb-5 mb-6">
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-100">
-              <Sparkles className="w-3 h-3 animate-pulse" /> Plant &amp; Soil Assessment
-            </span>
-            <h3 className="text-xl sm:text-2xl font-mono font-bold text-stone-900 mt-2 tracking-tight">
-              Snake Plant Soil Diagnosis
-            </h3>
-            <p className="text-xs text-stone-500 mt-1.5 max-w-2xl leading-relaxed">
-              Answer a few questions about your plant, container type, and home environment. We will recommend a practical commercial soil profile based on the conditions you select.
-            </p>
-          </div>
+    <div className="bg-[#FAF7F2] text-[#292524] w-full py-6 sm:py-8 font-sans" id="soil-setup-kit-container">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Breadcrumb Trail */}
+        <nav aria-label="Breadcrumb" className="mb-6">
+          <ol className="flex items-center gap-1.5 text-xs text-stone-500 font-sans">
+            <li>
+              <a href="/" className="hover:text-[#142B1E] hover:underline focus:outline-none transition-colors">
+                Home
+              </a>
+            </li>
+            <li className="text-stone-400">/</li>
+            <li className="text-stone-800 font-semibold">
+              Soil Diagnosis
+            </li>
+          </ol>
+        </nav>
 
-          {/* Progress Indicator */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center text-[10px] font-mono font-bold text-stone-400 mb-2 uppercase tracking-wider">
-              <span>Question {currentStep + 1} of {totalSteps}</span>
-              <span>{Math.round(((currentStep) / totalSteps) * 100)}% Complete</span>
-            </div>
-            <div className="w-full bg-stone-100 h-1.5 rounded-full overflow-hidden border border-stone-200/50">
-              <div 
-                className="h-full bg-emerald-800 transition-all duration-300 ease-out"
-                style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Question Body */}
-          <div className="space-y-6">
-            <h4 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight" id="active-question-title">
-              {currentQuestion.text}
-            </h4>
-
-            <div className="grid grid-cols-1 gap-3">
-              {currentQuestion.choices.map((choice) => (
-                <button
-                  key={choice.id}
-                  onClick={() => handleSelectChoice(choice.id)}
-                  className={`w-full text-left p-4 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between group ${
-                    choice.isWarning
-                      ? 'border-amber-250 hover:border-amber-400 bg-amber-50/10 text-stone-850'
-                      : 'border-stone-200 hover:border-emerald-800 bg-stone-50/40 hover:bg-white text-stone-750'
-                  }`}
-                  id={`choice-btn-${choice.id}`}
-                >
-                  <span className="font-semibold group-hover:text-stone-950 pr-4">{choice.text}</span>
-                  <ArrowRight className="w-4 h-4 text-stone-300 group-hover:text-emerald-800 transition-colors shrink-0" />
-                </button>
-              ))}
+        {/* Questionnaire Phase */}
+        {!isCompleted && (
+          <div className="bg-white rounded-2xl border border-[#E8E2D5] p-6 sm:p-10 shadow-xs">
+            {/* Header Info */}
+            <div className="border-b border-[#E8E2D5] pb-6 mb-8">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#235837] bg-[#E2EFE5] px-3 py-1 rounded-full font-sans">
+                <Sparkles className="w-3 h-3 text-[#235837]" /> Plant &amp; Soil Assessment
+              </span>
+              <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl text-[#142B1E] mt-3 tracking-tight">
+                Snake Plant Soil Diagnosis
+              </h1>
+              <p className="font-sans text-stone-600 text-sm mt-2 max-w-2xl leading-relaxed">
+                Answer a few questions about your plant, container type, and home environment. We will recommend a practical commercial soil profile based on the conditions you select.
+              </p>
             </div>
 
-            {/* Back Button */}
-            {currentStep > 0 && (
-              <div className="pt-4 border-t border-stone-100 flex">
-                <button
-                  onClick={handlePrevStep}
-                  className="px-4 py-2 border border-stone-200 hover:bg-stone-50 rounded-lg text-xs font-semibold text-stone-600 transition-colors"
-                  id="prev-step-btn"
-                >
-                  ← Previous Question
-                </button>
+            {/* Progress Indicator */}
+            <div className="mb-8">
+              <div className="flex justify-between items-center text-xs font-bold text-stone-500 mb-2 font-sans">
+                <span>Question {currentStep + 1} of {totalSteps}</span>
+                <span className="text-[#235837]">{Math.round(((currentStep) / totalSteps) * 100)}% Complete</span>
               </div>
-            )}
-          </div>
-        </div>
-      )}
+              <div className="w-full bg-[#E2EFE5] h-2 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-[#235837] transition-all duration-300 ease-out rounded-full"
+                  style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
+                />
+              </div>
+            </div>
 
-      {/* Result Phase */}
-      {isCompleted && (
-        <div className="space-y-8">
-          {/* Result Header */}
-          <div className="border-b border-stone-200 pb-5">
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-100">
-              <CheckCircle2 className="w-3 h-3 text-emerald-700" /> Assessment Complete
-            </span>
-            <h3 className="text-xl sm:text-2xl font-mono font-bold text-stone-900 mt-2 tracking-tight">
-              Your Recommended Profile: <span className="text-emerald-850">{activeProfile.name}</span>
-            </h3>
-            <p className="text-xs text-stone-550 mt-1 max-w-2xl leading-relaxed">
-              Based on the conditions you selected, this soil profile highlights the drainage and moisture-retention characteristics appropriate for your snake plant.
-            </p>
+            {/* Question Body */}
+            <div className="space-y-6">
+              <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#142B1E] tracking-tight" id="active-question-title">
+                {currentQuestion.text}
+              </h2>
+
+              <div className="grid grid-cols-1 gap-3">
+                {currentQuestion.choices.map((choice) => (
+                  <button
+                    key={choice.id}
+                    onClick={() => handleSelectChoice(choice.id)}
+                    className={`w-full text-left p-4 sm:p-5 rounded-xl border text-sm transition-all flex items-center justify-between group cursor-pointer ${
+                      choice.isWarning
+                        ? 'border-amber-300 hover:border-amber-500 bg-amber-50/40 text-amber-950 shadow-2xs'
+                        : 'border-[#E8E2D5] hover:border-[#235837] hover:bg-[#FAF7F2] bg-white text-stone-800 shadow-2xs'
+                    }`}
+                    id={`choice-btn-${choice.id}`}
+                  >
+                    <span className="font-semibold group-hover:text-[#142B1E] pr-4 font-sans">{choice.text}</span>
+                    <ArrowRight className="w-4 h-4 text-stone-300 group-hover:text-[#235837] group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </button>
+                ))}
+              </div>
+
+              {/* Back Button */}
+              {currentStep > 0 && (
+                <div className="pt-4 border-t border-[#E8E2D5] flex">
+                  <button
+                    onClick={handlePrevStep}
+                    className="px-4 py-2 border border-[#E8E2D5] hover:bg-stone-50 rounded-lg text-xs font-bold text-stone-600 transition-colors cursor-pointer font-sans"
+                    id="prev-step-btn"
+                  >
+                    ← Previous Question
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
+        )}
+
+        {/* Result Phase */}
+        {isCompleted && (
+          <div className="bg-white rounded-2xl border border-[#E8E2D5] p-6 sm:p-10 shadow-xs space-y-8">
+            {/* Result Header */}
+            <div className="border-b border-[#E8E2D5] pb-6">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[#235837] bg-[#E2EFE5] px-3 py-1 rounded-full font-sans">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#235837]" /> Assessment Complete
+              </span>
+              <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl text-[#142B1E] mt-3 tracking-tight">
+                Your Recommended Profile: <span className="text-[#235837]">{activeProfile.name}</span>
+              </h1>
+              <p className="font-sans text-stone-600 text-sm mt-2 max-w-2xl leading-relaxed">
+                Based on the conditions you selected, this soil profile highlights the drainage and moisture-retention characteristics appropriate for your snake plant.
+              </p>
+            </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Left Result Columns */}
             <div className="lg:col-span-7 space-y-6">
               
               {/* Profile Details Block */}
-              <div className="bg-stone-50 border border-stone-200 p-5 rounded-2xl space-y-3">
-                <h4 className="text-xs font-mono font-bold uppercase text-stone-400 tracking-wider">
+              <div className="bg-[#FAF7F2] border border-[#E8E2D5] p-5 sm:p-6 rounded-2xl space-y-3 font-sans">
+                <h4 className="text-[10px] font-bold uppercase text-[#235837] tracking-wider">
                   Profile Characteristics:
                 </h4>
-                <div className="text-xs sm:text-sm text-stone-850 font-medium leading-relaxed">
+                <div className="text-sm text-stone-800 leading-relaxed font-sans">
                   {activeProfile.description}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-stone-200/60 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-[#E8E2D5] text-xs">
                   <div>
-                    <span className="text-stone-400 font-semibold uppercase tracking-wider text-[9px] block">Target Conditions</span>
-                    <span className="text-stone-750 font-medium block mt-0.5">{activeProfile.designedFor}</span>
+                    <span className="text-stone-500 font-bold uppercase tracking-wider text-[9px] block">Target Conditions</span>
+                    <span className="text-stone-800 font-medium block mt-0.5">{activeProfile.designedFor}</span>
                   </div>
                   <div>
-                    <span className="text-stone-400 font-semibold uppercase tracking-wider text-[9px] block">Physical Properties</span>
-                    <span className="text-stone-750 font-medium block mt-0.5">{activeProfile.characteristics}</span>
+                    <span className="text-stone-500 font-bold uppercase tracking-wider text-[9px] block">Physical Properties</span>
+                    <span className="text-stone-800 font-medium block mt-0.5">{activeProfile.characteristics}</span>
                   </div>
                 </div>
               </div>
 
               {/* Warning logic for dangerous symptoms (Must acknowledge before showing products) */}
               {hasDangerousSymptom && (
-                <div className="border border-amber-300 bg-amber-50/20 p-5 rounded-2xl space-y-3.5">
-                  <div className="flex gap-2.5 items-start text-amber-800">
-                    <AlertTriangle className="w-5.5 h-5.5 shrink-0 mt-0.5 text-amber-600" />
+                <div className="border border-amber-300 bg-amber-50/40 p-5 rounded-2xl space-y-3.5 font-sans">
+                  <div className="flex gap-2.5 items-start text-amber-900">
+                    <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5 text-amber-600" />
                     <div>
-                      <h5 className="font-bold text-stone-900 text-sm">Dangerous Symptoms Identified</h5>
+                      <h4 className="font-serif font-bold text-stone-900 text-base">Dangerous Symptoms Identified</h4>
                       <p className="text-stone-700 text-xs leading-relaxed mt-1">
                         {activeProfile.warningText || "Your plant shows signs of excessive moisture accumulation or possible root decay. Changing soil alone will not save a plant with rotted root tissue."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="bg-white p-3.5 rounded-xl border border-amber-200/80 text-xs text-stone-650 space-y-2">
-                    <span className="font-bold text-stone-800 block">Recommended Inspection Protocol:</span>
-                    <ol className="list-decimal pl-4 space-y-1 leading-relaxed text-[11px]">
+                  <div className="bg-white p-4 rounded-xl border border-amber-200/80 text-xs text-stone-700 space-y-2">
+                    <strong className="text-stone-900 block font-serif">Recommended Inspection Protocol:</strong>
+                    <ol className="list-decimal pl-4 space-y-1 leading-relaxed text-xs">
                       <li>Slide the plant out of its container and gently brush soil off the roots.</li>
-                      <li>Inspect the rhizome (the thick bulbous root base) and secondary roots. Healthy roots are yellow-orange and firm; rotted roots are black, mushy, and stringy.</li>
-                      <li>Use a sterilized blade to trim away all rotted black tissue.</li>
-                      <li>Dust the cuts with cinnamon powder (a natural anti-fungal) and let the roots sit in a dry, shaded spot for 24-48 hours to callous over before potting again.</li>
+                      <li>Inspect the rhizome (the thick bulbous root base) and secondary roots. Healthy roots are firm and pale; rotted roots are dark, mushy, and stringy.</li>
+                      <li>Use clean, sharp scissors to trim away all rotted black tissue.</li>
+                      <li>Dust the cuts lightly with cinnamon or let the roots sit in a dry, shaded spot for 12–24 hours to callous over before potting again.</li>
                     </ol>
                   </div>
 
                   {!showWarningAcknowledge ? (
                     <button
                       onClick={() => setShowWarningAcknowledge(true)}
-                      className="w-full bg-stone-900 hover:bg-stone-850 text-white py-2.5 rounded-lg text-xs font-bold transition-all text-center"
+                      className="w-full bg-[#142B1E] hover:bg-[#235837] text-white py-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer font-sans"
                       id="acknowledge-warning-btn"
                     >
                       Acknowledge Inspection Protocol to View Suggested Soils
                     </button>
                   ) : (
-                    <div className="text-center text-[10px] text-stone-400 italic">
+                    <div className="text-center text-xs text-[#235837] font-bold">
                       ✓ Acknowledged. Recommended recovery mixes are detailed below.
                     </div>
                   )}
@@ -293,16 +309,16 @@ export default function SoilSetupKit() {
 
               {/* Product Matches (Conditional if dangerous symptoms are resolved/acknowledged) */}
               {(!hasDangerousSymptom || showWarningAcknowledge) && (
-                <div className="space-y-5">
-                  <h4 className="text-xs font-mono font-bold uppercase text-stone-400 tracking-wider">
+                <div className="space-y-4 font-sans">
+                  <h4 className="font-serif font-bold text-lg text-[#142B1E]">
                     Suggested Commercially Available Blends:
                   </h4>
                   
                   {matchingProducts.length === 0 ? (
-                    <div className="p-6 rounded-2xl border-2 border-dashed border-stone-200 text-center bg-stone-50/50">
-                      <HelpCircle className="w-8 h-8 text-stone-300 mx-auto mb-2" />
-                      <span className="font-bold text-stone-600 text-xs block">Evaluating Options</span>
-                      <p className="text-[11px] text-stone-500 mt-1">Our team is currently evaluating commercial mixes for this profile. No products have been added to the provisional catalog yet.</p>
+                    <div className="p-6 rounded-2xl border-2 border-dashed border-[#E8E2D5] text-center bg-[#FAF7F2]">
+                      <HelpCircle className="w-8 h-8 text-stone-400 mx-auto mb-2" />
+                      <span className="font-bold text-stone-700 text-xs block">Evaluating Options</span>
+                      <p className="text-xs text-stone-500 mt-1">Our team is currently evaluating commercial mixes for this profile. No products have been added to the provisional catalog yet.</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -316,12 +332,12 @@ export default function SoilSetupKit() {
                         return (
                           <div 
                             key={prod.id}
-                            className="border border-stone-200 bg-stone-50/30 rounded-xl p-4 sm:p-5 space-y-4 transition-all"
+                            className="border border-[#E8E2D5] bg-white rounded-xl p-4 sm:p-5 space-y-4 shadow-2xs hover:border-[#235837] transition-all"
                             id={`catalog-product-${prod.id}`}
                           >
                             <div className="flex flex-col sm:flex-row gap-4 items-start">
                               {/* Product Thumbnail */}
-                              <div className="w-16 h-16 rounded-lg bg-stone-100 overflow-hidden border border-stone-200 shrink-0 relative">
+                              <div className="w-16 h-16 rounded-xl bg-stone-100 overflow-hidden border border-[#E8E2D5] shrink-0 relative">
                                 <img 
                                   src={prod.imageUrl} 
                                   alt={prod.name} 
@@ -332,45 +348,45 @@ export default function SoilSetupKit() {
 
                               <div className="flex-1 min-w-0">
                                 <div className="flex flex-wrap items-center gap-1.5">
-                                  <span className="text-[8px] font-mono font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase">
+                                  <span className="text-[10px] font-bold text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded-full uppercase">
                                     {prod.brand}
                                   </span>
-                                  <span className="text-[8px] font-mono font-bold text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded border border-stone-200 capitalize">
+                                  <span className="text-[10px] font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full capitalize">
                                     Status: {prod.evidenceStatus.replace('_', ' ')}
                                   </span>
                                 </div>
-                                <h5 className="font-bold text-stone-900 text-sm mt-1 leading-snug">
+                                <h5 className="font-serif font-bold text-[#142B1E] text-base mt-1.5 leading-snug">
                                   {prod.name}
                                 </h5>
-                                <p className="text-stone-500 text-[11px] leading-relaxed mt-1">
+                                <p className="text-stone-600 text-xs leading-relaxed mt-1">
                                   {prod.bestUse}
                                 </p>
                               </div>
                             </div>
 
                             {/* Specifications Grid */}
-                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 bg-white border border-stone-150 p-3 rounded-lg text-xs leading-relaxed">
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 bg-[#FAF7F2] border border-[#E8E2D5] p-3 rounded-lg text-xs leading-relaxed">
                               <div>
-                                <span className="text-stone-400 font-semibold text-[9px] uppercase tracking-wider block">Ingredients</span>
-                                <span className="text-stone-700 font-medium">{prod.verifiedIngredients || "Unlisted or proprietary"}</span>
+                                <span className="text-stone-500 font-bold text-[9px] uppercase tracking-wider block">Ingredients</span>
+                                <span className="text-stone-800 font-medium">{prod.verifiedIngredients || "Unlisted or proprietary"}</span>
                               </div>
                               <div>
-                                <span className="text-stone-400 font-semibold text-[9px] uppercase tracking-wider block">Package Volume</span>
-                                <span className="text-stone-700 font-medium">{prod.packageVolume}</span>
+                                <span className="text-stone-500 font-bold text-[9px] uppercase tracking-wider block">Package Volume</span>
+                                <span className="text-stone-800 font-medium">{prod.packageVolume}</span>
                               </div>
                               <div>
-                                <span className="text-stone-400 font-semibold text-[9px] uppercase tracking-wider block">Drainage Rate</span>
-                                <span className="text-stone-750 font-medium">{prod.drainageType}</span>
+                                <span className="text-stone-500 font-bold text-[9px] uppercase tracking-wider block">Drainage Rate</span>
+                                <span className="text-stone-800 font-medium">{prod.drainageType}</span>
                               </div>
                               <div>
-                                <span className="text-stone-400 font-semibold text-[9px] uppercase tracking-wider block">Verified Status</span>
-                                <span className="text-stone-750 font-medium">Checked: {prod.lastVerifiedDate}</span>
+                                <span className="text-stone-500 font-bold text-[9px] uppercase tracking-wider block">Verified Status</span>
+                                <span className="text-stone-800 font-medium">Checked: {prod.lastVerifiedDate}</span>
                               </div>
                             </div>
 
                             {/* Gritty advisory warnings */}
                             {prod.grittyAdvisory && (
-                              <div className="bg-amber-50/40 border border-amber-200/80 p-3 rounded-lg text-[10px] text-stone-650 flex gap-2">
+                              <div className="bg-amber-50/40 border border-amber-200/80 p-3 rounded-lg text-xs text-stone-700 flex gap-2">
                                 <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                                 <div>
                                   <strong>Gritty Soil Care:</strong> {prod.grittyAdvisory}
@@ -381,32 +397,32 @@ export default function SoilSetupKit() {
                             {/* Strengths & Limitations */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs leading-normal">
                               <div>
-                                <span className="font-semibold text-emerald-800 text-[10px] uppercase tracking-wider block mb-1">Strengths:</span>
-                                <ul className="list-disc pl-4 space-y-0.5 text-stone-600 text-[11px]">
+                                <span className="font-bold text-[#235837] text-[10px] uppercase tracking-wider block mb-1">Strengths:</span>
+                                <ul className="list-disc pl-4 space-y-0.5 text-stone-600 text-xs">
                                   {prod.strengths.map((str, idx) => <li key={idx}>{str}</li>)}
                                 </ul>
                               </div>
                               <div>
-                                <span className="font-semibold text-stone-500 text-[10px] uppercase tracking-wider block mb-1">Cautions:</span>
-                                <ul className="list-disc pl-4 space-y-0.5 text-stone-600 text-[11px]">
+                                <span className="font-bold text-stone-500 text-[10px] uppercase tracking-wider block mb-1">Cautions:</span>
+                                <ul className="list-disc pl-4 space-y-0.5 text-stone-600 text-xs">
                                   {prod.limitations.map((lim, idx) => <li key={idx}>{lim}</li>)}
                                 </ul>
                               </div>
                             </div>
 
                             {/* Buy Affiliate CTA */}
-                            <div className="pt-3 border-t border-stone-150 flex items-center justify-between text-xs">
-                              <span className="font-mono text-stone-450">Price Tier: <strong className="text-stone-700">{prod.priceTier}</strong></span>
+                            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                              <span className="text-stone-500">Price Tier: <strong className="text-[#142B1E]">{prod.priceTier}</strong></span>
                               <a
                                 href={prod.affiliateUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => trackEvent('affiliate_link_clicked', { productId: prod.id, productName: prod.name })}
-                                className="bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-4 py-2 rounded-lg text-[10px] uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-xs"
+                                className="bg-[#142B1E] hover:bg-[#235837] text-white font-bold px-4 py-2 rounded-full text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                                 id={`diagnostic-shop-btn-${prod.id}`}
                               >
                                 <span>Check Price on Amazon</span>
-                                <ExternalLink className="w-3 h-3" />
+                                <ExternalLink className="w-3.5 h-3.5 text-[#9EC4A9]" />
                               </a>
                             </div>
                           </div>
@@ -419,11 +435,11 @@ export default function SoilSetupKit() {
 
               {/* Instructions and Guides link list */}
               {(!hasDangerousSymptom || showWarningAcknowledge) && (
-                <div className="space-y-4 pt-4 border-t border-stone-100">
-                  <h4 className="text-xs font-mono font-bold uppercase text-stone-400 tracking-wider">
+                <div className="space-y-4 pt-4 border-t border-stone-100 font-sans">
+                  <h4 className="font-serif font-bold text-base text-[#142B1E]">
                     Potting &amp; Watering Guidelines:
                   </h4>
-                  <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 text-xs leading-relaxed text-stone-750 space-y-2">
+                  <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#E8E2D5] text-xs leading-relaxed text-stone-700 space-y-2">
                     <div>
                       <strong>Pot Sizing:</strong> We recommend a container with substantial bottom drainage holes that is only 1-2 inches wider in diameter than the current root ball. If your selected pot has drainage and is terracotta, it is an ideal fit.
                     </div>
@@ -435,19 +451,19 @@ export default function SoilSetupKit() {
                   <div className="flex flex-wrap gap-2.5 pt-2">
                     <a
                       href="/best-snake-plant-soil"
-                      className="bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 font-bold px-4 py-2 rounded-lg text-xs transition-colors flex items-center gap-1"
+                      className="bg-white border border-[#E8E2D5] hover:bg-[#FAF7F2] text-stone-700 font-bold px-4 py-2 rounded-full text-xs transition-colors flex items-center gap-1.5"
                       id="view-comparison-page"
                     >
-                      <Award className="w-3.5 h-3.5 text-stone-400" />
+                      <Award className="w-3.5 h-3.5 text-[#235837]" />
                       <span>Compare Pre-made Soils</span>
                     </a>
                     <a
                       href="/diy-snake-plant-soil-mix"
                       onClick={() => trackEvent('diy_mix_guide_clicked')}
-                      className="bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 font-bold px-4 py-2 rounded-lg text-xs transition-colors flex items-center gap-1"
+                      className="bg-white border border-[#E8E2D5] hover:bg-[#FAF7F2] text-stone-700 font-bold px-4 py-2 rounded-full text-xs transition-colors flex items-center gap-1.5"
                       id="view-diy-guide"
                     >
-                      <Bookmark className="w-3.5 h-3.5 text-stone-400" />
+                      <Bookmark className="w-3.5 h-3.5 text-[#235837]" />
                       <span>Prefer Mixing Your Own? DIY Guide</span>
                     </a>
                   </div>
@@ -457,11 +473,11 @@ export default function SoilSetupKit() {
             </div>
 
             {/* Right Result Columns (Waitlist Form) */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 space-y-6 font-sans">
               
               {/* User Condition Summary */}
-              <div className="border border-stone-200 rounded-2xl p-5 space-y-3">
-                <h4 className="text-xs font-mono font-bold uppercase text-stone-400 tracking-wider">
+              <div className="border border-[#E8E2D5] rounded-2xl p-5 space-y-3 bg-[#FAF7F2]">
+                <h4 className="text-[10px] font-bold uppercase text-[#235837] tracking-wider font-sans">
                   Summary of Selected Conditions:
                 </h4>
                 <ul className="text-xs space-y-2 text-stone-700 leading-normal font-sans">
@@ -473,8 +489,8 @@ export default function SoilSetupKit() {
                   <li>• Watering habits: <strong className="text-stone-900">{getSymptomLabel('watering', answers['watering'])}</strong></li>
                 </ul>
 
-                <div className="pt-3 border-t border-stone-150 text-[11px] leading-relaxed text-stone-500">
-                  <span className="font-bold text-stone-850 block mb-0.5">Most likely soil concern:</span>
+                <div className="pt-3 border-t border-[#E8E2D5] text-xs leading-relaxed text-stone-600">
+                  <span className="font-bold text-[#142B1E] block mb-0.5">Most likely soil concern:</span>
                   {activeProfile.id === 'recovery' && "Immediate risk of fungal infection and tissue breakdown due to oxygen starvation."}
                   {activeProfile.id === 'fast-drain' && "Slow evaporation rate causing water pooling; needs higher mineral grit."}
                   {activeProfile.id === 'dry-home' && "Rapid soil dry-down; needs baseline organic content to absorb trace moisture."}
@@ -482,32 +498,32 @@ export default function SoilSetupKit() {
                   {activeProfile.id === 'propagation' && "Fragile cutting root network requiring light, loose substrate."}
                 </div>
 
-                <div className="pt-2 text-[10px] leading-normal text-stone-400">
-                  <span className="font-bold text-stone-600 block mb-0.5">Other possibilities:</span>
+                <div className="pt-2 text-xs leading-normal text-stone-500">
+                  <span className="font-bold text-stone-700 block mb-0.5">Other possibilities:</span>
                   Seasonal light changes or minor insect pests may also affect leaf appearance. We recommend inspecting leaf tips for dryness and checking base thickness.
                 </div>
 
-                <div className="pt-2 text-[10px] leading-normal text-stone-450 border-t border-dashed border-stone-150">
-                  <span className="font-bold text-stone-600 block">Undetermined factors:</span>
+                <div className="pt-2 text-xs leading-normal text-stone-500 border-t border-dashed border-[#E8E2D5]">
+                  <span className="font-bold text-stone-700 block">Undetermined factors:</span>
                   We cannot definitively evaluate internal root damage or soil pathogens without physically unpotting and rinsing the roots.
                 </div>
               </div>
 
               {/* Waitlist Form Block */}
-              <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-2xl p-5 space-y-4">
-                <div className="border-b border-emerald-900/10 pb-2">
-                  <h4 className="text-xs font-mono font-bold uppercase text-emerald-800 tracking-wider">
+              <div className="bg-[#E2EFE5]/40 border border-[#D6E2D5] rounded-2xl p-5 space-y-4">
+                <div className="border-b border-[#D6E2D5] pb-2">
+                  <h4 className="text-[10px] font-bold uppercase text-[#235837] tracking-wider font-sans">
                     Future Product Waitlist:
                   </h4>
-                  <h5 className="font-bold text-stone-900 text-sm mt-1">
+                  <h5 className="font-serif font-bold text-[#142B1E] text-base mt-1">
                     Custom Soil Blends Development
                   </h5>
-                  <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
+                  <p className="text-xs text-stone-600 mt-1 leading-relaxed font-sans">
                     Snake Plant Soil Lab is researching a future soil line designed specifically around different watering habits and house settings. Tell us what you would prefer!
                   </p>
                 </div>
 
-                <div className="space-y-3.5 text-xs">
+                <div className="space-y-3.5 text-xs font-sans">
                   {/* Option 1: Bag Size */}
                   <div>
                     <label className="block font-bold text-stone-800 mb-1">Preferred Bag Size:</label>
@@ -524,10 +540,10 @@ export default function SoilSetupKit() {
                             trackEvent('future_product_interest_started');
                             setPreferredBagSize(item.id as any);
                           }}
-                          className={`py-1.5 px-2 rounded-lg border text-[10px] text-center font-semibold transition-all ${
+                          className={`py-1.5 px-2 rounded-lg border text-xs text-center font-semibold transition-all cursor-pointer ${
                             preferredBagSize === item.id 
-                              ? 'border-emerald-850 bg-emerald-50/30 text-stone-900 font-bold'
-                              : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-600'
+                              ? 'border-[#235837] bg-[#235837] text-white font-bold'
+                              : 'border-[#E8E2D5] bg-white hover:bg-stone-50 text-stone-700'
                           }`}
                         >
                           {item.label}
@@ -541,8 +557,8 @@ export default function SoilSetupKit() {
                     <label className="block font-bold text-stone-800 mb-1">Product Format Preference:</label>
                     <div className="grid grid-cols-2 gap-1.5 font-sans">
                       {[
-                        { id: 'premixed', label: 'Ready-to-use Premixed Soil' },
-                        { id: 'booster', label: 'Soil-Amendment Booster' }
+                        { id: 'premixed', label: 'Ready-to-use Soil' },
+                        { id: 'booster', label: 'Soil Booster' }
                       ].map(item => (
                         <button
                           key={item.id}
@@ -551,10 +567,10 @@ export default function SoilSetupKit() {
                             trackEvent('future_product_interest_started');
                             setProductStyle(item.id as any);
                           }}
-                          className={`py-1.5 px-2 rounded-lg border text-[10px] text-center font-semibold transition-all ${
+                          className={`py-1.5 px-2 rounded-lg border text-xs text-center font-semibold transition-all cursor-pointer ${
                             productStyle === item.id 
-                              ? 'border-emerald-850 bg-emerald-50/30 text-stone-900 font-bold'
-                              : 'border-stone-200 bg-white hover:bg-stone-50 text-stone-600'
+                              ? 'border-[#235837] bg-[#235837] text-white font-bold'
+                              : 'border-[#E8E2D5] bg-white hover:bg-stone-50 text-stone-700'
                           }`}
                         >
                           {item.label}
@@ -572,7 +588,7 @@ export default function SoilSetupKit() {
                         trackEvent('future_product_interest_started');
                         setPricePreference(e.target.value);
                       }}
-                      className="w-full p-2 border border-stone-200 rounded-lg bg-white cursor-pointer text-stone-750 font-semibold"
+                      className="w-full p-2 border border-[#E8E2D5] rounded-lg bg-white cursor-pointer text-stone-800 font-semibold text-xs"
                     >
                       <option value="Under $10">Under $10</option>
                       <option value="$10 - $15">$10 - $15</option>
@@ -582,9 +598,9 @@ export default function SoilSetupKit() {
                   </div>
 
                   {/* Honest Email Availability notice */}
-                  <div className="pt-3 border-t border-emerald-900/10 space-y-2">
-                    <span className="font-semibold text-stone-500 uppercase tracking-widest text-[9px] block">Early Access Signup</span>
-                    <div className="bg-amber-50/40 border border-amber-200/80 p-3 rounded-lg text-[10px] text-stone-600 leading-normal">
+                  <div className="pt-2 border-t border-[#D6E2D5] space-y-2">
+                    <span className="font-bold text-stone-500 uppercase tracking-widest text-[9px] block">Early Access Signup</span>
+                    <div className="bg-white/80 border border-[#D6E2D5] p-3 rounded-lg text-xs text-stone-600 leading-normal">
                       <strong>Early-access signup is coming soon.</strong> Waitlist email registry is currently disabled as no backend database or newsletter API is connected.
                     </div>
                   </div>
@@ -592,7 +608,7 @@ export default function SoilSetupKit() {
                   {/* Submit Button (Disabled) */}
                   <button
                     disabled={true}
-                    className="w-full bg-stone-250 border border-stone-300 text-stone-400 py-3 rounded-lg text-xs font-bold font-sans cursor-not-allowed text-center uppercase tracking-wider"
+                    className="w-full bg-stone-200 border border-stone-300 text-stone-400 py-2.5 rounded-xl text-xs font-bold font-sans cursor-not-allowed text-center uppercase tracking-wider"
                   >
                     Early Access Coming Soon
                   </button>
@@ -600,14 +616,14 @@ export default function SoilSetupKit() {
               </div>
 
               {/* Secure affiliate disclosure banner */}
-              <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 text-[10px] leading-relaxed text-stone-500">
-                <strong>Affiliate Transparency:</strong> SnakePlantSoil.com is reader-supported. Some recommended product check buttons contain Amazon affiliate links that earn commissions at exactly zero additional cost to you.
+              <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-xl p-4 text-xs leading-relaxed text-stone-500">
+                <strong>Affiliate Transparency:</strong> SnakePlantSoil.com is reader-supported. Some recommended product buttons contain Amazon affiliate links that earn commissions at no additional cost to you.
               </div>
 
               <div className="text-center pt-2">
                 <button
                   onClick={handleStart}
-                  className="text-xs font-bold text-stone-550 hover:text-stone-900 flex items-center gap-1.5 mx-auto focus:outline-none"
+                  className="text-xs font-bold text-[#235837] hover:text-[#142B1E] flex items-center gap-1.5 mx-auto focus:outline-none cursor-pointer"
                   id="reset-diagnosis"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
@@ -620,6 +636,7 @@ export default function SoilSetupKit() {
         </div>
       )}
 
+      </div>
     </div>
   );
 }

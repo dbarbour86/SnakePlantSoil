@@ -43,6 +43,78 @@
     }
     </script>
 
+    <!-- Google Analytics 4 (gtag.js) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      (function() {
+        function sanitizeUrl(rawUrl) {
+          if (!rawUrl) return '';
+          try {
+            var parsed = new URL(rawUrl, window.location.origin);
+            var sensitive = ['email', 'mail', 'phone', 'token', 'key', 'auth', 'pass', 'name', 'first_name', 'last_name'];
+            var params = new URLSearchParams(parsed.search);
+            var toDelete = [];
+            params.forEach(function(val, key) {
+              var k = key.toLowerCase();
+              for (var i = 0; i < sensitive.length; i++) {
+                if (k.indexOf(sensitive[i]) !== -1) {
+                  toDelete.push(key);
+                  return;
+                }
+              }
+              if (val.indexOf('@') !== -1 && val.indexOf('.') !== -1) {
+                toDelete.push(key);
+              }
+            });
+            toDelete.forEach(function(k) { params.delete(k); });
+            parsed.search = params.toString() ? '?' + params.toString() : '';
+            return parsed.toString();
+          } catch(e) {
+            return rawUrl;
+          }
+        }
+
+        var hostname = window.location.hostname;
+        var isProd = hostname === 'snakeplantsoil.com' || hostname === 'www.snakeplantsoil.com';
+        var hasSearchDebug = window.location.search.indexOf('ga_debug=true') !== -1;
+        var hasSearchDisable = window.location.search.indexOf('ga_debug=false') !== -1;
+
+        if (hasSearchDebug) {
+          try { sessionStorage.setItem('ga_debug', 'true'); } catch(e){}
+        } else if (hasSearchDisable) {
+          try { sessionStorage.removeItem('ga_debug'); } catch(e){}
+        }
+
+        var isDebug = hasSearchDebug || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('ga_debug') === 'true');
+
+        if (isDebug) {
+          // Explicitly clear disable flag for local debugging
+          window['ga-disable-G-TC5QZQM7DR'] = false;
+          try { delete window['ga-disable-G-TC5QZQM7DR']; } catch(e){}
+        } else if (!isProd) {
+          // Strictly disable collection on localhost and preview deployments
+          window['ga-disable-G-TC5QZQM7DR'] = true;
+          return;
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-TC5QZQM7DR', {
+          send_page_view: false, // Managed manually by SPA router to eliminate duplicate pageviews
+          page_location: sanitizeUrl(window.location.href),
+          page_referrer: sanitizeUrl(document.referrer),
+          debug_mode: isDebug
+        });
+
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-TC5QZQM7DR';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(s, first);
+      })();
+    </script>
+
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

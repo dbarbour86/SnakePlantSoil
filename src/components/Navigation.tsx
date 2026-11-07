@@ -72,7 +72,7 @@ export default function Navigation({ activeTab, setActiveTab, onSearchChange, se
             id="brand-logo"
           >
             <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#1A3B29] transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M12 1.5C13.8 6.5 14.5 13.5 13.5 22.5H10.5C9.5 13.5 10.2 6.5 12 1.5ZM11.1 5.8H12.9V6.6H11.1V5.8ZM10.8 9.5H13.2V10.3H10.8V9.5ZM10.7 13.2H13.3V14H10.7V13.2ZM10.8 16.8H13.2V17.6H10.8V16.8ZM6.5 5.8C8 10 9 15.5 10.8 21.5H8.8C7.3 16 6 11.5 6.5 5.8ZM6.8 10H8.2V10.8H6.8V10ZM7.2 13.8H9V14.6H7.2V13.8ZM7.9 17.5H9.7V18.3H7.9V17.5ZM17.5 5.8C16 10 15 15.5 13.2 21.5H15.2C16.7 16 18 11.5 17.5 5.8ZM15.8 10H17.2V10.8H15.8V10ZM15 13.8H16.8V14.6H15V13.8ZM14.3 17.5H16.1V18.3H14.3V17.5Z"/>
             </svg>
             <span className="font-serif-editorial font-bold text-[#142B1E] tracking-tight text-lg sm:text-xl">
               SnakePlant<span className="text-[#235837] font-sans-editorial font-semibold">Soil</span><span className="text-stone-400 font-sans text-xs">.com</span>
