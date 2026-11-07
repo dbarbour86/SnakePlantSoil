@@ -17,6 +17,31 @@ export interface Episode {
   content: string;
 }
 
+export function decodeHtmlEntities(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;|&apos;|&#x27;/g, "'")
+    .replace(/&quot;|&#x22;/g, '"')
+    .replace(/&lt;|&#x3C;/g, '<')
+    .replace(/&gt;|&#x3E;/g, '>')
+    .replace(/&nbsp;|&#xA0;/g, ' ')
+    .replace(/&#8217;|&#x2019;/g, '’')
+    .replace(/&#8216;|&#x2018;/g, '‘')
+    .replace(/&#8220;|&#x201C;/g, '“')
+    .replace(/&#8221;|&#x201D;/g, '”')
+    .replace(/&#8212;|&#x2014;/g, '—')
+    .replace(/&#8211;|&#x2013;/g, '–')
+    .replace(/&#(\d+);/g, (_, dec) => {
+      const code = parseInt(dec, 10);
+      return code >= 32 && code <= 65535 ? String.fromCharCode(code) : '';
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      const code = parseInt(hex, 16);
+      return code >= 32 && code <= 65535 ? String.fromCharCode(code) : '';
+    });
+}
+
 // Convert any Spotify URL to an official responsive embed URL
 export function formatSpotifyEmbedUrl(url: string): string {
   if (!url) return '';
@@ -154,12 +179,14 @@ export function getEpisodes(): Episode[] {
       if (seenSlugs.has(slug)) continue;
       seenSlugs.add(slug);
 
-      const title = metadata.title || slug.replace(/-/g, ' ');
+      const title = decodeHtmlEntities(metadata.title || slug.replace(/-/g, ' '));
       const epNum = parseInt(metadata.episodeNumber, 10) || 1;
       const seasonNum = parseInt(metadata.seasonNumber, 10) || 1;
       const spotifyUrl = metadata.spotifyUrl || '';
       const spotifyEmbedUrl = metadata.spotifyEmbedUrl || formatSpotifyEmbedUrl(spotifyUrl);
       const relatedGuides = Array.isArray(metadata.relatedGuides) ? metadata.relatedGuides : [];
+      const description = decodeHtmlEntities(metadata.excerpt || metadata.description || 'A deep-dive audio episode from Snake Plant Radio.');
+      const content = decodeHtmlEntities(body).replace(/<!--[\s\S]*?-->/g, '').trim();
 
       episodes.push({
         id: `episode-${slug}`,
@@ -167,7 +194,7 @@ export function getEpisodes(): Episode[] {
         episodeNumber: epNum,
         seasonNumber: seasonNum,
         title,
-        description: metadata.excerpt || metadata.description || 'A deep-dive audio episode from Snake Plant Radio.',
+        description,
         date: metadata.date || '2026-08-01',
         duration: metadata.duration || '20 min',
         spotifyUrl,
@@ -177,7 +204,7 @@ export function getEpisodes(): Episode[] {
         category: metadata.category || 'Soil Science',
         status: metadata.status || 'published',
         relatedGuides,
-        content: body
+        content
       });
     } catch (e) {
       console.error(`Failed to parse episode at ${path}:`, e);

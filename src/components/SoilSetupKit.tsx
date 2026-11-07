@@ -8,18 +8,12 @@ import {
   SoilProfile, CatalogProduct, DiagnosticChoice 
 } from '../diagnosticConfig';
 import { trackEvent } from '../utils/analytics';
-import { isBackendConnected, submitToWaitlist } from '../utils/waitlistAdapter';
 
-export default function SoilSetupKit() {
+export default function SoilSetupKit({ onNavigate }: { onNavigate?: (tab: string) => void } = {}) {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  // Future Product Waitlist Interest Form States
-  const [preferredBagSize, setPreferredBagSize] = useState<'small' | 'medium' | 'large'>('medium');
-  const [productStyle, setProductStyle] = useState<'premixed' | 'booster'>('premixed');
-  const [pricePreference, setPricePreference] = useState<string>('$10 - $15');
   const [showWarningAcknowledge, setShowWarningAcknowledge] = useState<boolean>(false);
 
   const totalSteps = DIAGNOSTIC_QUESTIONS.length;
@@ -317,8 +311,8 @@ export default function SoilSetupKit() {
                   {matchingProducts.length === 0 ? (
                     <div className="p-6 rounded-2xl border-2 border-dashed border-[#E8E2D5] text-center bg-[#FAF7F2]">
                       <HelpCircle className="w-8 h-8 text-stone-400 mx-auto mb-2" />
-                      <span className="font-bold text-stone-700 text-xs block">Evaluating Options</span>
-                      <p className="text-xs text-stone-500 mt-1">Our team is currently evaluating commercial mixes for this profile. No products have been added to the provisional catalog yet.</p>
+                      <span className="font-bold text-stone-700 text-xs block">No Commercial Mixes Listed</span>
+                      <p className="text-xs text-stone-500 mt-1">No commercial mixes are currently listed for this specific combination. Consider mixing a custom blend using our DIY calculator.</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
@@ -351,8 +345,8 @@ export default function SoilSetupKit() {
                                   <span className="text-[10px] font-bold text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded-full uppercase">
                                     {prod.brand}
                                   </span>
-                                  <span className="text-[10px] font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full capitalize">
-                                    Status: {prod.evidenceStatus.replace('_', ' ')}
+                                  <span className="text-[10px] font-bold text-stone-600 bg-stone-100 px-2 py-0.5 rounded-full">
+                                    Volume: {prod.packageVolume}
                                   </span>
                                 </div>
                                 <h5 className="font-serif font-bold text-[#142B1E] text-base mt-1.5 leading-snug">
@@ -379,8 +373,8 @@ export default function SoilSetupKit() {
                                 <span className="text-stone-800 font-medium">{prod.drainageType}</span>
                               </div>
                               <div>
-                                <span className="text-stone-500 font-bold text-[9px] uppercase tracking-wider block">Verified Status</span>
-                                <span className="text-stone-800 font-medium">Checked: {prod.lastVerifiedDate}</span>
+                                <span className="text-stone-500 font-bold text-[9px] uppercase tracking-wider block">Price Category</span>
+                                <span className="text-stone-800 font-medium">{prod.priceTier}</span>
                               </div>
                             </div>
 
@@ -509,109 +503,60 @@ export default function SoilSetupKit() {
                 </div>
               </div>
 
-              {/* Waitlist Form Block */}
-              <div className="bg-[#E2EFE5]/40 border border-[#D6E2D5] rounded-2xl p-5 space-y-4">
-                <div className="border-b border-[#D6E2D5] pb-2">
+              {/* Recommended Next Steps & Companion Guides */}
+              <div className="bg-white border border-[#E8E2D5] rounded-2xl p-5 space-y-3">
+                <div className="border-b border-[#E8E2D5] pb-2">
                   <h4 className="text-[10px] font-bold uppercase text-[#235837] tracking-wider font-sans">
-                    Future Product Waitlist:
+                    Recommended Next Steps:
                   </h4>
                   <h5 className="font-serif font-bold text-[#142B1E] text-base mt-1">
-                    Custom Soil Blends Development
+                    Companion Care Guides & Calculators
                   </h5>
                   <p className="text-xs text-stone-600 mt-1 leading-relaxed font-sans">
-                    Snake Plant Soil Lab is researching a future soil line designed specifically around different watering habits and house settings. Tell us what you would prefer!
+                    Explore these practical tools to dial in your snake plant's potting, watering, and container setup:
                   </p>
                 </div>
 
-                <div className="space-y-3.5 text-xs font-sans">
-                  {/* Option 1: Bag Size */}
-                  <div>
-                    <label className="block font-bold text-stone-800 mb-1">Preferred Bag Size:</label>
-                    <div className="grid grid-cols-3 gap-1.5 font-sans">
-                      {[
-                        { id: 'small', label: 'Small (2 Qts)' },
-                        { id: 'medium', label: 'Medium (4 Qts)' },
-                        { id: 'large', label: 'Large (8 Qts)' }
-                      ].map(item => (
-                        <button
-                          key={item.id}
-                          type="button"
-                          onClick={() => {
-                            trackEvent('future_product_interest_started');
-                            setPreferredBagSize(item.id as any);
-                          }}
-                          className={`py-1.5 px-2 rounded-lg border text-xs text-center font-semibold transition-all cursor-pointer ${
-                            preferredBagSize === item.id 
-                              ? 'border-[#235837] bg-[#235837] text-white font-bold'
-                              : 'border-[#E8E2D5] bg-white hover:bg-stone-50 text-stone-700'
-                          }`}
-                        >
-                          {item.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Option 2: Style */}
-                  <div>
-                    <label className="block font-bold text-stone-800 mb-1">Product Format Preference:</label>
-                    <div className="grid grid-cols-2 gap-1.5 font-sans">
-                      {[
-                        { id: 'premixed', label: 'Ready-to-use Soil' },
-                        { id: 'booster', label: 'Soil Booster' }
-                      ].map(item => (
-                        <button
-                          key={item.id}
-                          type="button"
-                          onClick={() => {
-                            trackEvent('future_product_interest_started');
-                            setProductStyle(item.id as any);
-                          }}
-                          className={`py-1.5 px-2 rounded-lg border text-xs text-center font-semibold transition-all cursor-pointer ${
-                            productStyle === item.id 
-                              ? 'border-[#235837] bg-[#235837] text-white font-bold'
-                              : 'border-[#E8E2D5] bg-white hover:bg-stone-50 text-stone-700'
-                          }`}
-                        >
-                          {item.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Option 3: Price */}
-                  <div>
-                    <label className="block font-bold text-stone-800 mb-1">Expected Price Preference:</label>
-                    <select
-                      value={pricePreference}
-                      onChange={(e) => {
-                        trackEvent('future_product_interest_started');
-                        setPricePreference(e.target.value);
-                      }}
-                      className="w-full p-2 border border-[#E8E2D5] rounded-lg bg-white cursor-pointer text-stone-800 font-semibold text-xs"
-                    >
-                      <option value="Under $10">Under $10</option>
-                      <option value="$10 - $15">$10 - $15</option>
-                      <option value="$15 - $20">$15 - $20</option>
-                      <option value="Over $20">Over $20</option>
-                    </select>
-                  </div>
-
-                  {/* Honest Email Availability notice */}
-                  <div className="pt-2 border-t border-[#D6E2D5] space-y-2">
-                    <span className="font-bold text-stone-500 uppercase tracking-widest text-[9px] block">Early Access Signup</span>
-                    <div className="bg-white/80 border border-[#D6E2D5] p-3 rounded-lg text-xs text-stone-600 leading-normal">
-                      <strong>Early-access signup is coming soon.</strong> Waitlist email registry is currently disabled as no backend database or newsletter API is connected.
-                    </div>
-                  </div>
-
-                  {/* Submit Button (Disabled) */}
-                  <button
-                    disabled={true}
-                    className="w-full bg-stone-200 border border-stone-300 text-stone-400 py-2.5 rounded-xl text-xs font-bold font-sans cursor-not-allowed text-center uppercase tracking-wider"
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-xs font-sans">
+                  <a
+                    href="/soil-calculator"
+                    onClick={(e) => { 
+                      if (onNavigate) {
+                        e.preventDefault(); 
+                        onNavigate('calculator');
+                      }
+                    }}
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer"
                   >
-                    Early Access Coming Soon
-                  </button>
+                    <span className="font-bold text-[#142B1E] block">DIY Mix Calculator</span>
+                    <span className="text-stone-500 text-[11px] mt-1">Calculate exact batch parts &rarr;</span>
+                  </a>
+                  <a
+                    href="/best-pots"
+                    onClick={(e) => { 
+                      if (onNavigate) {
+                        e.preventDefault(); 
+                        onNavigate('pots');
+                      }
+                    }}
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer"
+                  >
+                    <span className="font-bold text-[#142B1E] block">Pot Sizing Guide</span>
+                    <span className="text-stone-500 text-[11px] mt-1">Terracotta vs ceramic &rarr;</span>
+                  </a>
+                  <a
+                    href="/winter-watering-guide"
+                    onClick={(e) => { 
+                      if (onNavigate) {
+                        e.preventDefault(); 
+                        onNavigate('winter-watering-guide');
+                      }
+                    }}
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer"
+                  >
+                    <span className="font-bold text-[#142B1E] block">Watering Method</span>
+                    <span className="text-stone-500 text-[11px] mt-1">Soak-and-dry rules &rarr;</span>
+                  </a>
                 </div>
               </div>
 

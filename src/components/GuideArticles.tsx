@@ -15,10 +15,10 @@ export interface ArticleProps {
 const CLUSTER_STEPS = [
   { id: 'best-soil', title: '1. Best Soils', desc: 'Evaluating pre-mixes' },
   { id: 'diy-mix', title: '2. DIY Mix', desc: 'The 3-2-1 recipe' },
-  { id: 'root-rot', title: '3. Root Rot', desc: 'Surgical rescue' },
+  { id: 'root-rot', title: '3. Root Rot', desc: 'Symptoms & recovery' },
   { id: 'care-guide', title: '4. Watering', desc: 'Soak & dry manual' },
   { id: 'best-pots', title: '5. Best Pots', desc: 'Terracotta science' },
-  { id: 'setup-kits', title: '6. Repotting Kit', desc: 'Custom shop builder' }
+  { id: 'setup-kits', title: '6. Soil Diagnosis', desc: 'Fit check & quiz' }
 ];
 
 export function TopicalClusterNav({ currentTab, onNavigate }: { currentTab: string; onNavigate?: (tab: string) => void }) {
@@ -28,14 +28,14 @@ export function TopicalClusterNav({ currentTab, onNavigate }: { currentTab: stri
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <h4 className="text-sm font-bold text-stone-900 uppercase tracking-wider flex items-center gap-1.5 mt-0">
-            <Compass className="w-4.5 h-4.5 text-emerald-800" /> Complete Snake Plant Cultivation Journey
+            <Compass className="w-4.5 h-4.5 text-[#235837]" /> Core Snake Plant Care Guides
           </h4>
           <p className="text-[11px] text-stone-500 mt-0.5">
-            Greenhouse-verified topical cluster map. Tap any step to skip directly to other core guides:
+            Tap any step to jump directly to our core guides and tools:
           </p>
         </div>
-        <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-150 shrink-0 w-max">
-          Topical Cluster Map
+        <span className="text-[10px] font-mono font-bold text-[#235837] bg-white px-2 py-0.5 rounded border border-[#C2DEC9] shrink-0 w-max">
+          Quick Navigation
         </span>
       </div>
 
@@ -120,7 +120,7 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
       breadcrumbs={breadcrumbs}
       calloutBanner={{
         title: "The Golden Ratio: 3 Parts Soil, 2 Parts Perlite, 1 Part Sand",
-        description: "Through years of greenhouse propagation, this simple volumetric ratio creates permanent aeration channels that never compact or break down, preventing moisture stagnation while keeping tall foliage anchored.",
+        description: "This simple volumetric ratio creates permanent aeration channels that resist compaction, helping excess moisture drain freely while keeping tall foliage anchored.",
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#235837" strokeWidth="2">
             <circle cx="12" cy="12" r="10"/>
@@ -260,14 +260,17 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
               <p className="text-[11px] text-stone-600 leading-relaxed mb-0">
                 Washed and coarse-grained silica sand explicitly sized to create permanent channel voids for gravity water flow. Heavy anchor weight prevents tall plants from leaning.
               </p>
+              <div className="text-[10px] text-stone-400 mt-2">
+                Affiliate disclosure: Purchases made through Amazon links may earn us an advertising commission at zero cost to you.
+              </div>
             </div>
             <a 
-              href="https://www.amazon.com/s?k=Coarse+Horticultural+Silica+Sand+Perfect+Plants&tag=snakeplantsoi-20" 
+              href="https://www.amazon.com/s?k=coarse+horticultural+sand+for+plants&tag=snakeplantsoi-20" 
               target="_blank" 
               rel="noopener noreferrer"
               className="shrink-0 bg-[#142B1E] hover:bg-[#235837] text-white font-bold py-2 px-4 rounded-xl font-sans uppercase tracking-wide text-[10px] flex items-center gap-1.5 transition-all shadow-xs"
             >
-              <span>Get Sand on Amazon</span>
+              <span>Search Coarse Sand on Amazon</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -377,7 +380,7 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
             </div>
             <div>
               <span className="text-xs font-bold text-stone-900 block font-sans">Listen to Snake Plant Radio: Episode #1</span>
-              <span className="text-xs text-stone-500 font-sans">Early warning signs of overwatering and a 5-step surgical recovery protocol.</span>
+              <span className="text-xs text-stone-500 font-sans">Early warning signs of overwatering and a 5-step root rot recovery guide.</span>
             </div>
           </div>
           <a
@@ -680,7 +683,7 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
       title: 'Choose the right soil',
       description: 'See what makes a great commercial succulent soil and compare top-ranked mixes.',
       tabId: 'best-soil',
-      image: '/gritty-mix.jpg'
+      image: '/soil-mound.jpg'
     },
     {
       title: 'Make your own mix',
@@ -860,14 +863,17 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
               <p className="text-xs text-stone-600 leading-relaxed mb-0">
                 Natural unglazed clay allows moisture to transpire cleanly through side-walls while heavy weight stabilizes tall upright leaves. Ideal for growers looking for breathable containers with bottom drainage.
               </p>
+              <div className="text-[10px] text-stone-400 mt-2">
+                Affiliate disclosure: Purchases made through Amazon links may earn us an advertising commission at zero cost to you.
+              </div>
             </div>
             <a 
-              href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+Deroma&tag=snakeplantsoi-20" 
+              href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+with+drainage+hole&tag=snakeplantsoi-20" 
               target="_blank" 
               rel="noopener noreferrer"
               className="shrink-0 bg-[#142B1E] hover:bg-[#235837] text-white font-bold py-2.5 px-5 rounded-full font-sans text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
-              <span>Get Pot on Amazon</span>
+              <span>Search Terracotta Pots on Amazon</span>
               <ExternalLink className="w-3.5 h-3.5 text-[#9EC4A9]" />
             </a>
           </div>

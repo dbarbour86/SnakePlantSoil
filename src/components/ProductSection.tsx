@@ -102,7 +102,7 @@ export default function ProductSection() {
 
                     <div className="space-y-1.5">
                       <h4 className="text-xs font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1">
-                        <span>💡 Greenhouse Advisory:</span>
+                        <span>💡 Considerations:</span>
                       </h4>
                       <ul className="space-y-1">
                         {prod.cons.map((con, index) => (

@@ -30,15 +30,15 @@ Overwatering kills more snake plants than anything else. In this premiere broadc
 
 - **Overwatering is the #1 Houseplant Killer**: Snake plants tolerate extended dry periods, but persistent moisture depletes oxygen and creates an anaerobic environment where fungal decay takes hold.
 - **Spotting Root Rot Early**: Yellowing foliage, mushy leaf bases, and an unpleasant odor from the potting soil signal root breakdown long before the entire plant collapses.
-- **Five-Step Recovery Protocol**: Unpot the plant, wash away old soil, excise rotted roots with sterilized shears, allow cut rhizomes to callous, and repot in fresh, well-aerated media.
+- **Five-Step Recovery Guide**: Unpot the plant, wash away old soil, trim rotted roots with clean shears, allow cut rhizomes to callous, and repot in fresh, well-aerated media.
 - **Soil Aeration & Pore Space**: Why dense peat-heavy mixes compact around root balls, and why coarse mineral grit (perlite, pumice, and coarse sand) is essential for root oxygenation.
 
 ---
 
 ## Recommended Companion Guides
 
-Follow along with the formulas, quizzes, and surgical recovery protocols featured in this episode:
+Follow along with the soil recipes, diagnostic tools, and root rot recovery guides featured in this episode:
 
-- [Emergency Snake Plant Root Rot Recovery Guide](/snake-plant-root-rot-guide) — The 5-step surgical recovery protocol with sterilization steps and callous timing.
+- [Emergency Snake Plant Root Rot Recovery Guide](/snake-plant-root-rot-guide) — The 5-step root rot recovery guide with root trimming steps and callous timing.
 - [60-Second Soil Diagnostic Quiz](/soil-diagnosis) — Identify your plant's custom soil needs and drainage risk profile.
 - [The 3-2-1 DIY Snake Plant Soil Mix](/diy-snake-plant-soil-mix) — Master mineral recipe with interactive volume calculator.

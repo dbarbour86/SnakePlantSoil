@@ -122,15 +122,79 @@ function generateCleanSlug(title) {
   return baseSlug.length >= 5 ? baseSlug : slugify(title);
 }
 
-// Clean HTML tags from RSS description for initial body scaffold
+function decodeHtmlEntities(text) {
+  if (!text) return '';
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;|&apos;|&#x27;/g, "'")
+    .replace(/&quot;|&#x22;/g, '"')
+    .replace(/&lt;|&#x3C;/g, '<')
+    .replace(/&gt;|&#x3E;/g, '>')
+    .replace(/&nbsp;|&#xA0;/g, ' ')
+    .replace(/&#8217;|&#x2019;/g, '’')
+    .replace(/&#8216;|&#x2018;/g, '‘')
+    .replace(/&#8220;|&#x201C;/g, '“')
+    .replace(/&#8221;|&#x201D;/g, '”')
+    .replace(/&#8212;|&#x2014;/g, '—')
+    .replace(/&#8211;|&#x2013;/g, '–')
+    .replace(/&#(\d+);/g, (_, dec) => {
+      const code = parseInt(dec, 10);
+      return code >= 32 && code <= 65535 ? String.fromCharCode(code) : '';
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      const code = parseInt(hex, 16);
+      return code >= 32 && code <= 65535 ? String.fromCharCode(code) : '';
+    });
+}
+
+const GUIDE_TITLES = {
+  '/best-snake-plant-soil': "The 3 Best Soils for Snake Plants: Buyer's Guide",
+  '/diy-snake-plant-soil-mix': "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio)",
+  '/snake-plant-root-rot-guide': "Snake Plant Root Rot: Symptoms, Treatment & Recovery Guide",
+  '/best-pots-for-snake-plants': "Best Pots for Snake Plants: Sizing, Material & Drainage",
+  '/snake-plant-care-guide': "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
+  '/soil-diagnosis': "Snake Plant Soil Diagnosis & Fit Check",
+  '/best-fertilizer-for-snake-plant-soil': "Best Fertilizer for Snake Plants",
+  '/winter-watering-guide': "Winter Watering Guide for Snake Plants",
+  '/care-card': "Printable Snake Plant Care Card Generator",
+  '/radio': "Snake Plant Radio Hub"
+};
+
+function formatReadableLink(url, label) {
+  let pathname = url;
+  try {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      pathname = new URL(url).pathname;
+    }
+  } catch (e) {}
+  const clean = pathname.replace(/\/$/, '');
+  const title = GUIDE_TITLES[clean];
+  if (title) {
+    return `[${title}](${clean})`;
+  }
+  return `[${label || url}](${url})`;
+}
+
+// Clean HTML tags and decode entities from RSS description
 function stripHtml(html) {
-  return html
-    .replace(/<a\b[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gi, '[$2]($1)')
+  if (!html) return '';
+  let text = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<a\b[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gi, (_, href, linkText) => {
+      return formatReadableLink(href, linkText);
+    })
     .replace(/<li>(.*?)<\/li>/gi, '- $1\n')
     .replace(/<p>(.*?)<\/p>/gi, '$1\n\n')
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, '')
     .trim();
+
+  // Convert bare SnakePlantSoil URLs into descriptive markdown links
+  text = text.replace(/https?:\/\/(?:www\.)?snakeplantsoil\.com(\/(?:best-snake-plant-soil|diy-snake-plant-soil-mix|snake-plant-root-rot-guide|best-pots-for-snake-plants|snake-plant-care-guide|soil-diagnosis|best-fertilizer-for-snake-plant-soil|winter-watering-guide|care-card|radio)(?:\/)?[^\s)]*)/gi, (match, path) => {
+    return formatReadableLink(path);
+  });
+
+  return decodeHtmlEntities(text);
 }
 
 // Extract tag content from XML snippet
@@ -247,8 +311,10 @@ async function syncPodcastRss() {
 
   const feedEpisodes = [];
   itemMatches.forEach(itemXml => {
-    const title = getTagContent(itemXml, 'title');
-    const description = getTagContent(itemXml, 'description');
+    const rawTitle = getTagContent(itemXml, 'title');
+    const rawDescription = getTagContent(itemXml, 'description');
+    const title = decodeHtmlEntities(rawTitle);
+    const description = decodeHtmlEntities(rawDescription);
     const pubDate = getTagContent(itemXml, 'pubDate');
     const duration = getTagContent(itemXml, 'itunes:duration');
     const episodeNum = parseInt(getTagContent(itemXml, 'itunes:episode'), 10) || 1;
@@ -370,15 +436,6 @@ ${relatedGuidesYaml}
 # ${feedEp.title}
 
 ${stripHtml(feedEp.description)}
-
----
-
-## Episode Notes & Key Takeaways
-
-- Broadcast audio streamed directly via native audio player.
-- Published on Snake Plant Radio.
-
-<!-- Add curated companion guides, botanical formulas, or full transcripts here -->
 `;
       fs.writeFileSync(newFilePath, scaffoldContent, 'utf-8');
       console.log(`[RSS Sync] Created new episode page for Episode #${feedEp.episodeNumber} at ${newFilePath} (slug: /radio/${cleanSlug})`);

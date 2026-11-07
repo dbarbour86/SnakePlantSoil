@@ -1,12 +1,15 @@
 import React from 'react';
-import { Info, ExternalLink, ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Droplets, SlidersHorizontal, Leaf } from 'lucide-react';
 import {
   RANKED_SOIL_PRODUCTS,
   DECISION_GUIDE,
-  SOIL_RANKINGS_DISCLOSURE
+  SOIL_RANKINGS_DISCLOSURE,
+  getRankedSoilById,
+  RankedSoilProduct
 } from '../soilRankings';
 import { TopicalClusterNav } from './GuideArticles';
 import BotanicalSubpageLayout from './BotanicalSubpageLayout';
+import { trackEvent } from '../utils/analytics';
 
 interface BestSoilGuideProps {
   onNavigate?: (tab: string) => void;
@@ -15,37 +18,45 @@ interface BestSoilGuideProps {
 export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
   const breadcrumbs = [
     { label: 'Home', tabId: 'home' },
-    { label: 'Soil Guide', tabId: 'setup-kits' },
-    { label: 'Best Soils' }
+    { label: 'Soil Guides', tabId: 'setup-kits' },
+    { label: 'Best Soil' }
   ];
 
   const tocItems = [
-    { id: 'comparison-table', label: 'Quick comparison table' },
-    { id: 'ranked-mixes', label: 'Ranked commercial mixes' },
-    { id: 'decision-guide', label: 'Decision guide' },
+    { id: 'comparison-table', label: 'Compare at a glance' },
+    { id: 'ranked-mixes', label: 'A closer look at each mix' },
+    { id: 'decision-guide', label: 'Which mix fits your routine?' },
     { id: 'soil-science', label: 'Soil buying metrics' }
   ];
 
   const relatedGuides = [
     {
-      title: 'Make your own mix',
-      description: 'A simple, balanced DIY soil mix that keeps roots healthy and prevents excess moisture.',
+      title: 'Make your own 3-2-1 mix',
+      description: 'A simple, effective DIY blend for snake plants.',
       tabId: 'diy-mix',
       image: '/mix-bowl.jpg'
     },
     {
-      title: 'Root rot signs & recovery',
-      description: 'Learn how proper drainage prevents yellowing leaves and mushy roots.',
-      tabId: 'root-rot',
+      title: 'Find your soil profile',
+      description: 'Learn how drainage, aeration, and moisture work together for healthier snake plants.',
+      tabId: 'setup-kits',
       image: '/article-root-rot.jpg'
     }
   ];
 
+  const handleAffiliateClick = (prod: RankedSoilProduct, placement: string) => {
+    trackEvent('affiliate_link_clicked', {
+      productId: prod.id,
+      productName: prod.name,
+      placement
+    });
+  };
+
   return (
     <BotanicalSubpageLayout
       categoryBadge="COMMERCIAL SOIL GUIDE"
-      title="The Best Soil for Snake Plants: Top Mixes Compared"
-      introSummary="An editorial comparison of the top commercial succulent and cactus soil mixes. We compare drainage rates, particle chunkiness, and moisture retention."
+      title="The Best Soils for Snake Plants"
+      introSummary="Compare three ready-made mixes and choose what fits your plant and home."
       heroImage="/soil-mound.jpg"
       heroImageAlt="Rich, porous, fast-draining snake plant potting soil on a botanical stone surface"
       breadcrumbs={breadcrumbs}
@@ -64,49 +75,61 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
     >
       <div className="space-y-8" id="buyer-guide-root">
         
+        {/* Visible Affiliate Disclosure Banner (placed before first affiliate links) */}
+        <div 
+          className="bg-[#EAE4D8]/60 border border-[#DCD5C5] rounded-xl px-4 py-2.5 text-xs text-[#2B3B30] flex items-center gap-2"
+          id="affiliate-disclosure-banner"
+        >
+          <span className="font-sans leading-relaxed">
+            <strong>Affiliate links:</strong> purchases may earn this site a commission at no extra cost to you.
+          </span>
+        </div>
+
         {/* ====================================================
             SECTION 1: QUICK COMPARISON TABLE
             ==================================================== */}
         <section id="comparison-table" className="scroll-mt-24">
-          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
-            Quick comparison table
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-4">
+            Compare at a glance
           </h2>
-          <p className="font-sans text-stone-600 text-sm mb-4 leading-relaxed">
-            Here is how the top commercial mixes compare based on mineral structure, drainage speed, and ease of use:
-          </p>
 
           {/* Desktop Table */}
           <div className="hidden sm:block bg-white border border-[#E8E2D5] rounded-2xl overflow-hidden shadow-xs mb-8">
             <table className="w-full text-left text-xs font-sans">
               <thead>
-                <tr className="bg-[#F8F5EE] border-b border-[#E8E2D5] text-[11px] font-bold text-stone-500 uppercase tracking-wider">
-                  <th className="py-3.5 px-4 w-16">Rank</th>
-                  <th className="py-3.5 px-4">Product</th>
-                  <th className="py-3.5 px-4">Primary Media</th>
-                  <th className="py-3.5 px-4">Drainage</th>
-                  <th className="py-3.5 px-4 text-right">Price</th>
+                <tr className="bg-[#142B1E] text-white text-[11px] font-bold uppercase tracking-wider">
+                  <th className="py-3 px-4">Mix</th>
+                  <th className="py-3 px-4">Best fit</th>
+                  <th className="py-3 px-4">Considerations</th>
+                  <th className="py-3 px-4 text-center w-36">Shop</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E8E2D5]">
                 {RANKED_SOIL_PRODUCTS.map((prod) => (
                   <tr key={prod.id} className="hover:bg-[#FAF7F2] transition-colors">
-                    <td className="py-3 px-4">
-                      <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white font-bold text-xs flex items-center justify-center">
-                        {prod.rank}
-                      </div>
+                    <td className="py-3.5 px-4 font-bold text-[#142B1E]">
+                      #{prod.rank} {prod.name}
                     </td>
-                    <td className="py-3 px-4">
-                      <div className="font-bold text-stone-900">{prod.name}</div>
-                      <div className="text-[11px] text-stone-500">{prod.badge}</div>
+                    <td className="py-3.5 px-4 text-stone-700">
+                      {prod.bestFitSummary}
                     </td>
-                    <td className="py-3 px-4 text-stone-600">
-                      {prod.baseComposition}
+                    <td className="py-3.5 px-4 text-stone-700">
+                      {prod.considerationSummary}
                     </td>
-                    <td className="py-3 px-4 text-stone-600">
-                      {prod.dryingCharacteristics}
-                    </td>
-                    <td className="py-3 px-4 text-right font-bold text-[#142B1E]">
-                      {prod.priceEstimate || '$$$'}
+                    <td className="py-3.5 px-4 text-center">
+                      {prod.affiliateUrl && (
+                        <a
+                          href={prod.affiliateUrl}
+                          target="_blank"
+                          rel="sponsored noopener"
+                          aria-label={`Check price on Amazon for ${prod.name}`}
+                          onClick={() => handleAffiliateClick(prod, 'comparison_table')}
+                          className="bg-white hover:bg-[#235837] text-[#235837] hover:text-white border border-[#235837] font-bold text-xs px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1 shadow-2xs whitespace-nowrap cursor-pointer"
+                          id={`table-buy-${prod.id}`}
+                        >
+                          <span>Check Price →</span>
+                        </a>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -114,27 +137,32 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
             </table>
           </div>
 
-          {/* Mobile Comparison List (eliminates horizontal overflow) */}
-          <div className="sm:hidden space-y-2.5 mb-6">
+          {/* Mobile Comparison List */}
+          <div className="sm:hidden space-y-3 mb-6">
             {RANKED_SOIL_PRODUCTS.map((prod) => (
-              <div key={prod.id} className="bg-white border border-[#E8E2D5] rounded-xl p-3.5 flex items-center justify-between shadow-2xs">
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white font-bold text-xs flex items-center justify-center shrink-0">
-                    {prod.rank}
-                  </div>
-                  <div>
-                    <div className="font-bold text-xs text-[#142B1E] leading-snug">{prod.name}</div>
-                    <div className="text-[11px] text-stone-500 leading-tight">{prod.dryingCharacteristics}</div>
-                  </div>
+              <div key={prod.id} className="bg-white border border-[#E8E2D5] rounded-xl p-4 space-y-2.5 shadow-2xs">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bold text-xs text-[#142B1E]">
+                    #{prod.rank} {prod.name}
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-[#235837] bg-[#E2EFE5] px-2 py-0.5 rounded">
+                    {prod.bestFitSummary}
+                  </span>
                 </div>
+                <p className="text-xs text-stone-600 m-0 leading-relaxed font-sans">
+                  <strong>Consideration:</strong> {prod.considerationSummary}
+                </p>
                 {prod.affiliateUrl && (
                   <a
                     href={prod.affiliateUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-[#235837] hover:underline shrink-0 ml-2"
+                    rel="sponsored noopener"
+                    aria-label={`Check price on Amazon for ${prod.name}`}
+                    onClick={() => handleAffiliateClick(prod, 'comparison_table_mobile')}
+                    className="w-full bg-white hover:bg-[#235837] text-[#235837] hover:text-white border border-[#235837] font-bold text-xs py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-1 shadow-2xs cursor-pointer text-center"
+                    id={`mobile-buy-${prod.id}`}
                   >
-                    View →
+                    <span>Check Price →</span>
                   </a>
                 )}
               </div>
@@ -143,115 +171,75 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
         </section>
 
         {/* ====================================================
-            SECTION 2: RANKED COMMERCIAL MIXES
+            SECTION 2: RANKED COMMERCIAL MIXES (CARDS)
             ==================================================== */}
-        <section id="ranked-mixes" className="scroll-mt-24 space-y-6">
-          <div>
-            <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
-              Ranked commercial mixes
-            </h2>
-            <p className="font-sans text-stone-600 text-sm leading-relaxed">
-              Detailed specifications and grounded evaluations for each ranked substrate:
-            </p>
-          </div>
+        <section id="ranked-mixes" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight">
+            A closer look at each mix
+          </h2>
 
-          <div className="space-y-6">
-            {RANKED_SOIL_PRODUCTS.map((prod) => {
-              const isFirst = prod.rank === 1;
-              return (
-                <div
-                  key={prod.id}
-                  className={`bg-white rounded-2xl p-5 sm:p-6 shadow-xs border transition-all ${
-                    isFirst ? 'border-2 border-[#235837] relative' : 'border border-[#E8E2D5]'
-                  }`}
-                  id={`card-${prod.id}`}
-                >
-                  {/* Top Bar: Badge + Rating */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="inline-block bg-[#142B1E] text-[#9EC4A9] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-sans">
-                      #{prod.rank} {prod.badge}
-                    </span>
-                    <span className="text-xs font-bold text-amber-800 flex items-center gap-1 font-sans">
-                      ★ {prod.rating || '4.8'}
-                    </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
+            {RANKED_SOIL_PRODUCTS.map((prod) => (
+              <div
+                key={prod.id}
+                className="bg-white rounded-2xl p-5 shadow-xs border border-[#E8E2D5] flex flex-col justify-between hover:border-[#235837]/40 transition-all"
+                id={`card-${prod.id}`}
+              >
+                <div>
+                  {/* Rank Badge */}
+                  <span className="inline-block bg-[#E2EFE5] text-[#235837] text-xs font-bold font-mono px-2.5 py-0.5 rounded-md mb-2">
+                    #{prod.rank}
+                  </span>
+
+                  {/* Product Image */}
+                  <div className="w-full h-44 rounded-xl overflow-hidden bg-stone-50 border border-[#E8E2D5] my-2.5 flex items-center justify-center p-2">
+                    <img
+                      src={prod.imageUrl}
+                      alt={prod.name}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
                   </div>
 
-                  {/* Title & Brand */}
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold text-stone-600 uppercase tracking-wider font-sans block">
-                      {prod.brand}
-                    </span>
-                    <h3 className="font-serif font-bold text-[#142B1E] text-lg sm:text-xl leading-snug">
-                      {prod.name}
-                    </h3>
-                  </div>
+                  {/* Title */}
+                  <h3 className="font-serif font-bold text-[#142B1E] text-lg leading-snug mb-3">
+                    {prod.name}
+                  </h3>
 
-                  {/* Body Content Grid: Image + Description */}
-                  <div className="grid grid-cols-1 sm:grid-cols-[110px_1fr] gap-4 items-start mb-4">
-                    {prod.imageUrl ? (
-                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-stone-50 border border-stone-200 p-2 flex items-center justify-center shrink-0 mx-auto sm:mx-0 overflow-hidden">
-                        <img
-                          src={prod.imageUrl}
-                          alt={prod.name}
-                          className="max-w-full max-h-full object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-[#FAF7F2] border border-[#E8E2D5] flex flex-col items-center justify-center shrink-0 mx-auto sm:mx-0">
-                        <span className="font-serif text-2xl font-bold text-[#235837]">#{prod.rank}</span>
-                        <span className="text-[9px] uppercase tracking-wider text-stone-500 font-bold">Gritty Mix</span>
-                      </div>
-                    )}
-                    <div className="space-y-3 font-sans text-xs text-stone-600 leading-relaxed">
-                      <p className="m-0 text-stone-700">
-                        {prod.verdict}
-                      </p>
-                      
-                      {/* Specs Row */}
-                      <div className="bg-[#FAF7F2] border border-[#EAE3D5] rounded-xl p-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
-                        <div>
-                          <strong className="text-stone-800 uppercase text-[9px] tracking-wider block">Base Composition:</strong>
-                          <span className="text-stone-600">{prod.baseComposition}</span>
-                        </div>
-                        <div>
-                          <strong className="text-stone-800 uppercase text-[9px] tracking-wider block">Drying Time:</strong>
-                          <span className="text-stone-600">{prod.dryingCharacteristics}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Pros & Cons */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-sans">
-                    <div className="flex items-start gap-1.5 text-stone-700">
-                      <span className="text-[#235837] font-bold">✓</span>
-                      <span>{prod.strength}</span>
-                    </div>
-                    <div className="flex items-start gap-1.5 text-stone-700">
-                      <span className="text-amber-800 font-bold">⚠</span>
-                      <span>{prod.limitation}</span>
-                    </div>
-                  </div>
-
-                  {/* Purchase Button */}
-                  {prod.affiliateUrl && (
-                    <div className="pt-4 border-t border-stone-100 mt-4 flex items-center justify-between flex-wrap gap-2">
-                      <span className="text-[11px] text-stone-600 font-sans">Verified commercial formula</span>
-                      <a
-                        href={prod.affiliateUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-[#142B1E] hover:bg-[#235837] text-white font-bold text-xs px-4 py-2 rounded-xl inline-flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
-                        id={`card-buy-${prod.id}`}
-                      >
-                        <span>{prod.buttonLabel}</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
-                    </div>
-                  )}
+                  {/* Bullet points */}
+                  <ul className="space-y-2.5 text-xs text-stone-700 leading-relaxed font-sans mb-4">
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#235837] shrink-0 mt-1.5" />
+                      <span>
+                        <strong>Strengths:</strong> {prod.cardStrengths}
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#6B7C70] shrink-0 mt-1.5" />
+                      <span>
+                        <strong>Considerations:</strong> {prod.cardConsiderations}
+                      </span>
+                    </li>
+                  </ul>
                 </div>
-              );
-            })}
+
+                {/* Prominent Full-Width Purchase Button */}
+                {prod.affiliateUrl && (
+                  <div className="pt-2 mt-auto">
+                    <a
+                      href={prod.affiliateUrl}
+                      target="_blank"
+                      rel="sponsored noopener"
+                      aria-label={`Check price on Amazon for ${prod.name}`}
+                      onClick={() => handleAffiliateClick(prod, 'ranked_cards')}
+                      className="w-full bg-[#142B1E] hover:bg-[#235837] text-white font-bold text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer text-center"
+                      id={`card-buy-${prod.id}`}
+                    >
+                      <span>Check Price on Amazon →</span>
+                    </a>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -259,26 +247,49 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
             SECTION 3: DECISION GUIDE
             ==================================================== */}
         <section id="decision-guide" className="scroll-mt-24">
-          <div className="bg-[#142B1E] text-white rounded-2xl p-6 sm:p-7 shadow-sm">
-            <h3 className="font-serif font-bold text-white text-lg sm:text-xl mb-4 leading-snug">
-              Decision Guide: Which Soil Should You Buy?
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {DECISION_GUIDE.map((item, idx) => (
-                <div key={idx} className="bg-white/10 border border-white/15 rounded-xl p-4 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[11px] text-[#9EC4A9] font-bold uppercase tracking-wider font-sans block mb-1">
-                      {item.question}
-                    </span>
-                    <h4 className="font-serif font-bold text-white text-sm mb-2">
-                      {item.choice}
-                    </h4>
-                    <p className="text-xs text-stone-200 leading-relaxed font-sans m-0">
-                      {item.explanation}
-                    </p>
+          <div className="bg-[#EAEFEA] border border-[#D5E2D6] rounded-2xl p-6 sm:p-8">
+            <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-5">
+              Which mix fits your routine?
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {DECISION_GUIDE.map((item) => {
+                const targetProd = getRankedSoilById(item.productId);
+                return (
+                  <div 
+                    key={item.id} 
+                    className="bg-white rounded-xl p-5 border border-[#D5E2D6] shadow-2xs flex flex-col justify-between"
+                  >
+                    <div>
+                      {/* Icon */}
+                      <div className="w-9 h-9 rounded-full bg-[#E2EFE5] flex items-center justify-center mb-3">
+                        {item.icon === 'droplet' && <Droplets className="w-4.5 h-4.5 text-[#235837]" />}
+                        {item.icon === 'sliders' && <SlidersHorizontal className="w-4.5 h-4.5 text-[#235837]" />}
+                        {item.icon === 'leaf' && <Leaf className="w-4.5 h-4.5 text-[#235837]" />}
+                      </div>
+                      <h3 className="font-serif font-bold text-[#142B1E] text-base leading-snug">
+                        {item.question}
+                      </h3>
+                      <p className="text-xs text-stone-600 leading-relaxed mt-1.5 mb-5 font-sans">
+                        {item.explanation}
+                      </p>
+                    </div>
+
+                    {targetProd?.affiliateUrl && (
+                      <a
+                        href={targetProd.affiliateUrl}
+                        target="_blank"
+                        rel="sponsored noopener"
+                        aria-label={`Get ${targetProd.name} on Amazon`}
+                        onClick={() => handleAffiliateClick(targetProd, 'decision_guide')}
+                        className="w-full bg-[#142B1E] hover:bg-[#235837] text-white font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-2xs cursor-pointer text-center"
+                        id={`decision-buy-${item.id}`}
+                      >
+                        <span>{item.buttonLabel}</span>
+                      </a>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -312,24 +323,7 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
             </li>
           </ul>
 
-          {/* Extension Citation Box */}
-          <div className="bg-[#E5ECE4] rounded-xl p-4 border border-[#D6E2D5] flex gap-3 my-4">
-            <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
-            <div className="text-xs text-stone-800 leading-relaxed font-sans">
-              <strong>Horticultural Extension Reference:</strong> Research published by the{' '}
-              <a
-                href="https://edis.ifas.ufl.edu/publication/EP027"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline font-bold text-[#142B1E] hover:text-[#235837]"
-              >
-                University of Florida IFAS Extension (Sansevieria Production Guide)
-              </a>{' '}
-              confirms that porous, well-aerated potting media is essential for <em>Sansevieria</em> root vigor. Fast-draining substrates prevent the anaerobic environment where fungal root pathogens thrive.
-            </div>
-          </div>
-
-          {/* Affiliate Disclosure */}
+          {/* Bottom Affiliate Disclosure */}
           <div className="text-center pt-2 pb-4 border-t border-stone-200 mt-6" id="affiliate-disclosure-block">
             <p className="text-[11px] text-stone-600 italic max-w-xl mx-auto leading-relaxed font-sans m-0">
               {SOIL_RANKINGS_DISCLOSURE}

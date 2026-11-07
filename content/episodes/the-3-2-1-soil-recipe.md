@@ -21,37 +21,12 @@ relatedGuides:
 
 Bagged mixes are convenient, but mixing your own snake plant soil is cheaper, better, and takes about ten minutes.
 
-
-
-
 In this episode: the 3-2-1 ratio explained — what each ingredient does, where to buy components without overpaying, the coarse-sand warning that saves roots, the squeeze test, and the four mistakes everyone makes.
 
-
-
-
-🌱 Next step: try the mix calculator
-
-https://snakeplantsoil.com/diy-snake-plant-soil-mix
-
-
-
+🌱 Next step: [Try the Interactive Mix Calculator](/diy-snake-plant-soil-mix)
 
 More from SnakePlantSoil.com:
-
-[https://snakeplantsoil.com/best-snake-plant-soil](https://snakeplantsoil.com/best-snake-plant-soil)
-
-[https://snakeplantsoil.com/snake-plant-root-rot-guide](https://snakeplantsoil.com/snake-plant-root-rot-guide)
-
-
-
+- [The 3 Best Soils for Snake Plants: Buyer's Guide](/best-snake-plant-soil)
+- [Snake Plant Root Rot: Symptoms, Treatment & Recovery Guide](/snake-plant-root-rot-guide)
 
 Snake Plant Radio — The Snake Plant Care Podcast, by SnakePlantSoil.com
-
----
-
-## Episode Notes & Key Takeaways
-
-- Broadcast audio streamed directly via native audio player.
-- Published on Snake Plant Radio.
-
-<!-- Add curated companion guides, botanical formulas, or full transcripts here -->

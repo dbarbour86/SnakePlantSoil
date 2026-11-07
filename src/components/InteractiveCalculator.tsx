@@ -421,20 +421,25 @@ export default function InteractiveCalculator() {
                   </div>
 
                   {recommendedBrand.affiliateUrl && (
-                    <div className="pt-2 border-t border-emerald-100/80 flex items-center justify-between">
-                      <span className="text-[11px] font-mono text-stone-500">
-                        Price: <strong className="text-stone-800">{recommendedBrand.priceEstimate}</strong>
-                      </span>
-                      <a
-                        href={recommendedBrand.affiliateUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-wider font-sans transition-all shadow-xs"
-                        id={`calculator-brand-buy-${recommendedBrand.id}`}
-                      >
-                        <span>{recommendedBrand.linkText || 'Check Price'}</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                    <div className="pt-2 border-t border-emerald-100/80">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-mono text-stone-500">
+                          Price: <strong className="text-stone-800">{recommendedBrand.priceEstimate}</strong>
+                        </span>
+                        <a
+                          href={recommendedBrand.affiliateUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-950 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-wider font-sans transition-all shadow-xs"
+                          id={`calculator-brand-buy-${recommendedBrand.id}`}
+                        >
+                          <span>{recommendedBrand.linkText || 'Check Price'}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                      <p className="text-[10px] text-stone-400 mt-2 mb-0">
+                        Affiliate disclosure: Purchases made through Amazon links may earn us an advertising commission at zero cost to you.
+                      </p>
                     </div>
                   )}
                 </div>

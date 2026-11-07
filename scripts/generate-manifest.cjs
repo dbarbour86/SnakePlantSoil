@@ -1,6 +1,31 @@
 const fs = require('fs');
 const path = require('path');
 
+function decodeHtmlEntities(text) {
+  if (!text) return '';
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;|&apos;|&#x27;/g, "'")
+    .replace(/&quot;|&#x22;/g, '"')
+    .replace(/&lt;|&#x3C;/g, '<')
+    .replace(/&gt;|&#x3E;/g, '>')
+    .replace(/&nbsp;|&#xA0;/g, ' ')
+    .replace(/&#8217;|&#x2019;/g, '’')
+    .replace(/&#8216;|&#x2018;/g, '‘')
+    .replace(/&#8220;|&#x201C;/g, '“')
+    .replace(/&#8221;|&#x201D;/g, '”')
+    .replace(/&#8212;|&#x2014;/g, '—')
+    .replace(/&#8211;|&#x2013;/g, '–')
+    .replace(/&#(\d+);/g, (_, dec) => {
+      const code = parseInt(dec, 10);
+      return code >= 32 && code <= 65535 ? String.fromCharCode(code) : '';
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      const code = parseInt(hex, 16);
+      return code >= 32 && code <= 65535 ? String.fromCharCode(code) : '';
+    });
+}
+
 const dataTsPath = path.join(__dirname, '..', 'src', 'data.ts');
 const dataContent = fs.readFileSync(dataTsPath, 'utf-8');
 
@@ -110,8 +135,8 @@ if (fs.existsSync(episodesDir)) {
           
           if (!isDraft && !isNoIndex) {
             const slug = meta.slug || file.replace(/\.md$/, '');
-            const title = meta.title || '';
-            const description = meta.excerpt || meta.description || '';
+            const title = decodeHtmlEntities(meta.title || '');
+            const description = decodeHtmlEntities(meta.excerpt || meta.description || '');
             const date = meta.date || meta.pubDate || '2026-10-10';
             
             episodeSlugs.push(slug);
@@ -129,8 +154,8 @@ if (fs.existsSync(episodesDir)) {
 
         if (!isDraft && !isNoIndex) {
           const slug = data.slug || file.replace(/\.json$/, '');
-          const title = data.title || '';
-          const description = data.excerpt || data.description || '';
+          const title = decodeHtmlEntities(data.title || '');
+          const description = decodeHtmlEntities(data.excerpt || data.description || '');
           const date = data.date || data.pubDate || '2026-10-10';
           
           episodeSlugs.push(slug);

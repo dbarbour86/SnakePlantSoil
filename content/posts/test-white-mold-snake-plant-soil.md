@@ -94,9 +94,9 @@ mode: "test"
   <li><strong>Wipe the Pot:</strong> Use a damp cloth to scrub mineral crusts off the pot rims to prevent them from dissolving back into the soil during future waterings.</li>
 </ul>
 
-<h2>Preventative Soil Physics: Terracotta and Airflow</h2>
+<h2>Preventative Soil Care: Terracotta and Airflow</h2>
 
-<p>The choice of container plays a massive role in soil moisture physics. Non-porous plastic and glazed ceramic pots trap moisture, creating a stagnant, anaerobic environment ideal for fungal spores.</p>
+<p>The choice of container plays a massive role in how moisture evaporates. Non-porous plastic and glazed ceramic pots trap moisture, creating a stagnant, anaerobic environment ideal for fungal spores.</p>
 
 <p>In contrast, unglazed terracotta pots are highly porous. They allow lateral evaporation through the clay walls, which helps the soil dry evenly and prevents the persistent dampness that fuels mold growth.</p>
 

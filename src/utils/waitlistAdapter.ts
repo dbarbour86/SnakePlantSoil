@@ -7,7 +7,7 @@ export interface WaitlistSubmission {
 }
 
 /**
- * Snake Plant Soil Lab - Waitlist Integration Adapter
+ * SnakePlantSoil.com - Waitlist Integration Adapter
  * 
  * CURRENT STATUS: Backend Offline (No database/mailing list integrated)
  * 

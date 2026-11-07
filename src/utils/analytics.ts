@@ -1,5 +1,5 @@
 /**
- * Snake Plant Soil Lab - Analytics Interface
+ * SnakePlantSoil.com - Analytics Interface
  * 
  * Powered by Google Analytics 4 (GA4) with Measurement ID: G-TC5QZQM7DR
  * - Collection is strictly limited to snakeplantsoil.com and www.snakeplantsoil.com

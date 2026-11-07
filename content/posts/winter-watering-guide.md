@@ -1,6 +1,7 @@
 ---
 title: "Winter Snake Plant Watering Guide: Soil Moisture & Seasonal Care"
-date: "2026-11-15"
+date: "2026-07-26"
+updated: "2026-08-23"
 excerpt: "Learn how to water snake plants during winter using soil moisture, light, pot type, and indoor conditions instead of a fixed calendar."
 slug: "winter-watering-guide"
 status: "published"

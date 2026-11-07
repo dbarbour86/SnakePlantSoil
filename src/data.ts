@@ -46,7 +46,7 @@ export const STATIC_GUIDES: ContentGuide[] = [
   {
     id: "root-rot",
     title: "Snake Plant Root Rot Guide",
-    shortDescription: "How to identify, treat, and surgically recover a snake plant suffering from mushy leaves, soggy stems, or black rhizomes.",
+    shortDescription: "How to identify, treat, and recover a snake plant suffering from mushy leaves, soggy stems, or rotted roots.",
     category: "root-rot",
     readTime: "8 min read",
     iconName: "HeartPulse",
@@ -91,7 +91,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
     name: "Bonsai Jack Gritty Mix #111",
     brand: "Bonsai Jack",
     category: "soil",
-    imageUrl: "", // No verified photo asset in repository
+    imageUrl: "/bonsai-jack-gritty-mix.jpg",
     bestFor: "Best Overall / Fast Drainage",
     rating: 4.9,
     description: "Almost entirely mineral — water runs straight through, so overwatering becomes nearly impossible. The best insurance policy for your plant.",
@@ -112,7 +112,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "pH Range": "5.5 - 6.5",
       "Moisture": "Extremely low retention"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=Bonsai+Jack+Succulent+and+Cactus+Soil+Mix+Gritty+Mix+111&tag=snakeplantsoi-20"
+    affiliateUrl: "https://www.amazon.com/dp/B0194E9RW4?tag=snakeplantsoi-20"
   },
   {
     id: "hoffman-succulent",
@@ -141,7 +141,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "pH Range": "6.0 - 6.8",
       "Weight": "4.2 lbs"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=Hoffman+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20"
+    affiliateUrl: "https://www.amazon.com/dp/B006MY5KJO?tag=snakeplantsoi-20"
   },
   {
     id: "espoma-cactus",
@@ -169,12 +169,12 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "pH Range": "5.8 - 6.5",
       "Weight": "3.5 lbs"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=Espoma+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20"
+    affiliateUrl: "https://www.amazon.com/dp/B08GRQHD6J?tag=snakeplantsoi-20"
   },
   {
     id: "horticultural-sand",
     name: "Coarse Horticultural Silica Sand",
-    brand: "Perfect Plants",
+    brand: "Coarse Mineral Sand",
     category: "ammendment",
     imageUrl: "/coarse-horticultural-silica-sand.png",
     bestFor: "Adding Custom Soil Grittiness (DIY Mix)",
@@ -189,7 +189,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
        "Adds physical weight to pots",
        "Contains no plant nutrients"
     ],
-    linkText: "Check Price on Amazon",
+    linkText: "Search Coarse Sand on Amazon",
     priceEstimate: "$",
     specs: {
       "Volume": "2 Quarts",
@@ -197,7 +197,7 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
       "Grain Size": "2mm - 4mm",
       "pH": "7.0 (Inert)"
     },
-    affiliateUrl: "https://www.amazon.com/s?k=Coarse+Horticultural+Silica+Sand+Perfect+Plants&tag=snakeplantsoi-20"
+    affiliateUrl: "https://www.amazon.com/s?k=coarse+horticultural+sand+for+plants&tag=snakeplantsoi-20"
   },
   {
     id: "clay-terracotta",
@@ -240,7 +240,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     id: "miracle-gro-quality",
     question: "Is Miracle-Gro good for snake plants?",
-    answer: "Miracle-Gro Succulent & Cactus mix is a functional and highly accessible starting point. However, direct testing reveals it contains high peat levels. For the best security against rot, we recommend taking standard Miracle-Gro cactus soil and blending it with 20% coarse sand or pure pumice pebbles to increase the drainage factor.",
+    answer: "Miracle-Gro Succulent & Cactus mix is an accessible and widely available option. However, it contains relatively high peat levels that retain moisture longer. To improve drainage and help protect against rot, we recommend blending standard Miracle-Gro cactus soil with 20% coarse sand or perlite to improve aeration.",
     category: "soil"
   },
   {
@@ -258,7 +258,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     id: "root-rot-prevention-soil",
     question: "What soil formula prevents root rot?",
-    answer: "The best rot-prevention soil is a mineral-dominant formulation. Our recommended blend consists of 1/3 coarse inorganic grit (pumice, perlite, or clay chips), 1/3 coarse washed silica sand, and 1/3 clean wood-based potting compost. This ensures that even in an accidental heavy overwatering event, gravity will clear excess water from the root zone within 10 seconds, leaving the soil pleasantly humid but never oxygen-deprived.",
+    answer: "The most reliable rot-prevention soil is a well-aerated, coarse mineral blend. Our primary master recipe is the 3-2-1 mix: 3 parts standard potting soil, 2 parts perlite or pumice, and 1 part coarse horticultural sand. This creates a balanced 50% mineral pore space so excess water drains freely while roots stay oxygenated. For higher-risk setups (such as non-porous glazed pots, low light, or recovery from active rot), you can increase mineral content to an equal-parts gritty blend (⅓ soil base, ⅓ pumice/perlite, ⅓ coarse sand) or use a dedicated commercial gritty mix.",
     category: "soil"
   },
   {

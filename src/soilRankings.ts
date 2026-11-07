@@ -9,12 +9,17 @@ export interface RankedSoilProduct {
   featuredBlurb?: string;
   strength: string;
   limitation: string;
+  bestFitSummary: string;
+  considerationSummary: string;
+  cardStrengths: string;
+  cardConsiderations: string;
   imageUrl?: string;
   hasVerifiedImage: boolean;
   affiliateUrl?: string;
   isAffiliate: boolean;
   buttonLabel: string;
   tableButtonLabel: string;
+  decisionButtonLabel: string;
   rating?: number;
   priceEstimate?: '$$' | '$$$' | '$';
   baseComposition: string;
@@ -24,6 +29,16 @@ export interface RankedSoilProduct {
   specs?: Record<string, string>;
   pros?: string[];
   cons?: string[];
+}
+
+export interface DecisionGuideItem {
+  id: string;
+  productId: string;
+  icon: 'droplet' | 'sliders' | 'leaf';
+  question: string;
+  choice: string;
+  explanation: string;
+  buttonLabel: string;
 }
 
 export const SOIL_RANKINGS_DISCLOSURE =
@@ -43,13 +58,18 @@ export const RANKED_SOIL_PRODUCTS: RankedSoilProduct[] = [
       'Our #1 overall pick for fast drainage. Its gritty mineral structure allows water to pass straight through, significantly reducing the risk of stagnant moisture around rhizomes. Because it retains minimal moisture, plants in this mix require more frequent watering and periodic liquid feeding.',
     strength: 'Virtually eliminates overwatering risk',
     limitation: 'Requires more frequent watering & feeding',
-    imageUrl: undefined, // No verified photo asset in repository; do not fabricate
-    hasVerifiedImage: false,
+    bestFitSummary: 'Fast drainage',
+    considerationSummary: 'May need more frequent watering',
+    cardStrengths: 'Highly free-draining and airy, which snake plants love.',
+    cardConsiderations: 'May need more frequent watering, depending on your home environment.',
+    imageUrl: '/bonsai-jack-gritty-mix.jpg', // Verified asset in public/
+    hasVerifiedImage: true,
     affiliateUrl:
-      'https://www.amazon.com/s?k=Bonsai+Jack+Succulent+and+Cactus+Soil+Mix+Gritty+Mix+111&tag=snakeplantsoi-20',
+      'https://www.amazon.com/dp/B0194E9RW4?tag=snakeplantsoi-20',
     isAffiliate: true,
-    buttonLabel: 'Check Price on Amazon',
-    tableButtonLabel: 'Check Price',
+    buttonLabel: 'Check Price on Amazon →',
+    tableButtonLabel: 'Check Price →',
+    decisionButtonLabel: 'Get Bonsai Jack →',
     rating: 4.9,
     priceEstimate: '$$$',
     baseComposition: 'Calcined clay (Bonsai Block) & pine bark fines',
@@ -75,7 +95,7 @@ export const RANKED_SOIL_PRODUCTS: RankedSoilProduct[] = [
   {
     rank: 2,
     id: 'hoffman-succulent',
-    name: 'Organic Cactus and Succulent Soil Mix',
+    name: 'Hoffman Cactus & Succulent Mix',
     brand: 'Hoffman',
     award: 'Best for Beginners',
     badge: 'Easiest / best balanced',
@@ -83,13 +103,18 @@ export const RANKED_SOIL_PRODUCTS: RankedSoilProduct[] = [
       'Ready to use straight from the bag. The no-fuss pick for average indoor conditions — just let it dry fully between waterings.',
     strength: 'Ready to use directly from the bag',
     limitation: 'Holds more moisture — must dry completely between waterings',
+    bestFitSummary: 'A starting mix to adjust',
+    considerationSummary: 'Check moisture retention',
+    cardStrengths: 'A solid, well-draining starting mix that works for snake plants.',
+    cardConsiderations: 'Check moisture retention and adjust (e.g., with extra perlite or pumice) if needed.',
     imageUrl: '/hoffman-organic-cactus-soil-mix.png', // Verified asset in public/
     hasVerifiedImage: true,
     affiliateUrl:
-      'https://www.amazon.com/s?k=Hoffman+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20',
+      'https://www.amazon.com/dp/B006MY5KJO?tag=snakeplantsoi-20',
     isAffiliate: true,
-    buttonLabel: 'Check Price on Amazon',
-    tableButtonLabel: 'Check Price',
+    buttonLabel: 'Check Price on Amazon →',
+    tableButtonLabel: 'Check Price →',
+    decisionButtonLabel: 'Get Hoffman →',
     rating: 4.8,
     priceEstimate: '$$',
     baseComposition: 'Canadian sphagnum peat moss & reed sedge peat',
@@ -115,7 +140,7 @@ export const RANKED_SOIL_PRODUCTS: RankedSoilProduct[] = [
   {
     rank: 3,
     id: 'espoma-cactus',
-    name: 'Organic Cactus & Succulent Mix',
+    name: 'Espoma Cactus Mix',
     brand: 'Espoma',
     award: 'Best Organic Option',
     badge: 'Best organic',
@@ -123,13 +148,18 @@ export const RANKED_SOIL_PRODUCTS: RankedSoilProduct[] = [
       "The organic gardener's pick — active Myco-tone fungi boost root growth. Keep a strict dry-out routine and it performs beautifully.",
     strength: 'Myco-tone fungi promote root expansion',
     limitation: 'Peat humus holds moisture — strict watering checks needed',
+    bestFitSummary: 'Organic option',
+    considerationSummary: 'Adjust for your conditions',
+    cardStrengths: 'An organic option with a light, well-draining texture.',
+    cardConsiderations: 'You may want to adjust the mix for your specific conditions and watering routine.',
     imageUrl: '/espoma-organic-cactus-soil-mix.png', // Verified asset in public/
     hasVerifiedImage: true,
     affiliateUrl:
-      'https://www.amazon.com/s?k=Espoma+Organic+Cactus+and+Succulent+Soil+Mix&tag=snakeplantsoi-20',
+      'https://www.amazon.com/dp/B08GRQHD6J?tag=snakeplantsoi-20',
     isAffiliate: true,
-    buttonLabel: 'Check Price on Amazon',
-    tableButtonLabel: 'Check Price',
+    buttonLabel: 'Check Price on Amazon →',
+    tableButtonLabel: 'Check Price →',
+    decisionButtonLabel: 'Get Espoma →',
     rating: 4.7,
     priceEstimate: '$',
     baseComposition: 'Peat humus, sphagnum peat & aged forest products',
@@ -154,21 +184,33 @@ export const RANKED_SOIL_PRODUCTS: RankedSoilProduct[] = [
   }
 ];
 
-export const DECISION_GUIDE = [
+export const DECISION_GUIDE: DecisionGuideItem[] = [
   {
-    question: 'Do you overwater?',
+    id: 'faster-drainage',
+    productId: 'bonsai-jack-gritty',
+    icon: 'droplet',
+    question: 'Want faster drainage?',
     choice: '#1 Bonsai Jack',
-    explanation: 'Almost purely mineral so water runs straight through. Forgives heavy hands.'
+    explanation: 'Choose a gritty, highly airy mix that helps prevent overwatering.',
+    buttonLabel: 'Get Bonsai Jack →'
   },
   {
-    question: 'Want the easiest option?',
+    id: 'adjustable-start',
+    productId: 'hoffman-succulent',
+    icon: 'sliders',
+    question: 'Prefer an adjustable starting mix?',
     choice: '#2 Hoffman',
-    explanation: 'Ready to use out of the bag. Open bag, pot plant, done.'
+    explanation: 'Go with a versatile mix you can tweak to fit your home and routine.',
+    buttonLabel: 'Get Hoffman →'
   },
   {
-    question: 'Prefer organic?',
+    id: 'organic-option',
+    productId: 'espoma-cactus',
+    icon: 'leaf',
+    question: 'Looking for an organic option?',
     choice: '#3 Espoma',
-    explanation: 'Enriched with Myco-tone beneficial fungi. Just respect the dry periods.'
+    explanation: 'Pick an organic, well-draining mix with a light, natural texture.',
+    buttonLabel: 'Get Espoma →'
   }
 ];
 

@@ -107,8 +107,8 @@ export default function LeadMagnet({ onNavigate }: LeadMagnetProps = {}) {
 [Light Exposure]: ${light.toUpperCase()} (Computed Interval)
 [Pot Media type]: ${container.toUpperCase()}
 [Watering Rule]: Every ${daysInterval} Days (Soak & Dry Cycle)
-[Greenhouse Risk]: ${prescription.risk}
-[Botanist Advisory]: ${prescription.advice}
+[Drainage Risk Level]: ${prescription.risk}
+[Care Recommendation]: ${prescription.advice}
 ------------------------------------------------
    Generate your own at SnakePlantSoil.com
 ------------------------------------------------`;
@@ -379,7 +379,7 @@ export default function LeadMagnet({ onNavigate }: LeadMagnetProps = {}) {
                     </div>
 
                     <div>
-                      <span className="font-semibold text-[#6B7C70] uppercase tracking-widest text-[9px] block">Rhizome Disease risk</span>
+                      <span className="font-semibold text-[#6B7C70] uppercase tracking-widest text-[9px] block">Drainage & Moisture Risk</span>
                       <span className={`inline-block px-2 py-0.5 rounded font-mono font-bold text-[11px] mt-1.5 ${prescription.riskColor}`}>
                         {prescription.risk}
                       </span>
@@ -406,7 +406,7 @@ export default function LeadMagnet({ onNavigate }: LeadMagnetProps = {}) {
 
                   {/* Detailed Advisory */}
                   <div className="py-4 space-y-1 text-xs border-b border-[#E8E2D5]">
-                    <span className="font-semibold text-[#6B7C70] uppercase tracking-widest text-[9px] block">Custom Botanical Formulation Note</span>
+                    <span className="font-semibold text-[#6B7C70] uppercase tracking-widest text-[9px] block">Soil & Care Note</span>
                     <p className="text-[#2B3B30] leading-relaxed font-serif italic text-xs pl-3 border-l-2 border-[#235837]">
                       "{prescription.advice}"
                     </p>
@@ -414,7 +414,7 @@ export default function LeadMagnet({ onNavigate }: LeadMagnetProps = {}) {
 
                   {/* Footer specs */}
                   <div className="pt-4 flex items-center justify-between text-[10px] text-[#6B7C70] font-mono">
-                    <span>Authorized Care Record #SPS-{Math.floor(Math.random() * 900000 + 100000)}</span>
+                    <span>Care Reference ID: SPS-{Math.floor(Math.random() * 900000 + 100000)}</span>
                     <span className="text-[#235837] font-bold">SnakePlantSoil.com</span>
                   </div>
 

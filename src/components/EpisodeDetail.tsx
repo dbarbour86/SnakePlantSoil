@@ -4,25 +4,57 @@ import {
   Share2, Check, Copy, BookOpen, Volume2, Beaker, HeartPulse, Trees,
   Sparkles, FileText, ChevronDown, ChevronUp
 } from 'lucide-react';
-import { Episode, getEpisodes, hasValidSpotify } from '../episodes';
+import { Episode, getEpisodes, hasValidSpotify, decodeHtmlEntities } from '../episodes';
 
 interface EpisodeDetailProps {
   episode: Episode;
   onNavigate: (tab: string) => void;
 }
 
+const GUIDE_TITLES: Record<string, string> = {
+  '/best-snake-plant-soil': "The 3 Best Soils for Snake Plants: Buyer's Guide",
+  '/diy-snake-plant-soil-mix': "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio)",
+  '/snake-plant-root-rot-guide': "Snake Plant Root Rot: Symptoms, Treatment & Recovery Guide",
+  '/best-pots-for-snake-plants': "Best Pots for Snake Plants: Sizing, Material & Drainage",
+  '/snake-plant-care-guide': "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
+  '/soil-diagnosis': "Snake Plant Soil Diagnosis & Fit Check",
+  '/best-fertilizer-for-snake-plant-soil': "Best Fertilizer for Snake Plants",
+  '/winter-watering-guide': "Winter Watering Guide for Snake Plants",
+  '/care-card': "Printable Snake Plant Care Card Generator",
+  '/radio': "Snake Plant Radio Hub"
+};
+
+function getReadableGuideTitle(url: string, currentLabel?: string): string {
+  let pathname = url;
+  try {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      pathname = new URL(url).pathname;
+    }
+  } catch (e) {}
+  const clean = pathname.replace(/\/$/, '');
+  if (GUIDE_TITLES[clean]) {
+    if (!currentLabel || currentLabel === url || currentLabel === pathname || currentLabel.startsWith('http')) {
+      return GUIDE_TITLES[clean];
+    }
+    return currentLabel;
+  }
+  return currentLabel || url;
+}
+
 // Helper to parse inline markdown styles like links ([text](url)), bold (**text**), italics (*text*), and code (`code`)
 function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): React.ReactNode {
+  const decodedText = decodeHtmlEntities(text);
   const regex = /(\[.*?\]\(.*?\)|\*\*.*?\*\*|\*.*?\*|`.*?`)/g;
-  const parts = text.split(regex);
+  const parts = decodedText.split(regex);
   
   return parts.map((part, idx) => {
     if (part.startsWith('[') && part.includes('](') && part.endsWith(')')) {
       const match = part.match(/^\[(.*?)\]\((.*?)\)$/);
       if (match) {
-        const linkText = match[1];
+        const rawLinkText = decodeHtmlEntities(match[1]);
         const linkUrl = match[2];
-        const isExternal = /^https?:\/\//i.test(linkUrl);
+        const displayTitle = getReadableGuideTitle(linkUrl, rawLinkText);
+        const isExternal = /^https?:\/\//i.test(linkUrl) && !/^https?:\/\/(?:www\.)?snakeplantsoil\.com/i.test(linkUrl);
         
         if (isExternal) {
           return (
@@ -33,15 +65,22 @@ function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): Re
               rel="noopener noreferrer" 
               className="text-[#235837] font-bold underline hover:text-[#142B1E] transition-colors"
             >
-              {parseInlineStyles(linkText, onNavigate)}
+              {parseInlineStyles(displayTitle, onNavigate)}
             </a>
           );
         } else {
-          const cleanSlug = linkUrl.replace(/^\//, '');
+          let internalSlug = linkUrl;
+          try {
+            if (/^https?:\/\//i.test(linkUrl)) {
+              internalSlug = new URL(linkUrl).pathname;
+            }
+          } catch (e) {}
+          const cleanSlug = internalSlug.replace(/^\//, '');
+
           return (
             <a
               key={idx}
-              href={linkUrl}
+              href={`/${cleanSlug}`}
               onClick={(e) => {
                 if (onNavigate) {
                   e.preventDefault();
@@ -50,7 +89,7 @@ function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): Re
               }}
               className="text-[#235837] font-bold underline hover:text-[#142B1E] transition-colors cursor-pointer"
             >
-              {parseInlineStyles(linkText, onNavigate)}
+              {parseInlineStyles(displayTitle, onNavigate)}
             </a>
           );
         }
@@ -65,13 +104,80 @@ function parseInlineStyles(text: string, onNavigate?: (tab: string) => void): Re
     if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
       return <code key={idx} className="font-mono bg-[#F3EFE6] px-1.5 py-0.5 rounded text-[#142B1E] text-[11px] font-semibold border border-[#E8E2D5]">{part.slice(1, -1)}</code>;
     }
+
+    // Bare text: check for bare URLs like https://snakeplantsoil.com/...
+    if (part.includes('http://') || part.includes('https://')) {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const subParts = part.split(urlRegex);
+      return (
+        <React.Fragment key={idx}>
+          {subParts.map((sub, sIdx) => {
+            if (/^https?:\/\//i.test(sub)) {
+              const displayTitle = getReadableGuideTitle(sub);
+              const isInternal = /^https?:\/\/(?:www\.)?snakeplantsoil\.com/i.test(sub);
+              let cleanSlug = '';
+              if (isInternal) {
+                try {
+                  cleanSlug = new URL(sub).pathname.replace(/^\//, '');
+                } catch (e) {}
+              }
+              if (isInternal && onNavigate) {
+                return (
+                  <a
+                    key={sIdx}
+                    href={`/${cleanSlug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate(cleanSlug);
+                    }}
+                    className="text-[#235837] font-bold underline hover:text-[#142B1E] transition-colors cursor-pointer"
+                  >
+                    {displayTitle}
+                  </a>
+                );
+              }
+              return (
+                <a
+                  key={sIdx}
+                  href={sub}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E] transition-colors"
+                >
+                  {displayTitle}
+                </a>
+              );
+            }
+            return sub;
+          })}
+        </React.Fragment>
+      );
+    }
+
     return part;
   });
 }
 
+function getSubstantiveContent(content: string | undefined): string {
+  if (!content) return '';
+  return content
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/&lt;!--[\s\S]*?--&gt;/gi, '')
+    .replace(/-?\s*Broadcast audio streamed directly via native audio player\.?/gi, '')
+    .replace(/-?\s*Published on Snake Plant Radio\.?/gi, '')
+    .replace(/^#\s+.*$/gm, '')
+    .replace(/^##\s+(?:Episode (?:Notes|Overview)(?: &| and)? (?:Key Takeaways)?|Key Takeaways)\s*$/gmi, '')
+    .replace(/---/g, '')
+    .trim();
+}
+
 // Markdown formatter helper
 function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => void) {
-  const lines = content.split(/\r?\n/);
+  const cleanContent = decodeHtmlEntities(content)
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/&lt;!--[\s\S]*?--&gt;/gi, '');
+
+  const lines = cleanContent.split(/\r?\n/);
   const elements: React.ReactNode[] = [];
   let inList = false;
   let listItems: React.ReactNode[] = [];
@@ -91,15 +197,56 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
   lines.forEach((line, index) => {
     const trimmed = line.trim();
 
-    // Horizontal rule
-    if (trimmed === '---') {
+    // Skip empty lines
+    if (!trimmed) {
       flushList(`list-${index}`);
-      elements.push(<hr key={index} className="my-8 border-[#E8E2D5]" />);
+      return;
+    }
+
+    // Skip HTML comments and escaped developer instructions
+    if (trimmed.startsWith('<!--') || trimmed.endsWith('-->') || trimmed.includes('<!--') || trimmed.includes('&lt;!--')) {
       return;
     }
 
     // Skip the first H1 if present since we render it prominently in the header
     if (trimmed.startsWith('# ') && index < 5) {
+      return;
+    }
+
+    // Suppress duplicate Episode Notes/Overview & Key Takeaways H2 headings
+    if (trimmed.startsWith('## ')) {
+      const headingText = trimmed.replace(/^##\s*/, '').trim();
+      if (/^(episode\s+(notes|overview)(\s*&|\s+and)?\s*(key\s+takeaways)?|key\s+takeaways)$/i.test(headingText)) {
+        flushList(`list-${index}`);
+        return;
+      }
+    }
+
+    // Filter out generated placeholder bullets
+    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      const rawText = trimmed.replace(/^[-*]\s*/, '').trim();
+      if (
+        rawText.includes('Broadcast audio streamed directly via native audio player') ||
+        rawText.includes('Published on Snake Plant Radio')
+      ) {
+        return;
+      }
+      inList = true;
+      listItems.push(
+        <li key={index} className="text-[#4D5D53] text-sm sm:text-base leading-relaxed">
+          {parseInlineStyles(rawText, onNavigate)}
+        </li>
+      );
+      return;
+    }
+
+    // Horizontal rule
+    if (trimmed === '---') {
+      flushList(`list-${index}`);
+      if (elements.length > 0 && (elements[elements.length - 1] as any)?.type === 'hr') {
+        return;
+      }
+      elements.push(<hr key={index} className="my-8 border-[#E8E2D5]" />);
       return;
     }
 
@@ -148,24 +295,6 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
       return;
     }
 
-    // List item (unordered)
-    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-      inList = true;
-      const rawText = trimmed.replace(/^[-*]\s*/, '');
-      listItems.push(
-        <li key={index} className="text-[#4D5D53] text-sm sm:text-base leading-relaxed">
-          {parseInlineStyles(rawText, onNavigate)}
-        </li>
-      );
-      return;
-    }
-
-    // Empty lines
-    if (!trimmed) {
-      flushList(`list-${index}`);
-      return;
-    }
-
     // Regular paragraph
     flushList(`list-${index}`);
     elements.push(
@@ -176,6 +305,15 @@ function renderEpisodeMarkdown(content: string, onNavigate: (tab: string) => voi
   });
 
   flushList('list-end');
+
+  // Clean up any leading/trailing hr elements
+  while (elements.length > 0 && (elements[0] as any)?.type === 'hr') {
+    elements.shift();
+  }
+  while (elements.length > 0 && (elements[elements.length - 1] as any)?.type === 'hr') {
+    elements.pop();
+  }
+
   return elements;
 }
 
@@ -197,6 +335,8 @@ export default function EpisodeDetail({ episode, onNavigate }: EpisodeDetailProp
   };
 
   const hasTranscript = /##\s+.*transcript/i.test(episode.content || '');
+  const substantiveContent = getSubstantiveContent(episode.content);
+  const hasSubstantiveNotes = substantiveContent.length > 0;
 
   return (
     <article className="bg-[#FAF7F2] min-h-screen py-10 md:py-16 font-sans" id={`episode-page-${episode.slug}`}>
@@ -336,7 +476,7 @@ export default function EpisodeDetail({ episode, onNavigate }: EpisodeDetailProp
               Master Guides Referencing This Topic
             </h3>
             <p className="text-[#4D5D53] text-xs sm:text-sm">
-              Explore step-by-step written tutorials, material ratios, and surgical instructions corresponding to this episode's discussion:
+              Explore step-by-step written guides, soil recipes, and recovery tutorials corresponding to this episode's discussion:
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
@@ -346,7 +486,7 @@ export default function EpisodeDetail({ episode, onNavigate }: EpisodeDetailProp
               >
                 <HeartPulse className="w-4 h-4 text-[#235837] mb-2" />
                 <div className="text-xs font-bold text-[#142B1E]">Root Rot Triage</div>
-                <div className="text-[11px] text-[#5C6E60] mt-0.5">Surgical recovery protocol</div>
+                <div className="text-[11px] text-[#5C6E60] mt-0.5">Root rot recovery steps</div>
               </button>
 
               <button
@@ -371,33 +511,29 @@ export default function EpisodeDetail({ episode, onNavigate }: EpisodeDetailProp
         )}
 
         {/* Show Notes & Transcript Body */}
-        <section className="bg-white rounded-2xl border border-[#E8E2D5] p-6 sm:p-10 shadow-xs space-y-6" id="show-notes-content">
-          <div className="flex items-center justify-between border-b border-[#F0EBE1] pb-4">
-            <h2 className="text-xl font-serif font-bold text-[#142B1E] flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#235837]" />
-              <span>{hasTranscript ? 'Show Notes & Full Transcript' : 'Episode Notes & Key Takeaways'}</span>
-            </h2>
-            <button
-              onClick={() => setTranscriptOpen(!transcriptOpen)}
-              className="text-xs font-mono font-bold text-[#5C6E60] hover:text-[#142B1E] flex items-center gap-1 cursor-pointer transition-colors"
-            >
-              <span>{transcriptOpen ? 'Collapse' : 'Expand'}</span>
-              {transcriptOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            </button>
-          </div>
-
-          {transcriptOpen && (
-            <div className="prose prose-stone max-w-none text-[#4D5D53]">
-              {episode.content && episode.content.trim() ? (
-                renderEpisodeMarkdown(episode.content, onNavigate)
-              ) : (
-                <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-xl p-6 text-[#5C6E60] text-sm italic">
-                  Show notes, botanical formulas, and companion reading for this broadcast are being finalized and will appear here shortly.
-                </div>
-              )}
+        {hasSubstantiveNotes && (
+          <section className="bg-white rounded-2xl border border-[#E8E2D5] p-6 sm:p-10 shadow-xs space-y-6" id="show-notes-content">
+            <div className="flex items-center justify-between border-b border-[#F0EBE1] pb-4">
+              <h2 className="text-xl font-serif font-bold text-[#142B1E] flex items-center gap-2">
+                <FileText className="w-5 h-5 text-[#235837]" />
+                <span>{hasTranscript ? 'Show Notes & Full Transcript' : 'Episode Notes & Key Takeaways'}</span>
+              </h2>
+              <button
+                onClick={() => setTranscriptOpen(!transcriptOpen)}
+                className="text-xs font-mono font-bold text-[#5C6E60] hover:text-[#142B1E] flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <span>{transcriptOpen ? 'Collapse' : 'Expand'}</span>
+                {transcriptOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
             </div>
-          )}
-        </section>
+
+            {transcriptOpen && (
+              <div className="prose prose-stone max-w-none text-[#4D5D53]">
+                {renderEpisodeMarkdown(episode.content, onNavigate)}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Episode Pagination */}
         <nav className="flex items-center justify-between pt-6 border-t border-[#E8E2D5]" aria-label="Episode Navigation">

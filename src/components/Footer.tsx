@@ -58,7 +58,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
           {/* Quick Sitemap Links */}
           <div className="md:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-stone-100">
-              Authority Resources
+              Care Guides & Tools
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -170,7 +170,24 @@ export default function Footer({ setActiveTab }: FooterProps) {
             <span>© {new Date().getFullYear()} SnakePlantSoil.com. All rights reserved.</span>
           </div>
           <div className="flex gap-4">
-            <a href="#affiliate-disclaimer" className="hover:underline hover:text-stone-200">Affiliate Disclosure</a>
+            <a 
+              href="/about#affiliate-disclosure" 
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('about');
+                if (typeof window !== 'undefined') {
+                  window.history.pushState({ tab: 'about' }, '', '/about#affiliate-disclosure');
+                  setTimeout(() => {
+                    const el = document.getElementById('affiliate-disclosure');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 120);
+                }
+              }}
+              className="hover:underline hover:text-stone-200 cursor-pointer"
+              id="footer-affiliate-disclosure-link"
+            >
+              Affiliate Disclosure
+            </a>
           </div>
         </div>
 

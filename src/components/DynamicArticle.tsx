@@ -200,7 +200,7 @@ export default function DynamicArticleView({ article, onNavigate }: DynamicArtic
       title: 'Choose the right soil',
       description: 'See what makes a great commercial succulent soil and compare top-ranked mixes.',
       tabId: 'best-soil',
-      image: '/gritty-mix.jpg'
+      image: '/soil-mound.jpg'
     },
     {
       title: 'Make your own mix',

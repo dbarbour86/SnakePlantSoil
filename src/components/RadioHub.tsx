@@ -38,7 +38,7 @@ export default function RadioHub({ onNavigate }: RadioHubProps) {
         <header className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-[#E2EFE5] text-[#235837] border border-[#C2DEC9] max-w-full">
             <Radio className="w-3.5 h-3.5 text-[#235837] animate-pulse shrink-0" />
-            <span className="text-[11px] sm:text-xs">The Official Snake Plant Soil Lab Podcast</span>
+            <span className="text-[11px] sm:text-xs">The Snake Plant Care Podcast</span>
           </div>
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-[#142B1E] tracking-tight leading-[1.15]" id="radio-hub-h1">
@@ -46,8 +46,8 @@ export default function RadioHub({ onNavigate }: RadioHubProps) {
           </h1>
           
           <p className="text-[#4D5D53] text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-sans">
-            Zero plant-care fluff. Weekly botanical deep dives into soil physics, root oxygenation, 
-            container transpiration, and genuine Sansevieria survival science.
+            Practical discussions on soil drainage, root aeration, container choices, 
+            and straightforward care to keep your snake plants thriving.
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3">
@@ -247,14 +247,14 @@ export default function RadioHub({ onNavigate }: RadioHubProps) {
         <section className="bg-[#E2EFE5]/40 border border-[#C2DEC9] rounded-2xl p-6 sm:p-8 space-y-4" id="radio-guides-crosslink">
           <div className="max-w-2xl">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#235837] bg-white px-2.5 py-1 rounded border border-[#C2DEC9]">
-              Laboratory Reading Companion
+              Recommended Care Guides
             </span>
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#142B1E] mt-2">
               Follow Along With Our Master Written Guides
             </h3>
             <p className="text-[#4D5D53] text-xs sm:text-sm mt-1">
-              Every Snake Plant Radio episode references specific ratios, diagnostic steps, and materials tests. 
-              Review the complete written manuals:
+              Every Snake Plant Radio episode connects with practical recipes and care steps. 
+              Review the companion guides:
             </p>
           </div>
 
@@ -274,7 +274,7 @@ export default function RadioHub({ onNavigate }: RadioHubProps) {
             >
               <HeartPulse className="w-4 h-4 text-[#235837] mb-2" />
               <div className="text-xs font-bold text-[#142B1E]">Root Rot Triage</div>
-              <div className="text-[11px] text-[#5C6E60] mt-0.5">Surgical sterilization protocol</div>
+              <div className="text-[11px] text-[#5C6E60] mt-0.5">Root rot recovery steps</div>
             </button>
 
             <button

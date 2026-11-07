@@ -213,7 +213,7 @@ setTimeout(async () => {
 
       // Assert page-specific body content/H1/H2 exist in raw HTML (proving static prerendering worked!)
       if (route === '/') {
-        if (!html.includes('The Complete Guide to Snake Plant Care')) {
+        if (!html.includes('Find the Right Soil for Your Snake Plant')) {
           cleanupAndExit(1, `Homepage is missing updated H1 hero text in raw HTML.`);
         }
       } else if (route === '/soil-diagnosis') {
@@ -221,11 +221,11 @@ setTimeout(async () => {
           cleanupAndExit(1, `Soil diagnosis page is missing H3 title in raw HTML.`);
         }
       } else if (route === '/about') {
-        if (!html.includes('About Snake Plant Soil Lab')) {
+        if (!html.includes('About SnakePlantSoil.com')) {
           cleanupAndExit(1, `About page is missing H2 title in raw HTML.`);
         }
       } else if (route === '/faq') {
-        if (!html.includes('Exhaustive Botanical Knowledgebase')) {
+        if (!html.includes('Snake Plant Questions')) {
           cleanupAndExit(1, `FAQ page is missing header text in raw HTML.`);
         }
       } else if (route === '/best-snake-plant-soil') {

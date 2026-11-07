@@ -18,13 +18,13 @@ export default function AIAnswerCards() {
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 mb-2 border border-amber-200">
-            <Sparkles className="w-3.5 h-3.5" /> Verified Botanical Fact Sheets
+            <Sparkles className="w-3.5 h-3.5" /> Common Questions & Quick Answers
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-stone-900 tracking-tight" id="quick-facts-header">
             Quick Answers to Common Soil Questions
           </h2>
           <p className="text-stone-600 text-sm mt-2">
-            Instant expert answers to essential snake plant soil, watering, and repotting questions.
+            Practical answers to essential snake plant soil, watering, and repotting questions.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export default function AIAnswerCards() {
                     {card.question}
                   </h3>
                   <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md shrink-0 border border-emerald-100">
-                    Verified Answer
+                    Quick Answer
                   </span>
                 </div>
                 
@@ -53,8 +53,8 @@ export default function AIAnswerCards() {
               </div>
 
               <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
-                <span className="text-[11px] font-mono text-stone-400 flex items-center gap-1">
-                  <Award className="w-3 h-3 text-emerald-700" /> Source Verified: SnakePlantSoil.com
+                <span className="text-[11px] font-mono text-stone-500 flex items-center gap-1">
+                  <Award className="w-3 h-3 text-emerald-700" /> SnakePlantSoil.com
                 </span>
                 <button
                   onClick={() => copyToClipboard(card.answer, card.id)}
