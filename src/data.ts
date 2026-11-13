@@ -36,8 +36,8 @@ export const STATIC_GUIDES: ContentGuide[] = [
   },
   {
     id: "diy-mix",
-    title: "DIY Snake Plant Soil Mix Recipe",
-    shortDescription: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix.",
+    title: "DIY Snake Plant Soil Mix: The 3-2-1 Recipe & Ratio Guide",
+    shortDescription: "Make DIY snake plant soil with a simple 3-2-1 mix: 3 parts potting soil, 2 parts perlite, and 1 part coarse sand. Includes measurements and mixing tips.",
     category: "soil",
     readTime: "7 min read",
     iconName: "Beaker",
@@ -278,7 +278,7 @@ export const DEFAULT_INGREDIENTS: SoilIngredient[] = [
     baseRetention: 9,
     baseAeration: 3,
     purpose: "Provides natural humic nutrition & secure physical root grip.",
-    percentage: 40
+    percentage: 50
   },
   {
     id: "perlite",
@@ -288,7 +288,7 @@ export const DEFAULT_INGREDIENTS: SoilIngredient[] = [
     baseRetention: 1,
     baseAeration: 10,
     purpose: "Instantly creates air pocket voids preventing compaction.",
-    percentage: 30
+    percentage: 33
   },
   {
     id: "coarse-sand",
@@ -298,7 +298,7 @@ export const DEFAULT_INGREDIENTS: SoilIngredient[] = [
     baseRetention: 2,
     baseAeration: 6,
     purpose: "Adds quick gravity flow and helpful structural weight.",
-    percentage: 20
+    percentage: 17
   },
   {
     id: "pumice",
@@ -308,6 +308,6 @@ export const DEFAULT_INGREDIENTS: SoilIngredient[] = [
     baseRetention: 3,
     baseAeration: 9,
     purpose: "The gold-standard mineral for long-term grit structure.",
-    percentage: 10
+    percentage: 0
   }
 ];

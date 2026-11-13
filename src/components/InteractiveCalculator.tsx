@@ -55,10 +55,10 @@ export default function InteractiveCalculator() {
     setPreset(presetName);
     if (presetName === 'recommended') {
       setIngredients([
-        { ...DEFAULT_INGREDIENTS[0], percentage: 35 }, // compost
-        { ...DEFAULT_INGREDIENTS[1], percentage: 30 }, // perlite
-        { ...DEFAULT_INGREDIENTS[2], percentage: 20 }, // coarse sand
-        { ...DEFAULT_INGREDIENTS[3], percentage: 15 }  // pumice
+        { ...DEFAULT_INGREDIENTS[0], percentage: 50 }, // standard soil / compost (50%)
+        { ...DEFAULT_INGREDIENTS[1], percentage: 33 }, // perlite (33%)
+        { ...DEFAULT_INGREDIENTS[2], percentage: 17 }, // coarse sand (17%)
+        { ...DEFAULT_INGREDIENTS[3], percentage: 0 }   // pumice (0% in default 3-2-1)
       ]);
     } else if (presetName === 'generic') {
       setIngredients([
@@ -69,9 +69,9 @@ export default function InteractiveCalculator() {
       ]);
     } else if (presetName === 'desert') {
       setIngredients([
-        { ...DEFAULT_INGREDIENTS[0], percentage: 20 }, // compost
+        { ...DEFAULT_INGREDIENTS[0], percentage: 25 }, // compost
         { ...DEFAULT_INGREDIENTS[1], percentage: 30 }, // perlite
-        { ...DEFAULT_INGREDIENTS[2], percentage: 30 }, // sand
+        { ...DEFAULT_INGREDIENTS[2], percentage: 25 }, // sand
         { ...DEFAULT_INGREDIENTS[3], percentage: 20 }  // pumice
       ]);
     } else if (presetName === 'lethal') {
@@ -101,26 +101,26 @@ export default function InteractiveCalculator() {
   const retentionScore = Math.min(100, Math.max(0, Math.round(rawRetention * 10)));
   const aerationScore = Math.min(100, Math.max(0, Math.round(rawAeration * 10)));
 
-  // Calculate Root Rot Risk
-  // Ideal range drainage: 60 - 85. Ideal range retention: 20 - 45. Aeration: 60 - 90
-  let rotRisk = "Moderate";
-  let rotColor = "text-amber-600 bg-amber-50 border-amber-200";
-  let rotLevel = 50;
+  // Calculate Illustrative Dry-Down Profile
+  // Ideal range drainage: 50 - 85. Ideal range retention: 20 - 45. Aeration: 50 - 90
+  let rotRisk = "Balanced Dry-Down (Optimal)";
+  let rotColor = "text-emerald-700 bg-emerald-50 border-emerald-200";
+  let rotLevel = 10;
 
   if (drainageScore < 40) {
-    rotRisk = "CRITICAL / SEVERE RISK";
+    rotRisk = "High Moisture Retention";
     rotColor = "text-rose-700 bg-rose-50 border-rose-200";
     rotLevel = 95;
-  } else if (drainageScore < 55) {
-    rotRisk = "Elevated Risk";
+  } else if (drainageScore < 50) {
+    rotRisk = "Elevated Moisture Retention";
     rotColor = "text-orange-600 bg-orange-50 border-orange-200";
     rotLevel = 70;
   } else if (drainageScore > 85) {
-    rotRisk = "Drought Zone (Too dry for growth)";
+    rotRisk = "Rapid Drainage (Low Retention)";
     rotColor = "text-teal-700 bg-teal-50 border-teal-200";
     rotLevel = 15;
   } else {
-    rotRisk = "Perfect Dry-Down (Optimal)";
+    rotRisk = "Balanced Dry-Down (Optimal)";
     rotColor = "text-emerald-700 bg-emerald-50 border-emerald-200";
     rotLevel = 10;
   }
@@ -137,7 +137,7 @@ export default function InteractiveCalculator() {
               Interactive Soil Mix & Drainage Diagnostic Simulator
             </h3>
             <p className="text-stone-500 text-sm mt-0.5">
-              Simulate soil ingredient percentages to evaluate structural drainage scores & root rot risks instantly.
+              Simulate soil ingredient percentages to evaluate illustrative drainage scores & dry-down estimates.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -150,7 +150,7 @@ export default function InteractiveCalculator() {
               }`}
               id="preset-recommended-btn"
             >
-              Our Recommended Mix
+              3-2-1 Mix (Recommended)
             </button>
             <button
               onClick={() => applyPreset('generic')}
@@ -172,7 +172,7 @@ export default function InteractiveCalculator() {
               }`}
               id="preset-ultra-sandy-btn"
             >
-              Super Desert Mix
+              High-Grit Desert Mix
             </button>
             <button
               onClick={() => applyPreset('lethal')}
@@ -183,7 +183,7 @@ export default function InteractiveCalculator() {
               }`}
               id="preset-lethal-btn"
             >
-              Standard Potting Soil
+              Unamended Potting Soil
             </button>
           </div>
         </div>
@@ -262,7 +262,7 @@ export default function InteractiveCalculator() {
 
           <div className="pt-2">
             <div className="flex items-center justify-between text-xs text-stone-500 bg-stone-100/50 rounded-lg p-3">
-              <span>💡 Try selecting the <strong>"Standard Potting Soil"</strong> preset to discover why standard bags trap moisture and invite harmful fungal rot.</span>
+              <span>💡 Try selecting the <strong>"Unamended Potting Soil"</strong> preset to discover why standard bags trap moisture and invite harmful fungal rot.</span>
               <button 
                 onClick={() => applyPreset('recommended')}
                 className="text-emerald-800 font-bold hover:underline ml-2 shrink-0 flex items-center gap-1"
@@ -342,17 +342,20 @@ export default function InteractiveCalculator() {
               <div className="flex gap-2.5 items-start">
                 <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
                 <div>
-                  <h5 className="font-bold text-stone-900 mb-0.5">Root Rot Risk Index: {rotRisk}</h5>
+                  <h5 className="font-bold text-stone-900 mb-0.5">Estimated Dry-Down Profile: {rotRisk}</h5>
                   <p className="text-stone-700 text-xs leading-relaxed">
                     {drainageScore < 40 ? (
-                      "Critical danger! This mix holds anaerobic water endlessly. Without modification, stagnant gravity-water will cause the delicate storage roots of your snake plant to fail within 2 to 3 weeks."
-                    ) : drainageScore < 55 ? (
-                      "Sub-optimal. While survival is possible with strict drying intervals, this soil easily compacts, reducing the safety margin for accidental overwatering during cold winters."
+                      "High moisture retention estimate. Substrates dominated by dense organic compost hold water significantly longer, requiring very careful watering intervals to prevent anaerobic conditions around snake plant roots."
+                    ) : drainageScore < 50 ? (
+                      "Moderate moisture retention estimate. While usable in warm, high-light environments, this mix retains moisture longer than high-grit formulas and offers less margin for error during cool winter dormancy."
                     ) : drainageScore > 85 ? (
-                      "Hyper-sandy. Though rot is virtually impossible, this soil may drain too rapidly to hold any basic nutrients. You'll need to water slightly more frequently during fast spring growth."
+                      "Very rapid drainage estimate. Water flows through quickly with minimal retention, which virtually eliminates overwatering risk but may require more frequent watering during active summer growth."
                     ) : (
-                      "Absolute perfection! Excess water escapes instantly but organic pores retain just enough trace ambient moisture. Highly cited as the ultimate ratio to assure root respiration and heavy foliage growth."
+                      "Balanced dry-down estimate. Blends with roughly 50% coarse mineral aggregate provide macroscopic air channels that allow gravity water to escape rapidly while retaining adequate baseline hydration."
                     )}
+                  </p>
+                  <p className="text-[10px] text-stone-500 italic mt-2 mb-0">
+                    *Illustrative estimate based on component ratios. Actual dry-down times depend on environmental conditions, pot material, light levels, and watering frequency.
                   </p>
                 </div>
               </div>
@@ -424,7 +427,7 @@ export default function InteractiveCalculator() {
                     <div className="pt-2 border-t border-emerald-100/80">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-mono text-stone-500">
-                          Price: <strong className="text-stone-800">{recommendedBrand.priceEstimate}</strong>
+                          Commercial alternative
                         </span>
                         <a
                           href={recommendedBrand.affiliateUrl}
@@ -448,14 +451,14 @@ export default function InteractiveCalculator() {
           </div>
 
           <div className="border-t border-stone-200 pt-4 mt-6">
-            <h5 className="text-xs font-bold text-stone-700 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-              <Award className="w-3.5 h-3.5 text-amber-500" /> Botanical Citation Specs
+            <h5 className="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-sans">
+              <Sparkles className="w-3.5 h-3.5 text-[#235837]" /> Current Formula Breakdown
             </h5>
             <div className="grid grid-cols-2 gap-2 text-xs font-mono text-stone-650 bg-stone-100 p-2.5 rounded-lg border border-stone-200">
-              <div>• Sand-Mineral: <span className="font-bold text-stone-800">{Math.round(ingredients[2].percentage + ingredients[3].percentage)}%</span></div>
-              <div>• Organic Peat: <span className="font-bold text-stone-800">{Math.round(ingredients[0].percentage)}%</span></div>
-              <div>• Recommended Gaps: <span className="font-bold text-stone-800">2-3 yrs</span></div>
-              <div>• Optimal pH Base: <span className="font-bold text-stone-800">6.0-6.8</span></div>
+              <div>• Total Minerals: <span className="font-bold text-stone-800">{Math.round(ingredients[1].percentage + ingredients[2].percentage + ingredients[3].percentage)}%</span></div>
+              <div>• Organic Base: <span className="font-bold text-stone-800">{Math.round(ingredients[0].percentage)}%</span></div>
+              <div>• Aeration Level: <span className="font-bold text-stone-800">{aerationScore}/100</span></div>
+              <div>• Drainage Score: <span className="font-bold text-stone-800">{drainageScore}/100</span></div>
             </div>
           </div>
         </div>

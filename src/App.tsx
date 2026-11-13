@@ -57,8 +57,8 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description: "Compare the 3 best commercial soil mixes for snake plants. Learn what improves drainage, avoid common potting mistakes, and reduce root rot risk."
   },
   'diy-mix': {
-    title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",
-    description: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
+    title: "DIY Snake Plant Soil Mix: The 3-2-1 Recipe & Ratio Guide",
+    description: "Make DIY snake plant soil with a simple 3-2-1 mix: 3 parts potting soil, 2 parts perlite, and 1 part coarse sand. Includes measurements and mixing tips."
   },
   'root-rot': {
     title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",

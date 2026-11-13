@@ -121,43 +121,38 @@ async function startServer() {
     {
       "@type": "HowTo",
       "@id": "${canonicalUrl}#howto",
-      "name": "How to Make the Perfect Quick-Draining Snake Plant Soil Mix",
-      "description": "Combine organic compost with coarse horticultural sand, perlite, and pumice to create the perfect soil environment that keeps snake plant roots aerated.",
+      "name": "How to Make the 3-2-1 Snake Plant Soil Mix",
+      "description": "Combine 3 parts standard potting soil, 2 parts horticultural perlite, and 1 part coarse sand by volume to create a well-draining potting substrate for indoor snake plants.",
       "estimatedCost": {
         "@type": "MonetaryAmount",
         "currency": "USD",
         "value": "15"
       },
       "supply": [
-        { "@type": "HowToSupply", "name": "Organic Compost Base" },
-        { "@type": "HowToSupply", "name": "Horticultural Perlite" },
-        { "@type": "HowToSupply", "name": "Coarse Washed Silica Sand" },
-        { "@type": "HowToSupply", "name": "Premium Volcanic Pumice Rock" }
+        { "@type": "HowToSupply", "name": "Standard Indoor Potting Soil (3 parts / 50%)" },
+        { "@type": "HowToSupply", "name": "Horticultural Perlite (2 parts / 33%)" },
+        { "@type": "HowToSupply", "name": "Coarse Horticultural Sand (1 part / 17%)" }
       ],
       "tool": [
-        { "@type": "HowToTool", "name": "Mixing tub or large planting bucket" },
-        { "@type": "HowToTool", "name": "Measuring scoop" }
+        { "@type": "HowToTool", "name": "Mixing tub or large bucket" },
+        { "@type": "HowToTool", "name": "Measuring scoop, cup, or nursery pot" },
+        { "@type": "HowToTool", "name": "Gardening trowel" }
       ],
       "step": [
         {
           "@type": "HowToStep",
-          "name": "Define Loam Base",
-          "text": "Add premium organic compost/standard soil base (40%) to create a nourishing foundational loam and Nitrogen grip."
+          "name": "Measure Dry Components by Volume",
+          "text": "Measure 3 parts standard potting soil, 2 parts horticultural perlite, and 1 part coarse sand using any uniform scoop or container."
         },
         {
           "@type": "HowToStep",
-          "name": "Ensure Air Passage Spaces",
-          "text": "Incorporate horticultural perlite pebbles (30%) uniformly to secure wide air chamber pockets and prevent compression."
+          "name": "Blend Thoroughly",
+          "text": "Combine all three ingredients in a bucket or shallow tub and blend with a trowel or gloved hands until perlite and sand are uniformly distributed with no clumps."
         },
         {
           "@type": "HowToStep",
-          "name": "Create Water Channels",
-          "text": "Blend coarse-grained washed silica sand (20%) into the mixture to form physical moisture drain tunnels."
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Anchor Durable Structure",
-          "text": "Mix premium lightweight porous pumice rock (10%) to secure perfect, durable mineral structures."
+          "name": "Perform the Moisture Squeeze Test",
+          "text": "Lightly mist a handful of dry mix with water and squeeze into a ball. When you open your hand, the ball should crumble immediately rather than packing into mud."
         }
       ]
     }
@@ -350,8 +345,8 @@ async function startServer() {
             desc: "Discover the best soil for snake plants. Compare commercial succulent mixes, learn what improves drainage, and choose a mix that helps reduce root rot risk."
           },
           'diy-mix': {
-            title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",
-            desc: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
+            title: "DIY Snake Plant Soil Mix: The 3-2-1 Recipe & Ratio Guide",
+            desc: "Make DIY snake plant soil with a simple 3-2-1 mix: 3 parts potting soil, 2 parts perlite, and 1 part coarse sand. Includes measurements and mixing tips."
           },
           'root-rot': {
             title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",
@@ -560,8 +555,8 @@ async function startServer() {
               desc: "Editorial guide comparing the 3 best commercial soil mixes for snake plants, ranked by drainage speed, aeration, and root rot prevention."
             },
             'diy-mix': {
-              title: "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio) | SnakePlantSoil.com",
-              desc: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
+              title: "DIY Snake Plant Soil Mix: The 3-2-1 Recipe & Ratio Guide",
+              desc: "Make DIY snake plant soil with a simple 3-2-1 mix: 3 parts potting soil, 2 parts perlite, and 1 part coarse sand. Includes measurements and mixing tips."
             },
             'root-rot': {
               title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",

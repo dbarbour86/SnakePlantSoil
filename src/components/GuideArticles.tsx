@@ -9,6 +9,7 @@ import {
 import InteractiveCalculator from './InteractiveCalculator';
 import BestSoilGuide from './BestSoilGuide';
 import BotanicalSubpageLayout, { TAB_TO_PATH_MAP } from './BotanicalSubpageLayout';
+import { trackEvent } from '../utils/analytics';
 
 export interface ArticleProps {
   onNavigate?: (tab: string) => void;
@@ -96,7 +97,9 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
 
   const tocItems = [
     { id: 'ratio-breakdown', label: '3-2-1 ingredient breakdown' },
+    { id: 'batch-measurements', label: 'Batch measurement guide' },
     { id: 'live-simulator', label: 'Interactive mix calculator' },
+    { id: 'substitutions', label: 'Substitutions & adjustments' },
     { id: 'mixing-process', label: 'Step-by-step mixing process' },
     { id: 'squeeze-test', label: 'The moisture squeeze test' }
   ];
@@ -119,14 +122,14 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
   return (
     <BotanicalSubpageLayout
       categoryBadge="DIY FORMULATION GUIDE"
-      title="The 3-2-1 Snake Plant Soil Recipe: Perfect DIY Mix"
-      introSummary="Save money and give your plants custom aeration. Learn how to combine basic potting soil, horticultural perlite, and coarse sand in the golden ratio."
+      title="DIY Snake Plant Soil Mix: The 3-2-1 Recipe & Ratio Guide"
+      introSummary="Make DIY snake plant soil with a simple 3-2-1 mix: 3 parts potting soil, 2 parts perlite, and 1 part coarse sand. Includes measurements and mixing tips."
       heroImage="/mix-bowl.jpg"
       heroImageAlt="Botanical bowl of mixed DIY snake plant soil components"
       breadcrumbs={breadcrumbs}
       calloutBanner={{
-        title: "The Golden Ratio: 3 Parts Soil, 2 Parts Perlite, 1 Part Sand",
-        description: "This simple volumetric ratio creates permanent aeration channels that resist compaction, helping excess moisture drain freely while keeping tall foliage anchored.",
+        title: "The 3-2-1 Ratio: 3 Parts Soil, 2 Parts Perlite, 1 Part Sand",
+        description: "This simple volumetric ratio creates permanent aeration channels that resist compaction, providing 50% drainage aggregate while anchoring tall snake plant foliage.",
         icon: (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#235837" strokeWidth="2">
             <circle cx="12" cy="12" r="10"/>
@@ -139,10 +142,34 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
       onNavigate={onNavigate}
     >
       <div className="space-y-8" id="diy-recipe-root">
+        {/* Visible Affiliate Disclosure Banner */}
+        <div 
+          className="bg-[#EAE4D8]/60 border border-[#DCD5C5] rounded-xl px-4 py-2.5 text-xs text-[#2B3B30] flex items-center gap-2"
+          id="affiliate-disclosure-banner"
+        >
+          <span className="font-sans leading-relaxed">
+            <strong>Affiliate disclosure:</strong> Purchases made through links on this page may earn us an advertising commission at no extra cost to you.
+          </span>
+        </div>
+
         {/* Intro Body */}
-        <p className="text-stone-700 leading-relaxed font-sans m-0">
-          If you have more than three plants, buying specialized small bags of boutique succulent soil becomes highly expensive. Mixing your own substrate is incredibly rewarding, clean, and allows you to custom-calibrate weights for tall, top-heavy leaves.
-        </p>
+        <div className="space-y-3 font-sans text-stone-700 leading-relaxed text-sm">
+          <p className="m-0">
+            Mixing your own substrate gives you complete control over aeration, drainage, and ballast weight for tall, top-heavy leaves. While blending bulk ingredients is cost-effective if you maintain several houseplants, repotting just one or two plants is often simpler and more economical with an established commercial blend. If you prefer a pre-mixed bag, explore our ranked review of the{' '}
+            <a
+              href="/best-snake-plant-soil"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('best-soil');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              best ready-made snake plant soils
+            </a>.
+          </p>
+        </div>
 
         {/* Section 1: 3-2-1 Ingredient Breakdown */}
         <section id="ratio-breakdown" className="scroll-mt-24 space-y-4">
@@ -150,7 +177,7 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
             The 3-2-1 Ingredient Breakdown
           </h2>
           <p className="font-sans text-stone-600 text-sm leading-relaxed">
-            Measure by volume (not by weight), using any simple container such as a standard plastic nursery pot or measuring cup:
+            Measure by volume (not by weight), using any consistent scoop, measuring cup, or nursery pot:
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -160,9 +187,9 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
                 3 Parts (50%)
               </span>
               <div className="w-full aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-stone-100 border border-stone-200/60">
-                <img src="/pile-soil.jpg" alt="Standard potting soil" className="w-full h-full object-cover" />
+                <img src="/pile-soil.jpg" alt="Dark standard potting soil base for snake plant mix" className="w-full h-full object-cover" />
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Standard Potting Soil</h4>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Standard Potting Soil</h3>
               <p className="font-sans text-xs text-stone-600 leading-snug m-0">
                 Clean organic base providing mild nutrient holding and moisture anchoring.
               </p>
@@ -171,12 +198,12 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
             {/* 2 Parts Perlite */}
             <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 shadow-xs flex flex-col items-center text-center">
               <span className="bg-[#E5ECE4] text-[#235837] text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3 font-sans">
-                2 Parts (33%)
+                2 Parts (33⅓%)
               </span>
               <div className="w-full aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-stone-100 border border-stone-200/60">
-                <img src="/pile-perlite.jpg" alt="Horticultural perlite" className="w-full h-full object-cover" />
+                <img src="/pile-perlite.jpg" alt="White expanded horticultural perlite for soil aeration and drainage" className="w-full h-full object-cover" />
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Horticultural Perlite</h4>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Horticultural Perlite</h3>
               <p className="font-sans text-xs text-stone-600 leading-snug m-0">
                 Expanded volcanic glass that prevents compaction and creates oxygen pockets.
               </p>
@@ -185,17 +212,71 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
             {/* 1 Part Sand */}
             <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 shadow-xs flex flex-col items-center text-center">
               <span className="bg-[#E5ECE4] text-[#235837] text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-3 font-sans">
-                1 Part (17%)
+                1 Part (16⅔%)
               </span>
               <div className="w-full aspect-[16/10] rounded-xl overflow-hidden mb-3 bg-stone-100 border border-stone-200/60">
-                <img src="/pile-sand.jpg" alt="Coarse silica sand" className="w-full h-full object-cover" />
+                <img src="/pile-sand.jpg" alt="Coarse washed horticultural sand for drainage and ballast" className="w-full h-full object-cover" />
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Coarse Silica Sand</h4>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Coarse Horticultural Sand</h3>
               <p className="font-sans text-xs text-stone-600 leading-snug m-0">
                 Heavy, coarse washed sand that speeds gravity drainage and anchors tall plants.
               </p>
             </div>
           </div>
+        </section>
+
+        {/* Section: Batch Measurement Guide */}
+        <section id="batch-measurements" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Batch Measurement Guide
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            To mix without guesswork, use these exact volumetric measurements for common batch sizes. (Note: actual soil needed varies by root ball size and container shape rather than pot diameter alone.)
+          </p>
+
+          <div className="bg-white border border-[#E8E2D5] rounded-2xl overflow-hidden shadow-xs">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs font-sans">
+                <thead>
+                  <tr className="bg-[#142B1E] text-white text-[11px] font-bold uppercase tracking-wider">
+                    <th className="py-3 px-4">Batch Size</th>
+                    <th className="py-3 px-4">Potting Soil (50%)</th>
+                    <th className="py-3 px-4">Horticultural Perlite (33⅓%)</th>
+                    <th className="py-3 px-4">Coarse Sand (16⅔%)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#E8E2D5] text-stone-700">
+                  <tr className="hover:bg-[#FAF7F2] transition-colors">
+                    <td className="py-3 px-4 font-bold text-[#142B1E]">
+                      Small Batch (6 Cups / ~1.4 L)
+                    </td>
+                    <td className="py-3 px-4">3 cups (710 ml)</td>
+                    <td className="py-3 px-4">2 cups (473 ml)</td>
+                    <td className="py-3 px-4">1 cup (237 ml)</td>
+                  </tr>
+                  <tr className="hover:bg-[#FAF7F2] transition-colors">
+                    <td className="py-3 px-4 font-bold text-[#142B1E]">
+                      Medium Batch (12 Cups / ~2.8 L)
+                    </td>
+                    <td className="py-3 px-4">6 cups (1.42 L)</td>
+                    <td className="py-3 px-4">4 cups (946 ml)</td>
+                    <td className="py-3 px-4">2 cups (473 ml)</td>
+                  </tr>
+                  <tr className="hover:bg-[#FAF7F2] transition-colors">
+                    <td className="py-3 px-4 font-bold text-[#142B1E]">
+                      Large Batch (24 Cups / ~5.7 L)
+                    </td>
+                    <td className="py-3 px-4">12 cups (2.84 L)</td>
+                    <td className="py-3 px-4">8 cups (1.89 L)</td>
+                    <td className="py-3 px-4">4 cups (946 ml)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p className="font-sans text-xs text-stone-500 italic mt-1">
+            Always measure ingredients dry. If you run out of an ingredient mid-blend, maintain the 3-2-1 volume proportion to keep aeration balanced.
+          </p>
         </section>
 
         {/* Section 2: Interactive Mix Calculator */}
@@ -208,6 +289,74 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
           </p>
           <div className="bg-white border border-[#E8E2D5] rounded-2xl p-5 sm:p-6 shadow-xs">
             <InteractiveCalculator />
+          </div>
+        </section>
+
+        {/* Section: Ingredient Substitutions & Environmental Adjustments */}
+        <section id="substitutions" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Ingredient Substitutions & Environmental Adjustments
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            The 3-2-1 recipe is a reliable baseline, but you can adjust components based on ingredient availability and your growing conditions:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans text-xs">
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-5 shadow-xs space-y-3">
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mt-0">
+                Practical Ingredient Substitutions
+              </h3>
+              <ul className="space-y-2 text-stone-600 pl-4 list-disc m-0 leading-relaxed">
+                <li>
+                  <strong>Perlite alternatives:</strong> Horticultural pumice (does not float to the surface over time) or calcined clay (Turface).
+                </li>
+                <li>
+                  <strong>Sand alternatives:</strong> Coarse poultry grit (crushed insoluble granite) or fine aquarium lava gravel. Never substitute fine play sand or beach sand.
+                </li>
+                <li>
+                  <strong>Potting soil alternatives:</strong> Buffered coconut coir mixed with 10% screened worm castings for clean, peat-free organic body.
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-5 shadow-xs space-y-3">
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mt-0">
+                Container & Light Adjustments
+              </h3>
+              <ul className="space-y-2 text-stone-600 pl-4 list-disc m-0 leading-relaxed">
+                <li>
+                  <strong>Pot material:</strong> Unglazed terracotta breathes and evaporates water through its walls (see our guide to the{' '}
+                  <a
+                    href="/best-pots-for-snake-plants"
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate('best-pots');
+                      }
+                    }}
+                    className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                  >
+                    best pots for snake plants
+                  </a>
+                  ). In non-porous plastic or glazed ceramic, increase perlite or pumice to 40% aggregate.
+                </li>
+                <li>
+                  <strong>Lighting conditions:</strong> In low-light rooms with slower dry-down, increase gritty drainage material. If unsure, check your setup with our{' '}
+                  <a
+                    href="/soil-diagnosis"
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate('setup-kits');
+                      }
+                    }}
+                    className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                  >
+                    interactive soil diagnosis tool
+                  </a>.
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -225,7 +374,7 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
               <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white text-xs font-bold flex items-center justify-center mb-3">
                 1
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Measure dry parts</h4>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Measure dry parts</h3>
               <p className="font-sans text-xs text-stone-600 leading-relaxed m-0">
                 Scoop 3 parts potting soil, 2 parts perlite, and 1 part sand into a bucket or shallow potting bin.
               </p>
@@ -235,7 +384,7 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
               <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white text-xs font-bold flex items-center justify-center mb-3">
                 2
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Blend thoroughly</h4>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Blend thoroughly</h3>
               <p className="font-sans text-xs text-stone-600 leading-relaxed m-0">
                 Turn the mix with a trowel or gloved hands until the white perlite and sand are uniformly distributed with no clumps.
               </p>
@@ -245,7 +394,7 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
               <div className="w-6 h-6 rounded-full bg-[#142B1E] text-white text-xs font-bold flex items-center justify-center mb-3">
                 3
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">The squeeze test</h4>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm mb-1">The squeeze test</h3>
               <p className="font-sans text-xs text-stone-600 leading-relaxed m-0">
                 Lightly dampen a handful and squeeze. When you open your palm, the ball should immediately crumble freely.
               </p>
@@ -273,7 +422,14 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
             <a 
               href="https://www.amazon.com/s?k=coarse+horticultural+sand+for+plants&tag=snakeplantsoi-20" 
               target="_blank" 
-              rel="noopener noreferrer"
+              rel="sponsored noopener noreferrer"
+              onClick={() => {
+                trackEvent('affiliate_link_clicked', {
+                  productId: 'coarse-sand',
+                  productName: 'Perfect Plants Coarse Horticultural Sand',
+                  placement: 'diy_mix_article'
+                });
+              }}
               className="shrink-0 bg-[#142B1E] hover:bg-[#235837] text-white font-bold py-2 px-4 rounded-xl font-sans uppercase tracking-wide text-[10px] flex items-center gap-1.5 transition-all shadow-xs"
             >
               <span>Search Coarse Sand on Amazon</span>
@@ -308,6 +464,21 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
               Snake Plant Root Rot Guide
             </a>{' '}
             for early diagnosis and sequential recovery steps.
+          </p>
+          <p className="font-sans text-stone-600 text-xs leading-relaxed mt-2">
+            Once repotted, establish a thorough soak-and-dry watering routine. Learn exact seasonal watering intervals and signs of dehydration in our complete{' '}
+            <a
+              href="/snake-plant-care-guide"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('care-guide');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              snake plant care and watering guide
+            </a>.
           </p>
         </section>
 
