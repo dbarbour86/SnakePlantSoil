@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 
+export const TAB_TO_PATH_MAP: Record<string, string> = {
+  'best-soil': '/best-snake-plant-soil',
+  'diy-mix': '/diy-snake-plant-soil-mix',
+  'root-rot': '/snake-plant-root-rot-guide',
+  'best-pots': '/best-pots-for-snake-plants',
+  'care-guide': '/snake-plant-care-guide',
+  'setup-kits': '/soil-diagnosis',
+  'radio': '/radio',
+  'faq': '/faq',
+  'about': '/about',
+  'care-card': '/care-card',
+  'home': '/'
+};
+
 export interface TocItem {
   id: string;
   label: string;
@@ -126,9 +140,9 @@ export default function BotanicalSubpageLayout({
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <h3 className="font-serif font-bold text-[#142B1E] text-base sm:text-lg mb-1 leading-snug">
+            <div className="font-serif font-bold text-[#142B1E] text-base sm:text-lg mb-1 leading-snug">
               {calloutBanner.title}
-            </h3>
+            </div>
             <p className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed mb-0">
               {calloutBanner.description}
             </p>
@@ -208,36 +222,45 @@ export default function BotanicalSubpageLayout({
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {relatedGuides.map((guide, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => onNavigate?.(guide.tabId)}
-                  className="bg-white border border-[#E8E2D5] rounded-2xl overflow-hidden flex hover:border-[#235837] hover:shadow-md transition-all cursor-pointer group shadow-2xs"
-                >
-                  <div className="w-24 sm:w-28 shrink-0 aspect-[4/3] bg-stone-100 overflow-hidden">
-                    <img
-                      src={guide.image}
-                      alt={guide.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-3.5 sm:p-4 flex flex-col justify-between flex-1 min-w-0">
-                    <div>
-                      <h4 className="font-serif font-bold text-[#142B1E] text-sm group-hover:text-[#235837] transition-colors mb-1 line-clamp-1">
-                        {guide.title}
-                      </h4>
-                      <p className="font-sans text-xs text-stone-600 leading-snug line-clamp-2 m-0">
-                        {guide.description}
-                      </p>
+              {relatedGuides.map((guide, idx) => {
+                const targetUrl = TAB_TO_PATH_MAP[guide.tabId] || `/${guide.tabId}`;
+                return (
+                  <a
+                    key={idx}
+                    href={targetUrl}
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate(guide.tabId);
+                      }
+                    }}
+                    className="bg-white border border-[#E8E2D5] rounded-2xl overflow-hidden flex hover:border-[#235837] hover:shadow-md transition-all cursor-pointer group shadow-2xs no-underline text-inherit"
+                  >
+                    <div className="w-24 sm:w-28 shrink-0 aspect-[4/3] bg-stone-100 overflow-hidden">
+                      <img
+                        src={guide.image}
+                        alt={guide.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                    <div className="flex justify-end mt-2">
-                      <span className="text-xs font-bold text-[#235837] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
+                    <div className="p-3.5 sm:p-4 flex flex-col justify-between flex-1 min-w-0">
+                      <div>
+                        <h4 className="font-serif font-bold text-[#142B1E] text-sm group-hover:text-[#235837] transition-colors mb-1 line-clamp-1">
+                          {guide.title}
+                        </h4>
+                        <p className="font-sans text-xs text-stone-600 leading-snug line-clamp-2 m-0">
+                          {guide.description}
+                        </p>
+                      </div>
+                      <div className="flex justify-end mt-2">
+                        <span className="text-xs font-bold text-[#235837] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </a>
+                );
+              })}
             </div>
           </section>
         )}

@@ -281,8 +281,24 @@ export default function SoilSetupKit({ onNavigate }: { onNavigate?: (tab: string
                       <li>Slide the plant out of its container and gently brush soil off the roots.</li>
                       <li>Inspect the rhizome (the thick bulbous root base) and secondary roots. Healthy roots are firm and pale; rotted roots are dark, mushy, and stringy.</li>
                       <li>Use clean, sharp scissors to trim away all rotted black tissue.</li>
-                      <li>Dust the cuts lightly with cinnamon or let the roots sit in a dry, shaded spot for 12–24 hours to callous over before potting again.</li>
+                      <li>Allow trimmed roots to air-dry in a warm, shaded spot so wounds can callus before repotting into fresh, dry mix.</li>
                     </ol>
+                    <p className="text-stone-600 text-xs leading-relaxed pt-1 m-0">
+                      Follow our full{' '}
+                      <a
+                        href="/snake-plant-root-rot-guide"
+                        onClick={(e) => {
+                          if (onNavigate) {
+                            e.preventDefault();
+                            onNavigate('root-rot');
+                          }
+                        }}
+                        className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                      >
+                        Snake Plant Root Rot Guide
+                      </a>{' '}
+                      for detailed root pruning, container sanitation, and callusing instructions.
+                    </p>
                   </div>
 
                   {!showWarningAcknowledge ? (
@@ -517,44 +533,57 @@ export default function SoilSetupKit({ onNavigate }: { onNavigate?: (tab: string
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-xs font-sans">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 text-xs font-sans">
                   <a
-                    href="/soil-calculator"
+                    href="/snake-plant-root-rot-guide"
                     onClick={(e) => { 
                       if (onNavigate) {
                         e.preventDefault(); 
-                        onNavigate('calculator');
+                        onNavigate('root-rot');
                       }
                     }}
-                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer"
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer no-underline text-inherit"
                   >
-                    <span className="font-bold text-[#142B1E] block">DIY Mix Calculator</span>
-                    <span className="text-stone-500 text-[11px] mt-1">Calculate exact batch parts &rarr;</span>
+                    <span className="font-bold text-[#142B1E] block">Root Rot Guide</span>
+                    <span className="text-stone-500 text-[11px] mt-1">Signs &amp; 5-step recovery &rarr;</span>
                   </a>
                   <a
-                    href="/best-pots"
+                    href="/diy-snake-plant-soil-mix"
                     onClick={(e) => { 
                       if (onNavigate) {
                         e.preventDefault(); 
-                        onNavigate('pots');
+                        onNavigate('diy-mix');
                       }
                     }}
-                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer"
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer no-underline text-inherit"
+                  >
+                    <span className="font-bold text-[#142B1E] block">DIY 3-2-1 Recipe</span>
+                    <span className="text-stone-500 text-[11px] mt-1">Custom batch formula &rarr;</span>
+                  </a>
+                  <a
+                    href="/best-pots-for-snake-plants"
+                    onClick={(e) => { 
+                      if (onNavigate) {
+                        e.preventDefault(); 
+                        onNavigate('best-pots');
+                      }
+                    }}
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer no-underline text-inherit"
                   >
                     <span className="font-bold text-[#142B1E] block">Pot Sizing Guide</span>
                     <span className="text-stone-500 text-[11px] mt-1">Terracotta vs ceramic &rarr;</span>
                   </a>
                   <a
-                    href="/winter-watering-guide"
+                    href="/snake-plant-care-guide"
                     onClick={(e) => { 
                       if (onNavigate) {
                         e.preventDefault(); 
-                        onNavigate('winter-watering-guide');
+                        onNavigate('care-guide');
                       }
                     }}
-                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer"
+                    className="p-3 rounded-xl border border-[#E8E2D5] bg-[#FAF7F2] hover:border-[#235837] transition-all flex flex-col justify-between cursor-pointer no-underline text-inherit"
                   >
-                    <span className="font-bold text-[#142B1E] block">Watering Method</span>
+                    <span className="font-bold text-[#142B1E] block">Care &amp; Watering</span>
                     <span className="text-stone-500 text-[11px] mt-1">Soak-and-dry rules &rarr;</span>
                   </a>
                 </div>

@@ -354,8 +354,8 @@ async function startServer() {
             desc: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
           },
           'root-rot': {
-            title: "Snake Plant Root Rot: Symptoms, Treatment & Recovery Guide",
-            desc: "Learn how to recognize snake plant root rot, remove badly damaged tissue, repot viable roots or rhizomes, and correct the moisture conditions that caused the problem."
+            title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",
+            desc: "Identify snake plant root rot early. Learn the key symptoms—mushy roots, foul odor, and yellow leaves—plus a 5-step recovery guide to save your plant."
           },
           'best-pots': {
             title: "Best Pots for Snake Plants: Size, Material & Drainage Guide",
@@ -564,8 +564,8 @@ async function startServer() {
               desc: "Our signature 3-2-1 gritty recipe. Learn how to mix potting soil, perlite, and coarse sand for the absolute ultimate home mix."
             },
             'root-rot': {
-              title: "How to Identify & Save Snake Plant Root Rot | SnakePlantSoil.com",
-              desc: "Learn how to recognize snake plant root rot, remove badly damaged tissue, repot viable roots or rhizomes, and correct watering conditions."
+              title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",
+              desc: "Identify snake plant root rot early. Learn the key symptoms—mushy roots, foul odor, and yellow leaves—plus a 5-step recovery guide to save your plant."
             },
             'best-pots': {
               title: "Best Pots for Snake Plants (Breathable Terracotta) | SnakePlantSoil.com",

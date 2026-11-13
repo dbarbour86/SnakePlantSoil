@@ -34,10 +34,10 @@ const SEARCH_CATALOG: SearchItem[] = [
   },
   {
     id: 'root-rot',
-    title: "Snake Plant Root Rot: Symptoms, Treatment & Recovery",
+    title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",
     category: "Plant Health",
     snippet: "Spot mushy leaves, dark smelly roots, and overwatering symptoms early, with root trimming and repotting steps.",
-    keywords: ["root rot", "yellow leaves", "mushy", "overwatering", "smell", "fungus", "triage", "trimming", "recovery", "dying", "brown", "treatment"]
+    keywords: ["root rot", "yellow leaves", "mushy", "overwatering", "smell", "fungus", "triage", "trimming", "recovery", "dying", "brown", "treatment", "root rot guide"]
   },
   {
     id: 'best-pots',
@@ -181,7 +181,7 @@ export default function Navigation({ activeTab, setActiveTab, onNavigate, search
   const desktopNavItems = [
     { id: 'best-soil', label: 'Best Soils' },
     { id: 'diy-mix', label: 'DIY Mix' },
-    { id: 'root-rot', label: 'Soil Problems' },
+    { id: 'root-rot', label: 'Root Rot Guide' },
     { id: 'care-guide', label: 'Care Guides' },
     { id: 'radio', label: 'Radio' },
     { id: 'about', label: 'About' },
@@ -193,7 +193,7 @@ export default function Navigation({ activeTab, setActiveTab, onNavigate, search
     { id: 'setup-kits', label: 'Diagnose My Plant' },
     { id: 'best-soil', label: 'Best Soils' },
     { id: 'diy-mix', label: 'DIY Mix' },
-    { id: 'root-rot', label: 'Soil Problems' },
+    { id: 'root-rot', label: 'Root Rot Guide' },
     { id: 'care-guide', label: 'Care Guides' },
     { id: 'radio', label: 'Snake Plant Radio' },
     { id: 'about', label: 'About' },

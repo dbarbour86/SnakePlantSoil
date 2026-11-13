@@ -4,9 +4,11 @@ import {
   HelpCircle, ChevronRight, Check, AlertCircle, Info,
   Search, Sliders, Droplet, Sun, Wind, Thermometer,
   ShieldCheck, RefreshCw, AlertTriangle, ArrowRight,
-  ShoppingBag, ExternalLink, CheckCircle2, Radio
+  ShoppingBag, ExternalLink, CheckCircle2, Radio, Scissors
 } from 'lucide-react';
 import InteractiveCalculator from './InteractiveCalculator';
+import BestSoilGuide from './BestSoilGuide';
+import BotanicalSubpageLayout, { TAB_TO_PATH_MAP } from './BotanicalSubpageLayout';
 
 export interface ArticleProps {
   onNavigate?: (tab: string) => void;
@@ -42,11 +44,18 @@ export function TopicalClusterNav({ currentTab, onNavigate }: { currentTab: stri
       <div className="grid grid-cols-2 md:grid-cols-6 gap-2 pt-2">
         {CLUSTER_STEPS.map((step) => {
           const isActive = step.id === currentTab;
+          const targetUrl = TAB_TO_PATH_MAP[step.id] || `/${step.id}`;
           return (
-            <button
+            <a
               key={step.id}
-              onClick={() => onNavigate(step.id)}
-              className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+              href={targetUrl}
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate(step.id);
+                }
+              }}
+              className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer no-underline ${
                 isActive
                   ? 'border-emerald-800 bg-emerald-50/45 text-stone-900 shadow-xs ring-1 ring-emerald-800/35'
                   : 'border-stone-200 bg-white hover:border-emerald-800/30 text-stone-700'
@@ -59,16 +68,13 @@ export function TopicalClusterNav({ currentTab, onNavigate }: { currentTab: stri
               <span className="text-[9px] text-stone-400 mt-1 leading-tight">
                 {step.desc}
               </span>
-            </button>
+            </a>
           );
         })}
       </div>
     </div>
   );
 }
-
-import BestSoilGuide from './BestSoilGuide';
-import BotanicalSubpageLayout from './BotanicalSubpageLayout';
 
 // ----------------------------------------------------
 // SUBMODULE 1: BEST COMMERCIAL SOILS PAGE
@@ -287,6 +293,22 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
           <div className="bg-[#E5ECE4] border border-[#D6E2D5] rounded-xl p-4 font-sans text-xs text-stone-700 leading-relaxed">
             Take a handful of your finished dry mix, mist it with a few sprays of water until barely damp, and squeeze tightly in your fist. When you open your hand, a soil with correct aeration will fall apart in crumbs without forming a clay-like muddy ball. If it stays clumped, add another scoop of perlite or pumice.
           </div>
+          <p className="font-sans text-stone-600 text-xs leading-relaxed mt-2">
+            Soil that packs tightly or stays waterlogged deprives root cells of vital oxygen, which is the leading trigger for fungal root decay. If your plant is already showing drooping leaves or dark root discoloration, see our{' '}
+            <a
+              href="/snake-plant-root-rot-guide"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('root-rot');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              Snake Plant Root Rot Guide
+            </a>{' '}
+            for early diagnosis and sequential recovery steps.
+          </p>
         </section>
 
         <TopicalClusterNav currentTab="diy-mix" onNavigate={onNavigate} />
@@ -330,9 +352,10 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
 
   const tocItems = [
     { id: 'symptoms-section', label: 'Signs of root rot' },
+    { id: 'can-it-be-saved', label: 'Can it be saved?' },
     { id: 'visual-comparison', label: 'Healthy vs. rotting roots' },
-    { id: 'recovery-protocol', label: 'A step-by-step recovery guide' },
-    { id: 'aftercare', label: 'Aftercare tips' }
+    { id: 'recovery-protocol', label: '5-step recovery guide' },
+    { id: 'aftercare', label: 'Aftercare & prevention' }
   ];
 
   const relatedGuides = [
@@ -354,7 +377,7 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
     <BotanicalSubpageLayout
       categoryBadge="PLANT HEALTH GUIDE"
       title="Snake Plant Root Rot: Symptoms, Treatment & Recovery"
-      introSummary="Learn how to recognize snake plant root rot, remove badly damaged tissue, repot viable roots or rhizomes, and correct the moisture conditions that caused the problem."
+      introSummary="Identify snake plant root rot early. Learn the key symptoms—mushy roots, foul odor, and yellow leaves—plus a 5-step recovery guide to save your plant."
       heroImage="/article-root-rot.jpg"
       heroImageAlt="Botanical workspace with snake plant roots and repotting tools"
       breadcrumbs={breadcrumbs}
@@ -494,17 +517,69 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
           </div>
         </section>
 
-        {/* Section 2: Visual Comparison Box */}
+        {/* Section 2: Can My Snake Plant Be Saved? */}
+        <section id="can-it-be-saved" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Can your snake plant be saved?
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Before beginning treatment, evaluate how much healthy plant tissue remains. Snake plants are resilient succulents capable of regenerating roots from healthy tissue, but your recovery strategy depends on the condition of the underground rhizome and leaf bases.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 font-sans text-xs">
+            <div className="bg-emerald-50/70 border border-emerald-200/80 p-4 rounded-xl space-y-2">
+              <h3 className="text-xs font-bold text-emerald-950 mt-0 flex items-center gap-1.5 uppercase tracking-wide">
+                <CheckCircle2 className="w-4 h-4 text-emerald-700" /> Highly Salvageable
+              </h3>
+              <p className="text-stone-700 leading-relaxed mb-0">
+                <strong>Firm rhizome with some healthy roots:</strong> If the thick rhizome is firm and at least a few pale, firm roots remain, the plant will readily bounce back once damaged tissue is removed and soil moisture is corrected.
+              </p>
+            </div>
+
+            <div className="bg-amber-50/70 border border-amber-200/80 p-4 rounded-xl space-y-2">
+              <h3 className="text-xs font-bold text-amber-950 mt-0 flex items-center gap-1.5 uppercase tracking-wide">
+                <AlertCircle className="w-4 h-4 text-amber-700" /> Partial Recovery Possible
+              </h3>
+              <p className="text-stone-700 leading-relaxed mb-0">
+                <strong>Firm rhizome without feeder roots:</strong> Even if all fine secondary roots have rotted away, a firm, undamaged rhizome can generate completely new root systems if allowed to dry and potted in dry, gritty substrate.
+              </p>
+            </div>
+
+            <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl space-y-2">
+              <h3 className="text-xs font-bold text-stone-900 mt-0 flex items-center gap-1.5 uppercase tracking-wide">
+                <Scissors className="w-4 h-4 text-stone-700" /> Leaf Propagation Fallback
+              </h3>
+              <p className="text-stone-700 leading-relaxed mb-0">
+                <strong>Rhizome and base are rotted:</strong> If the rhizome is black, mushy, or completely disintegrated, the root system cannot be saved. Cut firm, healthy green leaf blades 2–3 inches above any rot and propagate new plants.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white border border-[#E8E2D5] rounded-xl p-4 space-y-2 font-sans text-xs text-stone-700 shadow-2xs">
+            <h3 className="font-serif font-bold text-[#142B1E] text-sm mt-0">
+              How to Inspect the Rhizome
+            </h3>
+            <p className="leading-relaxed text-stone-600 m-0">
+              The <strong>rhizome</strong> is the thick, potato-like horizontal stem growing just below the soil surface that connects leaf clusters. Healthy rhizome tissue feels solid and firm to the touch, and appears pale white, light yellow, or orange when gently nicked. Rotting rhizome tissue feels spongy or collapses under light finger pressure, looks dark brown or black, and often leaks foul-smelling liquid. Any soft or blackened rhizome tissue must be cleanly excised back to clean, firm material before repotting.
+            </p>
+          </div>
+        </section>
+
+        {/* Section 3: Visual Comparison Box */}
         <section id="visual-comparison" className="scroll-mt-24">
           <div className="bg-[#142B1E] text-white rounded-2xl p-5 sm:p-7 shadow-sm">
-            <h3 className="font-serif font-bold text-white text-lg sm:text-xl mb-4 leading-snug">
+            <h2 className="font-serif font-bold text-white text-lg sm:text-xl mb-4 leading-snug">
               Healthy roots vs. rotting roots
-            </h3>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Healthy Roots */}
               <div className="bg-white/10 border border-white/15 rounded-xl p-3 sm:p-4 flex flex-col items-center">
                 <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-3 bg-black/20">
-                  <img src="/healthy-roots.jpg" alt="Healthy snake plant roots" className="w-full h-full object-cover" />
+                  <img
+                    src="/healthy-roots.jpg"
+                    alt="Healthy snake plant roots showing firm, pale tan and white fibers with intact rhizome"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <span className="bg-white text-[#142B1E] text-xs font-bold px-3 py-1 rounded-full font-sans shadow-xs">
                   Healthy: firm and pale
@@ -514,7 +589,11 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
               {/* Rotting Roots */}
               <div className="bg-white/10 border border-white/15 rounded-xl p-3 sm:p-4 flex flex-col items-center">
                 <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-3 bg-black/20">
-                  <img src="/rotting-roots.jpg" alt="Rotting snake plant roots" className="w-full h-full object-cover" />
+                  <img
+                    src="/rotting-roots.jpg"
+                    alt="Rotting snake plant roots showing dark brown, mushy, collapsed root fibers"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <span className="bg-white text-[#142B1E] text-xs font-bold px-3 py-1 rounded-full font-sans shadow-xs">
                   Rotting: dark and mushy
@@ -524,77 +603,132 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
           </div>
         </section>
 
-        {/* Section 3: Recovery Action Guide */}
+        {/* Section 4: 5-Step Recovery Action Guide */}
         <section id="recovery-protocol" className="scroll-mt-24 space-y-4">
           <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
             A step-by-step recovery guide
           </h2>
           <p className="font-sans text-stone-600 text-sm leading-relaxed">
-            If you've found root rot, act quickly. Many snake plants can recover with a little cleanup and a fresh start.
+            If you've found root rot, act quickly. Follow this sequential 5-step process to halt tissue decay, give cut surfaces time to seal, and establish safe aftercare.
           </p>
 
-          {/* Action-Specific Step Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="space-y-4 font-sans text-xs">
             {/* Step 1 */}
-            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 shadow-xs flex flex-col">
-              <div className="relative w-full aspect-[16/11] rounded-xl overflow-hidden mb-3 bg-stone-100 border border-stone-200/60">
-                <img src="/step-inspect-roots.jpg" alt="Inspect the roots" className="w-full h-full object-cover" />
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row gap-4 items-start">
+              <div className="relative w-full md:w-56 shrink-0 aspect-[16/11] rounded-xl overflow-hidden bg-stone-100 border border-stone-200/60">
+                <img
+                  src="/step-inspect-roots.jpg"
+                  alt="Inspecting snake plant roots and rhizome for signs of decay"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#235837] text-white text-xs font-bold flex items-center justify-center shadow-xs">
                   1
                 </div>
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Inspect the roots</h4>
-              <p className="font-sans text-xs text-stone-600 leading-relaxed m-0">
-                Take the plant out of its pot and brush away the soil. Look for firm, light-colored roots versus soft, dark, or mushy ones.
-              </p>
+              <div className="flex-1 space-y-1.5">
+                <h3 className="font-serif font-bold text-[#142B1E] text-base mb-1">
+                  Step 1: Unpot and inspect roots &amp; rhizomes
+                </h3>
+                <p className="text-stone-600 leading-relaxed m-0 text-xs sm:text-sm">
+                  Gently ease the snake plant from its pot by tilting the container sideways and supporting the base of the foliage. Brush or rinse away wet clinging soil under lukewarm tap water so the entire underground root network and rhizome are clearly visible. Differentiate between firm, pale healthy tissue and dark, stringy, or water-soaked rotting sections.
+                </p>
+              </div>
             </div>
 
             {/* Step 2 */}
-            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 shadow-xs flex flex-col">
-              <div className="relative w-full aspect-[16/11] rounded-xl overflow-hidden mb-3 bg-stone-100 border border-stone-200/60">
-                <img src="/step-trim-roots.jpg" alt="Remove damaged roots" className="w-full h-full object-cover" />
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row gap-4 items-start">
+              <div className="relative w-full md:w-56 shrink-0 aspect-[16/11] rounded-xl overflow-hidden bg-stone-100 border border-stone-200/60">
+                <img
+                  src="/step-trim-roots.jpg"
+                  alt="Trimming mushy dark root rot tissue with clean pruning shears"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#235837] text-white text-xs font-bold flex items-center justify-center shadow-xs">
                   2
                 </div>
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Remove damaged roots</h4>
-              <p className="font-sans text-xs text-stone-600 leading-relaxed m-0">
-                Use clean, sharp scissors to trim away any dark, soft, or mushy roots. Keep the firm, healthy roots intact.
-              </p>
+              <div className="flex-1 space-y-1.5">
+                <h3 className="font-serif font-bold text-[#142B1E] text-base mb-1">
+                  Step 2: Prune damaged tissue with sanitized shears
+                </h3>
+                <p className="text-stone-600 leading-relaxed m-0 text-xs sm:text-sm">
+                  Sanitize your pruning shears or scissors with 70% isopropyl alcohol before making any cuts. Snip away all mushy, dark brown, or foul-smelling roots back to healthy tissue. If rot has reached the rhizome, carefully excise all soft, discolored areas until only firm, crisp, clean flesh remains. Wipe cutting blades with alcohol between cuts to prevent transferring pathogens to healthy tissue.
+                </p>
+              </div>
             </div>
 
             {/* Step 3 */}
-            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 shadow-xs flex flex-col">
-              <div className="relative w-full aspect-[16/11] rounded-xl overflow-hidden mb-3 bg-stone-100 border border-stone-200/60">
-                <img src="/step-repot-plant.jpg" alt="Repot in fresh mix" className="w-full h-full object-cover" />
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row gap-4 items-start">
+              <div className="relative w-full md:w-56 shrink-0 aspect-[16/11] rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E8E2D5] flex items-center justify-center text-center p-3">
+                <div className="space-y-1">
+                  <div className="w-10 h-10 rounded-full bg-[#E5ECE4] text-[#235837] flex items-center justify-center mx-auto">
+                    <Wind className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#142B1E] block">Air-Dry &amp; Callus</span>
+                  <span className="text-[10px] text-stone-500 block">Hours to 24–48h</span>
+                </div>
                 <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#235837] text-white text-xs font-bold flex items-center justify-center shadow-xs">
                   3
                 </div>
               </div>
-              <h4 className="font-serif font-bold text-[#142B1E] text-sm mb-1">Repot in fresh mix</h4>
-              <p className="font-sans text-xs text-stone-600 leading-relaxed m-0">
-                Place the plant in a pot with drainage holes and a well-draining snake plant mix. Water lightly, then let the soil dry out before watering again.
-              </p>
+              <div className="flex-1 space-y-1.5">
+                <h3 className="font-serif font-bold text-[#142B1E] text-base mb-1">
+                  Step 3: Disinfect container and allow cut surfaces to dry
+                </h3>
+                <p className="text-stone-600 leading-relaxed m-0 text-xs sm:text-sm">
+                  If you plan to reuse the existing pot, scrub off all old soil residue and soak the container in a 10% household bleach solution for 10 minutes, then rinse and dry completely. Lay the trimmed plant in a warm, dry, shaded room with good air circulation. Minor root cuts typically dry within a few hours, while thicker rhizome cuts benefit from drying 12 to 24–48 hours until a firm, dry callus seals the wound against fungal reinfection. Drying speed varies depending on indoor humidity and airflow—ensure cut surfaces feel completely dry and firm to the touch before potting.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row gap-4 items-start">
+              <div className="relative w-full md:w-56 shrink-0 aspect-[16/11] rounded-xl overflow-hidden bg-stone-100 border border-stone-200/60">
+                <img
+                  src="/step-repot-plant.jpg"
+                  alt="Repotting salvaged snake plant into dry gritty soil with bottom drainage"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#235837] text-white text-xs font-bold flex items-center justify-center shadow-xs">
+                  4
+                </div>
+              </div>
+              <div className="flex-1 space-y-1.5">
+                <h3 className="font-serif font-bold text-[#142B1E] text-base mb-1">
+                  Step 4: Repot into fresh, dry, fast-draining mix
+                </h3>
+                <p className="text-stone-600 leading-relaxed m-0 text-xs sm:text-sm">
+                  Never reuse contaminated old potting soil. Select a container with unobstructed bottom drainage holes, sized to fit the reduced root system snugly without excess empty soil volume. Plant into completely dry, airy substrate—such as our mineral-rich 3-2-1 mix or a dedicated gritty cactus soil. Do not add water at the time of repotting.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="bg-white border border-[#E8E2D5] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col md:flex-row gap-4 items-start">
+              <div className="relative w-full md:w-56 shrink-0 aspect-[16/11] rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E8E2D5] flex items-center justify-center text-center p-3">
+                <div className="space-y-1">
+                  <div className="w-10 h-10 rounded-full bg-[#E5ECE4] text-[#235837] flex items-center justify-center mx-auto">
+                    <Droplet className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold text-[#142B1E] block">Delayed Watering</span>
+                  <span className="text-[10px] text-stone-500 block">Wait 5–7 days</span>
+                </div>
+                <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#235837] text-white text-xs font-bold flex items-center justify-center shadow-xs">
+                  5
+                </div>
+              </div>
+              <div className="flex-1 space-y-1.5">
+                <h3 className="font-serif font-bold text-[#142B1E] text-base mb-1">
+                  Step 5: Safe aftercare &amp; delayed watering resumption
+                </h3>
+                <p className="text-stone-600 leading-relaxed m-0 text-xs sm:text-sm">
+                  Keep the repotted plant in bright, indirect light and warm room temperatures (65°F–80°F). Avoid direct hot sun, which causes water loss from leaves before roots can absorb moisture. Wait 5 to 7 days before introducing a light watering around the root perimeter. If you pruned away extensive root mass, or if your room is cool and humid, extend this dry rest period to 10 to 14 days so the rhizome can establish new root buds without fungal pressure. Gradually transition back to a full soak-and-dry watering cycle only after new root growth begins to anchor the plant firmly.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Full Protocol Detailed Steps */}
-          <div className="space-y-3 pt-2 font-sans text-xs text-stone-700">
-            <div className="bg-white p-4 rounded-xl border border-[#E8E2D5] shadow-2xs">
-              <strong className="text-stone-900 block mb-1">Step 4: Allow Cut Surfaces to Air-Dry (Callus Formation)</strong>
-              <p className="m-0 leading-relaxed text-stone-600">
-                Allow freshly cut surfaces to dry in a warm, well-ventilated area for 12–24 hours before repotting. This gives open wounds time to form a dry, protective callus to prevent fungal re-entry.
-              </p>
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-[#E8E2D5] shadow-2xs">
-              <strong className="text-stone-900 block mb-1">Step 5: Disinfect Container &amp; Adjust Post-Repotting Water</strong>
-              <p className="m-0 leading-relaxed text-stone-600">
-                If reusing the pot, scrub off organic debris and soak in a 10% household bleach solution. Repot into fresh fast-draining cactus/succulent mix. Keep watering minimal for the first 2–3 weeks while new root hairs establish.
-              </p>
-            </div>
-          </div>
-
-          {/* University Extension Guidance */}
+          {/* Extension Sanitation Box */}
           <div className="bg-[#E5ECE4] rounded-xl p-4 border border-[#D6E2D5] flex gap-3 my-4 font-sans text-xs">
             <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
             <div className="text-stone-800 leading-relaxed">
@@ -607,35 +741,86 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
               >
                 University of Minnesota Extension
               </a>{' '}
-              recommends scrubbing off soil debris and soaking hard containers in a 10% household bleach solution. Rinse thoroughly before repotting.
+              recommends scrubbing off soil debris and soaking hard containers in a 10% household bleach solution. Rinse thoroughly and allow to dry before repotting.
             </div>
           </div>
         </section>
 
-        {/* Section 4: Aftercare Tips */}
-        <section id="aftercare" className="scroll-mt-24 space-y-3">
+        {/* Section 5: Aftercare & Prevention */}
+        <section id="aftercare" className="scroll-mt-24 space-y-4">
           <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
-            Aftercare tips
+            Aftercare &amp; Long-Term Rot Prevention
           </h2>
           <p className="font-sans text-stone-700 text-sm leading-relaxed">
-            After repotting, place the snake plant in bright, indirect light. Avoid direct midday sun which can scorch stressed leaves. Keep watering minimal for the first 2–3 weeks while new root hairs develop.
+            Once your plant is stabilized, preventing future moisture saturation is straightforward. Focus on substrate aeration, appropriate container materials, and seasonal watering adjustments:
           </p>
-          <p className="font-sans text-stone-700 text-sm leading-relaxed">
-            For best long-term prevention, use a mineral-dominant soil mix like our{' '}
-            <button
-              onClick={() => onNavigate?.('diy-mix')}
-              className="text-[#235837] font-bold underline hover:text-[#142B1E] cursor-pointer"
-            >
-              3-2-1 DIY Soil Recipe
-            </button>{' '}
-            or choose an unglazed porous pot from our{' '}
-            <button
-              onClick={() => onNavigate?.('best-pots')}
-              className="text-[#235837] font-bold underline hover:text-[#142B1E] cursor-pointer"
-            >
-              Terracotta Pot Guide
-            </button>.
-          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
+            <div className="bg-white border border-[#E8E2D5] rounded-xl p-4 shadow-2xs space-y-2">
+              <strong className="text-[#142B1E] block font-serif text-sm">Choose Fast-Draining Substrate</strong>
+              <p className="text-stone-600 m-0 leading-relaxed">
+                Standard peat-heavy potting soils retain too much water indoors. Formulate your own mix with our{' '}
+                <a
+                  href="/diy-snake-plant-soil-mix"
+                  onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('diy-mix'); } }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  3-2-1 DIY Soil Recipe
+                </a>{' '}
+                or compare top-rated commercial options in our{' '}
+                <a
+                  href="/best-snake-plant-soil"
+                  onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-soil'); } }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  Best Soils Guide
+                </a>.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] rounded-xl p-4 shadow-2xs space-y-2">
+              <strong className="text-[#142B1E] block font-serif text-sm">Use Porous Containers with Drainage</strong>
+              <p className="text-stone-600 m-0 leading-relaxed">
+                Ensure your pot has unsealed drainage holes. Unglazed terracotta allows moisture to evaporate through container walls. Learn more in our{' '}
+                <a
+                  href="/best-pots-for-snake-plants"
+                  onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('best-pots'); } }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  Best Pots Guide
+                </a>.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] rounded-xl p-4 shadow-2xs space-y-2">
+              <strong className="text-[#142B1E] block font-serif text-sm">Follow the Soak-and-Dry Method</strong>
+              <p className="text-stone-600 m-0 leading-relaxed">
+                Always allow the potting soil to dry thoroughly between waterings. Learn seasonal watering adjustments in our comprehensive{' '}
+                <a
+                  href="/snake-plant-care-guide"
+                  onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('care-guide'); } }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  Snake Plant Care Guide
+                </a>.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] rounded-xl p-4 shadow-2xs space-y-2">
+              <strong className="text-[#142B1E] block font-serif text-sm">Diagnose Root &amp; Soil Needs</strong>
+              <p className="text-stone-600 m-0 leading-relaxed">
+                Unsure if your home environment needs gritty or organic soil? Run our interactive{' '}
+                <a
+                  href="/soil-diagnosis"
+                  onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('setup-kits'); } }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  Soil Diagnosis Tool
+                </a>{' '}
+                to get a personalized substrate recommendation.
+              </p>
+            </div>
+          </div>
         </section>
 
         <TopicalClusterNav currentTab="root-rot" onNavigate={onNavigate} />
@@ -1050,6 +1235,22 @@ export function CareGuideArticle({ onNavigate }: ArticleProps) {
               </p>
             </div>
           </div>
+          <p className="font-sans text-stone-600 text-xs leading-relaxed mt-2">
+            Persistent moisture without drying periods is the most common cause of fungal root damage. If you notice lower leaves turning yellow, mushy bases, or a damp foul odor, consult our{' '}
+            <a
+              href="/snake-plant-root-rot-guide"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('root-rot');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              Snake Plant Root Rot Guide
+            </a>{' '}
+            immediately to inspect and salvage the root system.
+          </p>
         </section>
 
         {/* Section 3: Seasonal Care Guidance Planner */}

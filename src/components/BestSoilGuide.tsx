@@ -302,7 +302,20 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
             What Kind of Soil Do Snake Plants Need?
           </h2>
           <p>
-            In their native environments across tropical West Africa, snake plants (<em>Sansevieria trifasciata</em>) thrive in rugged, porous terrain where water drains away almost immediately after rainstorms. Snake plants store water inside their thick, fibrous leaves and sturdy underground <strong>rhizomes</strong>. Because these storage structures stay hydrated for weeks, snake plant roots quickly suffocate and rot when trapped in heavy, wet soil.
+            In their native environments across tropical West Africa, snake plants (<em>Sansevieria trifasciata</em>) thrive in rugged, porous terrain where water drains away almost immediately after rainstorms. Snake plants store water inside their thick, fibrous leaves and sturdy underground <strong>rhizomes</strong>. Because these storage structures stay hydrated for weeks, snake plant roots quickly suffocate and rot when trapped in heavy, wet soil. If you suspect your plant is already suffering from waterlogged conditions, follow our{' '}
+            <a
+              href="/snake-plant-root-rot-guide"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('root-rot');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              Snake Plant Root Rot Guide
+            </a>{' '}
+            to inspect symptoms and save viable roots.
           </p>
           <p>
             An ideal snake plant mix balances rapid drainage with enough structure to anchor upright leaves. Standard all-purpose potting soil contains high concentrations of fine peat moss, which settles and stays waterlogged for too long indoors. Selecting a dedicated cactus or succulent mix—or opting for a gritty inorganic substrate—ensures continuous air pockets around the root zone.

@@ -45,8 +45,8 @@ export const STATIC_GUIDES: ContentGuide[] = [
   },
   {
     id: "root-rot",
-    title: "Snake Plant Root Rot Guide",
-    shortDescription: "How to identify, treat, and recover a snake plant suffering from mushy leaves, soggy stems, or rotted roots.",
+    title: "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",
+    shortDescription: "Identify snake plant root rot early. Learn key symptoms, inspect roots and rhizomes, and follow a 5-step recovery guide.",
     category: "root-rot",
     readTime: "8 min read",
     iconName: "HeartPulse",

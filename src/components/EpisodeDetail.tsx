@@ -14,7 +14,7 @@ interface EpisodeDetailProps {
 const GUIDE_TITLES: Record<string, string> = {
   '/best-snake-plant-soil': "The 3 Best Soils for Snake Plants: Buyer's Guide",
   '/diy-snake-plant-soil-mix': "DIY Snake Plant Soil Mix Recipe (3-2-1 Ratio)",
-  '/snake-plant-root-rot-guide': "Snake Plant Root Rot: Symptoms, Treatment & Recovery Guide",
+  '/snake-plant-root-rot-guide': "Snake Plant Root Rot: Symptoms, Recovery Steps & Treatment",
   '/best-pots-for-snake-plants': "Best Pots for Snake Plants: Sizing, Material & Drainage",
   '/snake-plant-care-guide': "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
   '/soil-diagnosis': "Snake Plant Soil Diagnosis & Fit Check",
