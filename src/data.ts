@@ -55,7 +55,7 @@ export const STATIC_GUIDES: ContentGuide[] = [
   {
     id: "best-pots",
     title: "Best Pots for Snake Plants",
-    shortDescription: "Why breathable porous clay terracotta is king. A deep dive of container sizes, drainage wholes, and aesthetic pot recommendations.",
+    shortDescription: "Discover the best pots for snake plants. Compare terracotta, ceramic, and plastic containers, choose an appropriate pot size, and learn practical drainage rules.",
     category: "pots",
     readTime: "5 min read",
     iconName: "Layers",
@@ -201,30 +201,30 @@ export const RECOMMENDED_PRODUCTS: RecommendedProduct[] = [
   },
   {
     id: "clay-terracotta",
-    name: "Classic Italian Terracotta Clay Pot",
-    brand: "Deroma",
+    name: "D'vine Dev Terracotta Cylinder Planter with Saucer (6-Inch)",
+    brand: "D'vine Dev",
     category: "pot",
-    imageUrl: "/classic-terracotta-clay-pot.png",
+    imageUrl: "/terracotta-cylinder-planter.png",
     bestFor: "Breathable Container Option",
-    rating: 4.9,
-    description: "A traditional choice for snake plants. Porous terracotta clay allows wall-side moisture to transpire, which may help reduce prolonged wet conditions.",
+    rating: 4.8,
+    description: "A breathable, minimalist unglazed terracotta cylinder pot for snake plants. Porous clay allows wall-side moisture transpiration, promoting balanced root aeration.",
     pros: [
-       "Breathable material dries soil from outer edges inwards",
-       "Heavy base prevents tall snake plants from tipping over",
-       "Includes bottom drainage hole",
-       "Classic warm earthy neutral look"
+       "Porous unglazed terracotta promotes sidewall evaporation",
+       "Includes pre-drilled bottom drainage hole and stainless steel drainage mesh",
+       "Comes with matching detachable terracotta saucer and tabletop scratch pad",
+       "Straight cylinder shape provides stable base for small to medium plants"
     ],
     cons: [
-       "Heavy and fragile if dropped",
-       "Mineral salts can leave a white patina on the clay over time"
+       "6-inch size is tailored for compact to medium root systems (up to ~5″ root ball)",
+       "Natural clay will develop white mineral patina over time"
     ],
     linkText: "Check Price on Amazon",
     priceEstimate: "$",
     specs: {
-      "Diameter": "8 Inches",
-      "Height": "7.5 Inches",
-      "Material": "Natural Italian Red Clay",
-      "Drainage Hole": "Yes, 0.75 in"
+      "Diameter": "6.0 In Exterior (5.5 In Interior)",
+      "Height": "6.0 Inches",
+      "Material": "Handcrafted Terracotta Clay",
+      "Drainage Hole": "Yes (with mesh net & saucer)"
     },
     affiliateUrl: "https://www.amazon.com/Terracotta-Drainage-Cylinder-Planter-587-42-0/dp/B08QYLP91Q?th=1&tag=snakeplantsoi-20"
   }

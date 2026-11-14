@@ -1030,6 +1030,7 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
   const tocItems = [
     { id: 'material-comparison', label: 'Comparing pot materials' },
     { id: 'sizing-calculator', label: 'Suggested pot sizing guide' },
+    { id: 'when-to-repot', label: 'When to repot: 5 key signs' },
     { id: 'drainage-rules', label: 'Practical drainage rules' },
     { id: 'recommended-option', label: 'Recommended container option' }
   ];
@@ -1068,38 +1069,185 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
     >
       <div className="space-y-8 text-stone-700 leading-relaxed font-sans text-sm sm:text-base">
 
+        {/* Visible Affiliate Disclosure Banner */}
+        <div 
+          className="bg-[#EAE4D8]/60 border border-[#DCD5C5] rounded-xl px-4 py-2.5 text-xs text-[#2B3B30] flex items-center gap-2"
+          id="affiliate-disclosure-banner"
+        >
+          <span className="font-sans leading-relaxed">
+            <strong>Affiliate disclosure:</strong> Purchases made through links on this page may earn us an advertising commission at no extra cost to you.
+          </span>
+        </div>
+
         {/* Section 1: Material Comparison */}
         <section id="material-comparison" className="scroll-mt-24 space-y-4">
           <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
             Comparing Pot Materials: Terracotta, Ceramic &amp; Plastic
           </h2>
           <p className="font-sans text-stone-600 text-sm leading-relaxed">
-            Container materials interact directly with your potting soil, indoor humidity, temperature, and watering frequency. Choosing the right container material helps maintain balanced moisture levels for snake plant roots:
+            Container materials interact directly with your potting soil, indoor humidity, ambient temperatures, and watering frequency. Choosing the right container material helps maintain balanced moisture levels for snake plant roots. For an in-depth audio breakdown, listen to Snake Plant Radio Episode 4:{' '}
+            <a
+              href="/radio/terracotta-vs-ceramic-vs-plastic"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('radio/terracotta-vs-ceramic-vs-plastic');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              Terracotta vs Ceramic vs Plastic: The Pot Episode
+            </a>.
           </p>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Container wall porosity directly affects evaporation rates and how quickly the root zone dries out between deep waterings. Learn more about establishing a healthy drying rhythm in our{' '}
+            <a
+              href="/snake-plant-care-guide"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('care-guide');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              snake plant watering and care guide
+            </a>. When using nonporous containers like glazed ceramic or plastic, compensate for reduced evaporation by pairing them with a fast-draining potting substrate containing at least 40% inorganic aerators—such as our recommended commercial mixes in our{' '}
+            <a
+              href="/best-snake-plant-soil"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('best-soil');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              best snake plant soil guide
+            </a>{' '}
+            or our homemade{' '}
+            <a
+              href="/diy-snake-plant-soil-mix"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('diy-mix');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              DIY 3-2-1 soil recipe
+            </a>.
+          </p>
+
+          {/* Responsive Material Comparison Table */}
+          <div className="overflow-x-auto my-6 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs">
+            <table className="w-full text-left border-collapse text-xs font-sans">
+              <thead>
+                <tr className="bg-[#FAF7F2] border-b border-[#E8E2D5] text-[#142B1E]">
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Material</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Porosity &amp; Evaporation</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Weight &amp; Stability</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Key Advantages</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Disadvantages</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Best Use Case</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E8E2D5]/70 text-stone-600">
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-3 px-3.5 font-bold text-[#235837] whitespace-nowrap">
+                    Unglazed Terracotta
+                  </td>
+                  <td className="py-3 px-3.5">
+                    High porosity. Transpires moisture through container walls and top surface.
+                  </td>
+                  <td className="py-3 px-3.5 font-medium text-stone-800">
+                    Heavy ballast. Superior stability against tall upright leaf tipping.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Fast, uniform soil drying; reduces prolonged saturation risk; classic natural look.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Dries rapidly in dry air; fragile if dropped; white mineral salt patina develops over time.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Indoor growers prone to overwatering; tall cultivars; humid climates.
+                  </td>
+                </tr>
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-3 px-3.5 font-bold text-amber-900 whitespace-nowrap">
+                    Glazed Ceramic
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Nonporous. Seals moisture inside; evaporation occurs only from soil surface.
+                  </td>
+                  <td className="py-3 px-3.5 font-medium text-stone-800">
+                    Heavy ballast. Strong tipping resistance for mature plants.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Attractive colors and finishes; retains moisture longer in arid, heated winter rooms.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Longer drying intervals; often sold without drainage holes (must verify or drill).
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Infrequent waterers; decorative living spaces; pair with 40%+ mineral soil.
+                  </td>
+                </tr>
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-3 px-3.5 font-bold text-stone-700 whitespace-nowrap">
+                    Plastic &amp; Nursery Liners
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Nonporous. Zero sidewall evaporation; holds root moisture longest.
+                  </td>
+                  <td className="py-3 px-3.5 font-medium text-stone-800">
+                    Lightweight. High tip-over risk with tall foliage unless placed in cachepot.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Inexpensive, shatterproof; flexible walls simplify unpotting and root inspection.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Soil stays wet longer; prone to tipping; plastic degrades under intense sunlight.
+                  </td>
+                  <td className="py-3 px-3.5">
+                    Drop-in liner inside heavy decorative outer cachepot; propagation setups.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-xl p-3.5 text-xs text-stone-600 flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
+            <div>
+              <strong className="text-[#142B1E]">Important Drainage Context:</strong> Regardless of whether you select unglazed terracotta, glazed ceramic, or plastic, functional bottom drainage holes and disciplined soak-and-dry watering are essential. While porous terracotta increases sidewall transpiration, it cannot prevent root rot if a plant sits in waterlogged, dense soil or standing saucer water.
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
             <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-2">
-              <span className="text-xs font-bold text-[#235837] uppercase tracking-wider block font-sans">
+              <h3 className="text-xs font-bold text-[#235837] uppercase tracking-wider block font-sans m-0">
                 1. Unglazed Terracotta (Porous Clay)
-              </span>
+              </h3>
               <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
                 Porous unglazed clay allows moisture to transpire through container walls as well as from the surface, helping soil dry more evenly. The heavy weight of clay provides excellent stability for tall, upright foliage. However, soil may dry faster in arid environments, and natural mineral deposits (efflorescence) can form on outer walls over time.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-2">
-              <span className="text-xs font-bold text-amber-900 uppercase tracking-wider block font-sans">
+              <h3 className="text-xs font-bold text-amber-900 uppercase tracking-wider block font-sans m-0">
                 2. Glazed Ceramic
-              </span>
+              </h3>
               <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
                 Glazed ceramic surfaces seal moisture inside, preventing wall evaporation so soil dries primarily from the top surface down. Glazed pots are heavy and stable, working very well when equipped with functional bottom drainage holes and paired with a fast-draining, well-aerated potting mix.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-2">
-              <span className="text-xs font-bold text-stone-700 uppercase tracking-wider block font-sans">
+              <h3 className="text-xs font-bold text-stone-700 uppercase tracking-wider block font-sans m-0">
                 3. Plastic Containers &amp; Liners
-              </span>
+              </h3>
               <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
                 Plastic containers are lightweight, durable, inexpensive, and nonporous. They retain soil moisture longer than unglazed clay and allow easy unpotting for root inspection. Because lightweight plastic can tip under tall leaves, placing a plastic nursery pot inside a heavy decorative outer cachepot provides both drainage and stability.
               </p>
@@ -1113,12 +1261,71 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
             How to Choose the Right Pot Size for a Snake Plant
           </h2>
           <p className="font-sans text-stone-600 text-sm leading-relaxed">
-            Root-ball size and condition should take priority over foliage height when choosing the next container. Plant height is useful primarily for considering physical stability and tipping risk. Modest increases in container size are commonly used when repotting houseplants, but always inspect the root system, avoid unnecessarily large increases in soil volume, and consider your potting mix characteristics.
+            Container selection must always be guided by the <strong>actual size of the root ball and rhizome mass</strong>, rather than leaf height. Snake plants thrive when their root systems fit snugly. Sizing up prematurely adds excessive unoccupied soil volume, which acts like a waterlogged sponge holding stagnant moisture around sensitive root tips for weeks.
           </p>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            When repotting is necessary, experienced growers look for a container with an <strong>interior rim diameter approximately 1 to 2 inches larger</strong> than the current root system. Always measure interior dimensions—thick terracotta or glazed ceramic rims can reduce usable planting width by up to an inch. If you want to check your soil density and moisture retention before repotting, try our interactive{' '}
+            <a
+              href="/soil-diagnosis"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('setup-kits');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              soil diagnosis assessment
+            </a>.
+          </p>
+
+          {/* Simple Practical Pot Sizing Reference */}
+          <div className="bg-white border border-[#E8E2D5] rounded-xl p-5 shadow-2xs space-y-4 my-4 font-sans text-xs sm:text-sm">
+            <h3 className="font-serif font-bold text-[#142B1E] text-base m-0 flex items-center gap-2">
+              <Layers className="w-4 h-4 text-[#235837]" /> Practical Pot Sizing Principles
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8E2D5]/70 space-y-1">
+                <span className="font-bold text-[#142B1E] block">1. Measure the Root Mass Directly</span>
+                <p className="text-stone-600 text-xs m-0 leading-relaxed">
+                  Inspect the underground root ball and rhizome cluster directly. Base container sizing on root volume, not the height or spread of top foliage.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8E2D5]/70 space-y-1">
+                <span className="font-bold text-[#142B1E] block">2. Step Up 1–2 Inches Interior</span>
+                <p className="text-stone-600 text-xs m-0 leading-relaxed">
+                  When repotting is warranted, choose a vessel with an interior diameter roughly 1 to 2 inches larger than the root ball, leaving a modest 0.5 to 1 inch soil margin.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8E2D5]/70 space-y-1">
+                <span className="font-bold text-[#142B1E] block">3. Adjust to Plant Condition</span>
+                <p className="text-stone-600 text-xs m-0 leading-relaxed">
+                  The appropriate increase depends on plant condition and growth rate. Vigorous clumps in bright light can handle a 2-inch increase, while slower growers, compact cultivars, or lower-light plants do best with a conservative 1-inch step-up.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8E2D5]/70 space-y-1">
+                <span className="font-bold text-[#142B1E] block">4. Accommodate Depth Without Excess Soil</span>
+                <p className="text-stone-600 text-xs m-0 leading-relaxed">
+                  Snake plants have horizontal, shallow rhizomes. Pot depth should comfortably house the root system without unnecessarily excessive soil volume sitting waterlogged beneath the roots.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#E8E2D5]/70 space-y-1 md:col-span-2">
+                <span className="font-bold text-[#142B1E] block">5. Provide Ballast for Tall Foliage</span>
+                <p className="text-stone-600 text-xs m-0 leading-relaxed">
+                  Tall leaves create physical tipping leverage. Stabilize top-heavy plants with appropriately weighted, stable containers (like heavy unglazed terracotta), not by automatically increasing pot width.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <div className="bg-[#F4F1EA] p-5 sm:p-6 rounded-2xl border border-[#E8E2D5] shadow-xs my-4" id="sizing-calculator-box">
             <h3 className="font-serif font-bold text-[#142B1E] text-lg flex items-center gap-2 mb-2">
-              <Sliders className="w-4 h-4 text-[#235837]" /> Suggested Pot Sizing Guide
+              <Sliders className="w-4 h-4 text-[#235837]" /> Interactive Pot Sizing Estimator
             </h3>
             <p className="text-xs text-stone-600 mb-4 font-sans">
               Adjust the sliders below to explore a suggested container diameter and depth starting point based on plant height and current pot size:
@@ -1179,58 +1386,206 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
           </div>
         </section>
 
+        {/* Section: When to Repot */}
+        <section id="when-to-repot" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            When to Repot a Snake Plant: 5 Key Signs
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Snake plants grow slowly and tolerate being root-bound far better than most tropical houseplants. Repotting is typically only necessary every 2 to 3 years. Rather than repotting on a strict schedule, evaluate your plant for these five physical indicators:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 my-4">
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#235837] shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  1. Roots Emerging from Drainage Holes
+                </h3>
+              </div>
+              <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
+                Thick roots pushing through bottom drainage apertures indicate the root ball has completely colonized the container depth and has nowhere else to expand.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#235837] shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  2. Rhizomes Pressing Container Walls
+                </h3>
+              </div>
+              <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
+                Fleshy rhizomes pushing firmly against the interior pot wall or attempting to climb over the pot rim indicate the underground root system is ready for division or a modest pot step-up.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#235837] shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  3. Bulging or Distorted Pot Walls
+                </h3>
+              </div>
+              <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
+                Circular plastic pots deformed into ovals or bulging visibly outward are under extreme internal pressure from powerful rhizomes. Terracotta pots may occasionally crack from outward expansion.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#235837] shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  4. Severely Crowded Root Mass
+                </h3>
+              </div>
+              <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
+                When inspecting the root ball, dense encircling roots have displaced most of the soil substrate, leaving little potting medium to hold hydration and nutrients.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5 md:col-span-2">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#235837] shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  5. Rapid Drying or Water Channeling
+                </h3>
+              </div>
+              <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
+                When roots completely displace soil, water either channels straight through along the pot wall without absorbing, or the potting mix dries out completely in under 48 hours following a thorough soak.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-xl p-3.5 text-xs text-stone-600 flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
+            <div>
+              <strong className="text-[#142B1E]">Repotting Evaluation Rule:</strong> Always assess these indicators together rather than reacting to a single sign. A lone root escaping through a drainage hole is not an immediate emergency. If your snake plant remains healthy, stable, and produces new growth, wait until spring or early summer active growing months before repotting.
+            </div>
+          </div>
+        </section>
+
         {/* Section 3: Practical Container Drainage Rules */}
         <section id="drainage-rules" className="scroll-mt-24 space-y-4">
           <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
             Practical Container Drainage Rules
           </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Even the best container material cannot compensate for improper drainage mechanics. Snake plant root cells require oxygen exchange; stagnant water around roots causes rapid cellular collapse and fungal infections. Follow these three cardinal drainage practices:
+          </p>
           <div className="space-y-3 font-sans text-xs sm:text-sm text-stone-700">
             <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
-              <strong className="text-[#142B1E] block mb-1">1. Ensure Functional Bottom Drainage</strong>
+              <h3 className="text-sm font-bold text-[#142B1E] block mb-1 font-serif">
+                1. Ensure Functional Bottom Drainage
+              </h3>
               <p className="m-0 leading-relaxed text-stone-600">
-                Containers used for direct planting should allow excess irrigation water to escape through open drainage holes. Avoid planting directly into sealed vessels without drainage.
+                Containers used for direct planting must feature open bottom drainage holes (at least 0.5 to 0.75 inches wide). Never plant a snake plant directly into a sealed vessel or cachepot without drainage. If you love a decorative un-drilled ceramic pot, keep the plant in a plastic nursery liner inside it.
               </p>
             </div>
             <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
-              <strong className="text-[#142B1E] block mb-1">2. The Gravel Layer Myth</strong>
+              <h3 className="text-sm font-bold text-[#142B1E] block mb-1 font-serif">
+                2. The Gravel Layer Myth
+              </h3>
               <p className="m-0 leading-relaxed text-stone-600">
-                Adding gravel or pebbles beneath potting mix in a container without a drainage hole does not substitute for real drainage. Instead, it creates a perched water table that holds saturated soil higher in the container, closer to early roots.
+                Adding gravel, broken pottery shards, or pebbles to the bottom of a pot without drainage holes does not create drainage. In soil physics, this creates a <em>perched water table</em>: water saturates the finer soil above the coarse stones until hydrostatic pressure forces it down, keeping saturated mud right against root tips. Real drainage requires an open exit path.
               </p>
             </div>
             <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
-              <strong className="text-[#142B1E] block mb-1">3. Saucer &amp; Cachepot Care</strong>
+              <h3 className="text-sm font-bold text-[#142B1E] block mb-1 font-serif">
+                3. Saucer &amp; Cachepot Care
+              </h3>
               <p className="m-0 leading-relaxed text-stone-600">
-                After watering and allowing excess water to drain, do not leave the planted container standing in collected water in a saucer or decorative cachepot. If using a decorative outer pot without drainage, keep the plant in a draining nursery liner and empty any accumulated water from the cachepot after watering.
+                After watering your snake plant thoroughly, allow all excess drainage water to exit completely into the saucer or cachepot, and empty it within 15 to 30 minutes. Allowing the pot bottom to sit submerged in pooled runoff water wicks moisture back up into the root zone, suffocating root tissue. If you suspect your plant has already suffered from prolonged saturation, follow our{' '}
+                <a
+                  href="/snake-plant-root-rot-guide"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('root-rot');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  root rot diagnostic and rescue guide
+                </a>{' '}
+                to inspect and prune damaged roots.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Section 4: Recommended Terracotta Option */}
-        <section id="recommended-option" className="scroll-mt-24">
-          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-5 text-xs">
-            <div className="flex-grow space-y-1.5 font-sans">
-              <span className="text-[10px] font-bold text-[#235837] bg-[#E2EFE5] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                Recommended Container Option
-              </span>
-              <h3 className="font-serif font-bold text-[#142B1E] text-base sm:text-lg mt-1 mb-0 flex items-center gap-1.5">
-                <ShoppingBag className="w-4 h-4 text-[#235837]" /> Classic Italian Terracotta Clay Pot (8-Inch)
+        {/* Section 4: Recommended Containers */}
+        <section id="recommended-option" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Recommended containers for snake plants
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            While any container with functional drainage can support a snake plant, our top recommendation for small to medium plants is an unglazed terracotta cylinder pot with a matching saucer. Its porous clay sidewalls promote uniform transpiration and root aeration:
+          </p>
+          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row items-center gap-6 text-xs">
+            <img 
+              src="/terracotta-cylinder-planter.png" 
+              alt="D'vine Dev Terracotta Cylinder Planter Pot with Drainage and Saucer" 
+              className="w-28 h-28 object-contain rounded-xl bg-white p-2 border border-[#E8E2D5] shrink-0"
+              loading="lazy"
+            />
+            <div className="flex-grow space-y-2 font-sans text-left">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] font-bold text-[#235837] bg-[#E2EFE5] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                  Top Recommended Container
+                </span>
+                <span className="text-[10px] font-semibold text-stone-500">
+                  D'vine Dev
+                </span>
+              </div>
+              <h3 className="font-serif font-bold text-[#142B1E] text-base sm:text-lg m-0 flex items-center gap-1.5">
+                <ShoppingBag className="w-4 h-4 text-[#235837]" /> D'vine Dev Terracotta Cylinder Pot with Saucer (6-Inch)
               </h3>
-              <p className="text-xs text-stone-600 leading-relaxed mb-0">
-                Natural unglazed clay allows moisture to transpire cleanly through side-walls while heavy weight stabilizes tall upright leaves. Ideal for growers looking for breathable containers with bottom drainage.
+              <p className="text-xs text-stone-600 leading-relaxed m-0">
+                Porous unglazed terracotta allows excess soil moisture to transpire evenly across container sidewalls, significantly shortening drying cycles compared to plastic or glazed ceramic. Features a 6″ exterior diameter (approx. 5.5″ interior diameter), pre-drilled bottom drainage hole, stainless steel drainage mesh net, and a matching detachable saucer.
               </p>
-              <div className="text-[10px] text-stone-400 mt-2">
-                Affiliate disclosure: Purchases made through Amazon links may earn us an advertising commission at zero cost to you.
+              <div className="text-[10px] text-stone-400 pt-1">
+                Affiliate disclosure: Purchases made through Amazon links may earn us an advertising commission at no extra cost to you.
               </div>
             </div>
             <a 
-              href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+with+drainage+hole&tag=snakeplantsoi-20" 
+              href="https://www.amazon.com/Terracotta-Drainage-Cylinder-Planter-587-42-0/dp/B08QYLP91Q?th=1&tag=snakeplantsoi-20" 
               target="_blank" 
-              rel="noopener noreferrer"
+              rel="sponsored noopener noreferrer"
+              onClick={() => {
+                trackEvent('affiliate_link_clicked', {
+                  productId: 'clay-terracotta',
+                  productName: "D'vine Dev Terracotta Cylinder Pot",
+                  placement: 'best_pots_article'
+                });
+              }}
               className="shrink-0 bg-[#142B1E] hover:bg-[#235837] text-white font-bold py-2.5 px-5 rounded-full font-sans text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
-              <span>Search Terracotta Pots on Amazon</span>
+              <span>Check Price on Amazon</span>
               <ExternalLink className="w-3.5 h-3.5 text-[#9EC4A9]" />
+            </a>
+          </div>
+
+          <div className="bg-white border border-[#E8E2D5] rounded-xl p-4 text-xs font-sans text-stone-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs">
+            <div>
+              <strong className="text-[#142B1E] block mb-0.5">Need a larger container for mature plants?</strong>
+              <span>If your snake plant has outgrown a 6-inch vessel and has a 7–8″ or larger root ball, step up to an 8-inch or 10-inch terracotta container.</span>
+            </div>
+            <a
+              href="https://www.amazon.com/s?k=8+Inch+Terracotta+Clay+Pot+with+drainage+hole&tag=snakeplantsoi-20"
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              onClick={() => {
+                trackEvent('affiliate_link_clicked', {
+                  productId: 'clay-terracotta-8inch-search',
+                  productName: '8-Inch Terracotta Search',
+                  placement: 'best_pots_article_secondary'
+                });
+              }}
+              className="shrink-0 bg-stone-100 hover:bg-stone-200 text-[#142B1E] font-bold py-2 px-4 rounded-lg text-xs flex items-center gap-1.5 transition-colors border border-stone-200"
+            >
+              <span>Search 8-Inch Pots</span>
+              <ExternalLink className="w-3 h-3 text-stone-500" />
             </a>
           </div>
         </section>
