@@ -203,7 +203,8 @@ setTimeout(async () => {
         '/diy-snake-plant-soil-mix',
         '/snake-plant-root-rot-guide',
         '/best-pots-for-snake-plants',
-        '/snake-plant-care-guide'
+        '/snake-plant-care-guide',
+        '/snake-plant-orange-roots'
       ];
       if (staticGuideRoutes.includes(route)) {
         if (!html.includes('<h1')) {
@@ -243,6 +244,10 @@ setTimeout(async () => {
       } else if (route === '/snake-plant-care-guide') {
         if (!html.includes('Snake Plant Care Guide')) {
           cleanupAndExit(1, `Care guide route missing 'Snake Plant Care Guide' in raw HTML.`);
+        }
+      } else if (route === '/snake-plant-orange-roots') {
+        if (!html.includes('Why Are My Snake Plant Roots Orange?')) {
+          cleanupAndExit(1, `Orange roots route missing 'Why Are My Snake Plant Roots Orange?' in raw HTML.`);
         }
       } else if (route === '/best-fertilizer-for-snake-plant-soil') {
         if (!html.includes('Snake Plant Fertilizer Guide')) {

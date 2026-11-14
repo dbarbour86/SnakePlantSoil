@@ -201,7 +201,7 @@ async function startServer() {
   ]
 }
 </script>`;
-    } else if (['/snake-plant-root-rot-guide', '/best-pots-for-snake-plants', '/snake-plant-care-guide'].includes(lookupPath) || isDynamic) {
+    } else if (['/snake-plant-root-rot-guide', '/best-pots-for-snake-plants', '/snake-plant-care-guide', '/snake-plant-orange-roots'].includes(lookupPath) || isDynamic) {
       return `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -359,6 +359,10 @@ async function startServer() {
           'care-guide': {
             title: "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
             desc: "Learn how to care for a snake plant indoors, including watering, light, soil, pots, seasonal care, fertilizer, and common signs of plant stress."
+          },
+          'orange-roots': {
+            title: "Why Are Snake Plant Roots Orange? Healthy Roots vs Rot",
+            desc: "Discovered orange roots while repotting your snake plant? Learn why orange roots and rhizomes can be normal, how to test for root rot, and safe repotting tips."
           }
         };
         const meta = staticMetaMap[staticMatch.id] || { title: staticMatch.title, desc: staticMatch.shortDescription };
@@ -569,6 +573,10 @@ async function startServer() {
             'care-guide': {
               title: "Seasonal Snake Plant Care & Watering Masterclass | SnakePlantSoil.com",
               desc: "Mastering the 'Soak and Dry' watering cycle, seasonal routines, winter dryness tactics, and light level placements."
+            },
+            'orange-roots': {
+              title: "Why Are Snake Plant Roots Orange? Healthy Roots vs Rot",
+              desc: "Discovered orange roots while repotting your snake plant? Learn why orange roots and rhizomes can be normal, how to test for root rot, and safe repotting tips."
             }
           };
           const meta = staticMetaMap[staticMatch.id] || { title: staticMatch.title, desc: staticMatch.shortDescription };

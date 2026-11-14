@@ -73,6 +73,7 @@ async function main() {
     '/snake-plant-root-rot-guide',
     '/best-pots-for-snake-plants',
     '/snake-plant-care-guide',
+    '/snake-plant-orange-roots',
     '/faq',
     '/about',
     '/care-card',

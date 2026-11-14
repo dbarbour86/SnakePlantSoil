@@ -23,7 +23,8 @@ import {
   DIYMixArticle, 
   RootRotArticle, 
   BestPotsArticle, 
-  CareGuideArticle 
+  CareGuideArticle,
+  OrangeRootsArticle 
 } from './components/GuideArticles';
 
 import { CONTENT_GUIDES, STATIC_GUIDES, FAQ_ITEMS } from './data';
@@ -72,6 +73,10 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     title: "Snake Plant Care Guide: Watering, Light, Soil & Indoor Care",
     description: "Learn how to care for a snake plant indoors, including watering, light, soil, pots, seasonal care, fertilizer, and common signs of plant stress."
   },
+  'orange-roots': {
+    title: "Why Are Snake Plant Roots Orange? Healthy Roots vs Rot",
+    description: "Discovered orange roots while repotting your snake plant? Learn why orange roots and rhizomes can be normal, how to test for root rot, and safe repotting tips."
+  },
   radio: {
     title: "Snake Plant Radio | Soil Science, Drainage & Care Podcast",
     description: "Official podcast of SnakePlantSoil.com. Deep-dive weekly discussions on soil aeration, container choices, root rot recovery, and resilient houseplant cultivation."
@@ -117,6 +122,9 @@ export default function App() {
       case 'care-guide':
       case 'snake-plant-care-guide':
         return 'care-guide';
+      case 'orange-roots':
+      case 'snake-plant-orange-roots':
+        return 'orange-roots';
       case 'radio':
       case 'podcast':
         return 'radio';
@@ -1387,6 +1395,23 @@ export default function App() {
           )}
 
           {/* ====================================================
+              VIEW G: ORANGE ROOTS AND RHIZOME SCIENCE
+              ==================================================== */}
+          {activeTab === 'orange-roots' && (
+            <motion.div
+              key="orange-roots-view"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              className="w-full"
+              id="orange-roots-page"
+            >
+              <OrangeRootsArticle onNavigate={navigateToArticle} />
+            </motion.div>
+          )}
+
+          {/* ====================================================
               VIEW G: ALL FAQ DIRECT DECK WITH SEARCH
               ==================================================== */}
           {activeTab === 'faq' && (
@@ -1656,7 +1681,7 @@ export default function App() {
           )}
 
           {/* Fallback View if tab is not a known static tab and dynamic article is not found */}
-          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card', 'about', 'radio'].includes(activeTab) && !activeDynamicArticle && !activeEpisode && (
+          {!['home', 'setup-kits', 'best-soil', 'diy-mix', 'root-rot', 'best-pots', 'care-guide', 'faq', 'care-card', 'about', 'radio', 'orange-roots'].includes(activeTab) && !activeDynamicArticle && !activeEpisode && (
             <motion.div
               key="not-found-view"
               initial={{ opacity: 0, y: 12 }}

@@ -731,7 +731,7 @@ export function RootRotArticle({ onNavigate }: ArticleProps) {
               How to Inspect the Rhizome
             </h3>
             <p className="leading-relaxed text-stone-600 m-0">
-              The <strong>rhizome</strong> is the thick, potato-like horizontal stem growing just below the soil surface that connects leaf clusters. Healthy rhizome tissue feels solid and firm to the touch, and appears pale white, light yellow, or orange when gently nicked. Rotting rhizome tissue feels spongy or collapses under light finger pressure, looks dark brown or black, and often leaks foul-smelling liquid. Any soft or blackened rhizome tissue must be cleanly excised back to clean, firm material before repotting.
+              The <strong>rhizome</strong> is the thick, potato-like horizontal stem growing just below the soil surface that connects leaf clusters. Uncompromised rhizome tissue generally feels solid and firm to the touch, and often appears pale white, light yellow, or orange (learn more in our guide on <a href="/snake-plant-orange-roots" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('orange-roots'); } }} className="text-[#235837] font-bold underline hover:text-[#142B1E]">why snake plant roots and rhizomes can be orange</a>). Rotting rhizome tissue feels spongy or collapses under light finger pressure, looks dark brown or black, and often leaks foul-smelling liquid. Any soft or decaying rhizome tissue should be cleanly excised back to firmer material before repotting.
             </p>
           </div>
         </section>
@@ -1404,7 +1404,19 @@ export function BestPotsArticle({ onNavigate }: ArticleProps) {
                 </h3>
               </div>
               <p className="text-xs text-stone-600 leading-relaxed m-0 font-sans">
-                Thick roots pushing through bottom drainage apertures indicate the root ball has completely colonized the container depth and has nowhere else to expand.
+                Thick roots pushing through bottom drainage apertures indicate the root ball has colonized the container depth. If roots emerging from holes appear bright orange or amber, this can be normal (see our guide on{' '}
+                <a
+                  href="/snake-plant-orange-roots"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('orange-roots');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  orange snake plant roots
+                </a>).
               </p>
             </div>
 
@@ -1881,3 +1893,481 @@ export function CareGuideArticle({ onNavigate }: ArticleProps) {
     </BotanicalSubpageLayout>
   );
 }
+
+
+// ----------------------------------------------------
+// SUBMODULE 6: ORANGE ROOTS & RHIZOMES GUIDE
+// ----------------------------------------------------
+export function OrangeRootsArticle({ onNavigate }: ArticleProps) {
+  const breadcrumbs = [
+    { label: 'Home', tabId: 'home' },
+    { label: 'Care Guides', tabId: 'care-guide' },
+    { label: 'Orange Roots' }
+  ];
+
+  const tocItems = [
+    { id: 'quick-answer', label: 'Immediate answer: Is it normal?' },
+    { id: 'why-orange', label: 'Why roots and rhizomes turn orange' },
+    { id: 'roots-vs-rhizomes', label: 'Roots vs. rhizomes' },
+    { id: 'rot-vs-healthy', label: 'Healthy tissue vs. root rot' },
+    { id: 'warning-signs', label: 'Warning signs requiring action' },
+    { id: 'repotting-care', label: 'What to do next: Repotting & care' },
+    { id: 'faq-section', label: 'Frequently asked questions' }
+  ];
+
+  const relatedGuides = [
+    {
+      title: 'Root rot symptoms & recovery',
+      description: 'Learn how to identify, prune, and treat soft or mushy root decay step-by-step.',
+      tabId: 'root-rot',
+      image: '/article-root-rot.jpg'
+    },
+    {
+      title: 'Best pots & container sizing',
+      description: 'How container material, depth, and drainage holes protect roots from stagnant water.',
+      tabId: 'best-pots',
+      image: '/article-best-pots.jpg'
+    }
+  ];
+
+  return (
+    <BotanicalSubpageLayout
+      categoryBadge="PLANT HEALTH & MORPHOLOGY"
+      title="Why Are My Snake Plant Roots Orange?"
+      introSummary="Discovered orange roots while repotting your snake plant? Learn why orange roots and rhizomes can be normal, how to test for root rot, and safe repotting tips."
+      heroImage="/step-inspect-roots.jpg"
+      heroImageAlt="Inspecting snake plant root ball and underground rhizomes on a repotting bench"
+      breadcrumbs={breadcrumbs}
+      calloutBanner={{
+        title: "Orange coloration can be normal",
+        description: "Underground rhizomes and roots in snake plants can naturally display yellow, amber, or orange hues. Physical texture, root structure, and odor should be evaluated together before assuming a plant is diseased.",
+        icon: <HeartPulse className="w-4 h-4 text-[#235837]" />
+      }}
+      tocItems={tocItems}
+      relatedGuides={relatedGuides}
+      onNavigate={onNavigate}
+    >
+      <div className="space-y-8 text-stone-700 leading-relaxed font-sans text-sm sm:text-base" id="orange-roots-root">
+
+        {/* Section 1: Immediate Answer */}
+        <section id="quick-answer" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Immediate Answer: Is It Normal for Snake Plant Roots to Be Orange?
+          </h2>
+          <p className="font-sans text-stone-700 text-sm sm:text-base leading-relaxed">
+            If you recently unpotted your snake plant and were surprised to see orange or yellow-orange roots, the first thing to know is: <strong>orange coloration can occur naturally in snake plant roots and rhizomes.</strong>
+          </p>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Many common houseplants produce pale or white roots, leading growers to assume that any other color signals decay. In snake plants (<em>Dracaena trifasciata</em>, formerly <em>Sansevieria</em>), however, underground tissues frequently display yellow, amber, or orange tones. An orange color on its own does not mean your plant has root rot.
+          </p>
+          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-xl p-4 text-xs font-sans text-stone-700 flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
+            <div>
+              <strong className="text-[#142B1E]">Assessing Root Health:</strong> Color alone cannot diagnose root rot. Firm roots are generally reassuring, while soft, mushy, or collapsing tissue is concerning, and an unpleasant odor may indicate decay. Because no single symptom provides a definitive diagnosis, several factors should be considered together. If uncertainty remains, additional examination or monitoring may be needed.
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Why Orange Coloration Occurs */}
+        <section id="why-orange" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Why Do Snake Plant Roots and Rhizomes Turn Orange?
+          </h2>
+          <p className="font-sans text-stone-700 text-sm sm:text-base leading-relaxed">
+            Orange or yellow-orange coloration can occur naturally in snake plant roots and rhizomes. Botanical studies have documented this coloration in <em>Sansevieria</em> specimens.
+          </p>
+          <div className="space-y-3 font-sans text-xs sm:text-sm text-stone-600 leading-relaxed">
+            <p>
+              In horticultural literature, the <strong>University of Florida IFAS Extension</strong> notes that snake plants produce stout, orange-colored underground rhizomes that serve as primary storage organs. Morphological surveys of ornamental specimens have similarly recorded natural yellow, amber, and orange hues in subterranean tissues.
+            </p>
+            <p>
+              While this pigmentation is recognized as a normal characteristic in healthy plants, the precise cause of the coloration is not established by the sources currently cited. It is not known whether specific pigment pathways, substrate mineral interactions, or other physiological factors account for the variation in color.
+            </p>
+            <p>
+              Importantly, subterranean coloration can vary across individual plants, varieties, and growing conditions. The presence of orange color is not an automatic sign of disease, nor does it guarantee complete root health.
+            </p>
+          </div>
+        </section>
+
+        {/* Section 3: Roots vs. Rhizomes */}
+        <section id="roots-vs-rhizomes" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Understanding the Difference: Roots vs. Rhizomes
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            When inspecting an unpotted snake plant, growers often encounter two distinct underground structures. Understanding the difference helps clarify what you are seeing:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 font-sans text-xs">
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-2">
+              <span className="text-[11px] font-bold text-[#235837] uppercase tracking-wider block font-sans">
+                1. The Rhizome (Underground Stem)
+              </span>
+              <p className="text-stone-600 leading-relaxed m-0">
+                The rhizome is a thick, fleshy horizontal modified stem growing at or just below the soil line. It functions as the central storage structure for the plant, producing new leaf clusters and roots. In snake plants, rhizomes frequently exhibit bright orange, amber, or yellowish coloration.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-2">
+              <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider block font-sans">
+                2. Adventitious Roots (Fibrous Strands)
+              </span>
+              <p className="text-stone-600 leading-relaxed m-0">
+                These are the thinner fibrous roots that branch outward from the rhizome into the surrounding soil to absorb water and nutrients. These strands can also display yellowish, amber, or orange coloration alongside lighter feeder tips.
+              </p>
+            </div>
+          </div>
+          <p className="font-sans text-stone-600 text-xs leading-relaxed">
+            Recognizing both structures is helpful during repotting: even if finer secondary roots experience some breakage during handling, an intact, firm rhizome retains substantial stored resources to support new growth in fresh soil.
+          </p>
+        </section>
+
+        {/* Section 4: Healthy Tissue vs. Root Rot */}
+        <section id="rot-vs-healthy" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Evaluating Root Condition: Healthy Tissue vs. Root Rot
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Color alone cannot diagnose root rot. A dependable evaluation considers texture, structural integrity, and odor together. While firm roots are generally reassuring, no single sign guarantees root health, and uncertainty may require closer examination:
+          </p>
+
+          <div className="space-y-3 font-sans text-xs sm:text-sm text-stone-700">
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">1. Texture and Firmness</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                Gently feel along several root strands and the rhizome. Firm, plump tissue that resists gentle finger pressure is generally reassuring. Tissue that feels soft, spongy, mushy, or collapses under light pressure is concerning and may indicate decay.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">2. Structural Integrity</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                Gently slide your fingers along a root strand. Healthy outer tissue generally stays intact under light contact. When roots are decaying, the outer layer easily sloughs away like a wet sleeve, exposing a thin, string-like central core.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">3. Odor Evaluation</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                Check the smell of the root ball and potting soil. Healthy root systems smell like ordinary damp earth or are neutral. An unpleasant, sour, or swamp-like decaying odor often indicates anaerobic moisture damage and rotting tissue.
+              </p>
+            </div>
+          </div>
+
+          {/* Diagnostic Comparison Table */}
+          <div className="overflow-x-auto my-6 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs">
+            <table className="w-full text-left border-collapse text-xs font-sans">
+              <thead>
+                <tr className="bg-[#FAF7F2] border-b border-[#E8E2D5] text-[#142B1E]">
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Evaluation Factor</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Generally Reassuring Signs</th>
+                  <th className="py-3 px-3.5 font-bold uppercase tracking-wider text-[11px]">Concerning Signs (Possible Decay)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E8E2D5]/70 text-stone-600">
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-2.5 px-3.5 font-bold text-[#142B1E]">Texture &amp; Firmness</td>
+                  <td className="py-2.5 px-3.5 font-medium text-[#235837]">Firm, plump, resilient under gentle pressure</td>
+                  <td className="py-2.5 px-3.5 text-rose-800">Soft, mushy, spongy, or easily collapsing</td>
+                </tr>
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-2.5 px-3.5 font-bold text-[#142B1E]">Outer Tissue</td>
+                  <td className="py-2.5 px-3.5">Intact; outer layers do not easily slip away</td>
+                  <td className="py-2.5 px-3.5 text-rose-800">Outer layer sloughs off, leaving thin thread-like core</td>
+                </tr>
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-2.5 px-3.5 font-bold text-[#142B1E]">Coloration Context</td>
+                  <td className="py-2.5 px-3.5">Consistent yellow, amber, or orange with pale tips</td>
+                  <td className="py-2.5 px-3.5 text-rose-800">Water-soaked dark brown, grayish, or blackening</td>
+                </tr>
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-2.5 px-3.5 font-bold text-[#142B1E]">Odor</td>
+                  <td className="py-2.5 px-3.5">Neutral, fresh, or ordinary earthy soil scent</td>
+                  <td className="py-2.5 px-3.5 text-rose-800">Sour, foul, or decaying swamp-like smell</td>
+                </tr>
+                <tr className="hover:bg-[#FAF7F2]/50 transition-colors">
+                  <td className="py-2.5 px-3.5 font-bold text-[#142B1E]">Foliage Signs</td>
+                  <td className="py-2.5 px-3.5">Firm, upright leaves held securely in container</td>
+                  <td className="py-2.5 px-3.5 text-rose-800">Limp bending blades, yellowing bases, wobbly crown</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Rotting Root Reference Visual */}
+          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row items-center gap-5 text-xs font-sans">
+            <div className="w-full md:w-48 shrink-0 aspect-[4/3] rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
+              <img 
+                src="/rotting-roots.jpg" 
+                alt="Rotting snake plant roots showing dark brown, mushy, collapsed root fibers" 
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="space-y-1.5 text-stone-600">
+              <span className="text-[10px] font-bold text-rose-800 bg-rose-50 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                Visual Comparison: Active Root Rot
+              </span>
+              <h3 className="font-serif font-bold text-[#142B1E] text-sm sm:text-base m-0">
+                What Root Decay Looks Like
+              </h3>
+              <p className="text-xs text-stone-600 leading-relaxed m-0">
+                Notice the difference between natural root coloration and active decay. Rotting roots generally turn dull dark brown or black, lose structural firmness, and disintegrate into soft, waterlogged fibers.
+              </p>
+              <div className="text-[11px] text-stone-400 pt-1 italic">
+                Asset Note: To preserve factual visual standards, we do not substitute unrelated stock images or artificial graphics for healthy orange roots. Physical firmness, tissue structure, and scent should always be evaluated together.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Warning Signs */}
+        <section id="warning-signs" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Warning Signs Requiring Further Inspection
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            While orange coloration can be entirely normal, firm orange roots are not guaranteed to be disease-free under every circumstance. Several symptoms should be considered together. Watch for these accompanying warning signs:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 my-4 font-sans text-xs">
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  Soft or Collapsing Tissue
+                </h3>
+              </div>
+              <p className="text-stone-600 leading-relaxed m-0 font-sans">
+                If orange roots or rhizomes feel squishy or slough off when touched, decay may be developing. Tissue can begin degrading before turning dark or black.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  Yellowing or Limp Foliage
+                </h3>
+              </div>
+              <p className="text-stone-600 leading-relaxed m-0 font-sans">
+                When lower leaves turn pale yellow, feel soft near the soil line, or lose turgidity, the root system may be experiencing prolonged moisture stress.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-[#E8E2D5] bg-white shadow-2xs space-y-1.5">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+                <h3 className="font-serif font-bold text-stone-900 text-sm m-0">
+                  Prolonged Wet Substrate
+                </h3>
+              </div>
+              <p className="text-stone-600 leading-relaxed m-0 font-sans">
+                If potting soil remains heavily saturated for weeks after watering, the lack of oxygen in the root zone increases vulnerability to opportunistic fungal decay.
+              </p>
+            </div>
+          </div>
+          <p className="font-sans text-stone-600 text-xs leading-relaxed">
+            Unsure whether your soil density or pot conditions put your roots at risk? Use our interactive{' '}
+            <a
+              href="/soil-diagnosis"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('setup-kits');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              soil diagnosis assessment
+            </a>{' '}
+            to evaluate moisture retention and container drainage risks.
+          </p>
+        </section>
+
+        {/* Section 6: What to Do Next */}
+        <section id="repotting-care" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            What to Do Next: Repotting &amp; Care Guidance
+          </h2>
+          <p className="font-sans text-stone-600 text-sm leading-relaxed">
+            Next steps depend on the overall condition of the root system after evaluating firmness, structure, and scent together:
+          </p>
+
+          {/* Scenario A: Roots are Firm */}
+          <div className="bg-[#FAF7F2] border border-[#E8E2D5] rounded-2xl p-5 sm:p-6 space-y-3 font-sans text-xs sm:text-sm">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-[#235837] shrink-0" />
+              <h3 className="font-serif font-bold text-[#142B1E] text-base m-0">
+                If Roots and Rhizomes Are Firm and Odorless
+              </h3>
+            </div>
+            <p className="text-stone-600 leading-relaxed m-0">
+              <strong>Avoid unnecessary root pruning.</strong> Firm orange roots and rhizomes are functional plant tissues. Cutting them off creates open wounds and reduces the plant's water-absorbing capacity. Instead, proceed with sensible repotting:
+            </p>
+            <ul className="space-y-2 text-xs text-stone-600 pl-4 list-disc mb-0">
+              <li>
+                <strong>Container Selection:</strong> If the plant is root-bound and repotting is warranted, choose a container with functional bottom drainage holes. A modest increase—roughly 1 to 2 inches larger in interior diameter than the root ball—gives roots room to expand without excessive unoccupied soil. Explore our practical{' '}
+                <a
+                  href="/best-pots-for-snake-plants"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('best-pots');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  pot sizing and drainage guide
+                </a>{' '}
+                for container material comparisons.
+              </li>
+              <li>
+                <strong>Substrate Selection:</strong> Use a well-draining potting mix that allows excess moisture to exit freely and maintains aeration around roots. Consider a suitable commercial mix from our{' '}
+                <a
+                  href="/best-snake-plant-soil"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('best-soil');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  best commercial soil mixes
+                </a>{' '}
+                or prepare your own using our{' '}
+                <a
+                  href="/diy-snake-plant-soil-mix"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('diy-mix');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  DIY 3-2-1 soil recipe
+                </a>{' '}
+                (3 parts potting soil, 2 parts perlite, and 1 part coarse horticultural sand).
+              </li>
+              <li>
+                <strong>Watering Protocol:</strong> Water according to the plant's environmental conditions, light levels, and soil drying rate rather than a rigid calendar schedule. Allow the potting medium to dry out thoroughly between waterings, as detailed in our{' '}
+                <a
+                  href="/snake-plant-care-guide"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('care-guide');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  snake plant care and watering guide
+                </a>.
+              </li>
+            </ul>
+          </div>
+
+          {/* Scenario B: Signs of Decay */}
+          <div className="bg-rose-50/70 border border-rose-200/80 rounded-2xl p-5 sm:p-6 space-y-3 font-sans text-xs sm:text-sm">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-rose-700 shrink-0" />
+              <h3 className="font-serif font-bold text-rose-950 text-base m-0">
+                If Signs of Decay Are Present (Soft, Mushy, or Sour-Smelling Tissue)
+              </h3>
+            </div>
+            <p className="text-stone-700 leading-relaxed m-0">
+              If portions of the root system collapse under light pressure, outer layers slide off, or a persistent foul odor is present, decay may have affected the root zone:
+            </p>
+            <ul className="space-y-1.5 text-xs text-stone-700 pl-4 list-disc mb-0">
+              <li>Inspect the entire root ball carefully to evaluate the extent of compromised tissue.</li>
+              <li>Gently rinse away old, waterlogged soil from the affected root zone with lukewarm water.</li>
+              <li>Using clean, sterilized shears, carefully prune away soft, mushy, or clearly decaying tissue back to firmer, healthy material.</li>
+              <li>Allow cut surfaces on rhizomes to air-dry and callus before repotting into fresh, dry potting mix.</li>
+              <li>Follow the detailed step-by-step triage protocol in our dedicated{' '}
+                <a
+                  href="/snake-plant-root-rot-guide"
+                  onClick={(e) => {
+                    if (onNavigate) {
+                      e.preventDefault();
+                      onNavigate('root-rot');
+                    }
+                  }}
+                  className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+                >
+                  snake plant root rot recovery guide
+                </a>.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Section 7: Short FAQ Section */}
+        <section id="faq-section" className="scroll-mt-24 space-y-4">
+          <h2 className="font-serif font-bold text-[#142B1E] text-2xl tracking-tight mb-2">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-3 font-sans text-xs sm:text-sm text-stone-700">
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">Should I cut off orange roots on my snake plant?</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                Not if they are firm and structurally intact. Orange or yellow-orange coloration can occur naturally in snake plant roots and rhizomes. Only prune roots that feel soft, mushy, collapsing, or smell sour.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">Can I wash or scrub the orange color off?</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                No. The orange hue is internal to the plant's subterranean tissue, not surface dirt or external mold. Forcibly scrubbing or washing roots will strip away delicate root hairs and injure healthy tissue.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">Do all snake plant varieties have orange roots?</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                Botanical studies have documented orange coloration in ornamental <em>Sansevieria</em> specimens, but root appearance can vary among individual plants, varieties, and growing conditions. The presence or absence of orange tones alone is not a measure of health.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#E8E2D5] p-4 rounded-xl shadow-2xs">
+              <strong className="text-[#142B1E] block mb-1">Can a plant have firm orange roots and still have root rot?</strong>
+              <p className="m-0 leading-relaxed text-stone-600">
+                Yes. Root rot can develop in localized pockets within the container while other sections remain firm. Furthermore, firmness alone does not guarantee a complete absence of disease. It is best to examine the entire root mass and consider overall plant symptoms together.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Authoritative Extension Citation Box */}
+        <div className="bg-[#E5ECE4] rounded-xl p-4 border border-[#D6E2D5] flex gap-3 font-sans text-xs">
+          <Info className="w-4 h-4 text-[#235837] shrink-0 mt-0.5" />
+          <div className="text-stone-800 leading-relaxed">
+            <strong>Horticultural Extension Guidance:</strong> For snake plant morphology and container cultivation,{' '}
+            <a
+              href="https://edis.ifas.ufl.edu/publication/EP042"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline font-bold text-[#142B1E] hover:text-[#235837]"
+            >
+              University of Florida IFAS Extension
+            </a>{' '}
+            details the production of orange subterranean rhizomes and the necessity of well-aerated substrates. For diagnosing root decay and preventing moisture overload in indoor foliage plants, consult{' '}
+            <a
+              href="https://gardening.ces.ncsu.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline font-bold text-[#142B1E] hover:text-[#235837]"
+            >
+              NC State University Extension
+            </a>.
+          </div>
+        </div>
+
+        <TopicalClusterNav currentTab="orange-roots" onNavigate={onNavigate} />
+
+      </div>
+    </BotanicalSubpageLayout>
+  );
+}
+

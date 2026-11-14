@@ -69,6 +69,15 @@ export const STATIC_GUIDES: ContentGuide[] = [
     readTime: "9 min read",
     iconName: "Compass",
     slug: "snake-plant-care-guide"
+  },
+  {
+    id: "orange-roots",
+    title: "Why Are Snake Plant Roots Orange? Healthy Roots vs Rot",
+    shortDescription: "Discovered orange roots while repotting your snake plant? Learn why orange roots and rhizomes can be normal, how to test for root rot, and safe repotting tips.",
+    category: "root-rot",
+    readTime: "6 min read",
+    iconName: "HeartPulse",
+    slug: "snake-plant-orange-roots"
   }
 ];
 

@@ -7,6 +7,7 @@ export const TAB_TO_PATH_MAP: Record<string, string> = {
   'root-rot': '/snake-plant-root-rot-guide',
   'best-pots': '/best-pots-for-snake-plants',
   'care-guide': '/snake-plant-care-guide',
+  'orange-roots': '/snake-plant-orange-roots',
   'setup-kits': '/soil-diagnosis',
   'radio': '/radio',
   'faq': '/faq',
