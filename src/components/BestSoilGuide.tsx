@@ -318,7 +318,20 @@ export default function BestSoilGuide({ onNavigate }: BestSoilGuideProps) {
             to inspect symptoms and save viable roots.
           </p>
           <p>
-            An ideal snake plant mix balances rapid drainage with enough structure to anchor upright leaves. Standard all-purpose potting soil contains high concentrations of fine peat moss, which settles and stays waterlogged for too long indoors. Selecting a dedicated cactus or succulent mix—or opting for a gritty inorganic substrate—ensures continuous air pockets around the root zone.
+            An ideal snake plant mix balances rapid drainage with enough structure to anchor upright leaves. Standard all-purpose potting soil contains high concentrations of fine peat moss, which settles and stays waterlogged for too long indoors. Selecting a dedicated cactus or succulent mix—or blending your own using our{' '}
+            <a
+              href="/diy-snake-plant-soil-mix"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('diy-mix');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              DIY 3-2-1 snake plant soil recipe
+            </a>
+            —ensures continuous air pockets around the root zone.
           </p>
 
           <h3 className="font-serif font-bold text-[#142B1E] text-lg tracking-tight mt-6 mb-2">

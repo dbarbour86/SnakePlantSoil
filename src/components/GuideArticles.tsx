@@ -436,6 +436,22 @@ export function DIYMixArticle({ onNavigate }: ArticleProps) {
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
+
+          <p className="font-sans text-stone-600 text-xs sm:text-sm leading-relaxed mt-4">
+            <strong>Repotting note:</strong> When unpotting your plant to settle it into fresh mix, take a moment to inspect the root system. Firm orange roots or rhizomes can be normal in healthy snake plants, unlike soft, mushy, or foul-smelling roots that indicate active decay (learn more in our guide on{' '}
+            <a
+              href="/snake-plant-orange-roots"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('orange-roots');
+                }
+              }}
+              className="text-[#235837] font-bold underline hover:text-[#142B1E]"
+            >
+              orange snake plant roots
+            </a>).
+          </p>
         </section>
 
         {/* Section 4: Squeeze Test Callout */}
